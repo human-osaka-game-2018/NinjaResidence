@@ -4,8 +4,9 @@
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dinput8.lib")
+#pragma comment(lib,"SoundLib.lib")
 
-
+SoundLib::SoundsManager soundsManager;
 LPDIRECT3D9			  g_pDirect3D;		//	Direct3Dのインターフェイス
 map<string,LPDIRECT3DTEXTURE9>	  g_pTexture;	//	画像の情報を入れておく為のポインタ配列
 IDirect3DDevice9*	  g_pD3Device;		//	Direct3Dのデバイス
@@ -41,11 +42,11 @@ void ChangeDisplayMode(void)
 	}
 	hr = g_pD3Device->Reset(&g_D3dPresentParameters);
 	FreeDx();
+	soundsManager.Initialize();
 	BuildDXDevice();
 	//画像の引用
 	LoadTexture();
-	SetUpFont(100, 70, "HOGE_FONT", NULL);
-	SetUpFont(25, 25, "DEBUG_FONT", NULL);
+	LoadFont();
 
 	if (FAILED(hr)) {
 		if (hr == D3DERR_DEVICELOST) {
@@ -103,6 +104,16 @@ HRESULT ChangeWindowSize(void)
 	return hr;
 }
 
+void LoadSound() {
+	soundsManager.AddFile("Sound/dart1.mp3", "THROW");
+	soundsManager.SetVolume("THROW", 75);
+	soundsManager.AddFile("Sound/nc62985.wav", "DECISION");
+	soundsManager.AddFile("Sound/nc62985.wav", "DECISION2");
+	soundsManager.AddFile("Sound/nc52970.wav", "CLEAR");
+	soundsManager.AddFile("Sound/nc80935.wav", "SLASH");
+	soundsManager.AddFile("Sound/nc100104.wav", "DONDENGAESHI");
+
+}
 //ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
@@ -256,7 +267,7 @@ HRESULT InitD3d(HWND hWnd)
 	}
 	LPDIRECT3DTEXTURE9	  pTexture;
 	//「テクスチャオブジェクト」の作成
-	if (FAILED(D3DXCreateTextureFromFileEx(g_pD3Device, "チップ＿袋＿カラー.bmp", 100, 100, 0, 0, D3DFMT_UNKNOWN,
+	if (FAILED(D3DXCreateTextureFromFileEx(g_pD3Device, "Texture/woodWall.jpg", 100, 100, 0, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT,
 		0xff000000, NULL, NULL, &pTexture)))
 	{
@@ -301,12 +312,12 @@ HRESULT InitDinput(HWND hWnd) {
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hInstance, LPSTR szStr, INT iCmdShow)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
 
 	MSG msg;
 	WNDCLASS Wndclass;
 	static bool GAMEOPEN = true;
-
+	soundsManager.Initialize();
 	//Windows情報の設定
 	Wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	Wndclass.lpfnWndProc = WndProc;
@@ -371,10 +382,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hInstance, LPSTR szStr, INT iCmdSh
 
 	//画像の引用
 	LoadTexture();
-
-	SetUpFont(100, 70, "HOGE_FONT",NULL);
-	SetUpFont(25, 25, "DEBUG_FONT",NULL);
-
+	LoadFont();
+	LoadSound();
 	DWORD SyncOld = timeGetTime();	//	システム時間を取得
 	DWORD SyncNow;
 
