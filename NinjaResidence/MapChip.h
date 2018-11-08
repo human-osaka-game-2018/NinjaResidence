@@ -6,9 +6,9 @@ class Scene;
 
 #define FIELD_LEFT 0
 #define FIELD_TOP  0 
-#define CELL_SIZE 32
-#define BLOCK_WIDTH 32.0f/DISPLAY_WIDTH
-#define BLOCK_HEIGHT 32.0f/DISPLAY_HIGHT
+#define CELL_SIZE 80
+#define BLOCK_WIDTH  80.0f/DISPLAY_WIDTH
+#define BLOCK_HEIGHT 80.0f/DISPLAY_HIGHT
 
 using namespace std;
 

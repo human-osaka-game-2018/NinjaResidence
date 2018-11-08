@@ -10,6 +10,8 @@ class MapChip;
 class GameScene : public Scene
 {
 private:
+	OBJECT_STATE m_Player = { 0,0,CELL_SIZE,(CELL_SIZE * 2)};
+	CUSTOMVERTEX VertexPlayer[4];
 	CUSTOMVERTEX  GameBackground[4];
 	MapChip*	pMapChip;
 	Scene*	pScene;

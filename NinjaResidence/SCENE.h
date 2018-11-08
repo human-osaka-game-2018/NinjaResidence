@@ -20,6 +20,11 @@ enum SCENE_NUM
 class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//éüÇÃÉVÅ[Éì
+protected:
+	struct OBJECT_STATE
+	{
+		float x, y, scale_x, scale_y;
+	};
 public:
 	void TextureRender(TEXTURE_NUM TextureID, CUSTOMVERTEX TextureSize[4]);
 	SCENE_NUM Getm_NextScene()
