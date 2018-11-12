@@ -17,14 +17,14 @@ enum SCENE_NUM
 
 };
 
+struct PLAYER_STATE//プレイヤー（キャラ）にしか使わない
+{
+	float x, y, scale_x, scale_y;
+};
+
 class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//次のシーン
-protected:
-	struct OBJECT_STATE
-	{
-		float x, y, scale_x, scale_y;
-	};
 public:
 	void TextureRender(TEXTURE_NUM TextureID, CUSTOMVERTEX TextureSize[4]);
 	SCENE_NUM Getm_NextScene()
@@ -37,7 +37,7 @@ public:
 	}
 	Scene();
 	 ~Scene();
-	 void ReadTexture();
 	virtual SCENE_NUM Update() = 0;
+	virtual void ReadTexture() = 0;
 	virtual void Render() = 0;
 };

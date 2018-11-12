@@ -1,5 +1,8 @@
 #include "MapChip.h"
 
+int MapChip::MapScrollx = 0;
+int MapChip::MapScrolly = 0;
+
 //コンストラクタでマップチップの生成だけ行う
 MapChip::MapChip()
 {
@@ -61,7 +64,6 @@ void MapChip::MapChipCreate(const char *filename)
 
 void MapChip::MapChipRender()
 {
-	g_pD3Device->BeginScene();
 	for (int j = 0; j < colunm;j++)
 	{
 		for (int i = 0;i < row;i++)
@@ -72,14 +74,14 @@ void MapChip::MapChipRender()
 			}
 			int top = FIELD_TOP + CELL_SIZE * j;
 			int left = FIELD_LEFT + CELL_SIZE * i;
-			CELL[0].x = left;
-			CELL[0].y = top;
-			CELL[1].x = left + CELL_SIZE;
-			CELL[1].y = top;
-			CELL[2].x = left + CELL_SIZE;
-			CELL[2].y = top + CELL_SIZE;
-			CELL[3].x = left;
-			CELL[3].y = top + CELL_SIZE;
+			CELL[0].x = left + MapScrollx;
+			CELL[0].y = top + MapScrolly;
+			CELL[1].x = (left + CELL_SIZE) + MapScrollx;
+			CELL[1].y = top + MapScrolly;
+			CELL[2].x = (left + CELL_SIZE) + MapScrollx;
+			CELL[2].y = (top + CELL_SIZE) + MapScrolly;;
+			CELL[3].x = left + MapScrollx;
+			CELL[3].y = (top + CELL_SIZE) + MapScrolly;;
 
 			m_MapSelected = MapData[j][i];
 			switch (m_MapSelected)
@@ -100,7 +102,4 @@ void MapChip::MapChipRender()
 			pScene->TextureRender((TEXTURE_NUM)BLOCK_INTEGRATION_TEX, CELL);
 		}
 	}
-	g_pD3Device->EndScene();
-	//表示
-	g_pD3Device->Present(NULL, NULL, NULL, NULL);
 }
