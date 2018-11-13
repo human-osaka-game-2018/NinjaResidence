@@ -42,18 +42,18 @@ enum KEYSTATE
 
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
-
+// TODO:Singletonにする
 class DirectX {
 public:
 	DirectX();
 	~DirectX();
 
-	/*
-	* @brief 画像表示
+	/**
+	* @brief ディスプレイクリア
 	*/
 	void ClearDisplay();
-	/*
-	* @brief 画像表示
+	/**
+	* @brief デバイスプレゼント
 	*/
 	void PresentsDevice();
 
@@ -128,8 +128,17 @@ public:
 	*/
 	void ClearFont();
 
-
+	/**
+	* @brief DirectXデバイスの作成
+	* @param hWnd ウィンドウハンドル
+	* @param WinMode ウィンドウモード　true:WindowMode　false:FullscreenMode
+	* @param FilePath デバイス生成チェック用画像ファイルパス
+	*/
 	void BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
+	/**
+	* @brief 各ウィンドウモードのパラメータセッティング
+	* @param hWnd ウィンドウハンドル
+	*/
 	void InitPresentParameters(HWND hWnd);
 private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列
