@@ -12,9 +12,9 @@ Scene::~Scene()
 
 void Scene::TextureRender(std::string TextureKey, CUSTOMVERTEX TextureSize[4])
 {
-	DrowSceneBegin();
-	DrowTexture(TextureKey,TextureSize);
-	DrowSceneEnd();
+	pDirectX->DrowSceneBegin();
+	pDirectX->DrowTexture(TextureKey,TextureSize);
+	pDirectX->DrowSceneEnd();
 }
 
 void Scene::ReadTexture()
