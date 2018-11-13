@@ -12,7 +12,8 @@ GameChara::GameChara()
 
 GameChara::~GameChara()
 {
-
+	delete m_pMapChip;
+	m_pMapChip = NULL;
 }
 
 void GameChara::GameCharaUpdate()
@@ -27,6 +28,35 @@ void GameChara::GameCharaUpdate()
 	}
 	switch (abc)
 	{
+	case UP:
+		//‰E‚ÉˆÚ“®
+		if (m_DisplayCharaCoordinate[3].y <= 400)
+		{
+			m_DisplayCharaCoordinate[0].y -= 10.f;
+			m_DisplayCharaCoordinate[1].y -= 10.f;
+			m_DisplayCharaCoordinate[2].y -= 10.f;
+			m_DisplayCharaCoordinate[3].y -= 10.f;
+		}
+		if (m_DisplayCharaCoordinate[3].y >= 400)
+		{
+			m_pMapChip->MapScrolly += 32;
+		}
+		break;
+	case DOWN:
+		//‰E‚ÉˆÚ“®
+		if (m_DisplayCharaCoordinate[3].y <= 500)
+		{
+			m_DisplayCharaCoordinate[0].y += 10.f;
+			m_DisplayCharaCoordinate[1].y += 10.f;
+			m_DisplayCharaCoordinate[2].y += 10.f;
+			m_DisplayCharaCoordinate[3].y += 10.f;
+		}
+		if (m_DisplayCharaCoordinate[3].y >= 500)
+		{
+			m_pMapChip->MapScrolly -= 32;
+		}
+		break;
+
 	case RIGHT:
 		//‰E‚ÉˆÚ“®
 		if (m_DisplayCharaCoordinate[1].x <= 900)
@@ -60,5 +90,5 @@ void GameChara::GameCharaUpdate()
 
 void GameChara::GameCharaRender()
 {
-	pScene->TextureRender((TEXTURE_NUM)CHARA_INTEGRATION_TEX, m_DisplayCharaCoordinate);
+	pScene->TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
 }

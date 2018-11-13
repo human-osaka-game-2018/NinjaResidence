@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GAMEMANAGER.h"
-enum TEXTURE_NUM;
+#define _CRTDBG_MAP_ALLOC
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 enum SCENE_NUM
 {
@@ -26,7 +27,7 @@ class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//éüÇÃÉVÅ[Éì
 public:
-	void TextureRender(TEXTURE_NUM TextureID, CUSTOMVERTEX TextureSize[4]);
+	void TextureRender(std::string TextureKey, CUSTOMVERTEX TextureSize[4]);
 	SCENE_NUM Getm_NextScene()
 	{
 		return m_NextScene;
@@ -36,7 +37,7 @@ public:
 		m_NextScene = NextScene;
 	}
 	Scene();
-	 ~Scene();
+	virtual ~Scene();
 	virtual SCENE_NUM Update() = 0;
 	virtual void ReadTexture() = 0;
 	virtual void Render() = 0;

@@ -17,59 +17,50 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	delete m_pMapChip;
+	m_pMapChip = NULL;
+	delete m_pGameChara;
+	m_pGameChara = NULL;
 }
 
 SCENE_NUM  GameScene::Update()
 {
-	//ゲームシーンでの操作できる
-	HRESULT hr = g_pKeyDevice->Acquire();
-	if ((hr == DI_OK) || (hr == S_FALSE))
-	{
-		BYTE diks[256];
-		g_pKeyDevice->GetDeviceState(sizeof(diks), &diks);
-		if (diks[DIK_UP] & 0x80)
+		if (GetKeyStatus(DIK_UP))
 		{
-		
+			m_pGameChara->abc = UP;
+			m_pGameChara->GameCharaUpdate();
+
 		}
-		if (diks[DIK_DOWN] & 0x80)
+		if (GetKeyStatus(DIK_DOWN))
 		{
-			
+			m_pGameChara->abc = DOWN;
+			m_pGameChara->GameCharaUpdate();
+
 		}
-		if (diks[DIK_LEFT] & 0x80)
+		if (GetKeyStatus(DIK_LEFT))
 		{
 			m_pGameChara->abc = LEFT;
 			m_pGameChara->GameCharaUpdate();
 		}
-		if (diks[DIK_RIGHT] & 0x80)
+		if (GetKeyStatus(DIK_RIGHT))
 		{
 			m_pGameChara->abc = RIGHT;
 			m_pGameChara->GameCharaUpdate();
 		}
-	}
 	return Getm_NextScene();
 }
 
 void GameScene::Render()
 {
 //private変数を元にキャラクターを描画
-	pScene->TextureRender(BACKGROUND_TEX, GameBackground);
+	pScene->TextureRender("BACKGROUND_TEX", GameBackground);
 	m_pGameChara->GameCharaRender();
 	m_pMapChip->MapChipRender();
-	g_pD3Device->Present(NULL, NULL, NULL, NULL);
+	PresentsDevice();
 }
 
 void GameScene::ReadTexture()
 {
-	D3DXCreateTextureFromFile(
-		g_pD3Device,
-		"texture/Block_Integration.png",
-		&g_pTexture[BLOCK_INTEGRATION_TEX]);
-	D3DXCreateTextureFromFile(
-		g_pD3Device,
-		"texture/BKG.jpg",
-		&g_pTexture[BACKGROUND_TEX]);
-	D3DXCreateTextureFromFile(
-		g_pD3Device,
-		"texture/Chara_Integration.png",
-		&g_pTexture[CHARA_INTEGRATION_TEX]);
+	LoadTexture("texture/Block_Integration.png","BLOCK_INTEGRATION_TEX");
+	LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 }

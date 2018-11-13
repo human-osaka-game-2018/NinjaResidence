@@ -3,6 +3,8 @@
 #include "MapChip.h"
 #include "SCENE.h"
 #include "GameChara.h"
+#define _CRTDBG_MAP_ALLOC
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 enum SCENE_NUM;
 class Scene;
 class MapChip;

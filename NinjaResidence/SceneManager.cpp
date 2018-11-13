@@ -9,6 +9,7 @@ SceneManager::SceneManager()
 SceneManager::~SceneManager()
 {
 	delete m_pScene;
+	m_pScene = NULL;
 }
 
 void SceneManager::Update()

@@ -14,14 +14,23 @@ MapChip::MapChip()
 
 MapChip::~MapChip()
 {
-	
+	//TODO:vector<vector>‚Ì‰ğ•úˆ—
+	for (int i = 0; i < colunm; i++)
+	{
+		MapData[i].clear();
+		vector<int>().swap(MapData[i]);
+	}
+	MapData.clear();
+	vector<vector<int>>().swap(MapData);
+
 }
 
 void MapChip::MapChipCreate(const char *filename)
 {
+	const int mapMaxWidth = 256;
 	FILE *fp = NULL;
 	char data[4];
-	char buf[64];
+	char buf[mapMaxWidth];
 	int c, i = 0, x = 0, y = 0;
 
 	if (fopen_s(&fp, filename, "r") != 0)
@@ -29,7 +38,7 @@ void MapChip::MapChipCreate(const char *filename)
 		exit(1);
 	}
 
-	fgets(buf, 64, fp);
+	fgets(buf, mapMaxWidth, fp);
 	sscanf_s(buf, "%d, %d", &row, &colunm);
 	
 	MapData.resize(colunm);
@@ -99,7 +108,7 @@ void MapChip::MapChipRender()
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
 			}
-			pScene->TextureRender((TEXTURE_NUM)BLOCK_INTEGRATION_TEX, CELL);
+			pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
 }

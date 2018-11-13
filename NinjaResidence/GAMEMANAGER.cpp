@@ -35,6 +35,8 @@ int MessageLoop()
 			SyncNow = timeGetTime();
 			if (SyncNow - SyncOld >= 1000 / 60)//1•bŠÔ‚É60‰ñ‚±‚Ì’†‚É“ü‚é‚Í‚¸
 			{
+				CheckKeyStatus();
+				ClearDisplay();
 				//ƒV[ƒ“‚ÌUpdate‚ÆRender
 				pSceneManager->Update();
 				pSceneManager->Render();
@@ -43,6 +45,7 @@ int MessageLoop()
 		}
 	}
 	timeEndPeriod(1);
+	delete pSceneManager;
 	FreeDx();
 	return (int)msg.wParam;
 }
