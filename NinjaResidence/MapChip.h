@@ -13,7 +13,7 @@ class Scene;
 #define FIELD_TOP  0 
 #define CELL_SIZE 40.f
 #define BLOCK_WIDTH  40.0f/DISPLAY_WIDTH
-#define BLOCK_HEIGHT 40.0f/DISPLAY_HIGHT
+#define BLOCK_HEIGHT 40.0f/DISPLAY_HEIGHT
 
 
 class MapChip

@@ -16,7 +16,6 @@ MapChip::MapChip()
 
 MapChip::~MapChip()
 {
-	//TODO:vector<vector>‚Ì‰ğ•úˆ—
 	for (int i = 0; i < colunm; i++)
 	{
 		MapData[i].clear();

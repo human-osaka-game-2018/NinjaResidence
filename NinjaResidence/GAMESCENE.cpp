@@ -6,12 +6,13 @@ GameScene::GameScene()
 	m_pMapChip->MapChipCreate("csv/Book1.csv");
 	m_pGameChara = new GameChara;
 	ReadTexture();
+	pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	MapScrollx = 0;
 	MapScrolly = 0;
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
-	GameBackground[2] = { DISPLAY_WIDTH,  DISPLAY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
-	GameBackground[3] = {0.f,			  DISPLAY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f };
+	GameBackground[2] = { DISPLAY_WIDTH,  DISPLAY_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
+	GameBackground[3] = {0.f,			  DISPLAY_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f };
 }
 
 GameScene::~GameScene()
@@ -20,26 +21,28 @@ GameScene::~GameScene()
 	m_pMapChip = NULL;
 	delete m_pGameChara;
 	m_pGameChara = NULL;
+	pDirectX->ClearTexture();
+	pDirectX->ClearFont();
 }
 
 SCENE_NUM  GameScene::Update()
 {
-		if (GetKeyStatus(DIK_UP))
+		if (pDirectX->GetKeyStatus(DIK_UP))
 		{
 			m_pGameChara->abc = UP;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (GetKeyStatus(DIK_DOWN))
+		if (pDirectX->GetKeyStatus(DIK_DOWN))
 		{
 			m_pGameChara->abc = DOWN;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (GetKeyStatus(DIK_LEFT))
+		if (pDirectX->GetKeyStatus(DIK_LEFT))
 		{
 			m_pGameChara->abc = LEFT;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (GetKeyStatus(DIK_RIGHT))
+		if (pDirectX->GetKeyStatus(DIK_RIGHT))
 		{
 			m_pGameChara->abc = RIGHT;
 			m_pGameChara->GameCharaKeyOperation();
@@ -55,12 +58,12 @@ void GameScene::Render()
 	pScene->TextureRender("BACKGROUND_TEX", GameBackground);
 	m_pGameChara->GameCharaRender();
 	m_pMapChip->MapChipRender();
-	PresentsDevice();
+	pDirectX->PresentsDevice();
 }
 
 void GameScene::ReadTexture()
 {
-	LoadTexture("texture/Block_Integration.png","BLOCK_INTEGRATION_TEX");
-	LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
-	LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+	pDirectX->LoadTexture("texture/Block_Integration.png","BLOCK_INTEGRATION_TEX");
+	pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 }

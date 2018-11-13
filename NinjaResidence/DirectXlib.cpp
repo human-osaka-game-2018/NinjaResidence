@@ -17,73 +17,8 @@ D3DDISPLAYMODE		  g_D3DdisplayMode;
 
 using std::map;
 using std::string;
+DirectX* pDirectX;
 
-static map<string,LPDIRECT3DTEXTURE9> g_pTexture; //画像の情報を入れておく為のポインタ配列
-static LPDIRECTINPUTDEVICE8 g_pKeyDevice = NULL; //step4(キー入力の取得)に必要
-static LPDIRECTINPUT8 g_pDinput = NULL;			//step4(キー入力の取得)に必要
-static IDirect3DDevice9*  g_pD3Device; //Direct3Dのデバイス
-static IDirect3D9*    g_pDirect3D; //DIrect3Dのインターフェース
-static D3DPRESENT_PARAMETERS g_D3dPresentParameters;		//	パラメータ
-static D3DDISPLAYMODE		  g_D3DdisplayMode;
-static map<string, LPD3DXFONT> g_Font;
-
-static BYTE KeyOldState[256];
-static BYTE KeyState[256];
-
-
-
-void LoadTexture(LPCSTR FilePath,string TextureKey){
-	D3DXCreateTextureFromFile(
-		g_pD3Device,
-		FilePath,
-		&g_pTexture[TextureKey]);
-}
-void ClearDisplay() {
-	g_pD3Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0x00), 1.0, 0);
-}
-void PresentsDevice() {
-	g_pD3Device->Present(NULL, NULL, NULL, NULL);
-}
-void DrowTexture(string TextureKey,const CUSTOMVERTEX* TextureSize) {
-	g_pD3Device->SetTexture(0, g_pTexture[TextureKey]);
-	g_pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, TextureSize, sizeof(CUSTOMVERTEX));
-}
-void DrowSceneBegin() {
-	g_pD3Device->BeginScene();
-}
-void DrowSceneEnd() {
-	g_pD3Device->EndScene();
-}
-//ダイレクトインプットの初期化関
-HRESULT InitDinput(HWND hWnd)
-{
-	HRESULT hr;
-
-	//ダイレクトインプットのオブジェの作成
-	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
-		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&g_pDinput, NULL)))
-	{
-		return hr;
-	}
-	//ダイレクトインプットのデバイスの作成
-	if (FAILED(hr = g_pDinput->CreateDevice(GUID_SysKeyboard,
-		&g_pKeyDevice, NULL)))
-	{
-		return hr;
-	}
-	//デバイスをキーボードの設定
-	if (FAILED(hr = g_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
-	{
-		return hr;
-	}
-	//協調レベル
-	if (FAILED(hr = g_pKeyDevice->SetCooperativeLevel(
-		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
-	{
-		return hr;
-	}
-	return S_OK;
-}
 
 //メッセージ処理　ウィンドウプロシージャWndProcの設定
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -97,28 +32,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	return DefWindowProc(hWnd, msg, wp, lp);
 }
 
-//メモリ開放
-void FreeDx()
-{
-	g_pTexture.clear();
-	map<string, LPDIRECT3DTEXTURE9>().swap(g_pTexture);
-	g_Font.clear();
-	map<string, LPD3DXFONT>().swap(g_Font);
-	if (g_pKeyDevice)
-	{
-		g_pKeyDevice->Unacquire();
-	}
-	SAFE_RELEASE(g_pKeyDevice);
-	SAFE_RELEASE(g_pDinput);
-	SAFE_RELEASE(g_pD3Device);
-	SAFE_RELEASE(g_pDirect3D);
-}
 
 //メインルーチン
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
 	HWND hWnd = NULL;
 	//Windows初期化情報の設定
@@ -140,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 		CW_USEDEFAULT,						// ウィンドウの横方向の位置x
 		CW_USEDEFAULT,						// ウィンドウの縦方向の位置y
 		DISPLAY_WIDTH,							// Width（幅）
-		DISPLAY_HIGHT,							// Height（高さ）
+		DISPLAY_HEIGHT,							// Height（高さ）
 		NULL,
 		NULL,
 		hInstance,							// アプリケーションインスタンスのハンドル
@@ -148,83 +67,307 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	);
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-	//DirectX オブジェクトの生成
-	g_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION);
 
-	//Display Mode の設定
-	g_pDirect3D->GetAdapterDisplayMode(
-		D3DADAPTER_DEFAULT,
-		&g_D3DdisplayMode);
-	ZeroMemory(&g_D3dPresentParameters,
-		sizeof(D3DPRESENT_PARAMETERS));
-	g_D3dPresentParameters.BackBufferFormat = g_D3DdisplayMode.Format;
-	g_D3dPresentParameters.BackBufferCount = 1;
-	g_D3dPresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	g_D3dPresentParameters.Windowed = TRUE;
-
-	//デバイスを作る
-	g_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &g_D3dPresentParameters, &g_pD3Device);
-	//DirectInput関係
-	if (FAILED(InitDinput(hWnd)))
-	{
-		return 0;
-	}
-	//描画設定
-	g_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	g_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);//SRCの設定
-	g_pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-	g_pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	g_pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-
-	g_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	g_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-
-	//頂点に入れるデータを設定
-	g_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
+	bool WinMode = true;	//true:Window　false:Full
+	pDirectX->InitPresentParameters(hWnd);
+	pDirectX->BuildDXDevice(hWnd, WinMode, "texture/Block_Integration.png");
 
 	MessageLoop();
+	delete pDirectX;
 }
 
 
+
+DirectX::DirectX() {
+
+}
+DirectX::~DirectX() {
+	ReleaseDx();
+}
+//メモリ開放
+void DirectX::ReleaseDx()
+{
+	m_pTexture.clear();
+	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
+	m_pFont.clear();
+	map<string, LPD3DXFONT>().swap(m_pFont);
+	if (m_pKeyDevice)
+	{
+		m_pKeyDevice->Unacquire();
+	}
+	SAFE_RELEASE(m_pKeyDevice);
+	SAFE_RELEASE(m_pDinput);
+	SAFE_RELEASE(m_pD3Device);
+	SAFE_RELEASE(m_pDirect3D);
+}
+
+//ダイレクト3Dの初期化関数
+HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
+{
+	// 「Direct3D」オブジェクトの作成
+	if (NULL == (m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	{
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	// 「DIRECT3Dデバイス」オブジェクトの作成
+	D3DPRESENT_PARAMETERS d3dpp;
+	ZeroMemory(&d3dpp, sizeof(d3dpp));
+
+	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+	d3dpp.BackBufferCount = 1;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dpp.Windowed = TRUE;
+
+	if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+		D3DCREATE_MIXED_VERTEXPROCESSING,
+		&d3dpp, &m_pD3Device)))
+	{
+		MessageBox(0, "HALモードでDIRECT3Dデバイスを作成できません\nREFモードで再試行します", NULL, MB_OK);
+		if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hWnd,
+			D3DCREATE_MIXED_VERTEXPROCESSING,
+			&d3dpp, &m_pD3Device)))
+		{
+			MessageBox(0, "DIRECT3Dデバイスの作成に失敗しました", NULL, MB_OK);
+			return E_FAIL;
+		}
+	}
+	//「テクスチャオブジェクト」の作成
+	if (FAILED(D3DXCreateTextureFromFileEx(m_pD3Device, FilePath, 100, 100, 0, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
+		0xff000000, NULL, NULL, &m_pTexture["Test"])))
+	{
+		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+//ダイレクトインプットの初期化関
+HRESULT DirectX::InitDinput(HWND hWnd)
+{
+	HRESULT hr;
+
+	//ダイレクトインプットのオブジェの作成
+	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
+		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDinput, NULL)))
+	{
+		return hr;
+	}
+	//ダイレクトインプットのデバイスの作成
+	if (FAILED(hr = m_pDinput->CreateDevice(GUID_SysKeyboard,
+		&m_pKeyDevice, NULL)))
+	{
+		return hr;
+	}
+	//デバイスをキーボードの設定
+	if (FAILED(hr = m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
+	{
+		return hr;
+	}
+	//協調レベル
+	if (FAILED(hr = m_pKeyDevice->SetCooperativeLevel(
+		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+	{
+		return hr;
+	}
+	return S_OK;
+}
+
+void DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
+	//ダイレクト３Dの初期化関数を呼ぶ
+	if (FAILED(InitD3d(hWnd,FilePath)))
+	{
+		return;
+	}
+	//ダイレクトインプットの初期化関数を呼ぶ
+	if (FAILED(InitDinput(hWnd)))
+	{
+		return;
+	}
+
+	//DirectX オブジェクトの生成
+	m_pDirect3D = Direct3DCreate9(
+		D3D_SDK_VERSION);
+
+	//成功チェック
+	if (m_pDirect3D == NULL)
+	{
+		//生成に失敗したら終了する
+		return;
+	}
+	m_D3dPresentParameters = (WinMode) ? m_d3dppWin : m_d3dppFull;
+	m_pDirect3D->CreateDevice(
+		D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL,
+		hWnd,
+		D3DCREATE_HARDWARE_VERTEXPROCESSING,
+		&m_D3dPresentParameters, &m_pD3Device);
+	//生成チェック
+	if (m_pD3Device == NULL)
+	{
+		//生成に失敗したらDirectXオブジェクトを開放して終了する
+		m_pDirect3D->Release();
+		return;
+	}
+	//描画設定
+	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCの設定
+	m_pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	//m_pD3Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//頂点に入れるデータを設定
+	m_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
+}
+
+void DirectX::InitPresentParameters(HWND hWnd) {
+	//Window
+	ZeroMemory(&pDirectX->m_d3dppWin, sizeof(D3DPRESENT_PARAMETERS));
+	pDirectX->m_d3dppWin.BackBufferWidth = 0;
+	pDirectX->m_d3dppWin.BackBufferHeight = 0;
+	pDirectX->m_d3dppWin.BackBufferFormat = D3DFMT_UNKNOWN;
+	pDirectX->m_d3dppWin.BackBufferCount = 1;
+	pDirectX->m_d3dppWin.MultiSampleType = D3DMULTISAMPLE_NONE;
+	pDirectX->m_d3dppWin.MultiSampleQuality = 0;
+	pDirectX->m_d3dppWin.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	pDirectX->m_d3dppWin.hDeviceWindow = hWnd;
+	pDirectX->m_d3dppWin.Windowed = TRUE;
+	pDirectX->m_d3dppWin.EnableAutoDepthStencil = FALSE;
+	pDirectX->m_d3dppWin.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+	pDirectX->m_d3dppWin.Flags = 0;
+	pDirectX->m_d3dppWin.FullScreen_RefreshRateInHz = 0;
+	pDirectX->m_d3dppWin.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	//Full
+	ZeroMemory(&pDirectX->m_d3dppFull, sizeof(D3DPRESENT_PARAMETERS));
+	pDirectX->m_d3dppFull.BackBufferWidth = DISPLAY_WIDTH;
+	pDirectX->m_d3dppFull.BackBufferHeight = DISPLAY_HEIGHT;
+	pDirectX->m_d3dppFull.BackBufferFormat = D3DFMT_X8R8G8B8;
+	pDirectX->m_d3dppFull.BackBufferCount = 1;
+	pDirectX->m_d3dppFull.MultiSampleType = D3DMULTISAMPLE_NONE;
+	pDirectX->m_d3dppFull.MultiSampleQuality = 0;
+	pDirectX->m_d3dppFull.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	pDirectX->m_d3dppFull.hDeviceWindow = hWnd;
+	pDirectX->m_d3dppFull.Windowed = FALSE;
+	pDirectX->m_d3dppFull.EnableAutoDepthStencil = FALSE;
+	pDirectX->m_d3dppFull.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+	pDirectX->m_d3dppFull.Flags = 0;
+	pDirectX->m_d3dppFull.FullScreen_RefreshRateInHz = 0;
+	pDirectX->m_d3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+
+
+}
 /*
 *DirectInput
 */
-void CheckKeyStatus() {
-	HRESULT hr = g_pKeyDevice->Acquire();
+void DirectX::CheckKeyStatus() {
+	HRESULT hr = m_pKeyDevice->Acquire();
 	if ((hr == DI_OK) || (hr == S_FALSE)) {
-		g_pKeyDevice->GetDeviceState(sizeof(KeyState), &KeyState);
+		m_pKeyDevice->GetDeviceState(sizeof(m_KeyState), &m_KeyState);
 		for (int i = 0; i < 0xED; i++) {
-			if (KeyState[i] & 0x80)
+			if (m_KeyState[i] & 0x80)
 			{
-				if (KeyOldState[i] == KeyOn)
+				if (m_KeyOldState[i] == KeyOn)
 				{
-					KeyOldState[i] = KeyOn;
-					KeyState[i] = KeyOn;
+					m_KeyOldState[i] = KeyOn;
+					m_KeyState[i] = KeyOn;
 				}
 				else
 				{
-					KeyOldState[i] = KeyOn;
-					KeyState[i] = KeyPush;
+					m_KeyOldState[i] = KeyOn;
+					m_KeyState[i] = KeyPush;
 				}
 			}
 			else
 			{
-				if (KeyOldState[i] == KeyOn)
+				if (m_KeyOldState[i] == KeyOn)
 				{
-					KeyOldState[i] = KeyOff;
-					KeyState[i] = KeyRelease;
+					m_KeyOldState[i] = KeyOff;
+					m_KeyState[i] = KeyRelease;
 				}
 				else
 				{
-					KeyOldState[i] = KeyOff;
-					KeyState[i] = KeyOff;
+					m_KeyOldState[i] = KeyOff;
+					m_KeyState[i] = KeyOff;
 				}
 			}
 		}
 	}
 }
 
-int GetKeyStatus(int KeyName) {
-	return KeyState[KeyName];
+int DirectX::GetKeyStatus(int KeyName) {
+	return m_KeyState[KeyName];
+}
+
+/*
+*画像描画処理
+*/
+void DirectX::ClearDisplay() {
+	m_pD3Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0x00), 1.0, 0);
+}
+void DirectX::PresentsDevice() {
+	m_pD3Device->Present(NULL, NULL, NULL, NULL);
+}
+void DirectX::DrowSceneBegin() {
+	m_pD3Device->BeginScene();
+}
+void DirectX::DrowSceneEnd() {
+	m_pD3Device->EndScene();
+}
+
+void DirectX::LoadTexture(LPCSTR FilePath, string TextureKey) {
+	D3DXCreateTextureFromFile(
+		m_pD3Device,
+		FilePath,
+		&m_pTexture[TextureKey]);
+}
+void DirectX::DrowTexture(string TextureKey, const CUSTOMVERTEX* TextureSize) {
+	m_pD3Device->SetTexture(0, m_pTexture[TextureKey]);
+	m_pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, TextureSize, sizeof(CUSTOMVERTEX));
+}
+void DirectX::eraseTexture(string TexKey) {
+	m_pTexture.erase(TexKey);
+}
+void DirectX::ClearTexture() {
+	m_pTexture.clear();
+	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
+
+}
+/*
+*DxFont
+*/
+void DirectX::DrowWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
+	m_pFont[FontNumber]->DrawText(
+		NULL,		// NULL
+		text,		// 描画テキスト
+		-1,			// 全て表示
+		&rect,		// 表示範囲
+		TextFormat,	// 左寄せ
+		color		// color
+	);
+}
+void DirectX::SetFont(int height, int width, string FontKey, LPCSTR FontType, int CharSet) {
+	D3DXCreateFont(
+		m_pD3Device,
+		height,
+		width,
+		FW_DEMIBOLD,
+		NULL,
+		FALSE,
+		CharSet,
+		OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		FIXED_PITCH | FF_SCRIPT,
+		FontType,
+		&m_pFont[FontKey]);
+}
+void DirectX::eraseFont(string FontKey) {
+	m_pFont.erase(FontKey);
+}
+void DirectX::ClearFont() {
+	m_pFont.clear();
+	map<string, LPD3DXFONT>().swap(m_pFont);
+
 }
