@@ -45,7 +45,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	Wndclass.lpfnWndProc = WndProc;
 	Wndclass.cbClsExtra = Wndclass.cbWndExtra = 0;
 	Wndclass.hInstance = hInstance;
-	Wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);	Wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	Wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);	
+	Wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	Wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	Wndclass.lpszMenuName = NULL;
 	Wndclass.lpszClassName = TEXT("忍者屋敷");	//クラス名
@@ -137,13 +138,15 @@ HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
 		0xff000000, NULL, NULL, &m_pTexture["Test"])))
 	{
+		eraseTexture("Test");
 		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
 		return E_FAIL;
 	}
+	eraseTexture("Test");
 	return S_OK;
 }
 
-//ダイレクトインプットの初期化関
+//ダイレクトインプットの初期化関数
 HRESULT DirectX::InitDinput(HWND hWnd)
 {
 	HRESULT hr;
@@ -259,9 +262,10 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 
 
 }
-/*
+/**
 *DirectInput
 */
+
 void DirectX::CheckKeyStatus() {
 	HRESULT hr = m_pKeyDevice->Acquire();
 	if ((hr == DI_OK) || (hr == S_FALSE)) {
@@ -300,10 +304,10 @@ void DirectX::CheckKeyStatus() {
 int DirectX::GetKeyStatus(int KeyName) {
 	return m_KeyState[KeyName];
 }
-
-/*
-*画像描画処理
+/**
+*
 */
+
 void DirectX::ClearDisplay() {
 	m_pD3Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0x00), 1.0, 0);
 }
@@ -316,6 +320,9 @@ void DirectX::DrowSceneBegin() {
 void DirectX::DrowSceneEnd() {
 	m_pD3Device->EndScene();
 }
+/**
+*画像描画処理
+*/
 
 void DirectX::LoadTexture(LPCSTR FilePath, string TextureKey) {
 	D3DXCreateTextureFromFile(
@@ -335,9 +342,10 @@ void DirectX::ClearTexture() {
 	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
 
 }
-/*
+/**
 *DxFont
 */
+
 void DirectX::DrowWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
 	m_pFont[FontNumber]->DrawText(
 		NULL,		// NULL
