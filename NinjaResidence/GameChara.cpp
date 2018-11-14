@@ -1,9 +1,10 @@
 #include "GameChara.h"
 
 
-GameChara::GameChara()
+GameChara::GameChara(Scene * pScene)
 {
-	m_pMapChip = new MapChip;
+	m_pScene = pScene;
+	m_pMapChip = new MapChip(pScene);
 	m_DisplayCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
 	m_DisplayCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 80 / 512.f, 0.f };
 	m_DisplayCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 80 / 512.f,  160 / 512.f };
@@ -90,5 +91,5 @@ void GameChara::GameCharaUpdate()
 
 void GameChara::GameCharaRender()
 {
-	pScene->TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
+	m_pScene->TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
 }

@@ -13,9 +13,12 @@ private:
 	SCENE_NUM	m_CurrentScene;	//ç°ÇÃÉVÅ[Éì
 	Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
+	DirectX * m_pDirectX;
+
 public:
-	SceneManager();
+	SceneManager(DirectX* pDirectX);
 	~SceneManager();
 	void Update();
 	void Render();
+	void ReadTexture();
 };

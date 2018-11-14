@@ -4,8 +4,9 @@ int MapChip::MapScrollx = 0;
 int MapChip::MapScrolly = 0;
 
 //コンストラクタでマップチップの生成だけ行う
-MapChip::MapChip()
+MapChip::MapChip(Scene * pScene)
 {
+	m_pScene = pScene;
 	CELL[0] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
 	CELL[1] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
 	CELL[2] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
@@ -107,7 +108,7 @@ void MapChip::MapChipRender()
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
 			}
-			pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+			m_pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
 }

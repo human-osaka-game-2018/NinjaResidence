@@ -1,7 +1,8 @@
 #include "SCENE.h"
 
-Scene :: Scene()
+Scene :: Scene(DirectX* pDirectX)
 {
+	m_pDirectX = pDirectX;
 	Scene::ReadTexture();
 }
 
@@ -10,11 +11,11 @@ Scene::~Scene()
 
 }
 
-void Scene::TextureRender(std::string TextureKey, CUSTOMVERTEX TextureSize[4])
+void Scene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
-	pDirectX->DrowSceneBegin();
-	pDirectX->DrowTexture(TextureKey,TextureSize);
-	pDirectX->DrowSceneEnd();
+	m_pDirectX->DrowSceneBegin();
+	m_pDirectX->DrowTexture(TextureKey, TextureSize);
+	m_pDirectX->DrowSceneEnd();
 }
 
 void Scene::ReadTexture()

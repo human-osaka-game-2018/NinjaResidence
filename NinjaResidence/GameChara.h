@@ -21,10 +21,10 @@ private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 public:
 	koujirou abc;
-	Scene * pScene;
+	Scene * m_pScene;
 	MapChip * m_pMapChip;
 	void GameCharaUpdate();
 	void GameCharaRender();
-	GameChara();
+	GameChara(Scene * pScene);
 	~GameChara();
 };

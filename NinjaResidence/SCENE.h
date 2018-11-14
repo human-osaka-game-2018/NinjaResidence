@@ -27,7 +27,7 @@ class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//éüÇÃÉVÅ[Éì
 public:
-	void TextureRender(std::string TextureKey, CUSTOMVERTEX TextureSize[4]);
+	virtual void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 	SCENE_NUM Getm_NextScene()
 	{
 		return m_NextScene;
@@ -36,9 +36,12 @@ public:
 	{
 		m_NextScene = NextScene;
 	}
-	Scene();
+	Scene(DirectX* pDirectX);
 	virtual ~Scene();
 	virtual SCENE_NUM Update() = 0;
 	virtual void ReadTexture() = 0;
 	virtual void Render() = 0;
+protected:
+	DirectX* m_pDirectX;
+
 };

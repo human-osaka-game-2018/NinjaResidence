@@ -1,9 +1,10 @@
 #include "SceneManager.h"
 #include "GAMESCENE.h"
 
-SceneManager::SceneManager()
+SceneManager::SceneManager(DirectX* pDirectX)
 {
-	m_pScene = new GameScene();
+	m_pDirectX = pDirectX;
+	m_pScene = new GameScene(pDirectX);
 }
 
 SceneManager::~SceneManager()
@@ -28,7 +29,7 @@ void SceneManager::Update()
 
 		case GAME_SCENE:
 			delete m_pScene;
-			m_pScene = new  GameScene();
+			m_pScene = new  GameScene(m_pDirectX);
 			m_CurrentScene = m_NextScene;
 			break;
 		}
@@ -39,4 +40,8 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	m_pScene->Render();
+}
+void SceneManager::ReadTexture()
+{
+	m_pScene->ReadTexture();
 }

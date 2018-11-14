@@ -20,7 +20,7 @@ using namespace std;
 class MapChip
 {
 private:
-	Scene * pScene;
+	Scene * m_pScene;
 	CUSTOMVERTEX CELL[4];
 	enum BLOCKTYPE//CSV‚ÌƒuƒƒbƒN‚Ì”Ô†
 	{
@@ -37,7 +37,7 @@ private:
 public:
 	static int MapScrollx;
 	static int	MapScrolly;
-	MapChip();
+	MapChip(Scene * pScene);
 	~MapChip();
 	void MapChipCreate(const char *filename);
 	void MapChipRender();
