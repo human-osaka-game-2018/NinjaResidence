@@ -1,6 +1,7 @@
 #include "DirectXlib.h"
 #include "GAMEMANAGER.h"
 
+
 LPDIRECT3DTEXTURE9 g_pTexture[TEXMAX]; //画像の情報を入れておく為のポインタ配列
 LPDIRECTINPUTDEVICE8 g_pKeyDevice = NULL; //step4(キー入力の取得)に必要
 LPDIRECTINPUT8 g_pDinput = NULL;			//step4(キー入力の取得)に必要
