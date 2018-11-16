@@ -78,7 +78,9 @@ public:
 	* @param pTextureName 読み込む画像ファイル名
 	* @param TexKey 画像の格納キー
 	*/
-	int GetKeyStatus(int KeyName);
+	int GetKeyStatus(int KeyName) {
+		return m_KeyState[KeyName];
+	};
 	/*
 	* @brief 画像読み込み
 	* @param FilePath 画像ファイルパス

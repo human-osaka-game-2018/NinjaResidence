@@ -1,10 +1,11 @@
 #include "GAMESCENE.h"
 
-GameScene::GameScene()
+GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 {
-	m_pMapChip = new MapChip;
-	m_pMapChip->MapChipCreate("csv/Book1.csv");
-	m_pGameChara = new GameChara;
+	StageNum = ChosedStage;
+	pScene = this;
+	m_pMapChip = new MapChip(pScene);
+	m_pGameChara = new GameChara(pScene);
 	ReadTexture();
 	pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	MapScrollx = 0;
@@ -58,7 +59,12 @@ void GameScene::Render()
 	pScene->TextureRender("BACKGROUND_TEX", GameBackground);
 	m_pGameChara->GameCharaRender();
 	m_pMapChip->MapChipRender();
-	pDirectX->PresentsDevice();
+	RECT testName = { 0, 100, 1280, 720 };
+	char TestName[30];
+	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
+	m_pDirectX->DrowWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+
+	m_pDirectX->PresentsDevice();
 }
 
 void GameScene::ReadTexture()
