@@ -1,7 +1,8 @@
 #include "GAMESCENE.h"
 
-GameScene::GameScene(DirectX* pDirectX) :Scene(pDirectX)
+GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 {
+	StageNum = ChosedStage;
 	pScene = this;
 	m_pMapChip = new MapChip(pScene);
 	m_pGameChara = new GameChara(pScene);
@@ -59,6 +60,11 @@ void GameScene::Render()
 	pScene->TextureRender("BACKGROUND_TEX", GameBackground);
 	m_pGameChara->GameCharaRender();
 	m_pMapChip->MapChipRender();
+	RECT testName = { 0, 100, 1280, 720 };
+	char TestName[30];
+	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
+	m_pDirectX->DrowWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+
 	m_pDirectX->PresentsDevice();
 }
 

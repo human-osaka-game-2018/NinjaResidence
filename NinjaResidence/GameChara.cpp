@@ -30,7 +30,7 @@ void GameChara::GameCharaUpdate()
 	switch (abc)
 	{
 	case UP:
-		//‰E‚ÉˆÚ“®
+		//ã‚ÉˆÚ“®
 		if (m_DisplayCharaCoordinate[3].y <= 400)
 		{
 			m_DisplayCharaCoordinate[0].y -= 10.f;
@@ -44,7 +44,7 @@ void GameChara::GameCharaUpdate()
 		}
 		break;
 	case DOWN:
-		//‰E‚ÉˆÚ“®
+		//‰º‚ÉˆÚ“®
 		if (m_DisplayCharaCoordinate[3].y <= 500)
 		{
 			m_DisplayCharaCoordinate[0].y += 10.f;

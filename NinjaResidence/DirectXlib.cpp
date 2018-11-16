@@ -214,11 +214,13 @@ void DirectX::CheckKeyStatus() {
 				{
 					m_KeyOldState[i] = KeyOn;
 					m_KeyState[i] = KeyOn;
+					continue;
 				}
 				else
 				{
 					m_KeyOldState[i] = KeyOn;
 					m_KeyState[i] = KeyPush;
+					continue;
 				}
 			}
 			else
@@ -227,20 +229,19 @@ void DirectX::CheckKeyStatus() {
 				{
 					m_KeyOldState[i] = KeyOff;
 					m_KeyState[i] = KeyRelease;
+					continue;
 				}
 				else
 				{
 					m_KeyOldState[i] = KeyOff;
 					m_KeyState[i] = KeyOff;
+					continue;
 				}
 			}
 		}
 	}
 }
 
-int DirectX::GetKeyStatus(int KeyName) {
-	return m_KeyState[KeyName];
-}
 /**
 *
 */

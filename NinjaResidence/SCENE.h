@@ -10,6 +10,8 @@ enum SCENE_NUM
 
 	TITLE_SCENE,
 
+	STAGESELECT_SCENE,
+	
 	GAME_SCENE,
 
 	RESULT_SCENE,
@@ -18,7 +20,7 @@ enum SCENE_NUM
 
 };
 
-struct PLAYER_STATE//プレイヤー（キャラ）にしか使わない
+struct CENTRAL_STATE
 {
 	float x, y, scale_x, scale_y;
 };
@@ -41,7 +43,14 @@ public:
 	virtual SCENE_NUM Update() = 0;
 	virtual void ReadTexture() = 0;
 	virtual void Render() = 0;
+
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+
+	int GetStageNum() {
+		return StageNum;
+	}
 protected:
 	DirectX* m_pDirectX;
-
+	int StageNum = 0;
 };

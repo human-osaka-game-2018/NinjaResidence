@@ -76,7 +76,9 @@ public:
 	* @brief 
 	* @param KeyName DXINPUTキーの名前
 	*/
-	int GetKeyStatus(int KeyName);
+	int GetKeyStatus(int KeyName) {
+		return m_KeyState[KeyName];
+	};
 	/*
 	* @brief 画像読み込み
 	* @param FilePath 画像ファイルパス

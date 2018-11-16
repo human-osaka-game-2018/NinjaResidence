@@ -17,7 +17,7 @@ extern enum koujirou
 class GameChara
 {
 private:
-	PLAYER_STATE m_Player = { 400,10,(40 * 2),(40 * 4) };
+	CENTRAL_STATE m_Player = { 400,10,(40 * 2),(40 * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 public:
 	koujirou abc;
