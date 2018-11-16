@@ -1,7 +1,9 @@
 #include "MapChip.h"
 
-int MapChip::MapScrollx = 0;
-int MapChip::MapScrolly = 0;
+int MapChip::m_MapScrollX = 0;
+int MapChip::m_MapScrollY = 0;
+std::vector< std::vector<int> > MapChip::MapData;
+CUSTOMVERTEX MapChip::CELL[4];
 
 //コンストラクタでマップチップの生成だけ行う
 MapChip::MapChip()
@@ -83,14 +85,14 @@ void MapChip::MapChipRender()
 			}
 			int top = FIELD_TOP + CELL_SIZE * j;
 			int left = FIELD_LEFT + CELL_SIZE * i;
-			CELL[0].x = left + MapScrollx;
-			CELL[0].y = top + MapScrolly;
-			CELL[1].x = (left + CELL_SIZE) + MapScrollx;
-			CELL[1].y = top + MapScrolly;
-			CELL[2].x = (left + CELL_SIZE) + MapScrollx;
-			CELL[2].y = (top + CELL_SIZE) + MapScrolly;;
-			CELL[3].x = left + MapScrollx;
-			CELL[3].y = (top + CELL_SIZE) + MapScrolly;;
+			CELL[0].x = left + m_MapScrollX;
+			CELL[0].y = top + m_MapScrollY;
+			CELL[1].x = (left + CELL_SIZE) + m_MapScrollX;
+			CELL[1].y = top + m_MapScrollY;
+			CELL[2].x = (left + CELL_SIZE) + m_MapScrollX;
+			CELL[2].y = (top + CELL_SIZE) + m_MapScrollY;;
+			CELL[3].x = left + m_MapScrollX;
+			CELL[3].y = (top + CELL_SIZE) + m_MapScrollY;;
 
 			m_MapSelected = MapData[j][i];
 			switch (m_MapSelected)

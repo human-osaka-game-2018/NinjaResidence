@@ -1,8 +1,19 @@
 #include "DirectXlib.h"
 #include "GAMEMANAGER.h"
 
+<<<<<<< HEAD
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define SAFE_RELEASE(p) {if(p){(p)->Release(); (p)=NULL;}}
+=======
+
+LPDIRECT3DTEXTURE9 g_pTexture[TEXMAX]; //画像の情報を入れておく為のポインタ配列
+LPDIRECTINPUTDEVICE8 g_pKeyDevice = NULL; //step4(キー入力の取得)に必要
+LPDIRECTINPUT8 g_pDinput = NULL;			//step4(キー入力の取得)に必要
+IDirect3DDevice9*  g_pD3Device; //Direct3Dのデバイス
+IDirect3D9*    g_pDirect3D; //DIrect3Dのインターフェース
+D3DPRESENT_PARAMETERS g_D3dPresentParameters;		//	パラメータ
+D3DDISPLAYMODE		  g_D3DdisplayMode;
+>>>>>>> 9ce277d1267b9948ba10348634232c8a981b008b
 
 using std::map;
 using std::string;

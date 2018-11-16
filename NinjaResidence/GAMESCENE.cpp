@@ -3,8 +3,8 @@
 GameScene::GameScene()
 {
 	m_pMapChip = new MapChip;
-	m_pGameChara = new GameChara;
 	m_pMapChip->MapChipCreate("csv/Book1.csv");
+	m_pGameChara = new GameChara;
 	ReadTexture();
 	MapScrollx = 0;
 	MapScrolly = 0;
@@ -27,25 +27,25 @@ SCENE_NUM  GameScene::Update()
 		if (GetKeyStatus(DIK_UP))
 		{
 			m_pGameChara->abc = UP;
-			m_pGameChara->GameCharaUpdate();
-
+			m_pGameChara->GameCharaKeyOperation();
 		}
 		if (GetKeyStatus(DIK_DOWN))
 		{
 			m_pGameChara->abc = DOWN;
-			m_pGameChara->GameCharaUpdate();
-
+			m_pGameChara->GameCharaKeyOperation();
 		}
 		if (GetKeyStatus(DIK_LEFT))
 		{
 			m_pGameChara->abc = LEFT;
-			m_pGameChara->GameCharaUpdate();
+			m_pGameChara->GameCharaKeyOperation();
 		}
 		if (GetKeyStatus(DIK_RIGHT))
 		{
 			m_pGameChara->abc = RIGHT;
-			m_pGameChara->GameCharaUpdate();
+			m_pGameChara->GameCharaKeyOperation();
 		}
+	}
+	m_pGameChara->GameCharaUpdate();
 	return Getm_NextScene();
 }
 
