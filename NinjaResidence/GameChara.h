@@ -22,6 +22,7 @@ private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	int MapCharaPositionX;
+	int MapCharaPositionX2;
 	int MapCharaPositionY;
 	int MapChara[5];
 	//int MapChara[200][200];
@@ -30,8 +31,9 @@ public:
 	Scene * pScene;
 	MapChip * m_pMapChip;
 	void GameCharaKeyOperation();
-	void GameCharaUpdate();
+	void MapScrool();
 	bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
+	void GameCharaUpdate();
 	void GameCharaRender();
 	GameChara();
 	~GameChara();

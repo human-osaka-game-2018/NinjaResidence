@@ -102,19 +102,21 @@ void GameChara::GameCharaKeyOperation()
 	}
 }
 
-int MapCharaPositionX2;
+
+
+void GameChara::MapScrool()
+{
+
+}
+
+
 
 void GameChara::GameCharaUpdate()
 {
-	//マップチップの当たり判定
-	if (m_WorldCharaCoordinate[3].x >= 440)
-	{
-		m_WorldCharaCoordinate[0].y += 0.f;
-	}
-	MapCharaPositionX = (int)m_WorldCharaCoordinate[3].x / 40;
-	MapCharaPositionX2 = (int)(m_WorldCharaCoordinate[2].x - 10) / 40;
+	MapCharaPositionX = (int)m_WorldCharaCoordinate[3].x  / 40;
+	MapCharaPositionX2 = (int)(m_WorldCharaCoordinate[2].x - 10)/ 40;
 	MapCharaPositionY = (int)m_WorldCharaCoordinate[3].y / 40;
-	if (m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX] == 0 || m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX + 1] == 0)
+	if (m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX] == 0 && m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX + 1] == 0)
 	{
 		m_WorldCharaCoordinate[0].y += 10.f;
 		m_WorldCharaCoordinate[1].y += 10.f;
@@ -127,31 +129,26 @@ void GameChara::GameCharaUpdate()
 	}
 	if (m_pMapChip->MapData[MapCharaPositionY-1][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX] != 0)
 	{
-		m_WorldCharaCoordinate[0].x += 10.f;
-		m_WorldCharaCoordinate[1].x += 10.f;
-		m_WorldCharaCoordinate[2].x += 10.f;
-		m_WorldCharaCoordinate[3].x += 10.f;
-		m_DisplayCharaCoordinate[0].x += 10.f;
-		m_DisplayCharaCoordinate[1].x += 10.f;
-		m_DisplayCharaCoordinate[2].x += 10.f;
-		m_DisplayCharaCoordinate[3].x += 10.f;
+		m_WorldCharaCoordinate[0].x = (MapCharaPositionX+1) * 40;
+		m_WorldCharaCoordinate[1].x = (MapCharaPositionX+3) * 40;
+		m_WorldCharaCoordinate[2].x = (MapCharaPositionX+3) * 40;
+		m_WorldCharaCoordinate[3].x = (MapCharaPositionX+1) * 40;
+		m_DisplayCharaCoordinate[0].x = (MapCharaPositionX + 1) * 40;
+		m_DisplayCharaCoordinate[1].x = (MapCharaPositionX + 3) * 40;
+		m_DisplayCharaCoordinate[2].x = (MapCharaPositionX + 3) * 40;
+		m_DisplayCharaCoordinate[3].x = (MapCharaPositionX + 1) * 40;
 	}
 	if ( m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX2 ] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX2 ] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX2] != 0)
 	{								   
-		m_WorldCharaCoordinate[0].x -= 10.f;
-		m_WorldCharaCoordinate[1].x -= 10.f;
-		m_WorldCharaCoordinate[2].x -= 10.f;
-		m_WorldCharaCoordinate[3].x -= 10.f;
-		m_DisplayCharaCoordinate[0].x -= 10.f;
-		m_DisplayCharaCoordinate[1].x -= 10.f;
-		m_DisplayCharaCoordinate[2].x -= 10.f;
-		m_DisplayCharaCoordinate[3].x -= 10.f;
+		m_WorldCharaCoordinate[0].x = MapCharaPositionX * 40;
+		m_WorldCharaCoordinate[1].x = (MapCharaPositionX + 2 ) * 40;
+		m_WorldCharaCoordinate[2].x = (MapCharaPositionX + 2 ) * 40;
+		m_WorldCharaCoordinate[3].x = MapCharaPositionX * 40;
+		m_DisplayCharaCoordinate[0].x = MapCharaPositionX  * 40;
+		m_DisplayCharaCoordinate[1].x = (MapCharaPositionX + 2) * 40;
+		m_DisplayCharaCoordinate[2].x = (MapCharaPositionX + 2) * 40;
+		m_DisplayCharaCoordinate[3].x = MapCharaPositionX  * 40;
 	}
-	//if (GameChara::RectToRectCollisionCheak(m_WorldCharaCoordinate, m_pMapChip->CELL))
-	//{
-	//	int a = 0;
-	//}
-	//MapChara[MapCharaPositionX][MapCharaPositionY];
 }
 
 
