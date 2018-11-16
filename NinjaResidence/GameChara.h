@@ -6,6 +6,8 @@
 
 class GameScene;
 class MapChip;
+#define _CRTDBG_MAP_ALLOC
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 extern enum koujirou
 {
@@ -18,7 +20,7 @@ extern enum koujirou
 class GameChara
 {
 private:
-	PLAYER_STATE m_Player = { 400.f,100.f,(40.f * 2),(40.f * 4) };
+	CENTRAL_STATE m_Player = { 400,10,(40 * 2),(40 * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	int MapCharaPositionX;
@@ -28,13 +30,13 @@ private:
 	//int MapChara[200][200];
 public:
 	koujirou abc;
-	Scene * pScene;
+	Scene * m_pScene;
 	MapChip * m_pMapChip;
 	void GameCharaKeyOperation();
 	void MapScrool();
 	bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
 	void GameCharaUpdate();
 	void GameCharaRender();
-	GameChara();
+	GameChara(Scene * pScene);
 	~GameChara();
 };

@@ -1,9 +1,11 @@
 #include "GameChara.h"
 #include "MapChip.h"
 
-GameChara::GameChara()
+
+GameChara::GameChara(Scene * pScene)
 {
-	m_pMapChip = new MapChip;
+	m_pScene = pScene;
+	m_pMapChip = new MapChip(pScene);
 	m_DisplayCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
 	m_DisplayCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 80 / 512.f, 0.f };
 	m_DisplayCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 80 / 512.f,  160 / 512.f };
@@ -18,7 +20,8 @@ GameChara::GameChara()
 
 GameChara::~GameChara()
 {
-
+	delete m_pMapChip;
+	m_pMapChip = NULL;
 }
 
 
@@ -29,11 +32,16 @@ void GameChara::GameCharaKeyOperation()
 	switch (abc)
 	{
 	case UP:
+<<<<<<< HEAD
 		m_WorldCharaCoordinate[0].y -= 30.f;
 		m_WorldCharaCoordinate[1].y -= 30.f;
 		m_WorldCharaCoordinate[2].y -= 30.f;
 		m_WorldCharaCoordinate[3].y -= 30.f;
 		if (m_DisplayCharaCoordinate[0].y >= 100)
+=======
+		//è„Ç…à⁄ìÆ
+		if (m_DisplayCharaCoordinate[3].y <= 400)
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 		{
 			m_DisplayCharaCoordinate[0].y -= 30.f;
 			m_DisplayCharaCoordinate[1].y -= 30.f;
@@ -46,12 +54,17 @@ void GameChara::GameCharaKeyOperation()
 		}
 		break;
 	case DOWN:
+<<<<<<< HEAD
 		//ç°ÇÃÇ∆Ç±ÇÎñ≥Çµ
 		m_WorldCharaCoordinate[0].y += 10.f;
 		m_WorldCharaCoordinate[1].y += 10.f;
 		m_WorldCharaCoordinate[2].y += 10.f;
 		m_WorldCharaCoordinate[3].y += 10.f;
 		if (m_DisplayCharaCoordinate[3].y >= 600)
+=======
+		//â∫Ç…à⁄ìÆ
+		if (m_DisplayCharaCoordinate[3].y <= 500)
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 		{
 			m_DisplayCharaCoordinate[0].y += 10.f;
 			m_DisplayCharaCoordinate[1].y += 10.f;
@@ -175,5 +188,5 @@ bool GameChara::RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObj
 
 void GameChara::GameCharaRender()
 {
-	pScene->TextureRender((TEXTURE_NUM)CHARA_INTEGRATION_TEX, m_DisplayCharaCoordinate);
+	m_pScene->TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
 }

@@ -6,8 +6,9 @@ std::vector< std::vector<int> > MapChip::MapData;
 CUSTOMVERTEX MapChip::CELL[4];
 
 //コンストラクタでマップチップの生成だけ行う
-MapChip::MapChip()
+MapChip::MapChip(Scene * pScene)
 {
+	m_pScene = pScene;
 	CELL[0] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
 	CELL[1] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
 	CELL[2] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
@@ -16,14 +17,22 @@ MapChip::MapChip()
 
 MapChip::~MapChip()
 {
-	
+	for (int i = 0; i < colunm; i++)
+	{
+		MapData[i].clear();
+		vector<int>().swap(MapData[i]);
+	}
+	MapData.clear();
+	vector<vector<int>>().swap(MapData);
+
 }
 
 void MapChip::MapChipCreate(const char *filename)
 {
+	const int mapMaxWidth = 256;
 	FILE *fp = NULL;
 	char data[4];
-	char buf[256];
+	char buf[mapMaxWidth];
 	int c, i = 0, x = 0, y = 0;
 
 	if (fopen_s(&fp, filename, "r") != 0)
@@ -31,7 +40,7 @@ void MapChip::MapChipCreate(const char *filename)
 		exit(1);
 	}
 
-	fgets(buf, 256, fp);
+	fgets(buf, mapMaxWidth, fp);
 	sscanf_s(buf, "%d, %d", &row, &colunm);
 	
 	MapData.resize(colunm);
@@ -101,7 +110,7 @@ void MapChip::MapChipRender()
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
 			}
-			pScene->TextureRender((TEXTURE_NUM)BLOCK_INTEGRATION_TEX, CELL);
+			m_pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
 }
