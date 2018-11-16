@@ -6,9 +6,9 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	pScene = this;
 	m_pMapChip = new MapChip(pScene);
 	m_pGameChara = new GameChara(pScene);
+
 	ReadTexture();
 	pDirectX->SetFont(100, 50, "DEBUG_FONT");
-	MapScrollx = 0;
 	MapScrolly = 0;
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
@@ -22,28 +22,28 @@ GameScene::~GameScene()
 	m_pMapChip = NULL;
 	delete m_pGameChara;
 	m_pGameChara = NULL;
-	pDirectX->ClearTexture();
-	pDirectX->ClearFont();
+	m_pDirectX->ClearTexture();
+	m_pDirectX->ClearFont();
 }
 
 SCENE_NUM  GameScene::Update()
 {
-		if (pDirectX->GetKeyStatus(DIK_UP))
+		if (m_pDirectX->GetKeyStatus(DIK_UP))
 		{
 			m_pGameChara->abc = UP;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (pDirectX->GetKeyStatus(DIK_DOWN))
+		if (m_pDirectX->GetKeyStatus(DIK_DOWN))
 		{
 			m_pGameChara->abc = DOWN;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (pDirectX->GetKeyStatus(DIK_LEFT))
+		if (m_pDirectX->GetKeyStatus(DIK_LEFT))
 		{
 			m_pGameChara->abc = LEFT;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-		if (pDirectX->GetKeyStatus(DIK_RIGHT))
+		if (m_pDirectX->GetKeyStatus(DIK_RIGHT))
 		{
 			m_pGameChara->abc = RIGHT;
 			m_pGameChara->GameCharaKeyOperation();
@@ -69,7 +69,13 @@ void GameScene::Render()
 
 void GameScene::ReadTexture()
 {
-	pDirectX->LoadTexture("texture/Block_Integration.png","BLOCK_INTEGRATION_TEX");
-	pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
-	pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+	m_pDirectX->LoadTexture("texture/Block_Integration.png","BLOCK_INTEGRATION_TEX");
+	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+}
+void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
+{
+	m_pDirectX->DrowSceneBegin();
+	m_pDirectX->DrowTexture(TextureKey, TextureSize);
+	m_pDirectX->DrowSceneEnd();
 }

@@ -36,7 +36,7 @@ public:
 	static int m_MapScrollX;
 	static int	m_MapScrollY;
 	static std::vector< std::vector<int> > MapData;
-	MapChip();
+	MapChip(Scene * pScene);
 	~MapChip();
 	void MapChipCreate(const char *filename);
 	void MapChipRender();

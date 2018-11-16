@@ -32,11 +32,16 @@ void GameChara::GameCharaKeyOperation()
 	switch (abc)
 	{
 	case UP:
+<<<<<<< HEAD
 		m_WorldCharaCoordinate[0].y -= 30.f;
 		m_WorldCharaCoordinate[1].y -= 30.f;
 		m_WorldCharaCoordinate[2].y -= 30.f;
 		m_WorldCharaCoordinate[3].y -= 30.f;
 		if (m_DisplayCharaCoordinate[0].y >= 100)
+=======
+		//è„Ç…à⁄ìÆ
+		if (m_DisplayCharaCoordinate[3].y <= 400)
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 		{
 			m_DisplayCharaCoordinate[0].y -= 30.f;
 			m_DisplayCharaCoordinate[1].y -= 30.f;
@@ -49,12 +54,17 @@ void GameChara::GameCharaKeyOperation()
 		}
 		break;
 	case DOWN:
+<<<<<<< HEAD
 		//ç°ÇÃÇ∆Ç±ÇÎñ≥Çµ
 		m_WorldCharaCoordinate[0].y += 10.f;
 		m_WorldCharaCoordinate[1].y += 10.f;
 		m_WorldCharaCoordinate[2].y += 10.f;
 		m_WorldCharaCoordinate[3].y += 10.f;
 		if (m_DisplayCharaCoordinate[3].y >= 600)
+=======
+		//â∫Ç…à⁄ìÆ
+		if (m_DisplayCharaCoordinate[3].y <= 500)
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 		{
 			m_DisplayCharaCoordinate[0].y += 10.f;
 			m_DisplayCharaCoordinate[1].y += 10.f;

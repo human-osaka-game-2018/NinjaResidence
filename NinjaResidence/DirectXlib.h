@@ -40,8 +40,7 @@ enum KEYSTATE
 	KeyRelease
 };
 
-#define DISPLAY_WIDTH 1280
-#define DISPLAY_HEIGHT 720
+
 // TODO:Singletonにする
 class DirectX {
 public:
@@ -74,9 +73,8 @@ public:
 	*/
 	void CheckKeyStatus();
 	/**
-	* @brief 画像読み込み
-	* @param pTextureName 読み込む画像ファイル名
-	* @param TexKey 画像の格納キー
+	* @brief 
+	* @param KeyName DXINPUTキーの名前
 	*/
 	int GetKeyStatus(int KeyName) {
 		return m_KeyState[KeyName];
@@ -136,12 +134,14 @@ public:
 	* @param WinMode ウィンドウモード　true:WindowMode　false:FullscreenMode
 	* @param FilePath デバイス生成チェック用画像ファイルパス
 	*/
-	void BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
+	HRESULT BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
 	/**
 	* @brief 各ウィンドウモードのパラメータセッティング
 	* @param hWnd ウィンドウハンドル
 	*/
 	void InitPresentParameters(HWND hWnd);
+	void ReleaseDx();
+	HRESULT ResetDevice(bool WinMode, RECT* WinRect, HWND hWnd);
 private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL; 
@@ -158,7 +158,7 @@ private:
 
 	HRESULT InitD3d(HWND hWnd, LPCSTR FilePath);
 	HRESULT InitDinput(HWND hWnd);
-	void ReleaseDx();
+	
 };
 
-extern DirectX* pDirectX;
+

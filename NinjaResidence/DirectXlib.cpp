@@ -19,16 +19,118 @@ using std::map;
 using std::string;
 DirectX* pDirectX;
 
+<<<<<<< HEAD
+=======
 
-//メッセージ処理　ウィンドウプロシージャWndProcの設定
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+
+
+DirectX::DirectX() {
+
+}
+DirectX::~DirectX() {
+	ReleaseDx();
+}
+//メモリ開放
+void DirectX::ReleaseDx()
 {
-	switch (msg)
+	m_pTexture.clear();
+	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
+	m_pFont.clear();
+	map<string, LPD3DXFONT>().swap(m_pFont);
+	if (m_pKeyDevice)
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
+		m_pKeyDevice->Unacquire();
 	}
+	SAFE_RELEASE(m_pKeyDevice);
+	SAFE_RELEASE(m_pDinput);
+	SAFE_RELEASE(m_pD3Device);
+	SAFE_RELEASE(m_pDirect3D);
+}
+
+//ダイレクト3Dの初期化関数
+HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
+{
+	// 「Direct3D」オブジェクトの作成
+	if (NULL == (m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	{
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	// 「DIRECT3Dデバイス」オブジェクトの作成
+	D3DPRESENT_PARAMETERS d3dpp;
+	ZeroMemory(&d3dpp, sizeof(d3dpp));
+
+	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+	d3dpp.BackBufferCount = 1;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dpp.Windowed = TRUE;
+
+	if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+		D3DCREATE_MIXED_VERTEXPROCESSING,
+		&d3dpp, &m_pD3Device)))
+	{
+		MessageBox(0, "HALモードでDIRECT3Dデバイスを作成できません\nREFモードで再試行します", NULL, MB_OK);
+		if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hWnd,
+			D3DCREATE_MIXED_VERTEXPROCESSING,
+			&d3dpp, &m_pD3Device)))
+		{
+			MessageBox(0, "DIRECT3Dデバイスの作成に失敗しました", NULL, MB_OK);
+			return E_FAIL;
+		}
+	}
+	//「テクスチャオブジェクト」の作成
+	if (FAILED(D3DXCreateTextureFromFileEx(m_pD3Device, FilePath, 100, 100, 0, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
+		0xff000000, NULL, NULL, &m_pTexture["Test"])))
+	{
+		eraseTexture("Test");
+		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	eraseTexture("Test");
+	return S_OK;
+}
+
+//ダイレクトインプットの初期化関数
+HRESULT DirectX::InitDinput(HWND hWnd)
+{
+	HRESULT hr;
+
+	//ダイレクトインプットのオブジェの作成
+	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
+		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDinput, NULL)))
+	{
+		return hr;
+	}
+	//ダイレクトインプットのデバイスの作成
+	if (FAILED(hr = m_pDinput->CreateDevice(GUID_SysKeyboard,
+		&m_pKeyDevice, NULL)))
+	{
+		return hr;
+	}
+	//デバイスをキーボードの設定
+	if (FAILED(hr = m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
+	{
+		return hr;
+	}
+	//協調レベル
+	if (FAILED(hr = m_pKeyDevice->SetCooperativeLevel(
+		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+	{
+		return hr;
+	}
+	return S_OK;
+}
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
+
+HRESULT DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
+	//ダイレクト３Dの初期化関数を呼ぶ
+	if (FAILED(InitD3d(hWnd,FilePath)))
+	{
+		MessageBox(0, "Direct3DDeviceの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+<<<<<<< HEAD
 	return DefWindowProc(hWnd, msg, wp, lp);
 }
 
@@ -213,6 +315,42 @@ void DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
 		m_pDirect3D->Release();
 		return;
 	}
+=======
+	//ダイレクトインプットの初期化関数を呼ぶ
+	if (FAILED(InitDinput(hWnd)))
+	{
+		MessageBox(0, "DirectInputDeviceの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+
+	//DirectX オブジェクトの生成
+	m_pDirect3D = Direct3DCreate9(
+		D3D_SDK_VERSION);
+	//成功チェック
+	if (m_pDirect3D == NULL)
+	{
+		//生成に失敗したら終了する
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+
+	m_D3dPresentParameters = (WinMode) ? m_d3dppWin : m_d3dppFull;
+
+	m_pDirect3D->CreateDevice(
+		D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL,
+		hWnd,
+		D3DCREATE_HARDWARE_VERTEXPROCESSING,
+		&m_D3dPresentParameters, &m_pD3Device);
+	//生成チェック
+	if (m_pD3Device == NULL)
+	{
+		//生成に失敗したらDirectXオブジェクトを開放して終了する
+		m_pDirect3D->Release();
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 	//描画設定
 	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCの設定
@@ -224,10 +362,15 @@ void DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
 	//m_pD3Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	//頂点に入れるデータを設定
 	m_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
+<<<<<<< HEAD
+=======
+	return S_OK;
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 }
 
 void DirectX::InitPresentParameters(HWND hWnd) {
 	//Window
+<<<<<<< HEAD
 	ZeroMemory(&pDirectX->m_d3dppWin, sizeof(D3DPRESENT_PARAMETERS));
 	pDirectX->m_d3dppWin.BackBufferWidth = 0;
 	pDirectX->m_d3dppWin.BackBufferHeight = 0;
@@ -261,6 +404,41 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 	pDirectX->m_d3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
 
+=======
+	ZeroMemory(&m_d3dppWin, sizeof(D3DPRESENT_PARAMETERS));
+	m_d3dppWin.BackBufferWidth = 0;
+	m_d3dppWin.BackBufferHeight = 0;
+	m_d3dppWin.BackBufferFormat = D3DFMT_UNKNOWN;
+	m_d3dppWin.BackBufferCount = 1;
+	m_d3dppWin.MultiSampleType = D3DMULTISAMPLE_NONE;
+	m_d3dppWin.MultiSampleQuality = 0;
+	m_d3dppWin.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	m_d3dppWin.hDeviceWindow = hWnd;
+	m_d3dppWin.Windowed = TRUE;
+	m_d3dppWin.EnableAutoDepthStencil = FALSE;
+	m_d3dppWin.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+	m_d3dppWin.Flags = 0;
+	m_d3dppWin.FullScreen_RefreshRateInHz = 0;
+	m_d3dppWin.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	//Full
+	ZeroMemory(&m_d3dppFull, sizeof(D3DPRESENT_PARAMETERS));
+	m_d3dppFull.BackBufferWidth = DISPLAY_WIDTH;
+	m_d3dppFull.BackBufferHeight = DISPLAY_HEIGHT;
+	m_d3dppFull.BackBufferFormat = D3DFMT_X8R8G8B8;
+	m_d3dppFull.BackBufferCount = 1;
+	m_d3dppFull.MultiSampleType = D3DMULTISAMPLE_NONE;
+	m_d3dppFull.MultiSampleQuality = 0;
+	m_d3dppFull.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	m_d3dppFull.hDeviceWindow = hWnd;
+	m_d3dppFull.Windowed = FALSE;
+	m_d3dppFull.EnableAutoDepthStencil = FALSE;
+	m_d3dppFull.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+	m_d3dppFull.Flags = 0;
+	m_d3dppFull.FullScreen_RefreshRateInHz = 0;
+	m_d3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+
+
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
 }
 /**
 *DirectInput
@@ -380,3 +558,16 @@ void DirectX::ClearFont() {
 	map<string, LPD3DXFONT>().swap(m_pFont);
 
 }
+<<<<<<< HEAD
+=======
+HRESULT DirectX::ResetDevice(bool WinMode, RECT* WinRect, HWND hWnd) {
+	if (WinMode) {
+		m_D3dPresentParameters = m_d3dppWin;
+	}
+	else {
+		m_D3dPresentParameters = m_d3dppFull;
+		GetWindowRect(hWnd, WinRect);
+	}
+	return m_pD3Device->Reset(&m_D3dPresentParameters);
+}
+>>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
