@@ -5,8 +5,6 @@
 enum SCENE_NUM;
 class Scene;
 
-#define CENTRAL_Y (DISPLAY_HEIGHT / 2)
-#define CENTRAL_X (DISPLAY_WIDTH / 2)
 
 class StageSerectScene : public Scene
 {

@@ -24,6 +24,7 @@
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
     <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="STAGESERECTSCENE.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
     <ClInclude Include="MapChip.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="STAGESERECTSCENE.h" />

@@ -17,11 +17,9 @@ class GameScene : public Scene
 private:
 	CUSTOMVERTEX  GameBackground[4];
 public:
-	GameChara * m_pGameChara;
-	MapChip * m_pMapChip;
+	Object * m_pGameChara;
+	Object * m_pMapChip;
 	Scene * pScene;
-	int MapScrollx ;
-	int MapScrolly ;
 	GameScene(DirectX* pDirectX, int ChosedStage);
 	~GameScene();
 	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数

@@ -1,8 +1,10 @@
 #include "MapChip.h"
 
-int MapChip::m_MapScrollX = 0;
-int MapChip::m_MapScrollY = 0;
-std::vector< std::vector<int> > MapChip::MapData;
+using std::vector;
+
+//int MapChip::MapScrollX = 0;
+//int MapChip::MapScrollY = 0;
+vector< vector<int> > MapChip::MapData;
 CUSTOMVERTEX MapChip::CELL[4];
 
 //コンストラクタでマップチップの生成だけ行う
@@ -27,7 +29,7 @@ MapChip::~MapChip()
 
 }
 
-void MapChip::MapChipCreate(const char *filename)
+void MapChip::Create(const char *filename)
 {
 	const int mapMaxWidth = 256;
 	FILE *fp = NULL;
@@ -73,8 +75,10 @@ void MapChip::MapChipCreate(const char *filename)
 	fclose(fp);
 }
 
-void MapChip::MapChipRender()
+void MapChip::Render()
 {
+
+
 	for (int j = 0; j < colunm;j++)
 	{
 		for (int i = 0;i < row;i++)
@@ -85,14 +89,14 @@ void MapChip::MapChipRender()
 			}
 			int top = FIELD_TOP + CELL_SIZE * j;
 			int left = FIELD_LEFT + CELL_SIZE * i;
-			CELL[0].x = left + m_MapScrollX;
-			CELL[0].y = top + m_MapScrollY;
-			CELL[1].x = (left + CELL_SIZE) + m_MapScrollX;
-			CELL[1].y = top + m_MapScrollY;
-			CELL[2].x = (left + CELL_SIZE) + m_MapScrollX;
-			CELL[2].y = (top + CELL_SIZE) + m_MapScrollY;;
-			CELL[3].x = left + m_MapScrollX;
-			CELL[3].y = (top + CELL_SIZE) + m_MapScrollY;;
+			CELL[0].x = left + MapScrollX;
+			CELL[0].y = top + MapScrollY;
+			CELL[1].x = (left + CELL_SIZE) + MapScrollX;
+			CELL[1].y = top + MapScrollY;
+			CELL[2].x = (left + CELL_SIZE) + MapScrollX;
+			CELL[2].y = (top + CELL_SIZE) + MapScrollY;;
+			CELL[3].x = left + MapScrollX;
+			CELL[3].y = (top + CELL_SIZE) + MapScrollY;;
 
 			m_MapSelected = MapData[j][i];
 			switch (m_MapSelected)
@@ -112,5 +116,17 @@ void MapChip::MapChipRender()
 			}
 			m_pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
+	}
+}
+void MapChip::Update() {
+}
+
+void MapChip::KeyOperation(int vec) {
+
+	if (vec) {
+		MapScrollY += 10;
+	}
+	else {
+		MapScrollY -= 10;
 	}
 }

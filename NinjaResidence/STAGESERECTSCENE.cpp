@@ -4,7 +4,6 @@ StageSerectScene::StageSerectScene(DirectX* pDirectX) :Scene(pDirectX)
 {
 	pScene = this;
 	ReadTexture();
-	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	CreateSquareVertex(TitleBackground, DISPLAY_WIDTH, CENTRAL_Y);
 	m_StageImage[0] = {CENTRAL_X,CENTRAL_Y,250,250 };
 	m_StageImage[1] = {CENTRAL_X + 250,CENTRAL_Y,200,200 };
@@ -77,6 +76,8 @@ void StageSerectScene::ReadTexture()
 {
 	m_pDirectX->LoadTexture(NULL, "TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
+
 }
 void StageSerectScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {

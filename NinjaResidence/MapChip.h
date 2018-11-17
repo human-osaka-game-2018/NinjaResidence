@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "SCENE.h"
 #include "GAMESCENE.h"
+#include "Object.h"
 
 class GameScene;
 class Scene;
@@ -16,10 +16,11 @@ class Scene;
 #define BLOCK_HEIGHT 40.0f/DISPLAY_HEIGHT
 
 
-class MapChip
+class MapChip :public Object
 {
 private:
-	Scene * pScene;
+
+	Scene * m_pScene;
 	enum BLOCKTYPE//CSVÇÃÉuÉçÉbÉNÇÃî‘çÜ
 	{
 		NONE,
@@ -33,11 +34,11 @@ private:
 	int m_MapSelectedHEIGHT;
 public:
 	static CUSTOMVERTEX CELL[4];
-	static int m_MapScrollX;
-	static int	m_MapScrollY;
-	static std::vector< std::vector<int> > MapData;
+	//static std::vector< std::vector<int> > MapData;
 	MapChip(Scene * pScene);
 	~MapChip();
-	void MapChipCreate(const char *filename);
-	void MapChipRender();
+	void Create(const char *filename);
+	void Render();
+	void Update();
+	void KeyOperation(int vec);
 };

@@ -5,7 +5,6 @@ TitleScene::TitleScene(DirectX* pDirectX) :Scene(pDirectX)
 {
 	pScene = this;
 	ReadTexture();
-	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	TitleBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	TitleBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
 	TitleBackground[2] = { DISPLAY_WIDTH,  DISPLAY_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
@@ -48,6 +47,8 @@ void TitleScene::Render()
 void TitleScene::ReadTexture()
 {
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
+
 }
 void TitleScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
