@@ -19,7 +19,7 @@ class Scene;
 class MapChip
 {
 private:
-	Scene * pScene;
+	Scene * m_pScene;
 	enum BLOCKTYPE//CSV‚ÌƒuƒƒbƒN‚Ì”Ô†
 	{
 		NONE,

@@ -1,8 +1,10 @@
 #include "MapChip.h"
 
+using std::vector;
+
 int MapChip::m_MapScrollX = 0;
 int MapChip::m_MapScrollY = 0;
-std::vector< std::vector<int> > MapChip::MapData;
+vector< vector<int> > MapChip::MapData;
 CUSTOMVERTEX MapChip::CELL[4];
 
 //コンストラクタでマップチップの生成だけ行う

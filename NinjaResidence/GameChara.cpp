@@ -32,49 +32,31 @@ void GameChara::GameCharaKeyOperation()
 	switch (abc)
 	{
 	case UP:
-<<<<<<< HEAD
-		m_WorldCharaCoordinate[0].y -= 30.f;
-		m_WorldCharaCoordinate[1].y -= 30.f;
-		m_WorldCharaCoordinate[2].y -= 30.f;
-		m_WorldCharaCoordinate[3].y -= 30.f;
-		if (m_DisplayCharaCoordinate[0].y >= 100)
-=======
-		//上に移動
-		if (m_DisplayCharaCoordinate[3].y <= 400)
->>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
+		m_WorldCharaCoordinate[0].y -= 20.f;
+		m_WorldCharaCoordinate[1].y -= 20.f;
+		m_WorldCharaCoordinate[2].y -= 20.f;
+		m_WorldCharaCoordinate[3].y -= 20.f;
+		if (m_DisplayCharaCoordinate[0].y > 200)
 		{
-			m_DisplayCharaCoordinate[0].y -= 30.f;
-			m_DisplayCharaCoordinate[1].y -= 30.f;
-			m_DisplayCharaCoordinate[2].y -= 30.f;
-			m_DisplayCharaCoordinate[3].y -= 30.f;
-		}
-		if (m_DisplayCharaCoordinate[0].y <= 100)
-		{
-			m_pMapChip->m_MapScrollY += 10;
+			m_DisplayCharaCoordinate[0].y -= 20.f;
+			m_DisplayCharaCoordinate[1].y -= 20.f;
+			m_DisplayCharaCoordinate[2].y -= 20.f;
+			m_DisplayCharaCoordinate[3].y -= 20.f;
 		}
 		break;
 	case DOWN:
-<<<<<<< HEAD
-		//今のところ無し
-		m_WorldCharaCoordinate[0].y += 10.f;
-		m_WorldCharaCoordinate[1].y += 10.f;
-		m_WorldCharaCoordinate[2].y += 10.f;
-		m_WorldCharaCoordinate[3].y += 10.f;
-		if (m_DisplayCharaCoordinate[3].y >= 600)
-=======
-		//下に移動
-		if (m_DisplayCharaCoordinate[3].y <= 500)
->>>>>>> b6627cdba29abe4a56b3a07f401f3b2be52afa6e
-		{
-			m_DisplayCharaCoordinate[0].y += 10.f;
-			m_DisplayCharaCoordinate[1].y += 10.f;
-			m_DisplayCharaCoordinate[2].y += 10.f;
-			m_DisplayCharaCoordinate[3].y += 10.f;
-		}
-		if (m_DisplayCharaCoordinate[3].y <= 600)
-		{
-			m_pMapChip->m_MapScrollY -= 10;
-		}
+		////今のところ無し
+		//m_WorldCharaCoordinate[0].y += 10.f;
+		//m_WorldCharaCoordinate[1].y += 10.f;
+		//m_WorldCharaCoordinate[2].y += 10.f;
+		//m_WorldCharaCoordinate[3].y += 10.f;
+		//if (m_DisplayCharaCoordinate[1].y > 600)
+		//{
+		//	m_DisplayCharaCoordinate[0].y += 10.f;
+		//	m_DisplayCharaCoordinate[1].y += 10.f;
+		//	m_DisplayCharaCoordinate[2].y += 10.f;
+		//	m_DisplayCharaCoordinate[3].y += 10.f;
+		//}
 		break;
 	case RIGHT:
 		//右に移動
@@ -88,10 +70,6 @@ void GameChara::GameCharaKeyOperation()
 			m_DisplayCharaCoordinate[1].x += 10.f;
 			m_DisplayCharaCoordinate[2].x += 10.f;
 			m_DisplayCharaCoordinate[3].x += 10.f;
-		}
-		if (m_DisplayCharaCoordinate[1].x >= 900)
-		{
-			m_pMapChip->m_MapScrollX -= 10;
 		}
 		break;
 	case LEFT:
@@ -107,27 +85,59 @@ void GameChara::GameCharaKeyOperation()
 			m_DisplayCharaCoordinate[2].x -= 10.f;
 			m_DisplayCharaCoordinate[3].x -= 10.f;
 		}
-		if (m_DisplayCharaCoordinate[0].x <= 300)
-		{
-			m_pMapChip->m_MapScrollX += 10;
-		}
 		break;
 	}
 }
 
 
 
-void GameChara::MapScrool()
+void GameChara::MapScroolCheck()
 {
-
+	//上に移動
+	if (m_DisplayCharaCoordinate[1].y < 200)
+	{
+		m_DisplayCharaCoordinate[0].y = 200;
+		m_DisplayCharaCoordinate[1].y = 200;
+		m_DisplayCharaCoordinate[2].y = 360;
+		m_DisplayCharaCoordinate[3].y = 360;
+		m_pMapChip->m_MapScrollY += 10;
+	}
+	//下に移動
+	if (m_DisplayCharaCoordinate[3].y > 600)
+	{
+		m_DisplayCharaCoordinate[0].y = 440;
+		m_DisplayCharaCoordinate[1].y = 440;
+		m_DisplayCharaCoordinate[2].y = 600;
+		m_DisplayCharaCoordinate[3].y = 600;
+		m_pMapChip->m_MapScrollY -= 10;
+	}
+	//右に移動
+	if (m_DisplayCharaCoordinate[1].x > 900)
+	{
+		m_DisplayCharaCoordinate[0].x = 820;
+		m_DisplayCharaCoordinate[1].x = 900;
+		m_DisplayCharaCoordinate[2].x = 900;
+		m_DisplayCharaCoordinate[3].x = 820;
+		m_pMapChip->m_MapScrollX -= 10;
+	}
+	//左に移動
+	if (m_DisplayCharaCoordinate[0].x < 300)
+	{
+		m_DisplayCharaCoordinate[0].x = 300;
+		m_DisplayCharaCoordinate[1].x = 380;
+		m_DisplayCharaCoordinate[2].x = 380;
+		m_DisplayCharaCoordinate[3].x = 300;
+		m_pMapChip->m_MapScrollX += 10;
+	}
 }
 
 
 
 void GameChara::GameCharaUpdate()
 {
-	MapCharaPositionX = (int)m_WorldCharaCoordinate[3].x  / 40;
-	MapCharaPositionX2 = (int)(m_WorldCharaCoordinate[2].x - 10)/ 40;
+	GameChara::MapScroolCheck();
+	MapCharaPositionX = (int)m_WorldCharaCoordinate[3].x / 40;
+	MapCharaPositionX2 = (int)(m_WorldCharaCoordinate[2].x) / 40;
 	MapCharaPositionY = (int)m_WorldCharaCoordinate[3].y / 40;
 	if (m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX] == 0 && m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX + 1] == 0)
 	{
@@ -140,27 +150,31 @@ void GameChara::GameCharaUpdate()
 		m_DisplayCharaCoordinate[2].y += 10.f;
 		m_DisplayCharaCoordinate[3].y += 10.f;
 	}
-	if (m_pMapChip->MapData[MapCharaPositionY-1][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX] != 0)
+	//左の方向のブロックを確かめる
+	if (m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX] != 0)
 	{
-		m_WorldCharaCoordinate[0].x = (MapCharaPositionX+1) * 40;
-		m_WorldCharaCoordinate[1].x = (MapCharaPositionX+3) * 40;
-		m_WorldCharaCoordinate[2].x = (MapCharaPositionX+3) * 40;
-		m_WorldCharaCoordinate[3].x = (MapCharaPositionX+1) * 40;
-		m_DisplayCharaCoordinate[0].x = (MapCharaPositionX + 1) * 40;
-		m_DisplayCharaCoordinate[1].x = (MapCharaPositionX + 3) * 40;
-		m_DisplayCharaCoordinate[2].x = (MapCharaPositionX + 3) * 40;
-		m_DisplayCharaCoordinate[3].x = (MapCharaPositionX + 1) * 40;
+		m_WorldCharaCoordinate[0].x = ((MapCharaPositionX + 1) * 40);
+		m_WorldCharaCoordinate[1].x = ((MapCharaPositionX + 3) * 40);
+		m_WorldCharaCoordinate[2].x = ((MapCharaPositionX + 3) * 40);
+		m_WorldCharaCoordinate[3].x = ((MapCharaPositionX + 1) * 40);
+		m_DisplayCharaCoordinate[0].x = m_WorldCharaCoordinate[0].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[1].x = m_WorldCharaCoordinate[1].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[2].x = m_WorldCharaCoordinate[2].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[3].x = m_WorldCharaCoordinate[3].x + m_pMapChip->m_MapScrollX;
+
+	
 	}
-	if ( m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX2 ] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX2 ] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX2] != 0)
-	{								   
-		m_WorldCharaCoordinate[0].x = MapCharaPositionX * 40;
-		m_WorldCharaCoordinate[1].x = (MapCharaPositionX + 2 ) * 40;
-		m_WorldCharaCoordinate[2].x = (MapCharaPositionX + 2 ) * 40;
-		m_WorldCharaCoordinate[3].x = MapCharaPositionX * 40;
-		m_DisplayCharaCoordinate[0].x = MapCharaPositionX  * 40;
-		m_DisplayCharaCoordinate[1].x = (MapCharaPositionX + 2) * 40;
-		m_DisplayCharaCoordinate[2].x = (MapCharaPositionX + 2) * 40;
-		m_DisplayCharaCoordinate[3].x = MapCharaPositionX  * 40;
+	//右方向のブロックを確かめる
+	else if (m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX2] != 0)
+	{
+		m_WorldCharaCoordinate[0].x = ((MapCharaPositionX2 -2) * 40);
+		m_WorldCharaCoordinate[1].x = ((MapCharaPositionX2 ) * 40);
+		m_WorldCharaCoordinate[2].x = ((MapCharaPositionX2 ) * 40);
+		m_WorldCharaCoordinate[3].x = ((MapCharaPositionX2 -2) * 40);
+		m_DisplayCharaCoordinate[0].x = m_WorldCharaCoordinate[0].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[1].x = m_WorldCharaCoordinate[1].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[2].x = m_WorldCharaCoordinate[2].x + m_pMapChip->m_MapScrollX;
+		m_DisplayCharaCoordinate[3].x = m_WorldCharaCoordinate[3].x + m_pMapChip->m_MapScrollX;
 	}
 }
 

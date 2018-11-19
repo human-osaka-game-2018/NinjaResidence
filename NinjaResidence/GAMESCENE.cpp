@@ -6,9 +6,9 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	pScene = this;
 	m_pMapChip = new MapChip(pScene);
 	m_pGameChara = new GameChara(pScene);
-
+	m_pMapChip->MapChipCreate("csv/Book1.csv");
 	ReadTexture();
-	pDirectX->SetFont(100, 50, "DEBUG_FONT");
+	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	MapScrolly = 0;
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
@@ -48,8 +48,7 @@ SCENE_NUM  GameScene::Update()
 			m_pGameChara->abc = RIGHT;
 			m_pGameChara->GameCharaKeyOperation();
 		}
-	}
-	m_pGameChara->GameCharaUpdate();
+		m_pGameChara->GameCharaUpdate();
 	return Getm_NextScene();
 }
 
