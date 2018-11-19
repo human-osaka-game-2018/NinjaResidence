@@ -14,27 +14,19 @@ class MapChip;
 class GameChara :public Object
 {
 private:
-	CENTRAL_STATE m_Player = { 400,10,(40 * 2),(40 * 4) };
+	CENTRAL_STATE m_Player = { 400,10,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
-	//int MapCharaPositionX;
-	//int MapCharaPositionY;
-	int MapChara[5];
-	//int MapChara[200][200];
+
+	float CharTu = 80 / 512.f;
+	float CharTv = 160 / 512.f;
+
+	Object* m_pMapChip;
 public:
-	koujirou abc;
-	Scene * m_pScene;
-	Object * m_pMapChip;
-	void KeyOperation(koujirou abc);
+	int KeyOperation(KeyDirection vec);
 	void Update();
 	bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
 	void Render();
-	GameChara(Scene * pScene, Object* MapChip);
+	GameChara(DirectX* pDirectX, Object* MapChip);
 	~GameChara();
-	//int getMapCharaPositionX() {
-	//	return MapCharaPositionX;
-	//};
-	//int getMapCharaPositionY() {
-	//	return MapCharaPositionY;
-	//};
 };

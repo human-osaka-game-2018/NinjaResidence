@@ -256,6 +256,17 @@ void DirectX::DrowSceneBegin() {
 void DirectX::DrowSceneEnd() {
 	m_pD3Device->EndScene();
 }
+
+void DirectX::RenderingBegin() {
+	ClearDisplay();
+	DrowSceneBegin();
+}
+
+void DirectX::RenderingEnd() {
+	DrowSceneEnd();
+	PresentsDevice();
+}
+
 /**
 *‰æ‘œ•`‰æˆ—
 */

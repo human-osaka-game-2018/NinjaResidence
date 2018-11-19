@@ -7,6 +7,9 @@ SceneManager::SceneManager(DirectX* pDirectX):m_CurrentScene(SCENE_NONE),m_NextS
 {
 	m_pDirectX = pDirectX;
 	m_pScene = new TitleScene(pDirectX);
+	//ゲームシーンへショートカットする
+	//m_pScene = new GameScene(pDirectX,5);
+
 }
 
 SceneManager::~SceneManager()

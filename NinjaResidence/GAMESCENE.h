@@ -7,6 +7,7 @@
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
+
 enum SCENE_NUM;
 class Scene;
 class MapChip;
@@ -16,10 +17,11 @@ class GameScene : public Scene
 {
 private:
 	CUSTOMVERTEX  GameBackground[4];
-public:
+	DirectX* m_pDirectX;
 	Object * m_pGameChara;
 	Object * m_pMapChip;
 	Scene * pScene;
+public:
 	GameScene(DirectX* pDirectX, int ChosedStage);
 	~GameScene();
 	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数

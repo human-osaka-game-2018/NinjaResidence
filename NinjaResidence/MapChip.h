@@ -11,7 +11,6 @@ class Scene;
 
 #define FIELD_LEFT 0
 #define FIELD_TOP  0 
-#define CELL_SIZE 40.f
 #define BLOCK_WIDTH  40.0f/DISPLAY_WIDTH
 #define BLOCK_HEIGHT 40.0f/DISPLAY_HEIGHT
 
@@ -27,18 +26,17 @@ private:
 		ROCK_BLOCK,
 		WOOD_BLOCK,
 	};
-	int row;
-	int colunm;
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;
 	int m_MapSelectedHEIGHT;
+	CUSTOMVERTEX CELL[4];
+	void CellInit();
 public:
-	static CUSTOMVERTEX CELL[4];
 	//static std::vector< std::vector<int> > MapData;
-	MapChip(Scene * pScene);
+	MapChip(DirectX* pDirectX);
 	~MapChip();
 	void Create(const char *filename);
 	void Render();
 	void Update();
-	void KeyOperation(int vec);
+	int KeyOperation(KeyDirection vec);
 };

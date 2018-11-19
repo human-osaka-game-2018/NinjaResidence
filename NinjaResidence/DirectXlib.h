@@ -68,6 +68,23 @@ public:
 	* @detail 上記関数とセットで使うこと
 	*/
 	void DrowSceneEnd();
+
+
+	/**
+	*@brief 描画開始関数
+	* @sa RenderingEnd()
+	* @detail 上記関数とセットで使うこと
+	* ClearDisplayとDrowSceneBeginを行う
+	*/
+	void RenderingBegin();
+	/**
+	* @brief 描画終了関数
+	* @sa RenderingBegin()
+	* @detail 上記関数とセットで使うこと
+	* DrowSceneEndとPresentsDeviceを行う
+	*/
+	void RenderingEnd();
+
 	/**
 	* @brief キーボード情報の読み取り
 	*/

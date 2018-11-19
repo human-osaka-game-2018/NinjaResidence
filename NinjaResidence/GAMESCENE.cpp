@@ -2,11 +2,12 @@
 
 GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 {
+	m_pDirectX = pDirectX;
 	StageNum = ChosedStage;
 	pScene = this;
-	m_pMapChip = new MapChip(pScene);
-	m_pGameChara = new GameChara(pScene, m_pMapChip);
+	m_pMapChip = new MapChip(pDirectX);
 	m_pMapChip->Create("csv/Book1.csv");
+	m_pGameChara = new GameChara(pDirectX, m_pMapChip);
 	ReadTexture();
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
@@ -28,31 +29,35 @@ SCENE_NUM  GameScene::Update()
 {
 		if (m_pDirectX->GetKeyStatus(DIK_UP))
 		{
-			m_pGameChara->abc = UP;
-			m_pGameChara->KeyOperation(m_pGameChara->abc);
+			m_pMapChip->setMapScrollY (m_pGameChara->KeyOperation(UP));
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_DOWN))
 		{
-			m_pGameChara->abc = DOWN;
-			m_pGameChara->KeyOperation(m_pGameChara->abc);
+			m_pMapChip->setMapScrollY (m_pGameChara->KeyOperation(DOWN));
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_LEFT))
 		{
-			m_pGameChara->abc = LEFT;
-			m_pGameChara->KeyOperation(m_pGameChara->abc);
+			m_pMapChip->setMapScrollX (m_pGameChara->KeyOperation(LEFT));
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_RIGHT))
 		{
-			m_pGameChara->abc = RIGHT;
-			m_pGameChara->KeyOperation(m_pGameChara->abc);
+			m_pMapChip->setMapScrollX (m_pGameChara->KeyOperation(RIGHT));
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_W))
 		{
-			m_pMapChip->KeyOperation(1);
+			m_pMapChip->KeyOperation(UP);
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_S))
 		{
-			m_pMapChip->KeyOperation(0);
+			m_pMapChip->KeyOperation(DOWN);
+		}
+		if (m_pDirectX->GetKeyStatus(DIK_A))
+		{
+			m_pMapChip->KeyOperation(LEFT);
+		}
+		if (m_pDirectX->GetKeyStatus(DIK_D))
+		{
+			m_pMapChip->KeyOperation(RIGHT);
 		}
 
 	m_pGameChara->Update();
@@ -64,7 +69,7 @@ void GameScene::Render()
 //private変数を元にキャラクターを描画
 
 	m_pDirectX->DrowSceneBegin();
-	pScene->TextureRender("BACKGROUND_TEX", GameBackground);
+	m_pDirectX->DrowTexture("BACKGROUND_TEX", GameBackground);
 
 	m_pMapChip->Render();
 	m_pGameChara->Render();

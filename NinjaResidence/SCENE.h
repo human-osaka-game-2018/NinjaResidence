@@ -32,7 +32,6 @@ class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//Ÿ‚ÌƒV[ƒ“
 public:
-	virtual void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 	SCENE_NUM Getm_NextScene()
 	{
 		return m_NextScene;

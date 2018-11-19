@@ -4,17 +4,17 @@ using std::vector;
 
 //int MapChip::MapScrollX = 0;
 //int MapChip::MapScrollY = 0;
-vector< vector<int> > MapChip::MapData;
-CUSTOMVERTEX MapChip::CELL[4];
+//vector< vector<int> > MapChip::MapData;
+//CUSTOMVERTEX MapChip::CELL[4];
 
 //コンストラクタでマップチップの生成だけ行う
-MapChip::MapChip(Scene * pScene)
+MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
 {
-	m_pScene = pScene;
-	CELL[0] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
-	CELL[1] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
-	CELL[2] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
-	CELL[3] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
+	CellInit();
+	//CELL[0] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
+	//CELL[1] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
+	//CELL[2] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
+	//CELL[3] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
 }
 
 MapChip::~MapChip()
@@ -77,8 +77,6 @@ void MapChip::Create(const char *filename)
 
 void MapChip::Render()
 {
-
-
 	for (int j = 0; j < colunm;j++)
 	{
 		for (int i = 0;i < row;i++)
@@ -87,16 +85,16 @@ void MapChip::Render()
 			{
 				continue;
 			}
-			int top = FIELD_TOP + CELL_SIZE * j;
-			int left = FIELD_LEFT + CELL_SIZE * i;
-			CELL[0].x = left + MapScrollX;
-			CELL[0].y = top + MapScrollY;
-			CELL[1].x = (left + CELL_SIZE) + MapScrollX;
-			CELL[1].y = top + MapScrollY;
-			CELL[2].x = (left + CELL_SIZE) + MapScrollX;
-			CELL[2].y = (top + CELL_SIZE) + MapScrollY;;
-			CELL[3].x = left + MapScrollX;
-			CELL[3].y = (top + CELL_SIZE) + MapScrollY;;
+			int top = FIELD_TOP + (CELL_SIZE * j) + MapScrollY;
+			int left = FIELD_LEFT + (CELL_SIZE * i )+ MapScrollX;
+			CELL[0].x = left ;
+			CELL[0].y = top ;
+			CELL[1].x = (left + CELL_SIZE);
+			CELL[1].y = top ;
+			CELL[2].x = (left + CELL_SIZE);
+			CELL[2].y = (top + CELL_SIZE);
+			CELL[3].x = left;
+			CELL[3].y = (top + CELL_SIZE);
 
 			m_MapSelected = MapData[j][i];
 			switch (m_MapSelected)
@@ -114,19 +112,58 @@ void MapChip::Render()
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
 			}
-			m_pScene->TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
+	RECT test = { 0,0,800,500 };
+	char TestText[30];
+	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", MapScrollX, MapScrollY);
+	m_pDirectX->DrowWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+
 }
 void MapChip::Update() {
+
 }
 
-void MapChip::KeyOperation(int vec) {
+int MapChip::KeyOperation(KeyDirection vec) {
 
-	if (vec) {
-		MapScrollY += 10;
+	switch (vec)
+	{
+	case UP:
+		if (MapScrollY<0) {
+			MapScrollY += 10;
+		}
+		break;
+	case DOWN:
+		if (MapScrollY > (-20 * colunm)) {
+			MapScrollY -= 10;
+		}
+		break;
+	case LEFT:
+		//左に移動
+		if (MapScrollX < 0) {
+			MapScrollX += 10;
+		}
+		break;
+	case RIGHT:
+		//右に移動
+		if (MapScrollX > (-CELL_SIZE/2 * row)) {
+			MapScrollX -= 10;
+		}
+		break;
 	}
-	else {
-		MapScrollY -= 10;
+	return 0;
+}
+
+void MapChip::CellInit() {
+	for (int i = 0; i < 4; i++) {
+		CELL[i].z = 1.0f;
+		CELL[i].rhw = 1.0f;
+		CELL[i].color = 0xFFFFFFFF;
 	}
+	CELL[0].tv = 0.f;
+	CELL[1].tv = 0.f;
+	CELL[2].tv = BLOCK_HEIGHT;
+	CELL[3].tv = BLOCK_HEIGHT;
+
 }
