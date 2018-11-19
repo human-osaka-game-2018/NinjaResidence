@@ -109,7 +109,11 @@ HRESULT DirectX::InitDinput(HWND hWnd)
 
 HRESULT DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
 	//�_�C���N�g�RD�̏������֐����Ă�
+<<<<<<< HEAD:NinjaResidence/DirectX.cpp
 	if (FAILED(InitD3d(hWnd, FilePath)))
+=======
+	if (FAILED(InitD3d(hWnd,FilePath)))
+>>>>>>> X座標の当たり判定をスクロールに対応、y座標のスクロール（当たり判定非対応）:NinjaResidence/DirectXlib.cpp
 	{
 		return E_FAIL;
 	}

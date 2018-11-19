@@ -5,6 +5,7 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	m_pDirectX = pDirectX;
 	StageNum = ChosedStage;
 	pScene = this;
+<<<<<<< HEAD
 	m_pBusyMapChip = new MapChip(pDirectX);
 	m_pBusyMapChip->Create("csv/Book1.csv");
 	m_pIdleMapChip = new MapChip(pDirectX);
@@ -12,6 +13,14 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	m_pGameChara = new GameChara(pDirectX, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX,m_pGameChara);
 	ReadTexture();
+=======
+	m_pMapChip = new MapChip(pScene);
+	m_pGameChara = new GameChara(pScene);
+	m_pMapChip->MapChipCreate("csv/Book1.csv");
+	ReadTexture();
+	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
+	MapScrolly = 0;
+>>>>>>> X座標の当たり判定をスクロールに対応、y座標のスクロール（当たり判定非対応）
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
 	GameBackground[2] = { DISPLAY_WIDTH,  DISPLAY_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
@@ -53,8 +62,13 @@ SCENE_NUM  GameScene::Update()
 		{
  			m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 		}
+<<<<<<< HEAD
 		m_pGameChara->Update();
 	return GetNextScene();
+=======
+		m_pGameChara->GameCharaUpdate();
+	return Getm_NextScene();
+>>>>>>> X座標の当たり判定をスクロールに対応、y座標のスクロール（当たり判定非対応）
 }
 
 void GameScene::Render()

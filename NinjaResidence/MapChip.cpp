@@ -1,7 +1,15 @@
 #include "MapChip.h"
 
 using std::vector;
+<<<<<<< HEAD
 using namespace MapBlock;
+=======
+
+int MapChip::m_MapScrollX = 0;
+int MapChip::m_MapScrollY = 0;
+vector< vector<int> > MapChip::MapData;
+CUSTOMVERTEX MapChip::CELL[4];
+>>>>>>> X座標の当たり判定をスクロールに対応、y座標のスクロール（当たり判定非対応）
 
 //�R���X�g���N�^�Ń}�b�v�`�b�v�̐��������s��
 MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
