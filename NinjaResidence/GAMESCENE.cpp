@@ -68,21 +68,21 @@ void GameScene::Render()
 {
 //private変数を元にキャラクターを描画
 
-	m_pDirectX->DrowSceneBegin();
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", GameBackground);
+	m_pDirectX->DrawSceneBegin();
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
 
 	m_pMapChip->Render();
 	m_pGameChara->Render();
 	RECT testName = { 0, 100, 1280, 720 };
 	char TestName[30];
 	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
-	m_pDirectX->DrowWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
 	sprintf_s(TestText, 30, "X:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
-	m_pDirectX->DrowWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	
-	m_pDirectX->DrowSceneEnd();
+	m_pDirectX->DrawSceneEnd();
 	m_pDirectX->PresentsDevice();
 }
 
@@ -97,5 +97,5 @@ void GameScene::ReadTexture()
 }
 void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
-	m_pDirectX->DrowTexture(TextureKey, TextureSize);
+	m_pDirectX->DrawTexture(TextureKey, TextureSize);
 }

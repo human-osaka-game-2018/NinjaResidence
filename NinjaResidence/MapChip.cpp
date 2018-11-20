@@ -11,10 +11,6 @@ using std::vector;
 MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
 {
 	CellInit();
-	//CELL[0] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
-	//CELL[1] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, 0.0f };
-	//CELL[2] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
-	//CELL[3] = { 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0, BLOCK_HEIGHT };
 }
 
 MapChip::~MapChip()
@@ -35,6 +31,7 @@ void MapChip::Create(const char *filename)
 	FILE *fp = NULL;
 	char data[4];
 	char buf[mapMaxWidth];
+	//int c‚Í‰½‚ð‚µ‚Ä‚¢‚é•Ï”H
 	int c, i = 0, x = 0, y = 0;
 
 	if (fopen_s(&fp, filename, "r") != 0)
@@ -118,7 +115,7 @@ void MapChip::Render()
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
 	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", MapScrollX, MapScrollY);
-	m_pDirectX->DrowWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 }
 void MapChip::Update() {

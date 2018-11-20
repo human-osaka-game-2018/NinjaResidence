@@ -21,7 +21,7 @@ private:
 	float CharTu = 80 / 512.f;
 	float CharTv = 160 / 512.f;
 
-	Object* m_pMapChip;
+	Object* m_pMapChip = NULL;
 public:
 	int KeyOperation(KeyDirection vec);
 	void Update();

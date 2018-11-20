@@ -18,7 +18,6 @@ void Object::KeyOperation()
 {
 }
 
-int MapCharaPositionX2;
 
 void Object::Update()
 {
@@ -46,7 +45,7 @@ bool Object::RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB)
 
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
-	m_pDirectX->DrowTexture(TextureKey, TextureSize);
+	m_pDirectX->DrawTexture(TextureKey, TextureSize);
 }
 
 

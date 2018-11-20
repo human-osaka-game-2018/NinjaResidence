@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DirectXlib.h"
+#include "DirectX.h"
 #include "SceneManager.h"
 
 #define DISPLAY_WIDTH 1280

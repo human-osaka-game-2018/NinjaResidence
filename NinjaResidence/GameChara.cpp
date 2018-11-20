@@ -133,6 +133,7 @@ void GameChara::Update()
 	{
 		m_WorldCharaCoordinate[0].y += 10.f;
 	}
+	//static_cast‚ðŽg—p‚·‚é
 	MapCharaPosition.X = (int)m_WorldCharaCoordinate[3].x / CELL_SIZE;
 	int MapCharaPositionX2 = (int)(m_WorldCharaCoordinate[2].x - 10) / CELL_SIZE;
 	MapCharaPosition.Y = (int)m_WorldCharaCoordinate[3].y / CELL_SIZE;

@@ -61,13 +61,13 @@ public:
 	* @sa DrowSceneEnd()
 	* @detail 上記関数とセットで使うこと
 	*/
-	void DrowSceneBegin();
+	void DrawSceneBegin();
 	/**
 	* @brief 描画終了関数
 	* @sa DrowSceneBegin()
 	* @detail 上記関数とセットで使うこと
 	*/
-	void DrowSceneEnd();
+	void DrawSceneEnd();
 
 
 	/**
@@ -96,24 +96,24 @@ public:
 	int GetKeyStatus(int KeyName) {
 		return m_KeyState[KeyName];
 	};
-	/*
+	/**
 	* @brief 画像読み込み
 	* @param FilePath 画像ファイルパス
 	* @param TextureKey 画像の格納キー
 	*/
 	void LoadTexture(LPCSTR FilePath, std::string TextureKey);
-	/*
+	/**
 	* @brief 画像表示
 	* @param TextureKey 画像の格納キー
 	* @param TextureSize 頂点情報
 	*/
-	void DrowTexture(std::string TextureKey, const CUSTOMVERTEX* TextureSize);
-	/*
+	void DrawTexture(std::string TextureKey, const CUSTOMVERTEX* TextureSize);
+	/**
 	* @brief 画像消去
 	* @param TextureKey 画像の格納キー
 	*/
 	void eraseTexture(std::string TexKey);
-	/*
+	/**
 	* @brief 画像全消去
 	*/
 	void ClearTexture();
@@ -125,7 +125,7 @@ public:
 	* @param TextFormat フォーマット
 	* @param color 色
 	*/
-	void DrowWord(RECT rect, LPCSTR text, std::string FontNumber, int TextFormat = DT_LEFT, DWORD color = 0xff000000);
+	void DrawWord(RECT rect, LPCSTR text, std::string FontNumber, int TextFormat = DT_LEFT, DWORD color = 0xff000000);
 	/**
 	* @brief DXフォント文字設定
 	* @param WordHeight 文字の高さ
@@ -163,10 +163,10 @@ private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL; 
 	LPDIRECTINPUT8 m_pDinput = NULL;			
-	IDirect3DDevice9*  m_pD3Device; //Direct3Dのデバイス
-	IDirect3D9*    m_pDirect3D; //DIrect3Dのインターフェース
+	IDirect3DDevice9*  m_pD3Device = NULL; //Direct3Dのデバイス
+	IDirect3D9*    m_pDirect3D = NULL; //DIrect3Dのインターフェース
 	D3DPRESENT_PARAMETERS m_D3dPresentParameters;		//	パラメータ
-	D3DDISPLAYMODE		  m_D3DdisplayMode;
+	//D3DDISPLAYMODE		  m_D3DdisplayMode;
 	std::map<std::string, LPD3DXFONT> m_pFont;
 	D3DPRESENT_PARAMETERS m_d3dppWin, m_d3dppFull;
 

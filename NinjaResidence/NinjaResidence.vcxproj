@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXlib.cpp" />
+    <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
@@ -31,7 +31,7 @@
     <ClCompile Include="TITLESCENE.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXlib.h" />
+    <ClInclude Include="DirectX.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />

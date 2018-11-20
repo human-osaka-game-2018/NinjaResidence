@@ -19,7 +19,6 @@ class MapChip :public Object
 {
 private:
 
-	Scene * m_pScene;
 	enum BLOCKTYPE//CSV‚ÌƒuƒƒbƒN‚Ì”Ô†
 	{
 		NONE,

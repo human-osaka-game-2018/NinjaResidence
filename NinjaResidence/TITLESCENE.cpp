@@ -32,17 +32,17 @@ void TitleScene::Render()
 	
 	m_pDirectX->RenderingBegin();
 	//private•Ï”‚ðŒ³‚ÉƒLƒƒƒ‰ƒNƒ^[‚ð•`‰æ
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", TitleBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
 	sprintf_s(TestText, 30, "%d", timecount);
-	m_pDirectX->DrowWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
 	RECT testName = { 0, 200, 1280, 500 };
 	char TestName[20] = "”EŽÒ‰®•~";
-	m_pDirectX->DrowWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
 	RECT pushEnter= { 0, 400, 1280, 700 };
 	char PUSH_ENTER[20] = "PUSH ENTER";
-	m_pDirectX->DrowWord(pushEnter, PUSH_ENTER, "DEBUG_FONT", DT_CENTER, 0xffff0000);
+	m_pDirectX->DrawWord(pushEnter, PUSH_ENTER, "DEBUG_FONT", DT_CENTER, 0xffff0000);
 
 	m_pDirectX->RenderingEnd();
 }

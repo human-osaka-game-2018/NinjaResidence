@@ -17,10 +17,10 @@ class GameScene : public Scene
 {
 private:
 	CUSTOMVERTEX  GameBackground[4];
-	DirectX* m_pDirectX;
-	Object * m_pGameChara;
-	Object * m_pMapChip;
-	Scene * pScene;
+	DirectX* m_pDirectX = NULL;
+	Object * m_pGameChara = NULL;
+	Object * m_pMapChip = NULL;
+	Scene * pScene = NULL;
 public:
 	GameScene(DirectX* pDirectX, int ChosedStage);
 	~GameScene();

@@ -1,7 +1,7 @@
 #include "GAMEMANAGER.h"
 
-DirectX* GAMEMANAGER::pDirectX;
-SceneManager* GAMEMANAGER::pSceneManager;
+DirectX* GAMEMANAGER::pDirectX = NULL;
+SceneManager* GAMEMANAGER::pSceneManager = NULL;
 HWND GAMEMANAGER::hWnd = NULL;
 bool GAMEMANAGER::WinMode = true;
 bool GAMEMANAGER::DeviceLost = false;
@@ -60,8 +60,8 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 	HRESULT hr = NULL;
 	WinMode = !WinMode;
 	pDirectX->ClearDisplay();
-	pDirectX->DrowSceneBegin();
-	pDirectX->DrowSceneEnd();
+	pDirectX->DrawSceneBegin();
+	pDirectX->DrawSceneEnd();
 	pDirectX->PresentsDevice();
 
 	hr = pDirectX->ResetDevice(WinMode, &WinRect,hWnd);

@@ -9,7 +9,7 @@ class TitleScene : public Scene
 {
 private:
 	CUSTOMVERTEX  TitleBackground[4];
-	Scene * pScene;
+	Scene * pScene = NULL;
 	int timecount = 0; 
 public:
 	TitleScene(DirectX* pDirectX);

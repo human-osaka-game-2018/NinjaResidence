@@ -84,12 +84,12 @@ public:
 		return MapData[height][width];
 	}
 protected:
-	DirectX * m_pDirectX;
+	DirectX * m_pDirectX = NULL;
 	/*static */std::vector< std::vector<int> > MapData;
 	//!çs
-	int row;
+	int row = 0;
 	//!óÒ
-	int colunm;
+	int colunm = 0;
 
 	int MapScrollX = 0;
 	int MapScrollY = 0;

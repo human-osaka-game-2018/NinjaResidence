@@ -44,36 +44,36 @@ void StageSerectScene::Render()
 {
 	m_pDirectX->RenderingBegin();
 	//private変数を元にキャラクターを描画
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", TitleBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
 	sprintf_s(TestText, 30, "%d", timecount);
-	m_pDirectX->DrowWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 	CUSTOMVERTEX StageImage[4];
 
 	CreateSquareVertex(StageImage, m_StageImage[3]);
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", StageImage);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	CreateSquareVertex(StageImage, m_StageImage[2]);
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", StageImage);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	CreateSquareVertex(StageImage, m_StageImage[4]);
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", StageImage);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	CreateSquareVertex(StageImage, m_StageImage[1]);
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", StageImage);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	CreateSquareVertex(StageImage, m_StageFrame,0xffffaa00);
-	m_pDirectX->DrowTexture("TEX", StageImage);
+	m_pDirectX->DrawTexture("TEX", StageImage);
 
 	CreateSquareVertex(StageImage, m_StageImage[0]);
-	m_pDirectX->DrowTexture("BACKGROUND_TEX", StageImage);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	RECT testName = { 0, 400, 1280, 720 };
 	char TestName[30];
 	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
-	m_pDirectX->DrowWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffffffff);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffffffff);
 
 	m_pDirectX->RenderingEnd();
 }
