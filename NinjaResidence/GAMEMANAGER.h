@@ -1,3 +1,8 @@
+/**
+* @file GAMEMANAGER.h
+* @brief Mainƒ‹[ƒvˆ—
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include "DirectX.h"

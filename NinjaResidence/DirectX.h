@@ -1,3 +1,8 @@
+/**
+* @file DirectX.h
+* @brief DirectX関連を行う
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include <windows.h>
@@ -42,6 +47,10 @@ enum KEYSTATE
 
 
 // TODO:Singletonにする
+/**
+* @class DirectX
+* @brief DirectX
+*/
 class DirectX {
 public:
 	DirectX();
@@ -90,7 +99,7 @@ public:
 	*/
 	void CheckKeyStatus();
 	/**
-	* @brief 
+	* @brief 指定のキー情報取得
 	* @param KeyName DXINPUTキーの名前
 	*/
 	int GetKeyStatus(int KeyName) {

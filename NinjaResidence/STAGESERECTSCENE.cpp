@@ -43,7 +43,7 @@ SCENE_NUM  StageSerectScene::Update()
 void StageSerectScene::Render()
 {
 	m_pDirectX->RenderingBegin();
-	//private変数を元にキャラクターを描画
+	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
