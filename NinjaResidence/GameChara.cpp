@@ -19,8 +19,6 @@ GameChara::GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* Ma
 	CreateSquareVertex(m_Player, m_SurfaceWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
 }
 
-
-
 GameChara::~GameChara()
 {
 }
