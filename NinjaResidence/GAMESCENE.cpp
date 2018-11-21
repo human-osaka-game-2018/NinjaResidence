@@ -59,8 +59,6 @@ SCENE_NUM  GameScene::Update()
 
 void GameScene::Render()
 {
-	//private変数を元にキャラクターを描画
-
 	m_pDirectX->DrawSceneBegin();
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
 
