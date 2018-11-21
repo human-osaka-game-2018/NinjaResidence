@@ -34,3 +34,6 @@
 .vs/
 Debug/
 Release/
+*.orig
+*.bak
+html/

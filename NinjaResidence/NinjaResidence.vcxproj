@@ -18,6 +18,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="GAMEMANAGER.cpp" />
+    <ClCompile Include="GAMESCENE.cpp" />
+    <ClCompile Include="GameChara.cpp" />
+    <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="SCENE.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="STAGESERECTSCENE.cpp" />
+    <ClCompile Include="TITLESCENE.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DirectX.h" />
+    <ClInclude Include="GAMEMANAGER.h" />
+    <ClInclude Include="GAMESCENE.h" />
+    <ClInclude Include="GameChara.h" />
+    <ClInclude Include="MapChip.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="SCENE.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="STAGESERECTSCENE.h" />
+    <ClInclude Include="TITLESCENE.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{403C29D2-79ED-4A0B-B6DF-ECC080D85F07}</ProjectGuid>
@@ -123,15 +147,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Control.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Render.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Main.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
