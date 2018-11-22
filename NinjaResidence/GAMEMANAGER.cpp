@@ -1,11 +1,5 @@
 #include "GAMEMANAGER.h"
 
-#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "d3dx9.lib")
-#pragma comment(lib,"SoundLib.lib")
 
 DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
