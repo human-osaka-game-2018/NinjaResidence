@@ -26,7 +26,7 @@ private:
 	MapReverse * m_pMapReverse = NULL;
 	Scene * pScene = NULL;
 public:
-	GameScene(DirectX* pDirectX, int ChosedStage);
+	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();
 	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数

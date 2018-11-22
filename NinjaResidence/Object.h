@@ -2,7 +2,9 @@
 #include <vector>
 
 #include "SCENE.h"
+#include "SoundsManager.h"
 
+using SoundLib::SoundsManager;
 
 enum KeyDirection
 {
@@ -11,6 +13,7 @@ enum KeyDirection
 	LEFT,
 	RIGHT,
 	SPACE,
+	SoundOn,
 };
 
 class Object
@@ -33,8 +36,8 @@ public:
 	*/
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 
-	Object(DirectX* pDirectX);
-	Object(DirectX* pDirectX, Object* MapChip) {};
+	Object(DirectX* pDirectX, SoundsManager* pSoundManager);
+	Object(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) {};
 	~Object();
 
 	/**
@@ -90,6 +93,8 @@ public:
 
 protected:
 	DirectX * m_pDirectX = NULL;
+	SoundsManager* m_pSoundManager = NULL;
+
 	/*static */std::vector< std::vector<int> > MapData;
 	//!çs
 	int row = 0;

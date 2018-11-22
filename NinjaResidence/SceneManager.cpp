@@ -3,10 +3,11 @@
 #include "STAGESERECTSCENE.h"
 #include "GAMESCENE.h"
 
-SceneManager::SceneManager(DirectX* pDirectX):m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
+SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager):m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
-	m_pScene = new TitleScene(pDirectX);
+	m_pSoundManager = pSoundManager;
+	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
 	//ゲームシーンへショートカットする
 	//m_pScene = new GameScene(pDirectX,5);
 
@@ -28,19 +29,19 @@ void SceneManager::Update()
 
 		case TITLE_SCENE:
 			delete m_pScene;
-			m_pScene = new  TitleScene(m_pDirectX);
+			m_pScene = new  TitleScene(m_pDirectX, m_pSoundManager);
 			m_CurrentScene = m_NextScene;
 			break;
 		case STAGESELECT_SCENE:
 			delete m_pScene;
-			m_pScene = new  StageSerectScene(m_pDirectX);
+			m_pScene = new  StageSerectScene(m_pDirectX, m_pSoundManager);
 			m_CurrentScene = m_NextScene;
 			break;
 
 		case GAME_SCENE:
 			int ChosedStage = m_pScene->GetStageNum();
 			delete m_pScene;
-			m_pScene = new  GameScene(m_pDirectX, ChosedStage);
+			m_pScene = new  GameScene(m_pDirectX, m_pSoundManager, ChosedStage);
 			m_CurrentScene = m_NextScene;
 			break;
 		}

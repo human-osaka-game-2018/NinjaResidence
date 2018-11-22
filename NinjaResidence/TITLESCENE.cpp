@@ -1,7 +1,7 @@
 #include "SCENE.h"
 #include "TITLESCENE.h"
 
-TitleScene::TitleScene(DirectX* pDirectX) :Scene(pDirectX)
+TitleScene::TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
 {
 	pScene = this;
 	ReadTexture();

@@ -1,8 +1,8 @@
 #include "GAMESCENE.h"
 
-GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
+GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage) :Scene(pDirectX,pSoundManager)
 {
-	m_pDirectX = pDirectX;
+
 	StageNum = ChosedStage;
 	pScene = this;
 	m_pBusyMapChip = new MapChip(pDirectX);
@@ -84,6 +84,8 @@ void GameScene::ReadTexture()
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
+
+	m_pSoundManager->AddFile("Sound/nc62985.wav", "DECISION");
 
 }
 void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)

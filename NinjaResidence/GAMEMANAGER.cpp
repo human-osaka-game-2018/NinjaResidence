@@ -1,7 +1,9 @@
 #include "GAMEMANAGER.h"
 
+
 DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
+SoundsManager* GAMEMANAGER::pSoundManager = NULL;
 HWND GAMEMANAGER::hWnd = NULL;
 bool GAMEMANAGER::WinMode = true;
 bool GAMEMANAGER::DeviceLost = false;
@@ -14,6 +16,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	DeviceLost = false;
 	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
+	pSoundManager =new SoundsManager;
 	//Windows初期化情報の設定
 	Wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	Wndclass.lpfnWndProc = WndProc;
@@ -23,13 +26,13 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	Wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	Wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	Wndclass.lpszMenuName = NULL;
-	Wndclass.lpszClassName = TEXT("忍者屋敷");	//クラス名
-											//Windowの登録
+	Wndclass.lpszClassName = ApiName;	//クラス名
+	//Windowの登録
 	RegisterClass(&Wndclass);
 	//Windowの生成
 	hWnd = CreateWindow(
-		TEXT("忍者屋敷"),					//ウィンドウのクラス名
-		TEXT("忍者屋敷"), 					//ウィンドウのタイトル
+		ApiName,					//ウィンドウのクラス名
+		ApiName, 					//ウィンドウのタイトル
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,	//ウィンドウスタイル
 		CW_USEDEFAULT,						// ウィンドウの横方向の位置x
 		CW_USEDEFAULT,						// ウィンドウの縦方向の位置y
@@ -42,7 +45,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	);
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-
+	pSoundManager->Initialize();
 	pDirectX->InitPresentParameters(hWnd);
 	pDirectX->BuildDXDevice(hWnd, WinMode, "texture/Block_Integration.png");
 
@@ -51,6 +54,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 GAMEMANAGER::~GAMEMANAGER()
 {
 	delete pDirectX;
+	delete pSoundManager;
 }
 
 
@@ -69,6 +73,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 	pDirectX->ReleaseDx();
 	pDirectX->BuildDXDevice(hWnd, WinMode, "texture/Block_Integration.png");
 	//MUST:ファイルの再読込
+	pSoundManager->Initialize();
 	pSceneManager->ReadTexture();
 
 	if (FAILED(hr)) {
@@ -125,7 +130,7 @@ int GAMEMANAGER::MessageLoop()
 	DWORD SyncNow;
 	timeBeginPeriod(1);
 	ZeroMemory(&msg, sizeof(msg));
-	pSceneManager = new SceneManager(pDirectX);
+	pSceneManager = new SceneManager(pDirectX,pSoundManager);
 	while (msg.message != WM_QUIT)
 	{
 		Sleep(1);
