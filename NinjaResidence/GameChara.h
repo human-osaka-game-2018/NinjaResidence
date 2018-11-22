@@ -20,18 +20,22 @@ extern enum koujirou
 class GameChara
 {
 private:
-	CENTRAL_STATE m_Player = { 400,210,(40 * 2),(40 * 4) };
+	CENTRAL_STATE m_Player = { 399,210,(40 * 2),(40 * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	int MapCharaPositionX;
 	int MapCharaPositionX2;
 	int MapCharaPositionY;
+	int m_prevMapCharaPositionX;
+	int m_prevMapCharaPositionX2;
+	int m_prevMapCharaPositionY;
 	int MapChara[5];
 	//int MapChara[200][200];
 public:
 	koujirou abc;
 	Scene * m_pScene;
 	MapChip * m_pMapChip;
+	void prevSaveMapCharaPos();
 	void GameCharaKeyOperation();
 	void MapScroolCheck();
 	bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);

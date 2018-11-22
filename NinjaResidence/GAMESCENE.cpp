@@ -28,6 +28,7 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
+	m_pGameChara->prevSaveMapCharaPos();
 		if (m_pDirectX->GetKeyStatus(DIK_UP))
 		{
 			m_pGameChara->abc = UP;
