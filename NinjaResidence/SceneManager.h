@@ -11,9 +11,9 @@ class SceneManager
 {
 private:
 	SCENE_NUM	m_CurrentScene;	//ç°ÇÃÉVÅ[Éì
-	Scene*	m_pScene;
+	Scene*	m_pScene = NULL;
 	SCENE_NUM m_NextScene;
-	DirectX * m_pDirectX;
+	DirectX * m_pDirectX = NULL;
 
 public:
 	SceneManager(DirectX* pDirectX);

@@ -1,4 +1,4 @@
-#include "DirectXlib.h"
+#include "DirectX.h"
 #include "GAMEMANAGER.h"
 
 
@@ -109,7 +109,7 @@ HRESULT DirectX::InitDinput(HWND hWnd)
 
 HRESULT DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
 	//ダイレクト３Dの初期化関数を呼ぶ
-	if (FAILED(InitD3d(hWnd,FilePath)))
+	if (FAILED(InitD3d(hWnd, FilePath)))
 	{
 		return E_FAIL;
 	}
@@ -200,10 +200,11 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 */
 
 void DirectX::CheckKeyStatus() {
+	const int MaxKeyNumber = 256;
 	HRESULT hr = m_pKeyDevice->Acquire();
 	if ((hr == DI_OK) || (hr == S_FALSE)) {
 		m_pKeyDevice->GetDeviceState(sizeof(m_KeyState), &m_KeyState);
-		for (int i = 0; i < 0xED; i++) {
+		for (int i = 0; i < MaxKeyNumber; i++) {
 			if (m_KeyState[i] & 0x80)
 			{
 				if (m_KeyOldState[i] == KeyOn)
@@ -248,12 +249,23 @@ void DirectX::ClearDisplay() {
 void DirectX::PresentsDevice() {
 	m_pD3Device->Present(NULL, NULL, NULL, NULL);
 }
-void DirectX::DrowSceneBegin() {
+void DirectX::DrawSceneBegin() {
 	m_pD3Device->BeginScene();
 }
-void DirectX::DrowSceneEnd() {
+void DirectX::DrawSceneEnd() {
 	m_pD3Device->EndScene();
 }
+
+void DirectX::RenderingBegin() {
+	ClearDisplay();
+	DrawSceneBegin();
+}
+
+void DirectX::RenderingEnd() {
+	DrawSceneEnd();
+	PresentsDevice();
+}
+
 /**
 *画像描画処理
 */
@@ -264,7 +276,7 @@ void DirectX::LoadTexture(LPCSTR FilePath, string TextureKey) {
 		FilePath,
 		&m_pTexture[TextureKey]);
 }
-void DirectX::DrowTexture(string TextureKey, const CUSTOMVERTEX* TextureSize) {
+void DirectX::DrawTexture(string TextureKey, const CUSTOMVERTEX* TextureSize) {
 	m_pD3Device->SetTexture(0, m_pTexture[TextureKey]);
 	m_pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, TextureSize, sizeof(CUSTOMVERTEX));
 }
@@ -280,7 +292,7 @@ void DirectX::ClearTexture() {
 *DxFont
 */
 
-void DirectX::DrowWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
+void DirectX::DrawWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
 	m_pFont[FontNumber]->DrawText(
 		NULL,		// NULL
 		text,		// 描画テキスト

@@ -2,34 +2,37 @@
 #include "MapChip.h"
 
 
-GameChara::GameChara(Scene * pScene)
+GameChara::GameChara(DirectX* pDirectX, Object* MapChip) :Object(pDirectX) 
 {
-	m_pScene = pScene;
-	m_pMapChip = new MapChip(pScene);
-	m_DisplayCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
-	m_DisplayCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 80 / 512.f, 0.f };
-	m_DisplayCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 80 / 512.f,  160 / 512.f };
-	m_DisplayCharaCoordinate[3] = { m_Player.x,						m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 0.f,   160 / 512.f };       
-	m_WorldCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
-	m_WorldCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 80 / 512.f, 0.f };
-	m_WorldCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 80 / 512.f,  160 / 512.f };
-	m_WorldCharaCoordinate[3] = { m_Player.x,						m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 0.f,   160 / 512.f };
+	//MapChipの情報を取得するために必要
+	m_pMapChip = MapChip;
+	row = m_pMapChip->getRow();
+	colunm = m_pMapChip->getColunm();
+	CreateSquareVertex(m_Player, m_DisplayCharaCoordinate, 0xFFFFFFFF,0,0, CharTu, CharTv);
+	//m_DisplayCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
+	//m_DisplayCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, CharTu, 0.f };
+	//m_DisplayCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, CharTu,  CharTv };
+	//m_DisplayCharaCoordinate[3] = { m_Player.x,						m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 0.f,   CharTv };
+
+	CreateSquareVertex(m_Player, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
+	//m_WorldCharaCoordinate[0] = { m_Player.x,						m_Player.y,						1.f, 1.f, 0xFFFFFFFF, 0.f,   0.f };
+	//m_WorldCharaCoordinate[1] = { m_Player.x + m_Player.scale_x,	m_Player.y,						1.f, 1.f, 0xFFFFFFFF, CharTu, 0.f };
+	//m_WorldCharaCoordinate[2] = { m_Player.x + m_Player.scale_x,	m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, CharTu,  CharTv };
+	//m_WorldCharaCoordinate[3] = { m_Player.x,						m_Player.y + m_Player.scale_y,  1.f, 1.f, 0xFFFFFFFF, 0.f,   CharTv };
 }
 
 
 
 GameChara::~GameChara()
 {
-	delete m_pMapChip;
-	m_pMapChip = NULL;
 }
 
 
 
-void GameChara::GameCharaKeyOperation()
+int GameChara::KeyOperation(KeyDirection vec)
 {
-//Key操作での処理
-	switch (abc)
+	//Key操作での処理
+	switch (vec)
 	{
 	case UP:
 		m_WorldCharaCoordinate[0].y -= 30.f;
@@ -43,6 +46,7 @@ void GameChara::GameCharaKeyOperation()
 			m_DisplayCharaCoordinate[2].y -= 30.f;
 			m_DisplayCharaCoordinate[3].y -= 30.f;
 		}
+		//return MapScrollY;
 		break;
 	case DOWN:
 		////今のところ無し
@@ -71,6 +75,7 @@ void GameChara::GameCharaKeyOperation()
 			m_DisplayCharaCoordinate[2].x += 10.f;
 			m_DisplayCharaCoordinate[3].x += 10.f;
 		}
+		return MapScrollX;
 		break;
 	case LEFT:
 		//左に移動
@@ -85,7 +90,10 @@ void GameChara::GameCharaKeyOperation()
 			m_DisplayCharaCoordinate[2].x -= 10.f;
 			m_DisplayCharaCoordinate[3].x -= 10.f;
 		}
+		return MapScrollX;
 		break;
+		//m_pMapChip->MapScrollX = 0;
+		//m_pMapChip->MapScrollY = 0;
 	}
 }
 
@@ -220,27 +228,7 @@ void GameChara::GameCharaUpdate()
 
 
 
-bool GameChara::RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB)
+void GameChara::Render()
 {
-	//四角形の当たり判定
-	if ((pObjA[0].x <= pObjB[0].x && pObjB[0].x <= pObjA[1].x) ||
-		(pObjA[0].x <= pObjB[1].x && pObjB[1].x <= pObjA[1].x) ||
-		(pObjB[0].x <= pObjA[0].x && pObjA[1].x <= pObjB[1].x))
-	{
-		if ((pObjA[0].y <= pObjB[0].y && pObjB[0].y <= pObjA[3].y) ||
-			(pObjA[0].y <= pObjB[3].y && pObjB[3].y <= pObjA[3].y) ||
-			(pObjB[0].y <= pObjA[0].y && pObjA[3].y <= pObjB[3].y))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-
-void GameChara::GameCharaRender()
-{
-	m_pScene->TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
+	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
 }

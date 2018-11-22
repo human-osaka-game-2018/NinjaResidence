@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "GAMESCENE.h"
+#include "Object.h"
 
 
 class GameScene;
@@ -9,18 +10,11 @@ class MapChip;
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
-extern enum koujirou
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-};
 
-class GameChara
+class GameChara :public Object
 {
 private:
-	CENTRAL_STATE m_Player = { 399,210,(40 * 2),(40 * 4) };
+	CENTRAL_STATE m_Player = { 400,10,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	int MapCharaPositionX;
@@ -29,18 +23,14 @@ private:
 	int m_prevMapCharaPositionX;
 	int m_prevMapCharaPositionX2;
 	int m_prevMapCharaPositionY;
-	int MapChara[5];
-	//int MapChara[200][200];
+	Object* m_pMapChip = NULL;
 public:
-	koujirou abc;
-	Scene * m_pScene;
-	MapChip * m_pMapChip;
+
 	void prevSaveMapCharaPos();
 	void GameCharaKeyOperation();
 	void MapScroolCheck();
-	bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
-	void GameCharaUpdate();
-	void GameCharaRender();
-	GameChara(Scene * pScene);
+	void Update();
+	void Render();
+	GameChara(DirectX* pDirectX, Object* MapChip);
 	~GameChara();
 };

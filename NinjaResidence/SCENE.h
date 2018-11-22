@@ -4,6 +4,9 @@
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
+#define CENTRAL_Y (DISPLAY_HEIGHT / 2)
+#define CENTRAL_X (DISPLAY_WIDTH / 2)
+
 enum SCENE_NUM
 {
 	SCENE_NONE,
@@ -29,7 +32,6 @@ class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//éüÇÃÉVÅ[Éì
 public:
-	virtual void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 	SCENE_NUM Getm_NextScene()
 	{
 		return m_NextScene;
