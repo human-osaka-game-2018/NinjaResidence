@@ -105,7 +105,6 @@ void GameChara::KeyOperation(KeyDirection vec)
 	case SoundOn:
 		m_pSoundManager->Start("DECISION");
 		break;
-
 	}
 }
 

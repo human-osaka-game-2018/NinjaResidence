@@ -25,6 +25,7 @@ private:
 	Object * m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
 	MapReverse * m_pMapReverse = NULL;
 	Scene * pScene = NULL;
+	
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();

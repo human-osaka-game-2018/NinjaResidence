@@ -89,8 +89,6 @@ public:
 		return MapData[height][width];
 	}
 
-
-
 protected:
 	DirectX * m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
@@ -102,7 +100,6 @@ protected:
 	int colunm = 0;
 
 	const float CELL_SIZE = 40.f;
-
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };
