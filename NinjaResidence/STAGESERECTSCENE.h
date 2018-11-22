@@ -16,7 +16,7 @@ private:
 	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270,270 };
 
 public:
-	StageSerectScene(DirectX* pDirectX);
+	StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~StageSerectScene();
 	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数

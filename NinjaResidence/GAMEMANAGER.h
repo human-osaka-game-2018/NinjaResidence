@@ -7,12 +7,22 @@
 
 #include "DirectX.h"
 #include "SceneManager.h"
+#include "SoundsManager.h"
+
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "d3dx9.lib")
+#pragma comment(lib,"SoundLib.lib")
 
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
+using SoundLib::SoundsManager;
 
 class SceneManager;
 
@@ -25,12 +35,13 @@ public:
 	static void ChangeDisplayMode(void);
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 private:
+	const char ApiName[10] = "îEé“âÆï~";
 	static DirectX* pDirectX;
 	static SceneManager* pSceneManager;
 	static HWND hWnd;
 	static bool WinMode;	//true:WindowÅ@false:Full
 	static bool DeviceLost;
 	static RECT WinRect;			//Window Mode Ç≈ÇÃà íuëÂÇ´Ç≥
-
+	static SoundLib::SoundsManager* pSoundManager;
 };
 

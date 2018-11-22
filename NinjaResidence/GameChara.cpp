@@ -3,7 +3,7 @@
 
 using  namespace MapBlock;
 
-GameChara::GameChara(DirectX* pDirectX, Object* MapChip) :Object(pDirectX)
+GameChara::GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) :Object(pDirectX,pSoundManager)
 {
 	Gravity = 15.f;
 	//MapChip‚Ìî•ñ‚ðŽæ“¾‚·‚é‚½‚ß‚É•K—v
@@ -25,7 +25,9 @@ GameChara::~GameChara()
 {
 }
 
-void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate,float MoveQuantity)
+
+
+int GameChara::KeyOperation(KeyDirection vec)
 {
 	switch (vec)
 	{
@@ -101,6 +103,9 @@ void GameChara::KeyOperation(KeyDirection vec)
 	case LEFT:
 		//¶‚ÉˆÚ“®
 		CharaMoveOperation(LEFT, m_WorldCharaCoordinate, m_DisplayCharaCoordinate, CharaMoveSpeed);
+		break;
+	case SoundOn:
+		m_pSoundManager->Start("DECISION");
 		break;
 
 	}

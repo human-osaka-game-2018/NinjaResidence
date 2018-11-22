@@ -1,6 +1,6 @@
 #include "STAGESERECTSCENE.h"
 
-StageSerectScene::StageSerectScene(DirectX* pDirectX) :Scene(pDirectX)
+StageSerectScene::StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
 {
 	pScene = this;
 	ReadTexture();

@@ -50,6 +50,6 @@ public:
 	void CharaInforSave(int MapReverse1, Object* MapChip);
 	void Update();
 	void Render();
-	GameChara(DirectX* pDirectX, Object* MapChip);
+	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
 	~GameChara();
 };

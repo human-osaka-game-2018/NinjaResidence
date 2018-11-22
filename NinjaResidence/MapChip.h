@@ -39,7 +39,7 @@ private:
 public:
 
 	//static std::vector< std::vector<int> > MapData;
-	MapChip(DirectX* pDirectX);
+	MapChip(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~MapChip();
 	void Create(const char *filename);
 	void Render();

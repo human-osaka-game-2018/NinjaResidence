@@ -1,11 +1,15 @@
 #pragma once
 
 #include "GAMEMANAGER.h"
+#include "SoundsManager.h"
+
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 #define CENTRAL_Y (DISPLAY_HEIGHT / 2)
 #define CENTRAL_X (DISPLAY_WIDTH / 2)
+
+using SoundLib::SoundsManager;
 
 enum SCENE_NUM
 {
@@ -40,7 +44,7 @@ public:
 	{
 		m_NextScene = NextScene;
 	}
-	Scene(DirectX* pDirectX);
+	Scene(DirectX* pDirectX, SoundsManager* pSoundManager);
 	virtual ~Scene();
 	virtual SCENE_NUM Update() = 0;
 	virtual void ReadTexture() = 0;
@@ -53,6 +57,7 @@ public:
 		return StageNum;
 	}
 protected:
-	DirectX* m_pDirectX;
+	DirectX* m_pDirectX = NULL;
+	SoundsManager* m_pSoundManager = NULL;
 	int StageNum = 0;
 };
