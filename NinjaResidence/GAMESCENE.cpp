@@ -30,21 +30,21 @@ SCENE_NUM  GameScene::Update()
 	m_pGameChara->prevSaveMapCharaPos();
 		if (m_pDirectX->GetKeyStatus(DIK_UP))
 		{
-			m_pMapChip->setMapScrollY (m_pGameChara->KeyOperation(UP));
+			m_pGameChara->KeyOperation(UP);
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_DOWN))
 		{
-			m_pMapChip->setMapScrollY (m_pGameChara->KeyOperation(DOWN));
+			m_pGameChara->KeyOperation(DOWN);
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_LEFT))
 		{
-			m_pMapChip->setMapScrollX (m_pGameChara->KeyOperation(LEFT));
+			m_pGameChara->KeyOperation(LEFT);
 		}
 		if (m_pDirectX->GetKeyStatus(DIK_RIGHT))
 		{
-			m_pMapChip->setMapScrollX (m_pGameChara->KeyOperation(RIGHT));
+			m_pGameChara->KeyOperation(RIGHT);
 		}
-		m_pGameChara->GameCharaUpdate();
+		m_pGameChara->Update();
 	return Getm_NextScene();
 }
 

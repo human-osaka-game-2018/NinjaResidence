@@ -29,7 +29,7 @@ GameChara::~GameChara()
 
 
 
-int GameChara::KeyOperation(KeyDirection vec)
+void GameChara::KeyOperation(KeyDirection vec)
 {
 	//Key操作での処理
 	switch (vec)
@@ -75,7 +75,6 @@ int GameChara::KeyOperation(KeyDirection vec)
 			m_DisplayCharaCoordinate[2].x += 10.f;
 			m_DisplayCharaCoordinate[3].x += 10.f;
 		}
-		return MapScrollX;
 		break;
 	case LEFT:
 		//左に移動
@@ -90,7 +89,6 @@ int GameChara::KeyOperation(KeyDirection vec)
 			m_DisplayCharaCoordinate[2].x -= 10.f;
 			m_DisplayCharaCoordinate[3].x -= 10.f;
 		}
-		return MapScrollX;
 		break;
 		//m_pMapChip->MapScrollX = 0;
 		//m_pMapChip->MapScrollY = 0;
@@ -146,7 +144,7 @@ void GameChara::prevSaveMapCharaPos()
 	m_prevMapCharaPositionY = (int)m_WorldCharaCoordinate[3].y + 10;
 }
 
-void GameChara::GameCharaUpdate()
+void GameChara::Update()
 {
 	GameChara::MapScroolCheck();
 	MapCharaPositionX = (int)m_WorldCharaCoordinate[3].x / 40;
@@ -162,7 +160,7 @@ void GameChara::GameCharaUpdate()
 	m_DisplayCharaCoordinate[2].y += 15.f;
 	m_DisplayCharaCoordinate[3].y += 15.f;
 	//下の方向を確かめる
-	if (m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX + 1] != 0 || m_pMapChip->MapData[MapCharaPositionY][MapCharaPositionX + 2] != 0)
+	if (m_pMapChip->getMapChipData(MapCharaPositionY,MapCharaPositionX) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY,MapCharaPositionX + 1) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY,MapCharaPositionX + 2) != 0)
 	{
 		m_WorldCharaCoordinate[0].y = (float)((MapCharaPositionY - 4) * 40);
 		m_WorldCharaCoordinate[1].y = (float)((MapCharaPositionY - 4) * 40);
@@ -176,7 +174,7 @@ void GameChara::GameCharaUpdate()
 	//上のブロックを確かめる
 	if (m_prevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
-		if (m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX + 1] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX + 2] != 0)
+		if (m_pMapChip->getMapChipData(MapCharaPositionY - 4,MapCharaPositionX) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 4,MapCharaPositionX + 1) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 4,MapCharaPositionX + 2) != 0)
 		{
 			m_WorldCharaCoordinate[0].y = (float)((MapCharaPositionY - 3) * 40);
 			m_WorldCharaCoordinate[1].y = (float)((MapCharaPositionY - 3) * 40);
@@ -191,7 +189,7 @@ void GameChara::GameCharaUpdate()
 	if (m_prevMapCharaPositionX >= m_WorldCharaCoordinate[3].x)
 	{
 		//左の方向のブロックを確かめる
-		if (m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX] != 0)
+		if (m_pMapChip->getMapChipData(MapCharaPositionY - 1,MapCharaPositionX) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 2,MapCharaPositionX) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 3,MapCharaPositionX) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 4,MapCharaPositionX) != 0)
 		{
 			if (m_prevMapCharaPositionX != m_WorldCharaCoordinate[3].x)
 			{
@@ -209,7 +207,7 @@ void GameChara::GameCharaUpdate()
 	if (m_prevMapCharaPositionX2 <= m_WorldCharaCoordinate[2].x)
 	{
 		//右方向のブロックを確かめる
-		if (m_pMapChip->MapData[MapCharaPositionY - 1][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 2][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 3][MapCharaPositionX2] != 0 || m_pMapChip->MapData[MapCharaPositionY - 4][MapCharaPositionX2] != 0)
+		if (m_pMapChip->getMapChipData(MapCharaPositionY - 1,MapCharaPositionX2) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 2,MapCharaPositionX2) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 3,MapCharaPositionX2) != 0 || m_pMapChip->getMapChipData(MapCharaPositionY - 4,MapCharaPositionX2) != 0)
 		{
 			if (m_prevMapCharaPositionX2 != m_WorldCharaCoordinate[2].x)
 			{

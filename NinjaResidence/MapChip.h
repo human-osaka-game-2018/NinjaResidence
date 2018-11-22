@@ -30,6 +30,8 @@ private:
 	int m_MapSelectedHEIGHT;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
+	//int MapScrollY;
+	//int MapScrollX;
 public:
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX);

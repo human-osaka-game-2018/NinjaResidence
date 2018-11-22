@@ -78,8 +78,8 @@ void MapChip::Render()
 			{
 				continue;
 			}
-			int top = FIELD_TOP + (CELL_SIZE * j) + MapScrollY;
-			int left = FIELD_LEFT + (CELL_SIZE * i )+ MapScrollX;
+			int top = FIELD_TOP + (CELL_SIZE * j) + m_MapScrollY;
+			int left = FIELD_LEFT + (CELL_SIZE * i )+ m_MapScrollX;
 			CELL[0].x = left ;
 			CELL[0].y = top ;
 			CELL[1].x = (left + CELL_SIZE);
@@ -110,7 +110,7 @@ void MapChip::Render()
 	}
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
-	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", MapScrollX, MapScrollY);
+	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 }

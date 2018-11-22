@@ -24,10 +24,12 @@ private:
 	int m_prevMapCharaPositionX2;
 	int m_prevMapCharaPositionY;
 	Object* m_pMapChip = NULL;
+	float CharTu = 80 / 512.f;
+	float CharTv = 160 / 512.f;
 public:
 
 	void prevSaveMapCharaPos();
-	void GameCharaKeyOperation();
+	void KeyOperation(KeyDirection vec);
 	void MapScroolCheck();
 	void Update();
 	void Render();

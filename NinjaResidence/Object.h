@@ -19,12 +19,11 @@ public:
 	*キー入力時の内部処理関数
 	*/
 	virtual void KeyOperation();
-	virtual void KeyOperation(int vec) {};
-	virtual int KeyOperation(KeyDirection vec) { return 0; };
+	virtual void KeyOperation(KeyDirection vec) {};
 
 	virtual void Update();
-	virtual bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
 	virtual void Render();
+	virtual void prevSaveMapCharaPos() {};
 
 	/*
 	* @brief テクスチャの貼り付け
@@ -70,6 +69,8 @@ public:
 	int getMapCharaPositionY() {
 		return MapCharaPosition.Y;
 	};
+	int m_MapScrollX = 0;
+	int m_MapScrollY = 0;
 
 	void setMapScrollX(int x);
 	void setMapScrollY(int y);
@@ -91,8 +92,6 @@ protected:
 	//!列
 	int colunm = 0;
 
-	int MapScrollX = 0;
-	int MapScrollY = 0;
 	const float CELL_SIZE = 40.f;
 
 private:
