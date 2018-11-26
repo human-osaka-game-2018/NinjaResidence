@@ -39,9 +39,8 @@ private:
 	static DirectX* pDirectX;
 	static SceneManager* pSceneManager;
 	static HWND hWnd;
-	static bool WinMode;	//true:Window@false:Full
-	static bool DeviceLost;
+	static bool isWindowMode;	//true:Window@false:Full
+	static bool isDeviceLost;
 	static RECT WinRect;			//Window Mode ‚Å‚ÌˆÊ’u‘å‚«‚³
 	static SoundLib::SoundsManager* pSoundManager;
 };
-
