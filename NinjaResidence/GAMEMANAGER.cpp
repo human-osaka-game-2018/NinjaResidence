@@ -5,15 +5,15 @@ DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
 SoundsManager* GAMEMANAGER::pSoundManager = NULL;
 HWND GAMEMANAGER::hWnd = NULL;
-bool GAMEMANAGER::WinMode = true;
-bool GAMEMANAGER::DeviceLost = false;
+bool GAMEMANAGER::isWindowMode = true;
+bool GAMEMANAGER::isDeviceLost;
 RECT GAMEMANAGER::WinRect;
 
 GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
 	hWnd = NULL;
-	WinMode = true;	
-	DeviceLost = false;
+	isWindowMode = true;	
+	isDeviceLost = false;
 	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
 	pSoundManager =new SoundsManager;
@@ -47,7 +47,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	UpdateWindow(hWnd);
 	pSoundManager->Initialize();
 	pDirectX->InitPresentParameters(hWnd);
-	pDirectX->BuildDXDevice(hWnd, WinMode, "texture/Block_Integration.png");
+	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
 
 }
 
@@ -62,23 +62,23 @@ GAMEMANAGER::~GAMEMANAGER()
 void GAMEMANAGER::ChangeDisplayMode(void)
 {
 	HRESULT hr = NULL;
-	WinMode = !WinMode;
+	isWindowMode = !isWindowMode;
 	pDirectX->ClearDisplay();
 	pDirectX->DrawSceneBegin();
 	pDirectX->DrawSceneEnd();
 	pDirectX->PresentsDevice();
 
-	hr = pDirectX->ResetDevice(WinMode, &WinRect,hWnd);
+	hr = pDirectX->ResetDevice(isWindowMode, &WinRect,hWnd);
 
 	pDirectX->ReleaseDx();
-	pDirectX->BuildDXDevice(hWnd, WinMode, "texture/Block_Integration.png");
+	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
 	//MUST:ƒtƒ@ƒCƒ‹‚ÌÄ“Çž
 	pSoundManager->Initialize();
 	pSceneManager->ReadTexture();
 
 	if (FAILED(hr)) {
 		if (hr == D3DERR_DEVICELOST) {
-			DeviceLost = true;
+			isDeviceLost = true;
 		}
 		if (hr == D3DERR_DRIVERINTERNALERROR) {
 			DestroyWindow(hWnd);
@@ -86,7 +86,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 		return;
 	}
 
-	if (WinMode) {
+	if (isWindowMode) {
 		SetWindowLong(hWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
 		SetWindowPos(hWnd, HWND_NOTOPMOST,
 			WinRect.left, WinRect.top,

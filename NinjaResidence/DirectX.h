@@ -153,7 +153,7 @@ public:
 	/**
 	* @brief DirectXデバイスの作成
 	* @param hWnd ウィンドウハンドル
-	* @param WinMode ウィンドウモード　true:WindowMode　false:FullscreenMode
+	* @param isWindowMode ウィンドウモード　true:WindowMode　false:FullscreenMode
 	* @param FilePath デバイス生成チェック用画像ファイルパス
 	*/
 	HRESULT BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
