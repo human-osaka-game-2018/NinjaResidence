@@ -19,41 +19,90 @@ SceneManager::~SceneManager()
 	m_pScene = NULL;
 }
 
-void SceneManager::Update()
+int SceneManager::Update()
 {
 	m_NextScene = m_pScene->GetNextScene();
 	if (m_CurrentScene != m_NextScene)
 	{
+		int ChosedStage = m_pScene->GetStageNum();
 		switch (m_NextScene)
 		{
-
 		case TITLE_SCENE:
-			delete m_pScene;
+			if (!isRunOnce) {
+				delete m_pScene;
+			}
 			m_pScene = new  TitleScene(m_pDirectX, m_pSoundManager);
-			m_CurrentScene = m_NextScene;
+			LoadAction();
+
 			break;
 		case STAGESELECT_SCENE:
-			delete m_pScene;
-			m_pScene = new  StageSerectScene(m_pDirectX, m_pSoundManager);
-			m_CurrentScene = m_NextScene;
-			break;
+			if (!isRunOnce) {
+				delete m_pScene;
+			}
 
+			m_pScene = new  StageSerectScene(m_pDirectX, m_pSoundManager);
+			LoadAction();
+			break;
 		case GAME_SCENE:
-			int ChosedStage = m_pScene->GetStageNum();
-			delete m_pScene;
+			if (!isRunOnce) {
+				delete m_pScene;
+			}
 			m_pScene = new  GameScene(m_pDirectX, m_pSoundManager, ChosedStage);
-			m_CurrentScene = m_NextScene;
+			LoadAction();
 			break;
 		}
 	}
-	m_pScene->Update();
+	if (!isThreadActive) {
+		m_pScene->Update();
+		m_NextScene = m_pScene->Getm_NextScene();
+	}
+	return m_pScene->GetGameState();
 }
 
 void SceneManager::Render()
 {
-	m_pScene->Render();
+	if (!isThreadActive) {
+		m_pScene->Render();
+	}
+	else {
+		LoadAnimation();
+		RECT testName = { 0, 400, 1280, 720 };
+		char TestName[30];
+		sprintf_s(TestName, 30, "TIME_%d", LoadTime);
+		m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
+
+	}
 }
-void SceneManager::ReadTexture()
+void SceneManager::LoadResouce()
 {
 	m_pScene->ReadTexture();
 }
+DWORD WINAPI SceneManager::Thread(LPVOID *data)
+{
+	m_pScene->LoadResouce();
+	ExitThread(0);
+}
+
+void SceneManager::LoadAnimation() {
+	m_pScene->LoadAnimation();
+}
+
+void SceneManager::LoadAction() {
+	++LoadTime;
+	//static bool isRunOnce = false;
+	if (!isRunOnce) {
+	threadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Thread, m_pScene, 0, NULL);
+	ResumeThread(threadHandle);
+		isRunOnce = true;
+		isThreadActive = true;
+	}
+	GetExitCodeThread(threadHandle, &threadResult);
+	if (threadResult != STILL_ACTIVE && LoadTime >= 20) {
+		CloseHandle(threadHandle);
+		isRunOnce = false;
+		LoadTime = 0;
+		isThreadActive = false;
+		m_CurrentScene = m_NextScene;
+	}
+}
+
