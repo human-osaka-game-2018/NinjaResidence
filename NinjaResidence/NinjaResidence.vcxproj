@@ -29,13 +29,17 @@
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="STAGESERECTSCENE.cpp" />
+    <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
+    <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
+    <ClInclude Include="TitleCursol.h" />
+    <ClInclude Include="XinputDevice.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapReverse.h" />
     <ClInclude Include="Object.h" />
