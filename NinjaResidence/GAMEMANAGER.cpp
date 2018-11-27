@@ -1,4 +1,13 @@
+/**
+* @file GAMEMANAGER.cpp
+* @brief Main���[�v����,Window�֘A
+* @author Toshiya Matsuoka
+*/
 #include "GAMEMANAGER.h"
+#include <ctype.h>
+#include <cstdio>
+#include <cstdlib>
+
 
 
 DirectX* GAMEMANAGER::pDirectX = NULL;

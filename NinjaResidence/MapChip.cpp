@@ -3,7 +3,6 @@
 using std::vector;
 using namespace MapBlock;
 
-//コンストラクタでマップチップの生成だけ行う
 MapChip::MapChip(DirectX* pDirectX, SoundsManager* pSoundManager) :Object(pDirectX,pSoundManager)
 {
 	CellInit();

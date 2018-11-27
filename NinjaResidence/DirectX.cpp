@@ -1,3 +1,8 @@
+/**
+* @file DirectX.cpp
+* @brief DirectXä÷òAÇçsÇ§
+* @author Toshiya Matsuoka
+*/
 #include "DirectX.h"
 #include "GAMEMANAGER.h"
 
@@ -195,7 +200,7 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 	m_d3dppFull.FullScreen_RefreshRateInHz = 0;
 	m_d3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 }
-/**
+/*
 *DirectInput
 */
 
@@ -239,7 +244,7 @@ void DirectX::CheckKeyStatus() {
 	}
 }
 
-/**
+/*
 *
 */
 
@@ -266,7 +271,7 @@ void DirectX::RenderingEnd() {
 	PresentsDevice();
 }
 
-/**
+/*
 *âÊëúï`âÊèàóù
 */
 
@@ -288,7 +293,7 @@ void DirectX::ClearTexture() {
 	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
 
 }
-/**
+/*
 *DxFont
 */
 
@@ -325,8 +330,8 @@ void DirectX::ClearFont() {
 	map<string, LPD3DXFONT>().swap(m_pFont);
 
 }
-HRESULT DirectX::ResetDevice(bool WinMode, RECT* WinRect, HWND hWnd) {
-	if (WinMode) {
+HRESULT DirectX::ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd) {
+	if (isWindowMode) {
 		m_D3dPresentParameters = m_d3dppWin;
 	}
 	else {

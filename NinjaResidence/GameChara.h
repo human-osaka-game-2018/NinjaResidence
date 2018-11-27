@@ -4,11 +4,9 @@
 #include "GAMESCENE.h"
 #include "Object.h"
 
-
 class GameScene;
 class MapReverse;
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
 #define CharaMoveSpeed 15
 
 
