@@ -36,4 +36,6 @@ Debug/
 Release/
 *.orig
 *.bak
-html/
+*.tmp
+html/*
+!html/*.chm
