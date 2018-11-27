@@ -9,7 +9,7 @@ class Scene;
 class StageSerectScene : public Scene
 {
 private:
-	CUSTOMVERTEX  TitleBackground[4];
+	CUSTOMVERTEX  SerectBackground[4];
 	Scene * pScene = NULL;
 	int timecount = 0;
 	CENTRAL_STATE m_StageImage[5];
@@ -18,8 +18,8 @@ private:
 public:
 	StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~StageSerectScene();
-	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
-	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
-	void ReadTexture();
+	SCENE_NUM Update();  
+	void Render();       
+	void LoadResouce();
 
 };

@@ -3,9 +3,6 @@
 #include "SCENE.h"
 #include "SoundsManager.h"
 
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
-
 using SoundLib::SoundsManager;
 
 enum SCENE_NUM;
@@ -13,16 +10,29 @@ class Scene;
 
 class SceneManager
 {
-private:
-	SCENE_NUM	m_CurrentScene;	//今のシーン
-	Scene*	m_pScene = NULL;
-	SCENE_NUM m_NextScene;
-	DirectX * m_pDirectX = NULL;
-	SoundsManager* m_pSoundManager = NULL;
 public:
 	SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~SceneManager();
-	void Update();
+	int Update();
 	void Render();
-	void ReadTexture();
+	static void LoadResouce();
+	static DWORD WINAPI Thread(LPVOID *data);
+
+private:
+	void LoadAnimation();
+
+	SCENE_NUM	m_CurrentScene;	//今のシーン
+	//! メモリリーク検知器では検出されないと思われる。
+	static Scene*	m_pScene;
+	SCENE_NUM m_NextScene;
+	DirectX * m_pDirectX = NULL;
+	SoundsManager* m_pSoundManager = NULL;
+	int BGMvolume = 100;
+	int SEvolume = 100;
+	HANDLE threadHandle;
+	DWORD threadResult;
+	void LoadAction();
+	bool isRunOnce = false;
+	bool isThreadActive = false;
+	int LoadTime = 0;
 };

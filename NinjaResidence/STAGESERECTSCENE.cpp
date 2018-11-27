@@ -3,8 +3,7 @@
 StageSerectScene::StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
 {
 	pScene = this;
-	ReadTexture();
-	CreateSquareVertex(TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	CreateSquareVertex(SerectBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	m_StageImage[0] = {CENTRAL_X,CENTRAL_Y,250,250 };
 	m_StageImage[1] = {CENTRAL_X + 250,CENTRAL_Y,200,200 };
 	m_StageImage[2] = {CENTRAL_X + 75,CENTRAL_Y ,150,150 };
@@ -22,9 +21,43 @@ StageSerectScene::~StageSerectScene()
 SCENE_NUM  StageSerectScene::Update()
 {
 	timecount++;
+	m_pXinputDevice->DeviceUpdate();
+
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
 		SetNextScene(GAME_SCENE);		
 	}
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
+		Setm_NextScene(GAME_SCENE);
+	}
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
+	{
+		if (StageNum < 5) {
+			StageNum++;
+		}
+		else StageNum = 0;
+	}
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
+	{
+		if (StageNum > 0) {
+			StageNum--;
+		}
+		else StageNum = 5;
+	}
+	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	{
+		if (StageNum < 5) {
+			StageNum++;
+		}
+		else StageNum = 0;
+	}
+	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	{
+		if (StageNum > 0) {
+			StageNum--;
+		}
+		else StageNum = 5;
+	}
+
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT)) {
 		if (StageNum < 5) {
 			StageNum++;
@@ -42,9 +75,8 @@ SCENE_NUM  StageSerectScene::Update()
 
 void StageSerectScene::Render()
 {
-	m_pDirectX->RenderingBegin();
 	
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", SerectBackground);
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
 	sprintf_s(TestText, 30, "%d", timecount);
@@ -75,10 +107,9 @@ void StageSerectScene::Render()
 	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffffffff);
 
-	m_pDirectX->RenderingEnd();
 }
 
-void StageSerectScene::ReadTexture()
+void StageSerectScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture(NULL, "TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
