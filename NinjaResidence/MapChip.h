@@ -6,8 +6,6 @@
 
 class GameScene;
 
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 #define FIELD_LEFT 0
 #define FIELD_TOP  0 
@@ -41,6 +39,10 @@ public:
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~MapChip();
+	/**
+	* @brief マップチップの生成
+	* @param filename CSVファイルの相対パス
+	*/
 	void Create(const char *filename);
 	void Render();
 	void Update();

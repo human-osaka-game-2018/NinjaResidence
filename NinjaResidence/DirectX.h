@@ -11,17 +11,8 @@
 #include <dinput.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <cstdio>
-#include <cstdlib>
 #include <map>
 
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
-
-
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 struct CUSTOMVERTEX
 {
@@ -62,31 +53,29 @@ public:
 	void PresentsDevice();
 
 	/**
-	*@brief 描画開始関数
-	* @sa DrowSceneEnd()
-	* @detail 上記関数とセットで使うこと
+	* @brief 描画開始関数
+	* @sa DrowSceneEnd
+	* @details DrowSceneEndとセットで使うこと
 	*/
 	void DrawSceneBegin();
 	/**
 	* @brief 描画終了関数
 	* @sa DrowSceneBegin()
-	* @detail 上記関数とセットで使うこと
+	* @details DrowSceneBeginとセットで使うこと
 	*/
 	void DrawSceneEnd();
 
 
 	/**
-	*@brief 描画開始関数
-	* @sa RenderingEnd()
-	* @detail 上記関数とセットで使うこと
-	* ClearDisplayとDrowSceneBeginを行う
+	* @brief 描画開始関数
+	* @sa RenderingEnd
+	* @details ClearDisplayとDrowSceneBeginを行う
 	*/
 	void RenderingBegin();
 	/**
 	* @brief 描画終了関数
-	* @sa RenderingBegin()
-	* @detail 上記関数とセットで使うこと
-	* DrowSceneEndとPresentsDeviceを行う
+	* @sa RenderingBegin
+	* @details DrowSceneEndとPresentsDeviceを行う
 	*/
 	void RenderingEnd();
 
@@ -115,7 +104,7 @@ public:
 	void DrawTexture(std::string TextureKey, const CUSTOMVERTEX* TextureSize);
 	/**
 	* @brief 画像消去
-	* @param TextureKey 画像の格納キー
+	* @param TexKey 画像の格納キー
 	*/
 	void eraseTexture(std::string TexKey);
 	/**
@@ -124,19 +113,19 @@ public:
 	void ClearTexture();
 	/**
 	* @brief DXフォント描画設定
-	* @param Texts 表示内容
-	* @param Vertex 表示範囲
-	* @param FontNum 表示文字設定の格納キー
+	* @param rect 表示範囲
+	* @param text 表示内容
+	* @param FontNumber 表示文字設定の格納キー
 	* @param TextFormat フォーマット
 	* @param color 色
 	*/
 	void DrawWord(RECT rect, LPCSTR text, std::string FontNumber, int TextFormat = DT_LEFT, DWORD color = 0xff000000);
 	/**
 	* @brief DXフォント文字設定
-	* @param WordHeight 文字の高さ
-	* @param WordWidth 文字の幅
+	* @param height 文字の高さ
+	* @param width 文字の幅
 	* @param FontKey 表示文字設定の格納先配列番号
-	* @param FontName 使用するフォント名
+	* @param FontType 使用するフォント名
 	* @param CharSet キャラセット（英字ならDEFAULT_CHARSET，シフトJISならSHIFTJIS_CHARSET）
 	*/
 	void SetFont(int height, int width, std::string FontKey, LPCSTR FontType = "ＭＳ　ゴシック", int CharSet = DEFAULT_CHARSET);
@@ -156,14 +145,23 @@ public:
 	* @param isWindowMode ウィンドウモード　true:WindowMode　false:FullscreenMode
 	* @param FilePath デバイス生成チェック用画像ファイルパス
 	*/
-	HRESULT BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
+	HRESULT BuildDXDevice(HWND hWnd, bool isWindowMode, LPCSTR FilePath);
 	/**
 	* @brief 各ウィンドウモードのパラメータセッティング
 	* @param hWnd ウィンドウハンドル
 	*/
 	void InitPresentParameters(HWND hWnd);
+	/**
+	* @brief 解放処理
+	*/
 	void ReleaseDx();
-	HRESULT ResetDevice(bool WinMode, RECT* WinRect, HWND hWnd);
+	/**
+	* @brief デバイスリセット
+	* @param isWindowMode ウィンドウのモード
+	* @param WinRect ウィンドウサイズの保蔵領域
+	* @param hWnd ウィンドウハンドル
+	*/
+	HRESULT ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd);
 private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL; 

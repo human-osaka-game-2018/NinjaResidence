@@ -266,7 +266,6 @@ void GameChara::Update()
 }
 
 
-
 void GameChara::Render()
 {
 	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
