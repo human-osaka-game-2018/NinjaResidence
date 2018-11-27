@@ -1,6 +1,6 @@
 /**
 * @file GAMEMANAGER.h
-* @brief Mainループ処理
+* @brief Mainループ処理,Window関連
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -12,9 +12,6 @@
 
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
-
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 using SoundLib::SoundsManager;
 
@@ -28,6 +25,7 @@ public:
 	int MessageLoop();
 	static void ChangeDisplayMode(void);
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+
 private:
 	const char ApiName[10] = "忍者屋敷";
 	static DirectX* pDirectX;

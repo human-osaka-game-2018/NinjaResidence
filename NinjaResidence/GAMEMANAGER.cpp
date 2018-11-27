@@ -1,6 +1,6 @@
 /**
 * @file GAMEMANAGER.cpp
-* @brief Mainï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½,Windowï¿½Ö˜A
+* @brief Mainƒ‹[ƒvˆ—,WindowŠÖ˜A
 * @author Toshiya Matsuoka
 */
 #include "GAMEMANAGER.h"
@@ -62,8 +62,12 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 
 GAMEMANAGER::~GAMEMANAGER()
 {
+	delete pSceneManager;
+	pSceneManager = NULL;
 	delete pDirectX;
+	pDirectX = NULL;
 	delete pSoundManager;
+	pSoundManager = NULL;
 }
 
 
@@ -83,7 +87,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
 	//MUST:ƒtƒ@ƒCƒ‹‚ÌÄ“Çž
 	pSoundManager->Initialize();
-	pSceneManager->ReadTexture();
+	pSceneManager->LoadResouce();
 
 	if (FAILED(hr)) {
 		if (hr == D3DERR_DEVICELOST) {
@@ -134,6 +138,7 @@ LRESULT CALLBACK GAMEMANAGER::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 
 int GAMEMANAGER::MessageLoop()
 {
+
 	MSG msg;
 	DWORD SyncOld = timeGetTime();	//	ƒVƒXƒeƒ€ŽžŠÔ‚ðŽæ“¾
 	DWORD SyncNow;
@@ -154,26 +159,28 @@ int GAMEMANAGER::MessageLoop()
 			if (SyncNow - SyncOld >= 1000 / 60)//1•bŠÔ‚É60‰ñ‚±‚Ì’†‚É“ü‚é‚Í‚¸
 			{
 				pDirectX->CheckKeyStatus();
-				pDirectX->ClearDisplay();
-				//ƒV[ƒ“‚ÌUpdate‚ÆRender
-				pSceneManager->Update();
+				pDirectX->RenderingBegin();
+
+				msg.message = pSceneManager->Update();
 				pSceneManager->Render();
+
+				pDirectX->RenderingEnd();
+
 				SyncOld = SyncNow;
 			}
 		}
 	}
 	timeEndPeriod(1);
-	delete pSceneManager;
-	
 	return (int)msg.wParam;
 }
 
 
-//ƒƒCƒ“ƒ‹[ƒ`ƒ“
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	GAMEMANAGER* pGameManager = new GAMEMANAGER(hInstance,hPrevInstance,lpCmdLine,nCmdShow);
 	pGameManager->MessageLoop();
 	delete pGameManager;
+	pGameManager = NULL;
 }
