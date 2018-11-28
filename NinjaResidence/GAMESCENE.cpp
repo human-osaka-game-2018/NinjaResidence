@@ -8,6 +8,7 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	m_pMapChip = new MapChip(pDirectX);
 	m_pMapChip->Create("csv/Book1.csv");
 	m_pGameChara = new GameChara(pDirectX, m_pMapChip);
+	m_pMapReverse = new MapReverse(pDirectX,m_pMapChip, m_pGameChara);
 	ReadTexture();
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
@@ -44,8 +45,12 @@ SCENE_NUM  GameScene::Update()
 		{
 			m_pGameChara->KeyOperation(RIGHT);
 		}
+		if (m_pDirectX->GetKeyStatus(DIK_SPACE))
+		{
+ 			m_pMapReverse->GoMapReverse();
+		}
 		m_pGameChara->Update();
-	return Getm_NextScene();
+	return GetNextScene();
 }
 
 void GameScene::Render()

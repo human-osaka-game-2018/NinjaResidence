@@ -18,12 +18,12 @@ class GameScene;
 class MapChip :public Object
 {
 private:
-
 	enum BLOCKTYPE//CSV‚ÌƒuƒƒbƒN‚Ì”Ô†
 	{
 		NONE,
 		ROCK_BLOCK,
 		WOOD_BLOCK,
+		REVERSE_ZONE,
 	};
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;
