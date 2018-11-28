@@ -23,7 +23,7 @@ SCENE_NUM  StageSerectScene::Update()
 {
 	timecount++;
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
-		Setm_NextScene(GAME_SCENE);		
+		SetNextScene(GAME_SCENE);		
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT)) {
 		if (StageNum < 5) {
@@ -37,7 +37,7 @@ SCENE_NUM  StageSerectScene::Update()
 		}
 		else StageNum = 5;
 	}
-	return Getm_NextScene();
+	return GetNextScene();
 }
 
 void StageSerectScene::Render()

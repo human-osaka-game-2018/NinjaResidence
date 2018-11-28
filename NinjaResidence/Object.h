@@ -10,6 +10,7 @@ enum KeyDirection
 	DOWN,
 	LEFT,
 	RIGHT,
+	SPACE,
 };
 
 class Object
@@ -84,6 +85,9 @@ public:
 	int getMapChipData(int height,int width) {
 		return MapData[height][width];
 	}
+
+
+
 protected:
 	DirectX * m_pDirectX = NULL;
 	/*static */std::vector< std::vector<int> > MapData;
@@ -93,6 +97,7 @@ protected:
 	int colunm = 0;
 
 	const float CELL_SIZE = 40.f;
+
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };

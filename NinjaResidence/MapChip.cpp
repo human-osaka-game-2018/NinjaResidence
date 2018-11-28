@@ -104,6 +104,20 @@ void MapChip::Render()
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
+			case REVERSE_ZONE:
+				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[0].x -= 0;
+				CELL[0].y -= 120;
+				CELL[1].x += 80;
+				CELL[1].y -= 120;
+				CELL[2].x += 80;
+				CELL[2].y -= 0;
+				CELL[3].x -= 0;
+				CELL[3].y -= 0;
+				break;
 			}
 			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
