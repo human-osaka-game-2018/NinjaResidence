@@ -40,8 +40,9 @@ void DirectX::ReleaseDx()
 //ダイレクト3Dの初期化関数
 HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
 {
+	HRESULT hr = NULL;
 	// 「Direct3D」オブジェクトの作成
-	if (NULL == (m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	if (!(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
 	{
 		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
 		return E_FAIL;
@@ -53,14 +54,14 @@ HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
 	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.BackBufferCount = 1;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.Windowed = TRUE;
+	d3dpp.Windowed = true;
 
-	if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+	if (FAILED(hr = m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
 		D3DCREATE_MIXED_VERTEXPROCESSING,
 		&d3dpp, &m_pD3Device)))
 	{
 		MessageBox(0, "HALモードでDIRECT3Dデバイスを作成できません\nREFモードで再試行します", NULL, MB_OK);
-		if (FAILED(m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hWnd,
+		if (FAILED(hr = m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hWnd,
 			D3DCREATE_MIXED_VERTEXPROCESSING,
 			&d3dpp, &m_pD3Device)))
 		{
@@ -252,7 +253,7 @@ void DirectX::ClearDisplay() {
 	m_pD3Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0x00), 1.0, 0);
 }
 void DirectX::PresentsDevice() {
-	m_pD3Device->Present(NULL, NULL, NULL, NULL);
+	DeviceState = m_pD3Device->Present(NULL, NULL, NULL, NULL);
 }
 void DirectX::DrawSceneBegin() {
 	m_pD3Device->BeginScene();
@@ -339,4 +340,92 @@ HRESULT DirectX::ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd) {
 		GetWindowRect(hWnd, WinRect);
 	}
 	return m_pD3Device->Reset(&m_D3dPresentParameters);
+}
+
+HRESULT DirectX::RecoverDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
+
+	HRESULT hr = NULL;
+	// 「Direct3D」オブジェクトの作成
+	if (!(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	{
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	m_D3dPresentParameters = (WinMode) ? m_d3dppWin : m_d3dppFull;
+
+	m_pDirect3D->CreateDevice(
+		D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL,
+		hWnd,
+		D3DCREATE_HARDWARE_VERTEXPROCESSING,
+		&m_D3dPresentParameters, &m_pD3Device);
+	//生成チェック
+	if (m_pD3Device == NULL)
+	{
+		//生成に失敗したらDirectXオブジェクトを開放して終了する
+		m_pDirect3D->Release();
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+
+
+	//ダイレクトインプットのオブジェの作成
+	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
+		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDinput, NULL)))
+	{
+		return hr;
+	}
+	//ダイレクトインプットのデバイスの作成
+	if (FAILED(hr = m_pDinput->CreateDevice(GUID_SysKeyboard,
+		&m_pKeyDevice, NULL)))
+	{
+		return hr;
+	}
+	//デバイスをキーボードの設定
+	if (FAILED(hr = m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
+	{
+		return hr;
+	}
+	//協調レベル
+	if (FAILED(hr = m_pKeyDevice->SetCooperativeLevel(
+		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+	{
+		return hr;
+	}
+		//DirectX オブジェクトの生成
+	m_pDirect3D = Direct3DCreate9(
+		D3D_SDK_VERSION);
+	//成功チェック
+	if (m_pDirect3D == NULL)
+	{
+		//生成に失敗したら終了する
+		MessageBox(0, "Direct3Dの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+
+	//「テクスチャオブジェクト」の作成
+	if (FAILED(D3DXCreateTextureFromFileEx(m_pD3Device, FilePath, 100, 100, 0, 0, D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
+		0xff000000, NULL, NULL, &m_pTexture["Test"])))
+	{
+		eraseTexture("Test");
+		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
+		return E_FAIL;
+	}
+	eraseTexture("Test");
+
+
+	//描画設定
+	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCの設定
+	m_pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	//m_pD3Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//頂点に入れるデータを設定
+	m_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
+	return S_OK;
+
 }

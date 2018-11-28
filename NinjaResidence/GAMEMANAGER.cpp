@@ -54,9 +54,10 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	);
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-	pSoundManager->Initialize();
 	pDirectX->InitPresentParameters(hWnd);
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+	pSoundManager->Initialize();
+
 
 }
 
@@ -167,6 +168,30 @@ int GAMEMANAGER::MessageLoop()
 				pDirectX->RenderingEnd();
 
 				SyncOld = SyncNow;
+			}
+			if (D3DERR_DEVICELOST == pDirectX->GetDeviceState()&&
+				hWnd == GetActiveWindow()) {
+				HRESULT hr = NULL;
+				pDirectX->ClearDisplay();
+				pDirectX->DrawSceneBegin();
+				pDirectX->DrawSceneEnd();
+				pDirectX->PresentsDevice();
+
+				hr = pDirectX->ResetDevice(isWindowMode, &WinRect, hWnd);
+
+				pDirectX->ReleaseDx();
+
+				pDirectX->RecoverDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+				//pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+				//if (E_FAIL == pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png")) {
+				//	MessageBox(0, "DirectXDevice‚ÌÄÝ’è‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+				//	msg.message = WM_QUIT;
+				//}
+				pSoundManager->Initialize();
+				pSceneManager->LoadResouce();
+
+				SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+
 			}
 		}
 	}
