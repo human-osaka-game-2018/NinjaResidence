@@ -162,6 +162,13 @@ public:
 	* @param hWnd ウィンドウハンドル
 	*/
 	HRESULT ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd);
+
+	HRESULT GetDeviceState() {
+		return DeviceState;
+	}
+
+	HRESULT RecoverDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
+
 private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL; 
@@ -178,5 +185,5 @@ private:
 
 	HRESULT InitD3d(HWND hWnd, LPCSTR FilePath);
 	HRESULT InitDinput(HWND hWnd);
-	
+	HRESULT DeviceState = NULL;
 };
