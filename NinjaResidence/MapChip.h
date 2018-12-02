@@ -11,9 +11,8 @@ class GameScene;
 
 #define FIELD_LEFT 0
 #define FIELD_TOP  0 
-#define BLOCK_WIDTH  40.0f/DISPLAY_WIDTH
-#define BLOCK_HEIGHT 40.0f/DISPLAY_HEIGHT
-
+#define BLOCK_WIDTH  80.0f/512
+#define BLOCK_HEIGHT 80.0f/512
 
 class MapChip :public Object
 {
@@ -21,9 +20,14 @@ private:
 	enum BLOCKTYPE//CSVのブロックの番号
 	{
 		NONE,
-		ROCK_BLOCK,
-		WOOD_BLOCK,
-		REVERSE_ZONE,
+		WOOD_BLOCK,//足場
+		ROCK_BLOCK,//どんでん返し
+		WOOD_TRACT,//スイッチ
+		ROCK_TRACT,//扉
+		WOOD_REVERSE_ZONE,//仕切り板
+		ROCK_REVERSE_ZONE,//槍
+				          //移動床
+						 //忍術書
 	};
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;

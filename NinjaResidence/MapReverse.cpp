@@ -5,7 +5,7 @@ MapReverse::MapReverse(DirectX* pDirectX, Object* MapChip, GameChara* GameChara)
 {
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
-	MapReverse1 = Surface;
+	MapReverseState = Surface;
 	m_SurfaceMapScrollX = 0;
 	m_SurfaceMapScrollY = 0;
 	m_ReverseMapScrollX = 0;
@@ -21,16 +21,18 @@ MapReverse::~MapReverse()
 
 void MapReverse::GoMapReverse()
 {
+	int MapPosiinonX = m_pGameChara->GetMapCharaPositionX();
+	int MapPosiinonY = m_pGameChara->GetMapCharaPositionY();
 	m_pGameChara->GetDisplayCharaCoordinate();
-	if (m_pMapChip->getMapChipData((m_pGameChara->GetMapCharaPositionY() - 1),( m_pGameChara->GetMapCharaPositionX() - 1))  != 3 &&
-		m_pMapChip->getMapChipData((m_pGameChara->GetMapCharaPositionY() - 1),( m_pGameChara->GetMapCharaPositionX()))  != 3 &&
-		m_pMapChip->getMapChipData((m_pGameChara->GetMapCharaPositionY() - 1),( m_pGameChara->GetMapCharaPositionX() + 1)) != 3 &&
-		m_pMapChip->getMapChipData((m_pGameChara->GetMapCharaPositionY() - 1),( m_pGameChara->GetMapCharaPositionX() + 2)) != 3)
+	if (m_pMapChip->getMapChipData((MapPosiinonY),(MapPosiinonX - 1))  < 5 &&
+		m_pMapChip->getMapChipData((MapPosiinonY),( MapPosiinonX)) < 5 &&
+		m_pMapChip->getMapChipData((MapPosiinonY),( MapPosiinonX+ 1)) < 5 &&
+		m_pMapChip->getMapChipData((MapPosiinonY),( MapPosiinonX+ 2)) < 5)
 	{
 		return;
 	}
 
-	switch (MapReverse1)
+	switch (MapReverseState)
 	{
 		//•\–Ê‚ð— –Ê‚É‚·‚é
 	case Surface:
@@ -40,7 +42,7 @@ void MapReverse::GoMapReverse()
 		m_pMapChip->m_MapScrollX = m_ReverseMapScrollX;
 		m_pMapChip->m_MapScrollY = m_ReverseMapScrollY;
 		m_pMapChip->Create("csv/Book2.csv");
-		MapReverse1 = Reverse;
+		MapReverseState = Reverse;
 		break;
 		//— –Ê‚ð•\–Ê‚É‚·‚é
 	case Reverse:
@@ -50,7 +52,7 @@ void MapReverse::GoMapReverse()
 		m_pMapChip->m_MapScrollX = m_SurfaceMapScrollX;
 		m_pMapChip->m_MapScrollY = m_SurfaceMapScrollY;
 		m_pMapChip->Create("csv/Book1.csv");
-		MapReverse1 = Surface;
+		MapReverseState = Surface;
 		break;
 	}
 }

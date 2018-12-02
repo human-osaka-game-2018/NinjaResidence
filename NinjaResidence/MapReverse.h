@@ -16,12 +16,12 @@ private:
 	int m_SurfaceMapScrollY;
 	int m_ReverseMapScrollX;
 	int m_ReverseMapScrollY;
-	enum MapReverse1
+	enum MapReverseState
 	{
 		Surface,//•\
 		Reverse,//— 
 	};
-	MapReverse1 MapReverse1;
+	MapReverseState MapReverseState;
 	GameChara* m_pGameChara = NULL;
 	Object* m_pMapChip = NULL;
 public:
