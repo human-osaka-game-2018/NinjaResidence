@@ -25,6 +25,6 @@ private:
 	GameChara* m_pGameChara = NULL;
 public:
 	void GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip);
-	MapReverse(DirectX* pDirectX,GameChara * GameChara);
+	MapReverse(DirectX* pDirectX, SoundsManager* pSoundManager,GameChara * GameChara);
 	~MapReverse();
 };

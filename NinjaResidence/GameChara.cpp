@@ -27,7 +27,7 @@ GameChara::~GameChara()
 
 
 
-int GameChara::KeyOperation(KeyDirection vec)
+void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity)
 {
 	switch (vec)
 	{

@@ -182,5 +182,3 @@ private:
 	HRESULT InitDinput(HWND hWnd);
 	
 };
-
-

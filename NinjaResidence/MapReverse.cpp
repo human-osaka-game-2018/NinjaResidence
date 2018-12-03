@@ -2,7 +2,7 @@
 
 using namespace MapBlock;
 
-MapReverse::MapReverse(DirectX* pDirectX, GameChara * GameChara) :Object(pDirectX)
+MapReverse::MapReverse(DirectX* pDirectX, SoundsManager* pSoundManager, GameChara * GameChara) :Object(pDirectX, pSoundManager)
 {
 	m_pGameChara = GameChara;
 	MapReverseState = Surface;

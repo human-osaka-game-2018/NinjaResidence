@@ -3,13 +3,14 @@
 #include "STAGESERECTSCENE.h"
 #include "GAMESCENE.h"
 
-SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager):m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
+SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
+	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
 	m_pSoundManager = pSoundManager;
 	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
 	//ゲームシーンへショートカットする
-	//m_pScene = new GameScene(pDirectX,5);
+	//m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
 
 }
 

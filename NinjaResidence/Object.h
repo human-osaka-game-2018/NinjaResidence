@@ -76,8 +76,8 @@ public:
 	int m_MapScrollX = 0;
 	int m_MapScrollY = 0;
 
-	void setMapScrollX(int x);
-	void setMapScrollY(int y);
+	void setMapScrollX(int x){};
+	void setMapScrollY(int y){};
 
 	int getRow() {
 		return row;
