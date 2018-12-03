@@ -1,15 +1,7 @@
 #include "MapChip.h"
 
 using std::vector;
-<<<<<<< HEAD
 using namespace MapBlock;
-=======
-
-int MapChip::m_MapScrollX = 0;
-int MapChip::m_MapScrollY = 0;
-vector< vector<int> > MapChip::MapData;
-CUSTOMVERTEX MapChip::CELL[4];
->>>>>>> Xåº§æ¨™ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã«å¯¾å¿œã€yåº§æ¨™ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ï¼ˆå½“ãŸã‚Šåˆ¤å®šéå¯¾å¿œï¼‰
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Åƒ}ƒbƒvƒ`ƒbƒv‚Ì¶¬‚¾‚¯s‚¤
 MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
@@ -45,15 +37,15 @@ void MapChip::Create(const char *filename)
 
 	fgets(buf, mapMaxWidth, fp);
 	sscanf_s(buf, "%d, %d", &row, &colunm);
-	
+
 	MapData.resize(colunm);
 
 	for (int j = 0; j<colunm; j++)
 	{
 		MapData[j].resize(row);
 	}
-	
-	
+
+
 	while ((c = getc(fp)) != EOF || y < colunm)
 	{
 		if (isdigit(c))
@@ -62,7 +54,7 @@ void MapChip::Create(const char *filename)
 			i++;
 		}
 		else
-	{
+		{
 			data[i] = NULL;
 			MapData[y][x] = atoi(data);
 			x++;
@@ -87,11 +79,11 @@ void MapChip::Render()
 				continue;
 			}
 			int top = FIELD_TOP + (CELL_SIZE * j) + m_MapScrollY;
-			int left = FIELD_LEFT + (CELL_SIZE * i )+ m_MapScrollX;
-			CELL[0].x = left ;
-			CELL[0].y = top ;
+			int left = FIELD_LEFT + (CELL_SIZE * i) + m_MapScrollX;
+			CELL[0].x = left;
+			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
-			CELL[1].y = top ;
+			CELL[1].y = top;
 			CELL[2].x = (left + CELL_SIZE);
 			CELL[2].y = (top + CELL_SIZE);
 			CELL[3].x = left;

@@ -16,11 +16,6 @@ class GameScene;
 
 namespace MapBlock
 {
-<<<<<<< HEAD
-=======
-private:
-	Scene * m_pScene;
->>>>>>> X座標の当たり判定をスクロールに対応、y座標のスクロール（当たり判定非対応）
 	enum BLOCKTYPE//CSV�̃u���b�N�̔ԍ�
 	{
 		NONE,
