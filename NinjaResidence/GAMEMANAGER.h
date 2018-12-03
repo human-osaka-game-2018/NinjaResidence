@@ -9,12 +9,6 @@
 #include "SceneManager.h"
 #include "SoundsManager.h"
 
-#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "d3dx9.lib")
-#pragma comment(lib,"SoundLib.lib")
 
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
@@ -42,5 +36,5 @@ private:
 	static bool isWindowMode;	//true:WindowÅ@false:Full
 	static bool isDeviceLost;
 	static RECT WinRect;			//Window Mode Ç≈ÇÃà íuëÂÇ´Ç≥
-	static SoundLib::SoundsManager* pSoundManager;
+	static SoundsManager* pSoundManager;
 };
