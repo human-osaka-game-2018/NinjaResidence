@@ -5,12 +5,12 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 
 	StageNum = ChosedStage;
 	pScene = this;
-	m_pBusyMapChip = new MapChip(pDirectX);
+	m_pBusyMapChip = new MapChip(pDirectX, pSoundManager);
 	m_pBusyMapChip->Create("csv/Book1.csv");
-	m_pIdleMapChip = new MapChip(pDirectX);
+	m_pIdleMapChip = new MapChip(pDirectX, pSoundManager);
 	m_pIdleMapChip->Create("csv/Book2.csv");
-	m_pGameChara = new GameChara(pDirectX, m_pBusyMapChip);
-	m_pMapReverse = new MapReverse(pDirectX, m_pGameChara);
+	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
+	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
 	ReadTexture();
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };

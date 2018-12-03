@@ -1,9 +1,9 @@
 #include "SCENE.h"
 
-Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager)
+Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDirectX), m_pSoundManager(pSoundManager)
 {
-	m_pDirectX = pDirectX;
-	m_pSoundManager = pSoundManager;
+	//m_pDirectX = pDirectX;
+	//m_pSoundManager = pSoundManager;
 
 	Scene::ReadTexture();
 }

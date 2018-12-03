@@ -14,12 +14,12 @@ class Scene;
 class MapChip;
 class GameChara;
 class MapReverse;
+class SoundManager;
 
 class GameScene : public Scene
 {
 private:
 	CUSTOMVERTEX  GameBackground[4];
-	DirectX* m_pDirectX = NULL;
 	GameChara * m_pGameChara = NULL;
 	Object * m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
 	Object * m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
