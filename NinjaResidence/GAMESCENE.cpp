@@ -5,10 +5,12 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 	m_pDirectX = pDirectX;
 	StageNum = ChosedStage;
 	pScene = this;
-	m_pMapChip = new MapChip(pDirectX);
-	m_pMapChip->Create("csv/Book1.csv");
-	m_pGameChara = new GameChara(pDirectX, m_pMapChip);
-	m_pMapReverse = new MapReverse(pDirectX,m_pMapChip, m_pGameChara);
+	m_pBusyMapChip = new MapChip(pDirectX);
+	m_pBusyMapChip->Create("csv/Book1.csv");
+	m_pIdleMapChip = new MapChip(pDirectX);
+	m_pIdleMapChip->Create("csv/Book2.csv");
+	m_pGameChara = new GameChara(pDirectX, m_pBusyMapChip);
+	m_pMapReverse = new MapReverse(pDirectX,m_pGameChara);
 	ReadTexture();
 	GameBackground[0] = { 0.f,			  0.f,			 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
 	GameBackground[1] = { DISPLAY_WIDTH,  0.f,			 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
@@ -18,8 +20,10 @@ GameScene::GameScene(DirectX* pDirectX, int ChosedStage) :Scene(pDirectX)
 
 GameScene::~GameScene()
 {
-	delete m_pMapChip;
-	m_pMapChip = NULL;
+	delete m_pBusyMapChip;
+	m_pBusyMapChip = NULL;
+	delete m_pIdleMapChip;
+	m_pIdleMapChip = NULL;
 	delete m_pGameChara;
 	m_pGameChara = NULL;
 	m_pDirectX->ClearTexture();
@@ -45,9 +49,9 @@ SCENE_NUM  GameScene::Update()
 		{
 			m_pGameChara->KeyOperation(RIGHT);
 		}
-		if (m_pDirectX->GetKeyStatus(DIK_SPACE))
+		if (KeyRelease==m_pDirectX->GetKeyStatus(DIK_SPACE))
 		{
- 			m_pMapReverse->GoMapReverse();
+ 			m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 		}
 		m_pGameChara->Update();
 	return GetNextScene();
@@ -60,7 +64,7 @@ void GameScene::Render()
 	m_pDirectX->DrawSceneBegin();
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
 
-	m_pMapChip->Render();
+	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	RECT testName = { 0, 100, 1280, 720 };
 	char TestName[30];

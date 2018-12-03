@@ -1,6 +1,7 @@
 #include "GameChara.h"
 #include "MapChip.h"
 
+using  namespace MapBlock;
 
 GameChara::GameChara(DirectX* pDirectX, Object* MapChip) :Object(pDirectX)
 {
@@ -33,10 +34,7 @@ void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCo
 		for (int i = 0;i < 4;i++)
 		{
 			pWorldCharaCoordinate[i].y -= MoveQuantity;
-		}
-		for (int j = 0;j < 4;j++)
-		{
-			pDisplayCharaCoordinate[j].y -= MoveQuantity;
+			pDisplayCharaCoordinate[i].y -= MoveQuantity;
 		}
 		break;
 	case DOWN:
@@ -48,31 +46,20 @@ void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCo
 		for (int i = 0;i < 4;i++)
 		{
 			pWorldCharaCoordinate[i].x += MoveQuantity;
+			pDisplayCharaCoordinate[i].x += MoveQuantity;
 		}
-			for (int j = 0;j < 4;j++)
-			{
-				pDisplayCharaCoordinate[j].x += MoveQuantity;
-			}
 		break;
 	case LEFT:
 		//左に移動
 		for (int i = 0;i < 4;i++)
 		{
 			pWorldCharaCoordinate[i].x -= MoveQuantity;
+			pDisplayCharaCoordinate[i].x -= MoveQuantity;
 		}
-				for (int j = 0;j < 4;j++)
-				{
-					pDisplayCharaCoordinate[j].x -= MoveQuantity;
-				}
 		break;
 	}
 }
 
-
-void GameChara::CharaJump()
-{
-	
-}
 
 
 
@@ -120,14 +107,16 @@ void GameChara::KeyOperation(KeyDirection vec)
 }
 
 
-void GameChara::CharaInforSave(bool MapReverseSelect)
+void GameChara::CharaInforSave(int MapReverseSelect,Object* MapChip)
 {
-	if (MapReverseSelect)
+	m_pMapChip = MapChip;
+	if (!MapReverseSelect)
 	{
 		ValueAllSetCUSTOMVERTEX(m_SurfaceDisplayCharaCoordinate, m_DisplayCharaCoordinate);
 		ValueAllSetCUSTOMVERTEX(m_SurfaceWorldCharaCoordinate, m_WorldCharaCoordinate);
 		ValueAllSetCUSTOMVERTEX(m_DisplayCharaCoordinate, m_ReverseDisplayCharaCoordinate);
 		ValueAllSetCUSTOMVERTEX(m_WorldCharaCoordinate, m_ReverseWorldCharaCoordinate);
+
 	}
 	else 
 	{
@@ -191,23 +180,19 @@ void GameChara::MapScroolCheck()
 void GameChara::Update()
 {
 		MapScroolCheck();
-		CharaJump();
 		MapLeftDirectionPosition = (int)m_WorldCharaCoordinate[3].x / CELL_SIZE;
 		MapRightDirectionPosition = (int)(m_WorldCharaCoordinate[2].x) / CELL_SIZE;
 		MapCharaPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
 		//重力を毎フレームかける
-		m_WorldCharaCoordinate[0].y += Gravity;
-		m_WorldCharaCoordinate[1].y += Gravity;
-		m_WorldCharaCoordinate[2].y += Gravity;
-		m_WorldCharaCoordinate[3].y += Gravity;
-		m_DisplayCharaCoordinate[0].y += Gravity;
-		m_DisplayCharaCoordinate[1].y += Gravity;
-		m_DisplayCharaCoordinate[2].y += Gravity;
- 		m_DisplayCharaCoordinate[3].y += Gravity;
+		for (int i = 0; i < 4; i++)
+		{
+			m_WorldCharaCoordinate[i].y += Gravity;
+			m_DisplayCharaCoordinate[i].y += Gravity;
+		}
 		//下の方向を確かめる
-		if ((m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition) < 5) ||
-			(m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition + 1) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 1) < 5) ||
-			(m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition + 2) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 2) < 5))
+		if ((m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition) != NONE) ||
+			(m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition + 1) != NONE) ||
+			(m_pMapChip->getMapChipData(MapCharaPositionY,MapLeftDirectionPosition + 2) != NONE))
 		{
 				m_WorldCharaCoordinate[0].y = ((MapCharaPositionY - 4) * CELL_SIZE);
 				m_WorldCharaCoordinate[1].y = ((MapCharaPositionY - 4) * CELL_SIZE);
@@ -221,9 +206,9 @@ void GameChara::Update()
 		//上のブロックを確かめる
 		if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 		{
-			if ((m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) < 5)||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 1) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 1) < 5)||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 2) != 0 && m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 2) < 5))
+			if ((    m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) != NONE)||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 1) != NONE)||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 2) != NONE))
 			{
 				m_WorldCharaCoordinate[0].y = ((MapCharaPositionY - 3) * CELL_SIZE);
 				m_WorldCharaCoordinate[1].y = ((MapCharaPositionY - 3) * CELL_SIZE);
@@ -238,10 +223,10 @@ void GameChara::Update()
 		if (m_PrevMapLeftDirectionPosition >= m_WorldCharaCoordinate[3].x)
 		{
 			//左の方向のブロックを確かめる
-			if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) < 5))
+			if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) != NONE ))
 			{
 				if (m_PrevMapLeftDirectionPosition != m_WorldCharaCoordinate[3].x)
 				{
@@ -259,10 +244,10 @@ void GameChara::Update()
 		if (m_PrevMapRightDirectionPosition <= m_WorldCharaCoordinate[2].x)
 		{
 			//右方向のブロックを確かめる
-			if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition) < 5) ||
-				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition) != 0 &&m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition) < 5))
+			if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition) != NONE )||
+				(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition) != NONE ))
 			{
 				if (m_PrevMapRightDirectionPosition != m_WorldCharaCoordinate[2].x)
 				{

@@ -14,29 +14,30 @@ class GameScene;
 #define BLOCK_WIDTH  80.0f/512
 #define BLOCK_HEIGHT 80.0f/512
 
-class MapChip :public Object
+namespace MapBlock
 {
-private:
 	enum BLOCKTYPE//CSVのブロックの番号
 	{
 		NONE,
-		WOOD_BLOCK,//足場
-		ROCK_BLOCK,//どんでん返し
-		WOOD_TRACT,//スイッチ
-		ROCK_TRACT,//扉
-		WOOD_REVERSE_ZONE,//仕切り板
-		ROCK_REVERSE_ZONE,//槍
-				          //移動床
-						 //忍術書
+		WOOD_BLOCK,
+		ROCK_BLOCK,
+		WOOD_TRACT,
+		ROCK_TRACT,
+		WOOD_REVERSE_ZONE,
+		ROCK_REVERSE_ZONE,
 	};
+}
+
+class MapChip :public Object
+{
+private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;
 	int m_MapSelectedHEIGHT;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
-	//int MapScrollY;
-	//int MapScrollX;
 public:
+
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX);
 	~MapChip();

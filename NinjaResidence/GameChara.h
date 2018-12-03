@@ -36,7 +36,6 @@ private:
 	const int DisplayCharMoveScopeX = 300;//óºí[Ç©ÇÁÇÃXç¿ïWÇÃâ“ì≠îÕàÕ
 	void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
-	void CharaJump();
 	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;
 	Object* m_pMapChip = NULL;
@@ -45,10 +44,10 @@ private:
 public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate(){return m_DisplayCharaCoordinate[4];}
 	int GetMapCharaPositionX() { return MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return MapRightDirectionPosition; }
+	int GetMapCharaPositionY() { return MapCharaPositionY; }
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyDirection vec);
-	void CharaInforSave(bool MapReverse1);
+	void CharaInforSave(int MapReverse1, Object* MapChip);
 	void Update();
 	void Render();
 	GameChara(DirectX* pDirectX, Object* MapChip);

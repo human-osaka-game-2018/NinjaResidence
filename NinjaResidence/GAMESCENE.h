@@ -21,7 +21,8 @@ private:
 	CUSTOMVERTEX  GameBackground[4];
 	DirectX* m_pDirectX = NULL;
 	GameChara * m_pGameChara = NULL;
-	Object * m_pMapChip = NULL;
+	Object * m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
+	Object * m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
 	MapReverse * m_pMapReverse = NULL;
 	Scene * pScene = NULL;
 public:

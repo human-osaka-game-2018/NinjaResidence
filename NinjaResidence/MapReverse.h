@@ -23,9 +23,8 @@ private:
 	};
 	MapReverseState MapReverseState;
 	GameChara* m_pGameChara = NULL;
-	Object* m_pMapChip = NULL;
 public:
-	void GoMapReverse();
-	MapReverse(DirectX* pDirectX, Object* MapChip, GameChara * GameChara);
+	void GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip);
+	MapReverse(DirectX* pDirectX,GameChara * GameChara);
 	~MapReverse();
 };

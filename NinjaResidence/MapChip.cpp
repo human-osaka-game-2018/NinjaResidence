@@ -1,7 +1,7 @@
 #include "MapChip.h"
 
 using std::vector;
-
+using namespace MapBlock;
 
 //コンストラクタでマップチップの生成だけ行う
 MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
@@ -121,20 +121,12 @@ void MapChip::Render()
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
-				CELL[0].x -= 0;
-				CELL[1].x += 80;
-				CELL[2].x += 80;
-				CELL[3].x -= 0;
 				break;
 			case ROCK_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
-				CELL[0].x -= 0;
-				CELL[1].x += 80;
-				CELL[2].x += 80;
-				CELL[3].x -= 0;
 				break;
 			}
 			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
@@ -144,8 +136,8 @@ void MapChip::Render()
 	char TestText[30];
 	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
-
 }
+
 void MapChip::Update() {
 
 }
