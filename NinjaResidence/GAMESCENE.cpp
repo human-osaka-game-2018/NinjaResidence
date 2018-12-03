@@ -53,6 +53,11 @@ SCENE_NUM  GameScene::Update()
 	{
 		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_L))
+	{
+		m_pGameChara->KeyOperation(SoundOn);
+	}
+
 	m_pGameChara->Update();
 	return GetNextScene();
 }
