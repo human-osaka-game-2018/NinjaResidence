@@ -10,6 +10,7 @@ enum KeyDirection
 	DOWN,
 	LEFT,
 	RIGHT,
+	SPACE,
 };
 
 class Object
@@ -19,12 +20,11 @@ public:
 	*キー入力時の内部処理関数
 	*/
 	virtual void KeyOperation();
-	virtual void KeyOperation(int vec) {};
-	virtual int KeyOperation(KeyDirection vec) { return 0; };
+	virtual void KeyOperation(KeyDirection vec) {};
 
 	virtual void Update();
-	virtual bool RectToRectCollisionCheak(CUSTOMVERTEX* pObjA, CUSTOMVERTEX* pObjB);
 	virtual void Render();
+	virtual void prevSaveMapCharaPos() {};
 
 	/*
 	* @brief テクスチャの貼り付け
@@ -70,6 +70,8 @@ public:
 	int getMapCharaPositionY() {
 		return MapCharaPosition.Y;
 	};
+	int m_MapScrollX = 0;
+	int m_MapScrollY = 0;
 
 	void setMapScrollX(int x);
 	void setMapScrollY(int y);
@@ -83,6 +85,9 @@ public:
 	int getMapChipData(int height,int width) {
 		return MapData[height][width];
 	}
+
+
+
 protected:
 	DirectX * m_pDirectX = NULL;
 	/*static */std::vector< std::vector<int> > MapData;
@@ -91,9 +96,8 @@ protected:
 	//!列
 	int colunm = 0;
 
-	int MapScrollX = 0;
-	int MapScrollY = 0;
 	const float CELL_SIZE = 40.f;
+
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };

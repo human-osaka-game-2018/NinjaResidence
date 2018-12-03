@@ -20,7 +20,7 @@ SceneManager::~SceneManager()
 
 void SceneManager::Update()
 {
-	m_NextScene = m_pScene->Getm_NextScene();
+	m_NextScene = m_pScene->GetNextScene();
 	if (m_CurrentScene != m_NextScene)
 	{
 		switch (m_NextScene)

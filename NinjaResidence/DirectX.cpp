@@ -1,6 +1,7 @@
 #include "DirectX.h"
 #include "GAMEMANAGER.h"
 
+
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define SAFE_RELEASE(p) {if(p){(p)->Release(); (p)=NULL;}}
 
@@ -106,7 +107,7 @@ HRESULT DirectX::InitDinput(HWND hWnd)
 	return S_OK;
 }
 
-HRESULT DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
+HRESULT DirectX::BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
 	//É_ÉCÉåÉNÉgÇRDÇÃèâä˙âªä÷êîÇåƒÇ‘
 	if (FAILED(InitD3d(hWnd, FilePath)))
 	{
@@ -146,7 +147,6 @@ HRESULT DirectX::BuildDXDevice(HWND hWnd,bool WinMode, LPCSTR FilePath) {
 		MessageBox(0, "Direct3DÇÃçÏê¨Ç…é∏îsÇµÇ‹ÇµÇΩ", "", MB_OK);
 		return E_FAIL;
 	}
-
 	//ï`âÊê›íË
 	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCÇÃê›íË
@@ -194,8 +194,6 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 	m_d3dppFull.Flags = 0;
 	m_d3dppFull.FullScreen_RefreshRateInHz = 0;
 	m_d3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-
-
 }
 /**
 *DirectInput

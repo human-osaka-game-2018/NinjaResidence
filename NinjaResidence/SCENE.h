@@ -32,11 +32,11 @@ class Scene {
 private:
 	SCENE_NUM	m_NextScene;	//éüÇÃÉVÅ[Éì
 public:
-	SCENE_NUM Getm_NextScene()
+	SCENE_NUM GetNextScene()
 	{
 		return m_NextScene;
 	}
-	void Setm_NextScene(SCENE_NUM NextScene)
+	void SetNextScene(SCENE_NUM NextScene)
 	{
 		m_NextScene = NextScene;
 	}

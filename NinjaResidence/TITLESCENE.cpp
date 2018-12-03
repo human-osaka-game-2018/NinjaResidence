@@ -22,9 +22,9 @@ SCENE_NUM  TitleScene::Update()
 {
 	timecount++;
 	if (KeyRelease==m_pDirectX->GetKeyStatus(DIK_RETURN)|| KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
-		Setm_NextScene(STAGESELECT_SCENE);
+		SetNextScene(STAGESELECT_SCENE);
 	}
-	return Getm_NextScene();
+	return GetNextScene();
 }
 
 void TitleScene::Render()

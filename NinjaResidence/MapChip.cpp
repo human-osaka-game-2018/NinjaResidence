@@ -1,11 +1,7 @@
 #include "MapChip.h"
 
 using std::vector;
-
-//int MapChip::MapScrollX = 0;
-//int MapChip::MapScrollY = 0;
-//vector< vector<int> > MapChip::MapData;
-//CUSTOMVERTEX MapChip::CELL[4];
+using namespace MapBlock;
 
 //コンストラクタでマップチップの生成だけ行う
 MapChip::MapChip(DirectX* pDirectX) :Object(pDirectX)
@@ -41,15 +37,15 @@ void MapChip::Create(const char *filename)
 
 	fgets(buf, mapMaxWidth, fp);
 	sscanf_s(buf, "%d, %d", &row, &colunm);
-	
+
 	MapData.resize(colunm);
 
 	for (int j = 0; j<colunm; j++)
 	{
 		MapData[j].resize(row);
 	}
-	
-	
+
+
 	while ((c = getc(fp)) != EOF || y < colunm)
 	{
 		if (isdigit(c))
@@ -58,7 +54,7 @@ void MapChip::Create(const char *filename)
 			i++;
 		}
 		else
-	{
+		{
 			data[i] = NULL;
 			MapData[y][x] = atoi(data);
 			x++;
@@ -82,12 +78,12 @@ void MapChip::Render()
 			{
 				continue;
 			}
-			int top = FIELD_TOP + (CELL_SIZE * j) + MapScrollY;
-			int left = FIELD_LEFT + (CELL_SIZE * i )+ MapScrollX;
-			CELL[0].x = left ;
-			CELL[0].y = top ;
+			int top = FIELD_TOP + (CELL_SIZE * j) + m_MapScrollY;
+			int left = FIELD_LEFT + (CELL_SIZE * i) + m_MapScrollX;
+			CELL[0].x = left;
+			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
-			CELL[1].y = top ;
+			CELL[1].y = top;
 			CELL[2].x = (left + CELL_SIZE);
 			CELL[2].y = (top + CELL_SIZE);
 			CELL[3].x = left;
@@ -96,13 +92,37 @@ void MapChip::Render()
 			m_MapSelected = MapData[j][i];
 			switch (m_MapSelected)
 			{
+			case WOOD_BLOCK:
+				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				break;
 			case ROCK_BLOCK:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
 				break;
-			case WOOD_BLOCK:
+			case WOOD_TRACT:
+				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				break;
+			case ROCK_TRACT:
+				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				break;
+			case WOOD_REVERSE_ZONE:
+				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
+				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				break;
+			case ROCK_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
@@ -114,43 +134,14 @@ void MapChip::Render()
 	}
 	RECT test = { 0,0,800,500 };
 	char TestText[30];
-	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", MapScrollX, MapScrollY);
+	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
-
 }
+
 void MapChip::Update() {
 
 }
 
-int MapChip::KeyOperation(KeyDirection vec) {
-
-	switch (vec)
-	{
-	case UP:
-		if (MapScrollY<0) {
-			MapScrollY += 10;
-		}
-		break;
-	case DOWN:
-		if (MapScrollY > (-20 * colunm)) {
-			MapScrollY -= 10;
-		}
-		break;
-	case LEFT:
-		//左に移動
-		if (MapScrollX < 0) {
-			MapScrollX += 10;
-		}
-		break;
-	case RIGHT:
-		//右に移動
-		if (MapScrollX > (-CELL_SIZE/2 * row)) {
-			MapScrollX -= 10;
-		}
-		break;
-	}
-	return 0;
-}
 
 void MapChip::CellInit() {
 	for (int i = 0; i < 4; i++) {
