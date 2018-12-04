@@ -215,11 +215,7 @@ void GameChara::NoOperation() {
 
 void GameChara::MapReversePointSearch(int BlockNumber)
 {
-	//m_pMapChip = MapChip;
-	m_row = m_pMapChip->getRow();
-	m_colunm = m_pMapChip->getColunm();
-
-	for (int i = 0;i < m_colunm;i++)
+	for (int i = 0;i < colunm;i++)
 	{
 		for (int j = 0;j < m_row;j++)
 		{

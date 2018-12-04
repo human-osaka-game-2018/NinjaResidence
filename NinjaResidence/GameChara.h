@@ -122,7 +122,7 @@ private:
 	float CharTv = 160 / 512.f;
 	float GravityAcceleration = 0;
 
-
+ 
 	//‰¼“‡ƒtƒ@ƒCƒ‹‚ÌØ‚èæ‚èî•ñ
 	float m_TESTCharTu = 233 / 2048.f;
 	float m_TESTCharTv = 215 / 2048.f;
