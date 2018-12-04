@@ -85,14 +85,14 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 				if (blocktype < BT_PARTITIONBOARD)
 				{
 					int Amari = MapData[y][x] % 10;
-					block = { x,y,Amari,blocktype,MapState };
+					block = { x,y,Amari,blocktype,MapState,this};
 					TargetVector.push_back(block);
 					m_TargetCount++;
 				}
 				if (blocktype > BT_SWITCH)
 				{
 					int Amari = MapData[y][x] % 10;
-					block = { x,y,Amari,blocktype,MapState };
+					block = { x,y,Amari,blocktype,MapState,this};
 					GimmickVector.push_back(block);
 					m_GimmickCount++;
 				}
@@ -125,72 +125,14 @@ void MapChip::CheckVector()
 			switch (TargetVector[i].GimmickType)
 			{
 			case 1://的
-				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
-				{
-					for (int k = 0; k < 3; k++)
-					{
-						for (int l = 1; l < 15; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
-				if (GimmickVector[j].GimmickType == BT_FALLROCK)
-				{
-					for (int k = 0; k < 2; k++)
-					{
-						for (int l = 1; l < 2; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
-				pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
+			
+			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 			case 2://ロープ
-				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
-				{
-					for (int k = 0; k < 3; k++)
-					{
-						for (int l = 1; l < 15; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
-				if (GimmickVector[j].GimmickType == BT_FALLROCK)
-				{
-					for (int k = 0; k < 2; k++)
-					{
-						for (int l = 1; l < 2; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
+
 				pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 			case 3://スイッチ
-				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
-				{
-					for (int k = 0; k < 3; k++)
-					{
-						for (int l = 1; l < 15; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
-				if (GimmickVector[j].GimmickType == BT_FALLROCK)
-				{
-					for (int k = 0; k < 2; k++)
-					{
-						for (int l = 1; l < 2; l++)
-						{
-							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
-						}
-					}
-				}
 				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 			}
@@ -327,22 +269,11 @@ void MapChip::Render()
 					CELL[3].y += 80.f;
 					CELL[2].y += 80.f;
 					break;
-				case 900:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 4;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 4;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
-					break;
 				default:
 					continue;
 				}
 				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 			}
-			//TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
 	for (BaseTarget* pi : pBaseTarget)

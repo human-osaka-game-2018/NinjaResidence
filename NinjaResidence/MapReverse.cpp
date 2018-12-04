@@ -47,7 +47,7 @@ void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 			MapDataReverseState = true;
 		}
  
-		m_pGameChara->CharaInforSave(*pBusyMapChip, WOOD_REVERSE_ZONE);
+		m_pGameChara->CharaInfoSave(*pBusyMapChip, WOOD_REVERSE_ZONE);
 	}
 	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == ROCK_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == ROCK_REVERSE_ZONE ||
@@ -68,6 +68,6 @@ void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 		}
 
 
-		m_pGameChara->CharaInforSave(*pBusyMapChip, ROCK_REVERSE_ZONE);
+		m_pGameChara->CharaInfoSave(*pBusyMapChip, ROCK_REVERSE_ZONE);
 	}
 }
