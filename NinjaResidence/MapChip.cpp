@@ -1,3 +1,8 @@
+/**
+* @file MapChip.cpp
+* @brief MapChipƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "MapChip.h"
 
 using std::vector;

@@ -1,3 +1,8 @@
+/**
+* @file Object.cpp
+* @brief 色々な物体の基底クラス
+* @author Toshiya Matsuoka
+*/
 #include "Object.h"
 
 

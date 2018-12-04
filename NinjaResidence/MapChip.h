@@ -1,3 +1,8 @@
+/**
+* @file MapChip.h
+* @brief MapChipƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "SCENE.h"

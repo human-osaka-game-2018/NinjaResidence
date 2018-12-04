@@ -1,3 +1,8 @@
+/**
+* @file TitleCursol.h
+* @brief タイトルのカーソル処理
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include "Object.h"

@@ -1,3 +1,8 @@
+/**
+* @file GameChara.h
+* @brief GameCharaƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include <vector>

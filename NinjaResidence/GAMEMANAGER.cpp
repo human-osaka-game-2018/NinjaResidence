@@ -93,7 +93,6 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 
 	pDirectX->ReleaseDx();
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-	//MUST:ファイルの再読込
 	pSoundManager->Initialize();
 	pSceneManager->LoadResouce();
 
@@ -128,11 +127,13 @@ LRESULT CALLBACK GAMEMANAGER::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
-	case WM_SYSKEYDOWN:     // Alt + 特殊キーの処理に使う
+	case WM_SYSKEYDOWN:     //! Alt + 特殊キーの処理に使う
 		switch (wp) {
-		case VK_RETURN:     // Alt + Enterを押すと切り替え
+		//! Alt + Enterを押すと切り替え
+		case VK_RETURN:
 			ChangeDisplayMode();
 			return 0;
+		//! Alt + F4を押すと実行終了
 		case VK_F4:
 			PostMessage(hWnd, WM_CLOSE, 0, 0);
 			return 0;
@@ -176,6 +177,7 @@ int GAMEMANAGER::MessageLoop()
 
 				SyncOld = SyncNow;
 			}
+			//!非アクティブ状態からの復帰処理
 			if (D3DERR_DEVICELOST == pDirectX->GetDeviceState()&&
 				hWnd == GetActiveWindow()) {
 				HRESULT hr = NULL;
@@ -185,20 +187,13 @@ int GAMEMANAGER::MessageLoop()
 				pDirectX->PresentsDevice();
 
 				hr = pDirectX->ResetDevice(isWindowMode, &WinRect, hWnd);
-
 				pDirectX->ReleaseDx();
 
 				pDirectX->RecoverDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-				//pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-				//if (E_FAIL == pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png")) {
-				//	MessageBox(0, "DirectXDeviceの再設定に失敗しました", "", MB_OK);
-				//	msg.message = WM_QUIT;
-				//}
 				pSoundManager->Initialize();
 				pSceneManager->LoadResouce();
 
 				SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
-
 			}
 		}
 	}

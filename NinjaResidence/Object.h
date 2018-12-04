@@ -1,3 +1,8 @@
+/**
+* @file Object.h
+* @brief 色々な物体の基底クラス
+* @author Toshiya Matsuoka
+*/
 #pragma once
 #include <vector>
 

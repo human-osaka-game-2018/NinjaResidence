@@ -1,3 +1,8 @@
+/**
+* @file TITLESCENE.cpp
+* @brief タイトルシーン
+* @author Toshiya Matsuoka
+*/
 #include "SCENE.h"
 #include "TITLESCENE.h"
 #include "TitleCursol.h"

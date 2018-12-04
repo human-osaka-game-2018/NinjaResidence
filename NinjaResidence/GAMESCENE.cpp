@@ -1,3 +1,8 @@
+/**
+* @file GAMESCENE.cpp
+* @brief GAMESCENEƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "GAMESCENE.h"
 
 GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage) :Scene(pDirectX,pSoundManager)
