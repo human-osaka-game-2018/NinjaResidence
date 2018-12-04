@@ -46,7 +46,7 @@ public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCharaCoordinate[4]; }
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyDirection vec);
-	void CharaInforSave(Object* MapChip, int BlockNumber);
+	void CharaInfoSave(Object* MapChip, int BlockNumber);
 	bool Update();
 	void Render();
 	GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip);

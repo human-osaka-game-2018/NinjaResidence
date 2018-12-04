@@ -107,9 +107,7 @@ void GameChara::JumpingLateralMotion() {
 			m_WorldCharaCoordinate[i].x += m_AccelerationX;
 			m_DisplayCharaCoordinate[i].x += m_AccelerationX;
 		}
-		//if (m_AccelerationX > 0) {
-		//	m_AccelerationX -= 0.1f;
-		//}
+
 
 	}
 	if (m_isJumpLeft) {
@@ -122,13 +120,7 @@ void GameChara::JumpingLateralMotion() {
 
 	}
 }
-//bool GameChara::StartJump()
-//{
-//	if (DownCollisionCheck){
-//		return true;
-//	}
-//	return false;
-//}
+
 
 void GameChara::CharaMoveOperation(KeyDirection vec)
 {
@@ -278,7 +270,7 @@ void GameChara::GimmickHitCheck()
 }
 
 
-void GameChara::CharaInforSave(Object* MapChip,int BlockNumber)
+void GameChara::CharaInfoSave(Object* MapChip,int BlockNumber)
 {
 	m_pMapChip = MapChip;
 	switch (BlockNumber)
