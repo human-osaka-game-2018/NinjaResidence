@@ -1,3 +1,8 @@
+/**
+* @file SCENE.cpp
+* @brief SCENEƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "SCENE.h"
 
 Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDirectX), m_pSoundManager(pSoundManager)

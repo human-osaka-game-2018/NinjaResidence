@@ -1,3 +1,8 @@
+/**
+* @file TITLESCENE.h
+* @brief タイトルシーン
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include "SCENE.h"

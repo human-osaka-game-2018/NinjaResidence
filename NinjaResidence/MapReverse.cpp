@@ -1,3 +1,8 @@
+/**
+* @file MapReverse.cpp
+* @brief MapReverseƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "MapReverse.h"
 
 using namespace MapBlock;

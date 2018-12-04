@@ -1,3 +1,8 @@
+/**
+* @file STAGESERECTSCENE.h
+* @brief ステージセレクトシーン
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include "SCENE.h"

@@ -1,3 +1,8 @@
+/**
+* @file TitleCursol.cpp
+* @brief タイトルのカーソル処理
+* @author Toshiya Matsuoka
+*/
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 

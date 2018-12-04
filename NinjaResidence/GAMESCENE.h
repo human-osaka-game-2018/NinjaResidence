@@ -1,3 +1,8 @@
+/**
+* @file GAMESCENE.h
+* @brief GAMESCENEƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "MapChip.h"

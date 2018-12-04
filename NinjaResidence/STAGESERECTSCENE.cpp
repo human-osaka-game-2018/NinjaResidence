@@ -1,3 +1,8 @@
+/**
+* @file STAGESERECTSCENE.cpp
+* @brief ステージセレクトシーン
+* @author Toshiya Matsuoka
+*/
 #include "STAGESERECTSCENE.h"
 
 StageSerectScene::StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)

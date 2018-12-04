@@ -1,3 +1,8 @@
+/**
+* @file MapReverse.h
+* @brief MapReverseƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "Object.h"

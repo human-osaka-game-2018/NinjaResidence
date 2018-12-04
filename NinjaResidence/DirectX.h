@@ -49,6 +49,8 @@ public:
 	void ClearDisplay();
 	/**
 	* @brief デバイスプレゼント
+	* @sa GetDeviceState
+	* @details プレゼントメソッドを呼び、DeviceStateにデバイスの状態を記録する
 	*/
 	void PresentsDevice();
 
@@ -162,12 +164,20 @@ public:
 	* @param hWnd ウィンドウハンドル
 	*/
 	HRESULT ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd);
-
+	/**
+	* @brief デバイスの状態取得
+	* @details デバイスプレゼント関数で取得したDeviceStateを取得する
+	*/
 	HRESULT GetDeviceState() {
 		return DeviceState;
 	}
-
-	HRESULT RecoverDevice(HWND hWnd, bool WinMode, LPCSTR FilePath);
+	/**
+	* @brief DirectXデバイスの復帰
+	* @param hWnd ウィンドウハンドル
+	* @param isWindowMode ウィンドウモード　true:WindowMode　false:FullscreenMode
+	* @param FilePath デバイス生成チェック用画像ファイルパス
+	*/
+	HRESULT RecoverDevice(HWND hWnd, bool isWindowMode, LPCSTR FilePath);
 
 private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //画像の情報を入れておく為のポインタ配列

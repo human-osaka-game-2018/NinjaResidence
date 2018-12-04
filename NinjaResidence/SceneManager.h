@@ -1,3 +1,8 @@
+/**
+* @file SceneManager.h
+* @brief SceneManagerƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "SCENE.h"

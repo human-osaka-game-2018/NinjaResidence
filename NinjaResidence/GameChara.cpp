@@ -1,3 +1,8 @@
+/**
+* @file GameChara.cpp
+* @brief GameCharaƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "GameChara.h"
 #include "MapChip.h"
 

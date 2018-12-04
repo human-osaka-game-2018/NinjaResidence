@@ -1,3 +1,8 @@
+/**
+* @file SCENE.h
+* @brief SCENEƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "GAMEMANAGER.h"

@@ -1,3 +1,8 @@
+/**
+* @file SceneManager.cpp
+* @brief SceneManagerƒNƒ‰ƒX
+* @author Kojiro Kawahara
+*/
 #include "SceneManager.h"
 #include "TITLESCENE.h"
 #include "STAGESERECTSCENE.h"
