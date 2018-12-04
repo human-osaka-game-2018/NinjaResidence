@@ -27,7 +27,7 @@ SCENE_NUM  StageSerectScene::Update()
 		SetNextScene(GAME_SCENE);		
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
-		Setm_NextScene(GAME_SCENE);
+		SetNextScene(GAME_SCENE);
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{

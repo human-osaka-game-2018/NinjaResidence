@@ -20,6 +20,7 @@ private:
 	CUSTOMVERTEX m_ReverseWorldCharaCoordinate[4];
 	CUSTOMVERTEX m_SurfaceDisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_SurfaceWorldCharaCoordinate[4];
+
 	int m_PrevMapLeftDirectionPosition;//前フレームのMapLeftDirectionPositionの値
 	int m_PrevMapRightDirectionPosition;//前フレームのMapRightDirectionPositionの値
 	int m_PrevMapCharaPositionY;//前フレームのMapCharaPositionYの値
@@ -27,11 +28,13 @@ private:
 	int MapRightDirectionPosition;//キャラの右側のX座標
 	int MapCharaPositionY;//キャラの上側のx座標
 	float Gravity;//毎フレームかける重力の値
+
 	const int DisplayCharMoveScopeUp = 100;//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
 	const int DisplayCharMoveScopeDown = 630;//m_DisplayCharaCoordinateのY座標がこの値を超えると上にスクロールする
 	const int DisplayCharMoveScopeLeft = 300;//m_DisplayCharaCoordinateのX座標がこの値を下回ると左にスクロールする
 	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
 	const int DisplayCharMoveScopeX = 300;//両端からのX座標の稼働範囲
+
 	void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
 	void MapScroolCheck();
