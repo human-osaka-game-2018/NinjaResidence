@@ -3,14 +3,16 @@
 #include "STAGESERECTSCENE.h"
 #include "GAMESCENE.h"
 
+Scene*	SceneManager::m_pScene = NULL;
+
 SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
 	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
 	m_pSoundManager = pSoundManager;
-	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
+	//m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
 	//ゲームシーンへショートカットする
-	//m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
+	m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
 }
 
 SceneManager::~SceneManager()
@@ -21,7 +23,6 @@ SceneManager::~SceneManager()
 
 int SceneManager::Update()
 {
-	m_NextScene = m_pScene->GetNextScene();
 	if (m_CurrentScene != m_NextScene)
 	{
 		int ChosedStage = m_pScene->GetStageNum();
@@ -54,7 +55,7 @@ int SceneManager::Update()
 	}
 	if (!isThreadActive) {
 		m_pScene->Update();
-		m_NextScene = m_pScene->Getm_NextScene();
+		m_NextScene = m_pScene->GetNextScene();
 	}
 	return m_pScene->GetGameState();
 }
@@ -75,7 +76,7 @@ void SceneManager::Render()
 }
 void SceneManager::LoadResouce()
 {
-	m_pScene->ReadTexture();
+	m_pScene->LoadResouce();
 }
 DWORD WINAPI SceneManager::Thread(LPVOID *data)
 {

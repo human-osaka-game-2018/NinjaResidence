@@ -54,7 +54,7 @@ SCENE_NUM  TitleScene::Update()
 		ChoseMenu();
 	}
 	m_pCursol->Update();
-	return Getm_NextScene();
+	return GetNextScene();
 }
 
 void TitleScene::Render()
@@ -90,7 +90,7 @@ void TitleScene::LoadResouce()
 void TitleScene::ChoseMenu() {
 	switch (m_pCursol->getCursolPosition()) {
 	case Cursol::START:
-		Setm_NextScene(STAGESELECT_SCENE);
+		SetNextScene(STAGESELECT_SCENE);
 		break;
 	case Cursol::OPTION:
 		

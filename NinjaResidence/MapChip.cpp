@@ -131,9 +131,9 @@ void MapChip::Render()
 			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
-	RECT test = { 0,0,800,500 };
-	char TestText[30];
-	sprintf_s(TestText, 30, "\n\n\nX:%d,Y:%d", m_MapScrollX, m_MapScrollY);
+	RECT test = { 0,500,1200,700 };
+	char TestText[64];
+	sprintf_s(TestText, 64, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 }
 

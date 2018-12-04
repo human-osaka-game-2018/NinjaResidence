@@ -8,8 +8,15 @@
 #include <cstdio>
 #include <cstdlib>
 
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "d3dx9.lib")
+#pragma comment(lib, "Xinput.lib")
+#pragma comment(lib,"SoundLib.lib")
 
-
+//static•Ï”‚ÌÀ‘Ì‰»
 DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
 SoundsManager* GAMEMANAGER::pSoundManager = NULL;

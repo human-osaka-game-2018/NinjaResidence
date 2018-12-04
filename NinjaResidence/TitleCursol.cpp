@@ -36,7 +36,7 @@ void TitleCursol::Render()
 
 }
 
-int TitleCursol::KeyOperation(KeyDirection vec) {
+void TitleCursol::KeyOperation(KeyDirection vec) {
 
 	switch (vec)
 	{
@@ -46,8 +46,7 @@ int TitleCursol::KeyOperation(KeyDirection vec) {
 	case DOWN:
 		MoveDown();
 		break;
-	}
-	return 0;
+	};
 }
 void TitleCursol::MoveUp() {
 	switch (CursolPos) {
