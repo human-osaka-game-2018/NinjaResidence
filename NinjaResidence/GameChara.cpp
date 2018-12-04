@@ -31,11 +31,11 @@ void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCo
 	{
 		//è„Ç…à⁄ìÆ
 	case UP:
-		for (int i = 0;i < 4;i++)
-		{
-			pWorldCharaCoordinate[i].y -= MoveQuantity;
-			pDisplayCharaCoordinate[i].y -= MoveQuantity;
-		}
+		//for (int i = 0;i < 4;i++)
+		//{
+		//	pWorldCharaCoordinate[i].y -= MoveQuantity;
+		//	pDisplayCharaCoordinate[i].y -= MoveQuantity;
+		//}
 		break;
 	case DOWN:
 		//ç°ÇÃÇ∆Ç±ÇÎÇ»Çµ
