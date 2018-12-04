@@ -185,7 +185,7 @@ void MapChip::Render()
 				CELL[2].y += 80.f;
 				break;
 			}
-			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+		TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
 #ifdef _DEBUG
