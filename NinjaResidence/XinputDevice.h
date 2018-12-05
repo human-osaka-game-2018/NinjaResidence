@@ -160,7 +160,7 @@ public:
 	~XinputDevice() {};
 private:
 	XINPUT_STATE m_Xinput;
-	PADSTATE PadState[ButtomIndexMAX];
+	PADSTATE PadState[ButtomIndexMAX] = { PadOff };
 	PADSTATE PadOldState[ButtomIndexMAX] = { PadOff };
 
 };
