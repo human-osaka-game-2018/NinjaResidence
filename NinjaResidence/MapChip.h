@@ -39,6 +39,7 @@ private:
 	int m_MapSelectedHEIGHT;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
+
 public:
 
 	//static std::vector< std::vector<int> > MapData;

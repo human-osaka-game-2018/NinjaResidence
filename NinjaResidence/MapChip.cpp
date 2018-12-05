@@ -137,8 +137,8 @@ void MapChip::Render()
 		}
 	}
 	RECT test = { 0,500,1200,700 };
-	char TestText[64];
-	sprintf_s(TestText, 64, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
+	char TestText[ArrayLong];
+	sprintf_s(TestText, ArrayLong, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 }
 
