@@ -20,11 +20,11 @@ class GameScene : public Scene
 private:
 	CUSTOMVERTEX  GameBackground[4];
 	DirectX* m_pDirectX = NULL;
-	GameChara * m_pGameChara = NULL;
-	Object * m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
-	Object * m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
+	GameChara* m_pGameChara = NULL;
+	Object* m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
+	Object* m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
 	MapReverse * m_pMapReverse = NULL;
-	Scene * pScene = NULL;
+	Scene* pScene = NULL;
 public:
 	GameScene(DirectX* pDirectX, int ChosedStage);
 	~GameScene();
