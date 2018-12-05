@@ -69,6 +69,8 @@ protected:
 	SoundsManager* m_pSoundManager = NULL;
 	int StageNum = 0;
 	int GameState = WM_NULL;
+	static const int ArrayLong = 64;
+
 private:
 	SCENE_NUM	m_NextScene;	//Ÿ‚ÌƒV[ƒ“
 	};

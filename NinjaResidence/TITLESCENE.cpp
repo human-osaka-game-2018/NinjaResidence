@@ -68,18 +68,18 @@ void TitleScene::Render()
 	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
 	RECT test = { 0,0,800,500 };
-	char TestText[30];
-	sprintf_s(TestText, 30, "%d", timecount);
+	char TestText[ArrayLong];
+	sprintf_s(TestText, ArrayLong, "%d", timecount);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
 	RECT testName = { 0, 200, 1280, 500 };
-	char TestName[20] = "”EÒ‰®•~";
+	char TestName[ArrayLong] = "”EÒ‰®•~";
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
 	RECT pushEnter= { 0, 400, 1280, 700 };
-	char PUSH_ENTER[20] = "ŠJn";
+	char PUSH_ENTER[ArrayLong] = "ŠJn";
 	m_pDirectX->DrawWord(pushEnter, PUSH_ENTER, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char SETTING[20] = "\nİ’è";
+	char SETTING[ArrayLong] = "\nİ’è";
 	m_pDirectX->DrawWord(pushEnter, SETTING, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char END_GAME[20] = "\n\nI—¹";
+	char END_GAME[ArrayLong] = "\n\nI—¹";
 	m_pDirectX->DrawWord(pushEnter, END_GAME, "MENU_FONT", DT_CENTER, 0xffffffff);
 	m_pCursol->Render();
 }

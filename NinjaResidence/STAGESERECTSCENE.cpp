@@ -83,8 +83,8 @@ void StageSerectScene::Render()
 	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", SerectBackground);
 	RECT test = { 0,0,800,500 };
-	char TestText[30];
-	sprintf_s(TestText, 30, "%d", timecount);
+	char TestText[ArrayLong];
+	sprintf_s(TestText, ArrayLong, "%d", timecount);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 	CUSTOMVERTEX StageImage[4];
@@ -108,8 +108,8 @@ void StageSerectScene::Render()
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", StageImage);
 
 	RECT testName = { 0, 400, 1280, 720 };
-	char TestName[30];
-	sprintf_s(TestName, 30, "STAGE_%d", StageNum);
+	char TestName[ArrayLong];
+	sprintf_s(TestName, ArrayLong, "STAGE_%d", StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffffffff);
 
 }

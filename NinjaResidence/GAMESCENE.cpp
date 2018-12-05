@@ -109,16 +109,15 @@ SCENE_NUM  GameScene::Update()
 void GameScene::Render()
 {
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
-
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	RECT testName = { 0, 100, 1280, 720 };
-	char TestName[64];
-	sprintf_s(TestName, 64, "STAGE_%d", StageNum);
+	char TestName[ArrayLong];
+	sprintf_s(TestName, ArrayLong, "STAGE_%d", StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	RECT test = { 0,0,800,500 };
-	char TestText[64];
-	sprintf_s(TestText, 64, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	char TestText[ArrayLong];
+	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 }

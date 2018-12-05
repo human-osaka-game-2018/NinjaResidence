@@ -105,6 +105,7 @@ protected:
 	int colunm = 0;
 
 	const float CELL_SIZE = 40.f;
+	static const int ArrayLong = 64;
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };

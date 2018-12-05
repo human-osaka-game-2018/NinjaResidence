@@ -72,9 +72,10 @@ void SceneManager::Render()
 	}
 	else {
 		LoadAnimation();
+		const int ArrayLong = 64;
 		RECT testName = { 0, 400, 1280, 720 };
-		char TestName[30];
-		sprintf_s(TestName, 30, "TIME_%d", LoadTime);
+		char TestName[ArrayLong];
+		sprintf_s(TestName, ArrayLong, "TIME_%d", LoadTime);
 		m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
 
 	}
