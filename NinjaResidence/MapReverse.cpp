@@ -40,7 +40,8 @@ void MapReverse::GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip)
 	Mapbuf = (*m_pBusyMapChip);
 	*m_pBusyMapChip = *m_pIdleMapChip;
 	*m_pIdleMapChip = Mapbuf;
-
+	(*m_pBusyMapChip)->m_MapScrollX = (*m_pIdleMapChip)->m_MapScrollX;
+	(*m_pBusyMapChip)->m_MapScrollY = (*m_pIdleMapChip)->m_MapScrollY;
 	switch (MapReverseState)
 	{
 		//•\–Ê‚ð— –Ê‚É‚·‚é

@@ -15,9 +15,10 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
 {
 	m_pDirectX = pDirectX;
 	m_pSoundManager = pSoundManager;
-	//m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
+	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
 	//ゲームシーンへショートカットする
-	m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
+	//m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
+	//m_NextScene = GAME_SCENE;
 }
 
 SceneManager::~SceneManager()

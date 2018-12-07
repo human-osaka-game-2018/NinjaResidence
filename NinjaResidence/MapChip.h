@@ -29,7 +29,7 @@ namespace MapBlock
 		WOOD_REVERSE_ZONE,
 		ROCK_REVERSE_ZONE,
 	};
-}
+};
 
 class MapChip :public Object
 {
@@ -52,4 +52,7 @@ public:
 	void Create(const char *filename);
 	void Render();
 	void Update();
+	bool RestrictBottomScroll();
+	float GetBottomPoint(int charaLeft, int charRight);
+	float GetBottomWorldPoint(int charaLeft, int charRight);
 };

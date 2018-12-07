@@ -13,10 +13,12 @@ using SoundLib::SoundsManager;
 
 enum KeyDirection
 {
+	PUSH_NONE,
 	UP,
 	DOWN,
 	LEFT,
 	RIGHT,
+	JUMP,
 	SPACE,
 	SoundOn,
 };
@@ -58,6 +60,14 @@ public:
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	/**
+	*@brief CUSTOMVERTEXからCENTRAL_STATEを作成する
+	* @param Central [out]
+	* @param Vertex [in]
+	* @sa CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color, float tu, float tv, float scaleTu float scaleTv)
+	* @details 関連するCUSTOMVERTEX作成関数の逆動作をする
+	*/
+	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
 
 	/**
 	*@brief CSV読み取りとマップデータ生成
@@ -93,7 +103,9 @@ public:
 	int getMapChipData(int height,int width) {
 		return MapData[height][width];
 	}
-
+	virtual bool RestrictBottomScroll() { return false; };
+	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
+	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
 protected:
 	DirectX * m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
