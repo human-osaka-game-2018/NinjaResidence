@@ -37,15 +37,15 @@ void MapChip::Create(const char *filename)
 
 	fgets(buf, mapMaxWidth, fp);
 	sscanf_s(buf, "%d, %d", &row, &colunm);
-
+	
 	MapData.resize(colunm);
 
 	for (int j = 0; j<colunm; j++)
 	{
 		MapData[j].resize(row);
 	}
-
-
+	
+	
 	while ((c = getc(fp)) != EOF || y < colunm)
 	{
 		if (isdigit(c))
@@ -54,7 +54,7 @@ void MapChip::Create(const char *filename)
 			i++;
 		}
 		else
-		{
+	{
 			data[i] = NULL;
 			MapData[y][x] = atoi(data);
 			x++;
@@ -78,13 +78,12 @@ void MapChip::Render()
 			{
 				continue;
 			}
-			CellInit();
 			int top = FIELD_TOP + (CELL_SIZE * j) + m_MapScrollY;
-			int left = FIELD_LEFT + (CELL_SIZE * i) + m_MapScrollX;
-			CELL[0].x = left;
-			CELL[0].y = top;
+			int left = FIELD_LEFT + (CELL_SIZE * i )+ m_MapScrollX;
+			CELL[0].x = left ;
+			CELL[0].y = top ;
 			CELL[1].x = (left + CELL_SIZE);
-			CELL[1].y = top;
+			CELL[1].y = top ;
 			CELL[2].x = (left + CELL_SIZE);
 			CELL[2].y = (top + CELL_SIZE);
 			CELL[3].x = left;
@@ -128,34 +127,6 @@ void MapChip::Render()
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
-				break;
-			case DESCRIPTION_BOARD:
-				CELL[0].tu = 0.f;
-				CELL[3].tu = 0.f;
-				CELL[1].tu = 0.24f;
-				CELL[2].tu = 0.24f;
-				CELL[0].tv += 0.16f;
-				CELL[3].tv += 0.16f;
-				CELL[1].tv += 0.16f;
-				CELL[2].tv += 0.16f;
-				CELL[1].x += 120.f;
-				CELL[2].x += 120.f;
-				CELL[3].y += 80.f;
-				CELL[2].y += 80.f;
-				break;
-			case DESCRIPTION_BOARD2:
-				CELL[0].tu = 0.f;
-				CELL[3].tu = 0.f;
-				CELL[1].tu = 0.24f;
-				CELL[2].tu = 0.24f;
-				CELL[0].tv += 0.16f;
-				CELL[3].tv += 0.16f;
-				CELL[1].tv += 0.16f;
-				CELL[2].tv += 0.16f;
-				CELL[1].x += 120.f;
-				CELL[2].x += 120.f;
-				CELL[3].y += 80.f;
-				CELL[2].y += 80.f;
 				break;
 			}
 			TextureRender("BLOCK_INTEGRATION_TEX", CELL);

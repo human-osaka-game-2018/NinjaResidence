@@ -4,6 +4,7 @@
 #include "SCENE.h"
 #include "GameChara.h"
 #include "MapReverse.h"
+#include "DescriptionBoard.h"
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -14,6 +15,7 @@ class Scene;
 class MapChip;
 class GameChara;
 class MapReverse;
+class DescriptionBoard;
 
 class GameScene : public Scene
 {
@@ -24,6 +26,7 @@ private:
 	Object* m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
 	Object* m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
 	MapReverse * m_pMapReverse = NULL;
+	DescriptionBoard * m_pDescriptionBoard = NULL;
 	Scene* pScene = NULL;
 public:
 	GameScene(DirectX* pDirectX, int ChosedStage);
