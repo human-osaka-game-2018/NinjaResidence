@@ -4,13 +4,11 @@
 * @author Kojiro Kawahara
 */
 #include "GameChara.h"
-#include "MapChip.h"
 
 using  namespace MapBlock;
 
 GameChara::GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) :Object(pDirectX,pSoundManager)
 {
-	Gravity = 15.f;
 	//MapChipの情報を取得するために必要
 	m_pMapChip = MapChip;
 	row = m_pMapChip->getRow();
@@ -28,19 +26,107 @@ GameChara::~GameChara()
 {
 }
 
+void GameChara::InitJumpParam() {
+	isJump = false;
+	isJumpRight = false;
+	isJumpLeft = false;
+	AccelerationY = InitialAcceleration;
+	AccelerationX = InitialAcceleration;
+	RiseFlameTime = 0;
+}
+void GameChara::AccelarationControl() {
+		AccelerationY -= 2.f;
+
+}
+bool GameChara::PermitJumping() {
+	isInTheAir = !DownCollisionAnything();
+	HeldOntoWallLeft = LeftCollisionCheck(ROCK_BLOCK);
+	HeldOntoWallRight = RightCollisionCheck(ROCK_BLOCK);
 
 
-void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity)
+	if (!isInTheAir) {
+		return true;
+	}
+	else if (HeldOntoWallLeft || HeldOntoWallRight) {
+		return true;
+	}
+	return false;
+}
+void GameChara::Jump()
+{
+	if (!isJump) {
+		return;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		m_DisplayCharaCoordinate[i].y -= AccelerationY;
+		m_WorldCharaCoordinate[i].y -= AccelerationY * 0.5;
+	}
+
+	if (RiseFlameTime < 15) {
+		RiseFlameTime++;
+		AccelarationControl();
+		JumpingLateralMotion();
+		return;
+	}
+
+	InitJumpParam();
+}
+
+void GameChara::JumpingLateralMotion() {
+
+	if (!isInTheAir) {
+		return;
+	}
+
+	if (HeldOntoWallLeft) {
+		isJumpRight = true;
+	}
+	if (HeldOntoWallRight) {
+		isJumpLeft = true;
+	}
+
+	if (isJumpRight) {
+		//右に移動
+		for (int i = 0; i < 4; i++)
+		{
+			m_WorldCharaCoordinate[i].x +=AccelerationX;
+			m_DisplayCharaCoordinate[i].x += AccelerationX;
+		}
+		if (AccelerationX > 0) {
+			AccelerationX -= 0.1f;
+		}
+
+	}
+	if (isJumpLeft) {
+		//左に移動
+		for (int i = 0; i < 4; i++)
+		{
+			m_WorldCharaCoordinate[i].x -= AccelerationX;
+			m_DisplayCharaCoordinate[i].x -= AccelerationX;
+		}
+		if (AccelerationX > 0) {
+			AccelerationX -= 0.1f;
+		}
+
+	}
+}
+//bool GameChara::StartJump()
+//{
+//	if (DownCollisionCheck){
+//		return true;
+//	}
+//	return false;
+//}
+
+void GameChara::CharaMoveOperation(KeyDirection vec)
 {
 	switch (vec)
 	{
 		//上に移動
-	case UP:
-		for (int i = 0;i < 4;i++)
-		{
-			pWorldCharaCoordinate[i].y -= MoveQuantity;
-			pDisplayCharaCoordinate[i].y -= MoveQuantity;
-		}
+	case JUMP:
+
+		isJump = PermitJumping();
 		break;
 	case DOWN:
 		//今のところなし
@@ -50,23 +136,20 @@ void GameChara::CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCo
 		//右に移動
 		for (int i = 0;i < 4;i++)
 		{
-			pWorldCharaCoordinate[i].x += MoveQuantity;
-			pDisplayCharaCoordinate[i].x += MoveQuantity;
+			m_WorldCharaCoordinate[i].x += CharaMoveSpeed;
+			m_DisplayCharaCoordinate[i].x += CharaMoveSpeed;
 		}
 		break;
 	case LEFT:
 		//左に移動
 		for (int i = 0;i < 4;i++)
 		{
-			pWorldCharaCoordinate[i].x -= MoveQuantity;
-			pDisplayCharaCoordinate[i].x -= MoveQuantity;
+			m_WorldCharaCoordinate[i].x -= CharaMoveSpeed;
+			m_DisplayCharaCoordinate[i].x -= CharaMoveSpeed;
 		}
 		break;
 	}
 }
-
-
-
 
 void GameChara::ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give)
 {
@@ -76,7 +159,6 @@ void GameChara::ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Giv
 	//Receive[3] = Give[3];
 }
 
-
 void GameChara::prevSaveMapCharaPos()
 {
 	m_PrevMapLeftDirectionPosition = (int)m_WorldCharaCoordinate[3].x;
@@ -84,27 +166,24 @@ void GameChara::prevSaveMapCharaPos()
 	m_PrevMapCharaPositionY = (int)m_WorldCharaCoordinate[3].y + 10;
 }
 
-
-
-
 void GameChara::KeyOperation(KeyDirection vec)
 {
 	//Key操作での処理
 	switch (vec)
 	{
-	case UP:
-		CharaMoveOperation(UP, m_WorldCharaCoordinate, m_DisplayCharaCoordinate, 30.0f);
+	case JUMP:
+		CharaMoveOperation(JUMP);
 		break;
 	case DOWN:
 		//今のところ無し
 		break;
 	case RIGHT:
 		//右に移動
-		CharaMoveOperation(RIGHT, m_WorldCharaCoordinate, m_DisplayCharaCoordinate, CharaMoveSpeed);
+		CharaMoveOperation(RIGHT);
 		break;
 	case LEFT:
 		//左に移動
-		CharaMoveOperation(LEFT, m_WorldCharaCoordinate, m_DisplayCharaCoordinate, CharaMoveSpeed);
+		CharaMoveOperation(LEFT);
 		break;
 	case SoundOn:
 		m_pSoundManager->Start("DECISION");
@@ -112,10 +191,12 @@ void GameChara::KeyOperation(KeyDirection vec)
 	}
 }
 
-
 void GameChara::CharaInforSave(int MapReverseSelect,Object* MapChip)
 {
 	m_pMapChip = MapChip;
+	row = m_pMapChip->getRow();
+	colunm = m_pMapChip->getColunm();
+
 	if (!MapReverseSelect)
 	{
 		ValueAllSetCUSTOMVERTEX(m_SurfaceDisplayCharaCoordinate, m_DisplayCharaCoordinate);
@@ -132,30 +213,45 @@ void GameChara::CharaInforSave(int MapReverseSelect,Object* MapChip)
 	}
 }
 
-
 void GameChara::MapScroolCheck()
 {
-	//上にスクロール移動
-	if (m_DisplayCharaCoordinate[1].y < DisplayCharMoveScopeUp)
-	{
-		if (m_WorldCharaCoordinate[0].y >= DisplayCharMoveScopeUp)
-		{
-			m_DisplayCharaCoordinate[0].y =( DisplayCharMoveScopeUp);
-			m_DisplayCharaCoordinate[1].y =( DisplayCharMoveScopeUp);
-			m_DisplayCharaCoordinate[2].y =( DisplayCharMoveScopeUp + m_Player.scale_y);
-			m_DisplayCharaCoordinate[3].y =( DisplayCharMoveScopeUp + m_Player.scale_y);
-			m_pMapChip->m_MapScrollY += CharaMoveSpeed;
-		}
+	//キャラ当たり判定が2段の地面の間に吸われている
+	if (m_pMapChip->RestrictBottomScroll()){
+		//m_pMapChip->m_MapScrollY += VerticalScrollingLevel;
+		m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(MapLeftDirectionPosition, MapRightDirectionPosition);
+		m_WorldCharaCoordinate[1].y = m_pMapChip->GetBottomWorldPoint(MapLeftDirectionPosition, MapRightDirectionPosition);
+		m_WorldCharaCoordinate[2].y = m_pMapChip->GetBottomWorldPoint(MapLeftDirectionPosition, MapRightDirectionPosition) + m_Player.scale_y;
+		m_WorldCharaCoordinate[3].y = m_pMapChip->GetBottomWorldPoint(MapLeftDirectionPosition, MapRightDirectionPosition) + m_Player.scale_y;
+		m_DisplayCharaCoordinate[0].y = m_pMapChip->GetBottomPoint(MapLeftDirectionPosition, MapRightDirectionPosition);
+		m_DisplayCharaCoordinate[1].y = m_pMapChip->GetBottomPoint(MapLeftDirectionPosition, MapRightDirectionPosition);
+		m_DisplayCharaCoordinate[2].y = m_pMapChip->GetBottomPoint(MapLeftDirectionPosition, MapRightDirectionPosition) + m_Player.scale_y;
+		m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(MapLeftDirectionPosition, MapRightDirectionPosition) + m_Player.scale_y;
 	}
 	//下にスクロール移動
-	if (m_DisplayCharaCoordinate[3].y > DisplayCharMoveScopeDown)
+	else if (m_DisplayCharaCoordinate[3].y > DisplayCharMoveScopeDown)
 	{
 		m_DisplayCharaCoordinate[0].y = (DisplayCharMoveScopeDown - m_Player.scale_y);
 		m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeDown - m_Player.scale_y);
 		m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeDown);
 		m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeDown);
-		m_pMapChip->m_MapScrollY -= CharaMoveSpeed;
+		m_pMapChip->m_MapScrollY -= VerticalScrollingLevel;
+		
+		isScrollingDown = true;
 	}
+	else isScrollingDown = false;
+	//上にスクロール移動
+	if (m_DisplayCharaCoordinate[1].y < DisplayCharMoveScopeUp)
+	{
+		if (m_WorldCharaCoordinate[0].y >= DisplayCharMoveScopeUp)
+		{
+			m_DisplayCharaCoordinate[0].y = (DisplayCharMoveScopeUp);
+			m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeUp);
+			m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
+			m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
+			m_pMapChip->m_MapScrollY += CharaMoveSpeed;
+		}
+	}
+
 	//右にスクロール移動
 	if (m_DisplayCharaCoordinate[1].x > DisplayCharMoveScopeRight)
 	{
@@ -180,24 +276,24 @@ void GameChara::MapScroolCheck()
 		m_pMapChip->m_MapScrollX += CharaMoveSpeed;
 		}
 	}
+
 }
 
 void GameChara::Update()
 {
-	MapScroolCheck();
+
 	MapLeftDirectionPosition = (int)m_WorldCharaCoordinate[3].x / CELL_SIZE;
 	MapRightDirectionPosition = (int)(m_WorldCharaCoordinate[2].x) / CELL_SIZE;
 	MapCharaPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
-	//重力を毎フレームかける
-	for (int i = 0; i < 4; i++)
-	{
-		m_WorldCharaCoordinate[i].y += Gravity;
-		m_DisplayCharaCoordinate[i].y += Gravity;
+	if (MapCharaPositionY >= colunm) {
+		MapCharaPositionY = colunm - 2;
 	}
+	CollisionHead = TopCollisionAnything();
+
+	MapScroolCheck();
+	AddGravity();
 	//下の方向を確かめる
-	if ((m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition) != NONE) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 1) != NONE) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 2) != NONE))
+	if (DownCollisionAnything())
 	{
 		m_WorldCharaCoordinate[0].y = ((MapCharaPositionY - 4) * CELL_SIZE);
 		m_WorldCharaCoordinate[1].y = ((MapCharaPositionY - 4) * CELL_SIZE);
@@ -208,6 +304,7 @@ void GameChara::Update()
 			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
 		}
 	}
+
 	//上のブロックを確かめる
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
@@ -267,20 +364,127 @@ void GameChara::Update()
 			}
 		}
 	}
+	if (!CollisionHead) {
+		Jump();
+	}
+	else if (isJump) {
+		InitJumpParam();
+	}
+
 }
 
+bool GameChara::DownCollisionAnything(void) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 2) != NONE)) {
+		return true;
+	}
+	return false;
+}
+bool GameChara::TopCollisionAnything(void) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 2) != NONE)){
+		return true;
+	}
+	return false;
+}
+bool GameChara::DownCollisionCheck(int block) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition) == block) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 1) == block) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 2) == block)) {
+		return true;
+	}
+	return false;
+}
+bool GameChara::TopCollisionCheck(int block) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition) == block) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 1) == block) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition + 2) == block)) {
+		return true;
+	}
+	return false;
+}
 
+bool GameChara::LeftCollisionCheck(int block) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition-1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition-1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition-1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition-1) != NONE)) {
+		return true;
+	}
+	return false;
+}
+bool GameChara::RightCollisionCheck(int block) {
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition+1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition+1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition+1) != NONE) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition+1) != NONE)) {
+		return true;
+	}
+	return false;
+}
+
+void GameChara::BelowCollision() {
+	if (DownCollisionAnything())
+	{
+		m_WorldCharaCoordinate[0].y = ((MapCharaPositionY - 4) * CELL_SIZE);
+		m_WorldCharaCoordinate[1].y = ((MapCharaPositionY - 4) * CELL_SIZE);
+		m_WorldCharaCoordinate[2].y = ((MapCharaPositionY)* CELL_SIZE);
+		m_WorldCharaCoordinate[3].y = ((MapCharaPositionY)* CELL_SIZE);
+		for (int i = 0; i < 4; i++)
+		{
+			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+		}
+	}
+
+}
 void GameChara::Render()
 {
 	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
-
+	CUSTOMVERTEX TestChar[4];
+	CENTRAL_STATE CharCentral = {0};
+	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
+	CharCentral.scale_x = 120.f;
+	CreateSquareVertex(CharCentral, TestChar,0xFFFFFFFF,0.2f,0.f,0.8f);
+	TextureRender("CHARA_TEX", TestChar);
 	RECT test = { 0,0,1200,500 };
 	char TestText[ArrayLong];
+	sprintf_s(TestText, ArrayLong, "MapChara::X-L:%d,X-R:%d,Y:%d", MapLeftDirectionPosition, MapRightDirectionPosition, MapCharaPositionY);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	sprintf_s(TestText, ArrayLong, "\nPrevMapChara::X-L:%d,X-R:%d,Y:%d", m_PrevMapLeftDirectionPosition, m_PrevMapRightDirectionPosition, m_PrevMapCharaPositionY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	sprintf_s(TestText, ArrayLong, "\n\nWorldChara::X-L:%.2f,X-R:%.2f,Y:%.2f", m_WorldCharaCoordinate[3].x, m_WorldCharaCoordinate[2].x, m_WorldCharaCoordinate[3].y);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
-	sprintf_s(TestText, ArrayLong, "\n\n\nDisplayChara::X-L:%.2f,X-R:%.2f,Y:%.2f", m_DisplayCharaCoordinate[3].x, m_DisplayCharaCoordinate[2].x, m_DisplayCharaCoordinate[3].y);
+	sprintf_s(TestText, ArrayLong, "\n\n\nDisplayChara::X-L:%.2f,X-R:%.2f,Y3:%.2f,Y0:%.2f", m_DisplayCharaCoordinate[3].x, m_DisplayCharaCoordinate[2].x, m_DisplayCharaCoordinate[3].y, m_DisplayCharaCoordinate[0].y);
+	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	sprintf_s(TestText, ArrayLong, "\n\n\n\n\n\nAccelerationY::%.2f", AccelerationY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
+}
+
+void GameChara::AddGravity() {
+	//重力を毎フレームかける
+	if (isScrollingDown) {
+		for (int i = 0; i < 4; i++)
+		{
+			m_WorldCharaCoordinate[i].y += VerticalScrollingLevel;
+			m_DisplayCharaCoordinate[i].y += VerticalScrollingLevel;
+		}
+		return;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		m_WorldCharaCoordinate[i].y += Gravity;
+		m_DisplayCharaCoordinate[i].y += Gravity;
+	}
+
+}
+
+void GameChara::DebugMove() {
+	for (int i = 0; i < 4; i++)
+	{
+		m_WorldCharaCoordinate[i].y -= CharaMoveSpeed * 1.5f;
+		m_DisplayCharaCoordinate[i].y -= CharaMoveSpeed * 1.5f;
+	}
 }

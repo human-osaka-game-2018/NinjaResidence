@@ -60,3 +60,10 @@ void Object::CreateSquareVertex( CENTRAL_STATE Central,CUSTOMVERTEX* Vertex, DWO
 	Vertex[2] = { Central.x + Central.scale_x, Central.y + Central.scale_y, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex[3] = { Central.x , Central.y + Central.scale_y, 1.f, 1.f, color, tu, tv + scaleTv };
 }
+
+void Object::TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex) {
+	Central->x = Vertex[0].x;
+	Central->y = Vertex[0].y;
+	Central->scale_x = Vertex[1].x - Vertex[0].x;
+	Central->scale_y = Vertex[3].y - Vertex[0].y;
+}

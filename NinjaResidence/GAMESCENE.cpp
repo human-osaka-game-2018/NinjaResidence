@@ -37,19 +37,21 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
-	if (m_pDirectX->GetKeyStatus(DIK_UP))
+	m_pXinputDevice->DeviceUpdate();
+
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W))
 	{
-		m_pGameChara->KeyOperation(UP);
+		m_pGameChara->KeyOperation(JUMP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_DOWN))
+	if (m_pDirectX->GetKeyStatus(DIK_S))
 	{
 		m_pGameChara->KeyOperation(DOWN);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_LEFT))
+	if (m_pDirectX->GetKeyStatus(DIK_A))
 	{
 		m_pGameChara->KeyOperation(LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_RIGHT))
+	if (m_pDirectX->GetKeyStatus(DIK_D))
 	{
 		m_pGameChara->KeyOperation(RIGHT);
 	}
@@ -58,21 +60,25 @@ SCENE_NUM  GameScene::Update()
 		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
 
-	if (m_pXinputDevice->GetButton(ButtonUP))
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonY))
 	{
-		m_pGameChara->KeyOperation(UP);
+		m_pGameChara->KeyOperation(JUMP);
 	}
 	if (m_pXinputDevice->GetButton(ButtonDOWN))
 	{
 		m_pGameChara->KeyOperation(DOWN);
 	}
-	if (m_pXinputDevice->GetButton(ButtonLEFT))
+	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
 		m_pGameChara->KeyOperation(LEFT);
 	}
-	if (m_pXinputDevice->GetButton(ButtonRIGHT))
+	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
 	{
 		m_pGameChara->KeyOperation(RIGHT);
+	}
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	{
+		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
 
 	//マップ動作
@@ -92,8 +98,16 @@ SCENE_NUM  GameScene::Update()
 		//{
 		//	m_pBusyMapChip->KeyOperation(RIGHT);
 		//}
-	//音声のテスト用処理を呼ぶ
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	//テスト用処理
+	if (m_pDirectX->GetKeyStatus(DIK_PGUP))
+	{
+		m_pGameChara->DebugMove();
+	}
+	if (m_pXinputDevice->GetButton(ButtonB))
+	{
+		m_pGameChara->DebugMove();
+	}
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonStart))
 	{
 		m_pGameChara->KeyOperation(SoundOn);
 	}
@@ -102,7 +116,7 @@ SCENE_NUM  GameScene::Update()
 	}
 	m_pGameChara->Update();
 	m_pGameChara->prevSaveMapCharaPos();
-
+	m_pBusyMapChip->Update();
 	return GetNextScene();
 }
 
@@ -127,6 +141,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+	m_pDirectX->LoadTexture("texture/1540595436925.png", "CHARA_TEX");
 
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
