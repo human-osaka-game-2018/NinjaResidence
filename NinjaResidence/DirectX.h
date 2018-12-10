@@ -85,6 +85,7 @@ public:
 	* @brief キーボード情報の読み取り
 	*/
 	void CheckKeyStatus();
+	bool ChackPushAnykey();
 	/**
 	* @brief 指定のキー情報取得
 	* @param KeyName DXINPUTキーの名前
@@ -196,4 +197,7 @@ private:
 	HRESULT InitD3d(HWND hWnd, LPCSTR FilePath);
 	HRESULT InitDinput(HWND hWnd);
 	HRESULT DeviceState = NULL;
+
+	const int MaxKeyNumber = 256;
+
 };

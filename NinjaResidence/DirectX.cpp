@@ -206,7 +206,6 @@ void DirectX::InitPresentParameters(HWND hWnd) {
 */
 
 void DirectX::CheckKeyStatus() {
-	const int MaxKeyNumber = 256;
 	HRESULT hr = m_pKeyDevice->Acquire();
 	if ((hr == DI_OK) || (hr == S_FALSE)) {
 		m_pKeyDevice->GetDeviceState(sizeof(m_KeyState), &m_KeyState);
@@ -245,6 +244,14 @@ void DirectX::CheckKeyStatus() {
 	}
 }
 
+bool DirectX::ChackPushAnykey() {
+	for (int i = 0; i < MaxKeyNumber; ++i) {
+		if (m_KeyState[i]) {
+			return true;
+		}
+	}
+	return false;
+}
 /*
 *
 */

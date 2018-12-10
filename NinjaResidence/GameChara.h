@@ -29,7 +29,24 @@ public:
 	//Debug用処理
 	void DebugMove();
 
+
 private:
+	enum MOTION {
+		STANDBY,
+		DASH,
+		STAND,
+		JUMPING,
+		WALLHOLD,
+		THROW,
+	};
+	enum DIRECTION {
+		FACING_RIGHT = 1,
+		FACING_LEFT = -1,
+	};
+	enum DIRECTION_BIAS {
+		ZERO,
+		ONE,
+	};
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
@@ -59,6 +76,14 @@ private:
 	float CharTu = 80 / 512.f;
 	float CharTv = 160 / 512.f;
 
+	//仮統合ファイルの切り取り情報
+	float TESTCharTu = 233 / 2048.f;
+	float TESTCharTv = 215 / 2048.f;
+	float TESTCharBias = 64 / 2024.f;
+	MOTION ChangeAnimetion = STAND;
+	DIRECTION Facing = FACING_RIGHT;
+	DIRECTION_BIAS Bias = ZERO;
+
 	bool isScrollingDown = false;
 	bool isInTheAir = false;
 	bool isJump = false;
@@ -72,7 +97,7 @@ private:
 
 	const float InitialAcceleration = 60.0f;
 	float AccelerationY = InitialAcceleration;
-	float AccelerationX = InitialAcceleration - CharaMoveSpeed;
+	float AccelerationX = CharaMoveSpeed * 1.5f;
 
 
 	void CharaMoveOperation(KeyDirection vec);
@@ -83,6 +108,7 @@ private:
 	void JumpingLateralMotion();
 	void InitJumpParam();
 
+	void WorldPositionModefy();
 	void AccelarationControl();
 	
 	void AddGravity();
