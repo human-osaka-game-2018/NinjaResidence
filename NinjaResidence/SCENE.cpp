@@ -10,7 +10,7 @@ Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDire
 	m_pDirectX = pDirectX;
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundManager = pSoundManager;
-	m_pDirectX->LoadTexture("texture/ninja_tool01_c_01.png", "CROSS_TEX");
+	m_pDirectX->LoadTexture("texture/Shuriken.png", "CROSS_TEX");
 	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }
 
@@ -48,14 +48,12 @@ void Scene::RunOptionScene(int BGMvolume,int SEvolume) {
 void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 void Scene::LoadAnimation() {
-
 	static int rad = 0;
-	++rad;
+	rad += D3DX_PI;
 	CUSTOMVERTEX closs[4];
 	CENTRAL_STATE CLOSS = { CENTRAL_X,CENTRAL_Y,300,300 };
 	RevolveZ(closs, rad, CLOSS);
 	m_pDirectX->DrawTexture("CROSS_TEX", closs);
-
 }
 
 void Scene::EndGame() {

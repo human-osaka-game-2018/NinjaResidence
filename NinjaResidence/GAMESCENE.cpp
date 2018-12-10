@@ -55,7 +55,12 @@ SCENE_NUM  GameScene::Update()
 	{
 		m_pGameChara->KeyOperation(RIGHT);
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_SPACE))
+	if (m_pDirectX->GetKeyStatus(DIK_E))
+	{
+
+	}
+
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER))
 	{
 		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
@@ -80,6 +85,13 @@ SCENE_NUM  GameScene::Update()
 	{
 		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
+	if (m_pXinputDevice->GetButton(ButtonB))
+	{
+
+	}
+	if (!m_pDirectX->ChackPushAnykey()) {
+		m_pGameChara->KeyOperation(PUSH_NONE);
+	}
 
 	//ƒ}ƒbƒv“®ì
 		//if (m_pDirectX->GetKeyStatus(DIK_W))
@@ -103,7 +115,7 @@ SCENE_NUM  GameScene::Update()
 	{
 		m_pGameChara->DebugMove();
 	}
-	if (m_pXinputDevice->GetButton(ButtonB))
+	if (m_pXinputDevice->GetButton(ButtonRB))
 	{
 		m_pGameChara->DebugMove();
 	}
@@ -141,7 +153,8 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
-	m_pDirectX->LoadTexture("texture/1540595436925.png", "CHARA_TEX");
+	m_pDirectX->LoadTexture("texture/nin_s.png", "CHARA_TEX");
+	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
 
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
