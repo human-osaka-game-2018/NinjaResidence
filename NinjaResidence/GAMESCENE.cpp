@@ -188,6 +188,7 @@ void GameScene::Render()
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
+#ifdef _DEBUG
 	RECT testName = { 0, 100, 1280, 720 };
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", StageNum);
@@ -196,7 +197,7 @@ void GameScene::Render()
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
-
+#endif
 }
 
 void GameScene::LoadResouce()
