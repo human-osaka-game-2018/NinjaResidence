@@ -4,6 +4,8 @@
 * @author Kojiro Kawahara
 */
 #include "GAMESCENE.h"
+#include "Shuriken.h"
+
 
 GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage) :Scene(pDirectX,pSoundManager)
 {
@@ -17,7 +19,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 	m_pIdleMapChip->Create("csv/Book2.csv");
 	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
-	
+	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
 	CreateSquareVertex(GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
@@ -31,6 +33,8 @@ GameScene::~GameScene()
 	m_pGameChara = NULL;
 	delete m_pMapReverse;
 	m_pMapReverse = NULL;
+	delete m_pShuriken;
+	m_pShuriken = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
@@ -38,31 +42,42 @@ GameScene::~GameScene()
 SCENE_NUM  GameScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
-
+	CheckPushAnyButton();
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W))
 	{
 		m_pGameChara->KeyOperation(JUMP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_S))
-	{
-		m_pGameChara->KeyOperation(DOWN);
-	}
+	//if (m_pDirectX->GetKeyStatus(DIK_S))
+	//{
+	//	m_pGameChara->KeyOperation(DOWN);
+	//}
 	if (m_pDirectX->GetKeyStatus(DIK_A))
 	{
-		m_pGameChara->KeyOperation(LEFT);
+		m_pGameChara->KeyOperation(MOVE_LEFT);
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_D))
 	{
-		m_pGameChara->KeyOperation(RIGHT);
+		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_E))
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E))
 	{
-
+		m_pShuriken->KeyOperation(THROW);
+		if (m_pShuriken->GetActive()) {
+			m_pGameChara->KeyOperation(THROW);
+		}
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_UP))
+	{
+		m_pShuriken->KeyOperation(UP);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_DOWN))
+	{
+		m_pShuriken->KeyOperation(DOWN);
 	}
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER))
 	{
-		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
+		Reverce();
 	}
 
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonY))
@@ -75,22 +90,30 @@ SCENE_NUM  GameScene::Update()
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
-		m_pGameChara->KeyOperation(LEFT);
+		m_pGameChara->KeyOperation(MOVE_LEFT);
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
 	{
-		m_pGameChara->KeyOperation(RIGHT);
+		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
-		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
+		Reverce();
 	}
-	if (m_pXinputDevice->GetButton(ButtonB))
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonB))
 	{
-
+		m_pShuriken->KeyOperation(THROW);
+		if (m_pShuriken->GetActive()) {
+			m_pGameChara->KeyOperation(THROW);
+		}
 	}
-	if (!m_pDirectX->ChackPushAnykey()) {
-		m_pGameChara->KeyOperation(PUSH_NONE);
+	if (m_pXinputDevice->GetButton(ButtonUP))
+	{
+		m_pShuriken->KeyOperation(UP);
+	}
+	if (m_pXinputDevice->GetButton(ButtonDOWN))
+	{
+		m_pShuriken->KeyOperation(DOWN);
 	}
 
 	//ƒ}ƒbƒv“®ì
@@ -129,7 +152,34 @@ SCENE_NUM  GameScene::Update()
 	m_pGameChara->Update();
 	m_pGameChara->prevSaveMapCharaPos();
 	m_pBusyMapChip->Update();
+	m_pShuriken->Update();
 	return GetNextScene();
+}
+
+void GameScene::CheckPushAnyButton() {
+	if (m_pDirectX->GetKeyStatus(DIK_W)) {
+		return;
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_A)) {
+		return;
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_D)){
+		return;
+	}
+
+	if (m_pXinputDevice->GetButton(ButtonY))
+	{
+		return;
+	}
+	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	{
+		return;
+	}
+	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	{
+		return;
+	}
+	m_pGameChara->KeyOperation(PUSH_NONE);
 }
 
 void GameScene::Render()
@@ -137,6 +187,7 @@ void GameScene::Render()
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
+	m_pShuriken->Render();
 	RECT testName = { 0, 100, 1280, 720 };
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", StageNum);
@@ -165,3 +216,9 @@ void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
 }
+void GameScene::Reverce()
+{
+	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
+	m_pShuriken->Reverse();
+}
+

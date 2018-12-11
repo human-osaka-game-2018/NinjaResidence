@@ -28,13 +28,16 @@ private:
 	GameChara * m_pGameChara = NULL;
 	Object * m_pBusyMapChip = NULL;//使用中のMapChip
 	Object * m_pIdleMapChip = NULL;//停止中のMapChip
+	Object * m_pShuriken = NULL;
+
 	MapReverse * m_pMapReverse = NULL;
 	Scene * pScene = NULL;
-	
+	void Reverce();
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();
 	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
+	void CheckPushAnyButton();
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
 	void LoadResouce();
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
