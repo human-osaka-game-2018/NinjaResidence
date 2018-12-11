@@ -86,7 +86,7 @@ void TitleScene::Render()
 
 void TitleScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/1540595436925.png", "CURSOL_TEX");
+	m_pDirectX->LoadTexture("texture/Shuriken.png", "CURSOL_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(75, 40, "MENU_FONT");

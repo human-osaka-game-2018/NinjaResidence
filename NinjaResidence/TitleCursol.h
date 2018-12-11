@@ -18,7 +18,7 @@ namespace Cursol {
 class TitleCursol :public Object
 {
 public:
-	void KeyOperation(KeyDirection vec);
+	void KeyOperation(KeyInput vec);
 	void Update();
 	void Render();
 	Cursol::CursolPosition getCursolPosition();
