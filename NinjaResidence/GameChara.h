@@ -22,12 +22,15 @@ namespace PlayerAnimation {
 		DASH,
 		STAND,
 		JUMPING,
+		//! 壁掴まり
 		WALLHOLD,
 		THROWING,
 	};
 	enum DIRECTION {
 		FACING_NOTHING = 0,
+		//! param 1
 		FACING_RIGHT = 1,
+		//! param -1
 		FACING_LEFT = -1,
 	};
 	//! アニメ用の仮列挙
@@ -68,7 +71,11 @@ public:
 		return m_DisplayCharaCoordinate[0].y + (CELL_SIZE * 2);
 	}
 
-
+	/**
+	* @brief キャラの向いている方向の取得
+	* @sa PlayerAnimation::DIRECTION
+	* @author Toshiya Matsuoka
+	*/
 	PlayerAnimation::DIRECTION GetFacing() {
 		return Facing;
 	}
