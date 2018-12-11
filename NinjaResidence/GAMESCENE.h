@@ -32,6 +32,10 @@ private:
 
 	MapReverse * m_pMapReverse = NULL;
 	Scene * pScene = NULL;
+	/**
+	* @brief ‚Ç‚ñ‚Å‚ñ•Ô‚µˆ—
+	* @author Toshiya Matsuoka
+	*/
 	void Reverce();
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);

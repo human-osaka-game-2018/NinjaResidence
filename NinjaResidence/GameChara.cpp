@@ -61,7 +61,7 @@ void GameChara::Jump()
 	for (int i = 0; i < 4; i++)
 	{
 		m_DisplayCharaCoordinate[i].y -= AccelerationY;
-		m_WorldCharaCoordinate[i].y -= AccelerationY/* * 0.5*/;
+		m_WorldCharaCoordinate[i].y -= AccelerationY;
 	}
 	MapCharaPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
 	ChangeAnimation = JUMPING;
@@ -488,6 +488,8 @@ void GameChara::Render()
 	CharCentral.scale_x = 120.f;
 	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF, TESTCharBias + (Bias * TESTCharTu), ChangeAnimation * TESTCharTv, TESTCharTu*Facing, TESTCharTv);
 	TextureRender("CHARA_TEX", TestChar);
+#ifdef _DEBUG
+
 	RECT test = { 0,0,1200,500 };
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "MapChara::X-L:%d,X-R:%d,Y:%d", MapLeftDirectionPosition, MapRightDirectionPosition, MapCharaPositionY);
@@ -500,6 +502,7 @@ void GameChara::Render()
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	sprintf_s(TestText, ArrayLong, "\n\n\n\n\n\nAccelerationY::%.2f", AccelerationY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+#endif
 
 }
 
