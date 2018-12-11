@@ -5,6 +5,9 @@
 #include "GameChara.h"
 #include "MapReverse.h"
 #include "DescriptionBoard.h"
+#include "Target.h"
+
+
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -16,6 +19,7 @@ class MapChip;
 class GameChara;
 class MapReverse;
 class DescriptionBoard;
+
 
 class GameScene : public Scene
 {

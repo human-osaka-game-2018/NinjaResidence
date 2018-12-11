@@ -19,31 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseTarget.cpp" />
     <ClCompile Include="DescriptionBoard.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
+    <ClCompile Include="BaseGimmick.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="MapReverse.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PartitionBoard.cpp" />
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="STAGESERECTSCENE.cpp" />
+    <ClCompile Include="Target.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseTarget.h" />
     <ClInclude Include="DescriptionBoard.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
+    <ClInclude Include="BaseGimmick.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapReverse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PartitionBoard.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="STAGESERECTSCENE.h" />
+    <ClInclude Include="Target.h" />
     <ClInclude Include="TITLESCENE.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

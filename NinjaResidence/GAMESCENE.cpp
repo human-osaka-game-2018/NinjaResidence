@@ -59,9 +59,10 @@ SCENE_NUM  GameScene::Update()
 	{
 		m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	}
-	//説明看板を読み
+	//ENTERキー入力で色々な操作
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN))
 	{
+		//説明看板を読み
 		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)||
 			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
 		{
@@ -108,7 +109,8 @@ void GameScene::Render()
 
 void GameScene::ReadTexture()
 {
-	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_TEX");
+	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_A_TEX");
+	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png","KANBAN_TEX");

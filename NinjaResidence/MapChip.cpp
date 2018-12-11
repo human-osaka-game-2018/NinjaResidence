@@ -70,6 +70,7 @@ void MapChip::Create(const char *filename)
 
 void MapChip::Render()
 {
+	int ObjectPicture = 0;
 	for (int j = 0; j < colunm;j++)
 	{
 		for (int i = 0;i < row;i++)
@@ -98,36 +99,42 @@ void MapChip::Render()
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case ROCK_BLOCK:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case WOOD_TRACT:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case ROCK_TRACT:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case WOOD_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case ROCK_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				ObjectPicture = 1;
 				break;
 			case DESCRIPTION_BOARD:
 				CELL[0].tu = 0.f;
@@ -142,6 +149,7 @@ void MapChip::Render()
 				CELL[2].x += 120.f;
 				CELL[3].y += 80.f;
 				CELL[2].y += 80.f;
+				ObjectPicture = 1;
 				break;
 			case DESCRIPTION_BOARD2:
 				CELL[0].tu = 0.f;
@@ -156,9 +164,47 @@ void MapChip::Render()
 				CELL[2].x += 120.f;
 				CELL[3].y += 80.f;
 				CELL[2].y += 80.f;
+				ObjectPicture = 1;
+				break;
+			case TARGET:
+				CELL[0].tu = 0;
+				CELL[3].tu = 0;
+				CELL[1].tu = BLOCK_WIDTH;
+				CELL[2].tu = BLOCK_WIDTH;
+				CELL[0].tv += 0.32f;
+				CELL[3].tv += 0.32f;
+				CELL[1].tv += 0.32f;
+				CELL[2].tv += 0.32f;
+				CELL[1].x += 60.f;
+				CELL[2].x += 60.f;
+				CELL[3].y += 60.f;
+				CELL[2].y += 60.f;
+				ObjectPicture = 1;
+				break;
+			case PARTITION_BOARD:
+				CELL[0].tu = 240.f / 512.f;
+				CELL[3].tu = 240.f / 512.f;
+				CELL[1].tu = 400.f / 512.f;
+				CELL[2].tu = 400.f / 512.f;
+				CELL[0].tv += 0.f;
+				CELL[1].tv += 0.f;
+				CELL[2].tv += 0.64f;
+				CELL[3].tv += 0.64f;
+				CELL[1].x += 120.f;
+				CELL[2].x += 120.f;
+				CELL[3].y += 420.f;
+				CELL[2].y += 420.f;
+				ObjectPicture = 2;
 				break;
 			}
-			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+			if (ObjectPicture == 1)
+			{
+				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
+			}
+			if (ObjectPicture == 2)
+			{
+				TextureRender("BLOCK_INTEGRATION_B_TEX", CELL);
+			}
 		}
 	}
 	RECT test = { 0,0,800,500 };
