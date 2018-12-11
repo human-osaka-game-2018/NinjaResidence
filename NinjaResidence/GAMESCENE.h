@@ -41,6 +41,7 @@ public:
 	void TransePause() {
 		RunPause = true;
 	}
+	
 private:
 	CUSTOMVERTEX  m_GameBackground[4];
 	GameChara* m_pGameChara = NULL;

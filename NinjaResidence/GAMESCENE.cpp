@@ -96,14 +96,7 @@ void GameScene::KeyOperation() {
 		SkillKeyOperation(UP);
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN)) {
-	}
 
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_SPACE))
-	{
-	}
-
-	if (m_pXinputDevice->GetButton(ButtonUP))
-	{
 		SkillKeyOperation(DOWN);
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
