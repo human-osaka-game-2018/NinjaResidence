@@ -12,7 +12,30 @@
 
 class GameScene;
 class MapReverse;
-
+/**
+* @namespace PlayerAnimation
+* @author Toshiya Matsuoka
+*/
+namespace PlayerAnimation {
+	enum MOTION {
+		STANDBY,
+		DASH,
+		STAND,
+		JUMPING,
+		WALLHOLD,
+		THROWING,
+	};
+	enum DIRECTION {
+		FACING_NOTHING = 0,
+		FACING_RIGHT = 1,
+		FACING_LEFT = -1,
+	};
+	//! アニメ用の仮列挙
+	enum DIRECTION_BIAS {
+		ZERO,
+		ONE,
+	};
+};
 
 class GameChara :public Object
 {
@@ -20,33 +43,36 @@ public:
 	int GetMapCharaPositionX() { return MapLeftDirectionPosition; }
 	int GetMapCharaPositionY() { return MapCharaPositionY; }
 	void prevSaveMapCharaPos();
-	void KeyOperation(KeyDirection vec);
+	void KeyOperation(KeyInput vec);
 	void CharaInforSave(int MapReverse1, Object* MapChip);
 	void Update();
 	void Render();
 	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
 	~GameChara();
-	//Debug用処理
+	/**
+	* @brief Debug用キャラ上昇処理
+	* @author Toshiya Matsuoka
+	*/
 	void DebugMove();
 
+	/**
+	* @brief キャラのディスプレイ上前端の取得
+	* @author Toshiya Matsuoka
+	*/
+	float GetPositionX();
+	/**
+	* @brief キャラのディスプレイ上中心Y座標の取得
+	* @author Toshiya Matsuoka
+	*/
+	float GetPositionY() {
+		return m_DisplayCharaCoordinate[0].y + (CELL_SIZE * 2);
+	}
 
+
+	PlayerAnimation::DIRECTION GetFacing() {
+		return Facing;
+	}
 private:
-	enum MOTION {
-		STANDBY,
-		DASH,
-		STAND,
-		JUMPING,
-		WALLHOLD,
-		THROW,
-	};
-	enum DIRECTION {
-		FACING_RIGHT = 1,
-		FACING_LEFT = -1,
-	};
-	enum DIRECTION_BIAS {
-		ZERO,
-		ONE,
-	};
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
@@ -80,9 +106,12 @@ private:
 	float TESTCharTu = 233 / 2048.f;
 	float TESTCharTv = 215 / 2048.f;
 	float TESTCharBias = 64 / 2024.f;
-	MOTION ChangeAnimetion = STAND;
-	DIRECTION Facing = FACING_RIGHT;
-	DIRECTION_BIAS Bias = ZERO;
+
+	PlayerAnimation::MOTION ChangeAnimation = PlayerAnimation::STAND;
+	PlayerAnimation::DIRECTION Facing = PlayerAnimation::FACING_RIGHT;
+	//! 仮置き変数
+	PlayerAnimation::DIRECTION_BIAS Bias = PlayerAnimation::ZERO;
+
 
 	bool isScrollingDown = false;
 	bool isInTheAir = false;
@@ -100,24 +129,90 @@ private:
 	float AccelerationX = CharaMoveSpeed * 1.5f;
 
 
-	void CharaMoveOperation(KeyDirection vec);
+	void CharaMoveOperation(KeyInput vec);
 	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
 	void MapScroolCheck();
-	bool PermitJumping();
-	void Jump();
-	void JumpingLateralMotion();
-	void InitJumpParam();
 
-	void WorldPositionModefy();
+	/**
+	* @breaf ジャンプの起動
+	* @return ジャンプが起動すればtrue
+	* @author Toshiya Matsuoka
+	*/
+	bool PermitJumping();
+	/**
+	* @breaf ジャンプの動作
+	* @author Toshiya Matsuoka
+	*/
+	void Jump();
+	/**
+	* @breaf 壁ジャンプ用横移動処理
+	* @author Toshiya Matsuoka
+	*/
+	void JumpingLateralMotion();
+	/**
+	* @breaf ジャンプの動作変数の初期化
+	* @author Toshiya Matsuoka
+	*/
+	void InitJumpParam();
+	/**
+	* @breaf ジャンプの上昇量調整
+	* @author Toshiya Matsuoka
+	*/
 	void AccelarationControl();
-	
+
+	/**
+	* @breaf 投擲アニメ処理
+	* @author Toshiya Matsuoka
+	*/
+	void ThrowAnime();
+
+	/**
+	* @breaf 課重力処理
+	* @author Toshiya Matsuoka
+	*/
 	void AddGravity();
-	//bool StartJump();
-	void BelowCollision();
+	/**
+	* @breaf 下に対する何かしらの当たり判定
+	* @return 当たっていればtrue
+	* @author Toshiya Matsuoka
+	*/
 	bool DownCollisionAnything(void);
+	/**
+	* @breaf 上に対する何かしらの当たり判定
+	* @return 当たっていればtrue
+	* @author Toshiya Matsuoka
+	*/
 	bool TopCollisionAnything(void);
+	/**
+	* @breaf 下方向に対する当たり判定
+	* @param block 指定のブロック番号
+	* @return 当たっていればtrue
+	* @sa  MapBlock::BLOCKTYPE
+	* @author Toshiya Matsuoka
+	*/
 	bool DownCollisionCheck(int block);
+	/**
+	* @breaf 上方向に対する当たり判定
+	* @param block 指定のブロック番号
+	* @return 当たっていればtrue
+	* @sa  MapBlock::BLOCKTYPE
+	* @author Toshiya Matsuoka
+	*/
 	bool TopCollisionCheck(int block);
+	/**
+	* @breaf 右方向に対する当たり判定
+	* @param block 指定のブロック番号
+	* @return 当たっていればtrue
+	* @sa  MapBlock::BLOCKTYPE
+	* @author Toshiya Matsuoka
+	*/
 	bool RightCollisionCheck(int block);
+	/**
+	* @breaf 左方向に対する当たり判定
+	* @param block 指定のブロック番号
+	* @return 当たっていればtrue
+	* @sa  MapBlock::BLOCKTYPE
+	* @author Toshiya Matsuoka
+	*/
 	bool LeftCollisionCheck(int block);
 };

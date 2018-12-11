@@ -11,7 +11,7 @@
 
 using SoundLib::SoundsManager;
 
-enum KeyDirection
+enum KeyInput
 {
 	PUSH_NONE,
 	UP,
@@ -19,7 +19,10 @@ enum KeyDirection
 	LEFT,
 	RIGHT,
 	JUMP,
+	MOVE_LEFT,
+	MOVE_RIGHT,
 	SPACE,
+	THROW,
 	SoundOn,
 };
 
@@ -30,7 +33,7 @@ public:
 	*ÉLÅ[ì¸óÕéûÇÃì‡ïîèàóùä÷êî
 	*/
 	virtual void KeyOperation();
-	virtual void KeyOperation(KeyDirection vec) {};
+	virtual void KeyOperation(KeyInput vec) {};
 
 	virtual void Update();
 	virtual void Render();
@@ -106,6 +109,12 @@ public:
 	virtual bool RestrictBottomScroll() { return false; };
 	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
 	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
+
+	virtual void Reverse() {};
+	virtual bool GetActive() { return false; };
+	float DegToRad(float deg) {
+		return deg * (D3DX_PI / 180);
+	}
 protected:
 	DirectX * m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
@@ -118,6 +127,9 @@ protected:
 
 	const float CELL_SIZE = 40.f;
 	static const int ArrayLong = 64;
+	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+
+	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };

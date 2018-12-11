@@ -67,3 +67,78 @@ void Object::TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex
 	Central->scale_x = Vertex[1].x - Vertex[0].x;
 	Central->scale_y = Vertex[3].y - Vertex[0].y;
 }
+
+void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
+
+	float CharVertexX[4];
+	float CharVertexY[4];
+
+	CharVertexX[0] = Central.x - Central.scale_x;
+	CharVertexX[1] = Central.x + Central.scale_x;
+	CharVertexX[2] = Central.x + Central.scale_x;
+	CharVertexX[3] = Central.x - Central.scale_x;
+
+	CharVertexY[0] = Central.y - Central.scale_y;
+	CharVertexY[1] = Central.y - Central.scale_y;
+	CharVertexY[2] = Central.y + Central.scale_y;
+	CharVertexY[3] = Central.y + Central.scale_y;
+
+	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
+
+		CharVertexX[RoteCnt] -= Central.x;
+		CharVertexY[RoteCnt] -= Central.y;
+
+		float KEEPER = CharVertexX[RoteCnt];
+
+		CharVertexX[RoteCnt] = (CharVertexX[RoteCnt] * cos(-Rad)) - (CharVertexY[RoteCnt] * sin(-Rad));
+		CharVertexY[RoteCnt] = (CharVertexY[RoteCnt] * cos(-Rad)) + (KEEPER * sin(-Rad));
+
+		CharVertexX[RoteCnt] += Central.x;
+		CharVertexY[RoteCnt] += Central.y;
+
+	}
+
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, color, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, color, tu, tv + scaleTv };
+
+}
+
+void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftX, float RevolvingShaftY, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
+
+	float CharVertexX[4];
+	float CharVertexY[4];
+
+	CharVertexX[0] = Central.x - Central.scale_x;
+	CharVertexX[1] = Central.x + Central.scale_x;
+	CharVertexX[2] = Central.x + Central.scale_x;
+	CharVertexX[3] = Central.x - Central.scale_x;
+
+	CharVertexY[0] = Central.y - Central.scale_y;
+	CharVertexY[1] = Central.y - Central.scale_y;
+	CharVertexY[2] = Central.y + Central.scale_y;
+	CharVertexY[3] = Central.y + Central.scale_y;
+
+	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
+
+		CharVertexX[RoteCnt] -= RevolvingShaftX;
+		CharVertexY[RoteCnt] -= RevolvingShaftY;
+
+		float KEEPER = CharVertexX[RoteCnt];
+
+		CharVertexX[RoteCnt] = (CharVertexX[RoteCnt] * cos(-Rad)) - (CharVertexY[RoteCnt] * sin(-Rad));
+		CharVertexY[RoteCnt] = (CharVertexY[RoteCnt] * cos(-Rad)) + (KEEPER * sin(-Rad));
+
+		CharVertexX[RoteCnt] += RevolvingShaftX;
+		CharVertexY[RoteCnt] += RevolvingShaftY;
+
+	}
+
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, color, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, color, tu, tv + scaleTv };
+
+}
+

@@ -6,6 +6,7 @@
 #include "GameChara.h"
 
 using  namespace MapBlock;
+using namespace PlayerAnimation;
 
 GameChara::GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) :Object(pDirectX,pSoundManager)
 {
@@ -63,7 +64,7 @@ void GameChara::Jump()
 		m_WorldCharaCoordinate[i].y -= AccelerationY/* * 0.5*/;
 	}
 	MapCharaPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
-	ChangeAnimetion = JUMPING;
+	ChangeAnimation = JUMPING;
 	if (RiseFlameTime < 15) {
 		RiseFlameTime++;
 		AccelarationControl();
@@ -117,7 +118,7 @@ void GameChara::JumpingLateralMotion() {
 //	return false;
 //}
 
-void GameChara::CharaMoveOperation(KeyDirection vec)
+void GameChara::CharaMoveOperation(KeyInput vec)
 {
 	switch (vec)
 	{
@@ -130,9 +131,9 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 		//今のところなし
 
 		break;
-	case RIGHT:
+	case MOVE_RIGHT:
 		//右に移動
-		ChangeAnimetion = DASH;
+		ChangeAnimation = DASH;
 		Facing = FACING_RIGHT;
 		Bias = ZERO;
 		for (int i = 0;i < 4;i++)
@@ -141,9 +142,9 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 			m_DisplayCharaCoordinate[i].x += CharaMoveSpeed;
 		}
 		break;
-	case LEFT:
+	case MOVE_LEFT:
 		//左に移動
-		ChangeAnimetion = DASH;
+		ChangeAnimation = DASH;
 		Facing = FACING_LEFT;
 		Bias = ONE;
 		for (int i = 0;i < 4;i++)
@@ -153,7 +154,9 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 		}
 		break;
 	case PUSH_NONE:
-		ChangeAnimetion = STAND;
+		if (!DownCollisionAnything()) {
+			ChangeAnimation = STAND;
+		}
 		break;
 	}
 }
@@ -173,8 +176,9 @@ void GameChara::prevSaveMapCharaPos()
 	m_PrevMapCharaPositionY = (int)m_WorldCharaCoordinate[3].y + 10;
 }
 
-void GameChara::KeyOperation(KeyDirection vec)
+void GameChara::KeyOperation(KeyInput vec)
 {
+	static bool isThrowing = false;
 	//Key操作での処理
 	switch (vec)
 	{
@@ -184,19 +188,26 @@ void GameChara::KeyOperation(KeyDirection vec)
 	case DOWN:
 		//今のところ無し
 		break;
-	case RIGHT:
+	case MOVE_RIGHT:
 		//右に移動
-		CharaMoveOperation(RIGHT);
+		CharaMoveOperation(MOVE_RIGHT);
 		break;
-	case LEFT:
+	case MOVE_LEFT:
 		//左に移動
-		CharaMoveOperation(LEFT);
+		CharaMoveOperation(MOVE_LEFT);
 		break;
 	case SoundOn:
 		m_pSoundManager->Start("DECISION");
 		break;
 	case PUSH_NONE:
 		CharaMoveOperation(PUSH_NONE);
+		break;
+	case THROW:
+		//if (isThrowing) {
+			ChangeAnimation = THROWING;
+		//}
+		//isThrowing = !isThrowing;
+		break;
 	}
 }
 
@@ -288,9 +299,29 @@ void GameChara::MapScroolCheck()
 
 }
 
+void GameChara::ThrowAnime() {
+	static bool ThrowAnimeOn = false;
+	static int AnimationCount = 0;
+
+	if (ChangeAnimation == THROWING) {
+		ThrowAnimeOn = true;
+	}
+	if (ThrowAnimeOn) {
+		AnimationCount++;
+	}
+	else return;
+	if (AnimationCount < 20) {
+		ChangeAnimation = THROWING;
+	}
+	else {
+		AnimationCount = 0;
+		ThrowAnimeOn = false;
+		ChangeAnimation = STAND;
+	}
+}
 void GameChara::Update()
 {
-
+	ThrowAnime();
 	MapLeftDirectionPosition = (int)m_WorldCharaCoordinate[3].x / CELL_SIZE;
 	MapRightDirectionPosition = (int)(m_WorldCharaCoordinate[2].x) / CELL_SIZE;
 	MapCharaPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
@@ -301,7 +332,6 @@ void GameChara::Update()
 
 	MapScroolCheck();
 	AddGravity();
-	WorldPositionModefy();
 	//下の方向を確かめる
 	if (DownCollisionAnything())
 	{
@@ -323,6 +353,7 @@ void GameChara::Update()
 
 		}
 	}
+	else 	ChangeAnimation = JUMPING;
 
 	//上のブロックを確かめる
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
@@ -393,6 +424,9 @@ void GameChara::Update()
 }
 
 bool GameChara::DownCollisionAnything(void) {
+	if (MapCharaPositionY < 0 && MapLeftDirectionPosition < 0) {
+		return false;
+	}
 	if ((m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition) != NONE) ||
 		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 1) != NONE) ||
 		(m_pMapChip->getMapChipData(MapCharaPositionY, MapLeftDirectionPosition + 2) != NONE)) {
@@ -444,28 +478,15 @@ bool GameChara::RightCollisionCheck(int block) {
 	return false;
 }
 
-void GameChara::BelowCollision() {
-	if (DownCollisionAnything())
-	{
-		m_WorldCharaCoordinate[0].y = ((MapCharaPositionY - 4) * CELL_SIZE);
-		m_WorldCharaCoordinate[1].y = ((MapCharaPositionY - 4) * CELL_SIZE);
-		m_WorldCharaCoordinate[2].y = ((MapCharaPositionY)* CELL_SIZE);
-		m_WorldCharaCoordinate[3].y = ((MapCharaPositionY)* CELL_SIZE);
-		for (int i = 0; i < 4; i++)
-		{
-			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
-		}
-	}
-
-}
 void GameChara::Render()
 {
 	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
 	CUSTOMVERTEX TestChar[4];
 	CENTRAL_STATE CharCentral = {0};
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
+	CharCentral.x -= 25.f;
 	CharCentral.scale_x = 120.f;
-	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF, TESTCharBias + (Bias * TESTCharTu), ChangeAnimetion * TESTCharTv, TESTCharTu*Facing, TESTCharTv);
+	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF, TESTCharBias + (Bias * TESTCharTu), ChangeAnimation * TESTCharTv, TESTCharTu*Facing, TESTCharTv);
 	TextureRender("CHARA_TEX", TestChar);
 	RECT test = { 0,0,1200,500 };
 	char TestText[ArrayLong];
@@ -509,14 +530,13 @@ void GameChara::DebugMove() {
 	}
 }
 
-
-void GameChara::WorldPositionModefy() {
-	float fBuff = m_WorldCharaCoordinate[0].x;
-	int Buff = static_cast<int>(fBuff * 10.f) % static_cast<int>(CELL_SIZE);
-	if (!Buff) {
-		return;
-	}
-	for (int i = 0; i < 3; ++i) {
-		m_WorldCharaCoordinate[i].x += Buff / 10;
+float GameChara::GetPositionX()
+{
+	switch (Facing) {
+	case FACING_LEFT:
+		return m_DisplayCharaCoordinate[0].x;
+	case FACING_RIGHT:
+		return m_DisplayCharaCoordinate[0].x+m_Player.scale_x;
 	}
 }
+
