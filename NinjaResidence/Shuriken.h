@@ -6,7 +6,6 @@
 
 #pragma once
 #include "GAMESCENE.h"
-#include "Object.h"
 #include "MapChip.h"
 
 class Object;
@@ -15,11 +14,15 @@ class Shuriken :public Object
 {
 public:
 	/*
-	*キー入力時の内部処理関数
+	* @brief キー入力時の内部処理関数
 	*/
 	void KeyOperation(KeyInput vec);
 
-
+	/*
+	* @brief 投擲起動処理
+	* @return 投げられたらtrue
+	* @details 投擲前に角度指定フェイズを挟む
+	*/
 	bool PermitThrow();
 
 
@@ -30,7 +33,7 @@ public:
 
 	Shuriken(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip, GameChara* GameChara);
 	~Shuriken();
-	bool GetActive() { return isActive; };
+	bool GetActive() { return m_isActive; };
 private:
 	CENTRAL_STATE m_Shuriken = { 500,0,20,20 };
 	CENTRAL_STATE m_DirectionArrow = { 500,0,100,20 };
@@ -38,14 +41,14 @@ private:
 	CUSTOMVERTEX m_WorldCoordinate[4];
 	Object* m_pMapChip = NULL;
 	GameChara * m_pGameChara = NULL;
-	bool isActive = false;
-	bool isChoseDeg = false;
+	bool m_isActive = false;
+	bool m_isChoseDeg = false;
 
-	float DirectionDeg = 0;
+	float m_DirectionDeg = 0;
 	//! キャラの向きの判別の為
-	float Direction = PlayerAnimation::FACING_NOTHING;
+	float m_Direction = PlayerAnimation::FACING_NOTHING;
 
-	float MoveSpeed = 10.f;
+	const float MoveSpeed = 10.f;
 	void InitPosition();
 
 };

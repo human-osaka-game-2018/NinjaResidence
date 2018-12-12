@@ -15,7 +15,7 @@ void XinputDevice::GetControl(int GamePadNumber)
 
 PADSTATE XinputDevice::GetButton(ButtonIndex index)
 {
-	return PadState[index];
+	return m_PadState[index];
 }
 
 void XinputDevice::BottonCheck() {
@@ -48,28 +48,28 @@ void XinputDevice::CheckButtonState(WORD ButtomID, ButtonIndex ButtomIndex)
 {
 	if (m_Xinput.Gamepad.wButtons & ButtomID)
 	{
-		if (PadOldState[ButtomIndex] == PadOn)
+		if (m_PadOldState[ButtomIndex] == PadOn)
 		{
-			PadState[ButtomIndex] = PadOn;
+			m_PadState[ButtomIndex] = PadOn;
 		}
 		else
 		{
-			PadState[ButtomIndex] = PadPush;
+			m_PadState[ButtomIndex] = PadPush;
 		}
 
-		PadOldState[ButtomIndex] = PadOn;
+		m_PadOldState[ButtomIndex] = PadOn;
 	}
 	else
 	{
-		if (PadOldState[ButtomIndex] == PadOn)
+		if (m_PadOldState[ButtomIndex] == PadOn)
 		{
-			PadState[ButtomIndex] = PadRelease;
+			m_PadState[ButtomIndex] = PadRelease;
 		}
 		else
 		{
-			PadState[ButtomIndex] = PadOff;
+			m_PadState[ButtomIndex] = PadOff;
 		}
-		PadOldState[ButtomIndex] = PadOff;
+		m_PadOldState[ButtomIndex] = PadOff;
 	}
 
 }

@@ -99,14 +99,14 @@ void SceneManager::LoadAction() {
 	++LoadTime;
 	//static bool isRunOnce = false;
 	if (!isRunOnce) {
-	threadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Thread, m_pScene, 0, NULL);
-	ResumeThread(threadHandle);
+	m_threadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Thread, m_pScene, 0, NULL);
+	ResumeThread(m_threadHandle);
 		isRunOnce = true;
 		isThreadActive = true;
 	}
-	GetExitCodeThread(threadHandle, &threadResult);
-	if (threadResult != STILL_ACTIVE && LoadTime >= 20) {
-		CloseHandle(threadHandle);
+	GetExitCodeThread(m_threadHandle, &m_threadResult);
+	if (m_threadResult != STILL_ACTIVE && LoadTime >= 20) {
+		CloseHandle(m_threadHandle);
 		isRunOnce = false;
 		LoadTime = 0;
 		isThreadActive = false;

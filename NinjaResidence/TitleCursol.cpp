@@ -20,7 +20,7 @@ TitleCursol::~TitleCursol()
 
 void TitleCursol::Update() {
 	//êîílÇÕâº
-	switch (CursolPos) {
+	switch (m_CursolPos) {
 	case START:
 		m_Cursol.y = 440;
 		break;
@@ -54,31 +54,31 @@ void TitleCursol::KeyOperation(KeyInput vec) {
 	};
 }
 void TitleCursol::MoveUp() {
-	switch (CursolPos) {
+	switch (m_CursolPos) {
 	case START:
-		CursolPos = END;
+		m_CursolPos = END;
 		break;
 	case OPTION:
-		CursolPos = START;
+		m_CursolPos = START;
 		break;
 	case END:
-		CursolPos = OPTION;
+		m_CursolPos = OPTION;
 		break;
 	}
 }
 void TitleCursol::MoveDown() {
-	switch (CursolPos) {
+	switch (m_CursolPos) {
 	case Cursol::START:
-		CursolPos = OPTION;
+		m_CursolPos = OPTION;
 		break;
 	case Cursol::OPTION:
-		CursolPos = END;
+		m_CursolPos = END;
 		break;
 	case Cursol::END:
-		CursolPos = START;
+		m_CursolPos = START;
 		break;
 	}
 }
 CursolPosition TitleCursol::getCursolPosition() {
-	return CursolPos;
+	return m_CursolPos;
 }

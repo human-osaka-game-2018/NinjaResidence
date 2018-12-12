@@ -85,7 +85,12 @@ public:
 	* @brief キーボード情報の読み取り
 	*/
 	void CheckKeyStatus();
-	bool ChackPushAnykey();
+
+	/**
+	* @brief いづれかのキーが押されているかの確認
+	* @return 何か押されていればtrue
+	*/
+	bool PushAnykey();
 	/**
 	* @brief 指定のキー情報取得
 	* @param KeyName DXINPUTキーの名前
@@ -190,14 +195,13 @@ private:
 	//D3DDISPLAYMODE		  m_D3DdisplayMode;
 	std::map<std::string, LPD3DXFONT> m_pFont;
 	D3DPRESENT_PARAMETERS m_d3dppWin, m_d3dppFull;
+	static 	const int MaxKeyNumber = 256;
 
-	BYTE m_KeyOldState[256];
-	BYTE m_KeyState[256];
+	BYTE m_KeyOldState[MaxKeyNumber];
+	BYTE m_KeyState[MaxKeyNumber];
 
 	HRESULT InitD3d(HWND hWnd, LPCSTR FilePath);
 	HRESULT InitDinput(HWND hWnd);
 	HRESULT DeviceState = NULL;
-
-	const int MaxKeyNumber = 256;
 
 };
