@@ -244,8 +244,8 @@ void DirectX::CheckKeyStatus() {
 	}
 }
 
-bool DirectX::PushAnykey() {
-	BYTE* tmp = std::find_if(std::begin(m_KeyState), std::end(m_KeyState), [](BYTE m_KeyState) {return m_KeyState; });
+bool DirectX::AnyKeyIsPressed() {
+	BYTE* tmp = std::find_if(std::begin(m_KeyState), std::end(m_KeyState), [](BYTE KeyState) {return KeyState != KeyOff; });
 	return *tmp;
 }
 /*

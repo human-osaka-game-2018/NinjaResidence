@@ -47,6 +47,7 @@ public:
 	int GetMapCharaPositionY() { return m_MapCharaPositionY; }
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyInput vec);
+	void NoOperation();
 	void CharaInforSave(int MapReverse1, Object* MapChip);
 	void Update();
 	void Render();

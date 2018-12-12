@@ -178,7 +178,7 @@ void GameScene::NotPushedAnyButton() {
 	{
 		return;
 	}
-	m_pGameChara->KeyOperation(PUSH_NONE);
+	m_pGameChara->NoOperation();
 }
 
 void GameScene::Render()

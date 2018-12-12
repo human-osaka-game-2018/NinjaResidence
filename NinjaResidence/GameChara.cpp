@@ -153,11 +153,6 @@ void GameChara::CharaMoveOperation(KeyInput vec)
 			m_DisplayCharaCoordinate[i].x -= CharaMoveSpeed;
 		}
 		break;
-	case PUSH_NONE:
-		if (DownCollisionAnything()) {
-			m_ChangeAnimation = STAND;
-		}
-		break;
 	}
 }
 
@@ -200,7 +195,7 @@ void GameChara::KeyOperation(KeyInput vec)
 		m_pSoundManager->Start("DECISION");
 		break;
 	case PUSH_NONE:
-		CharaMoveOperation(PUSH_NONE);
+		NoOperation();
 		break;
 	case THROW:
 		//if (isThrowing) {
@@ -209,6 +204,13 @@ void GameChara::KeyOperation(KeyInput vec)
 		//isThrowing = !isThrowing;
 		break;
 	}
+}
+
+void GameChara::NoOperation() {
+	if (DownCollisionAnything()) {
+		m_ChangeAnimation = STAND;
+	}
+
 }
 
 void GameChara::CharaInforSave(int MapReverseSelect,Object* MapChip)

@@ -87,10 +87,10 @@ public:
 	void CheckKeyStatus();
 
 	/**
-	* @brief いづれかのキーが押されているかの確認
+	* @brief いずれかのキーが押されているかの確認
 	* @return 何か押されていればtrue
 	*/
-	bool PushAnykey();
+	bool AnyKeyIsPressed();
 	/**
 	* @brief 指定のキー情報取得
 	* @param KeyName DXINPUTキーの名前
