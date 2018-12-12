@@ -15,7 +15,7 @@ MapChip::MapChip(DirectX* pDirectX, SoundsManager* pSoundManager) :Object(pDirec
 
 MapChip::~MapChip()
 {
-	for (int i = 0; i < colunm; i++)
+	for (int i = 0; i < m_colunm; i++)
 	{
 		MapData[i].clear();
 		vector<int>().swap(MapData[i]);
@@ -40,17 +40,17 @@ void MapChip::Create(const char *filename)
 	}
 
 	fgets(buf, mapMaxWidth, fp);
-	sscanf_s(buf, "%d, %d", &row, &colunm);
+	sscanf_s(buf, "%d, %d", &m_row, &m_colunm);
 
-	MapData.resize(colunm);
+	MapData.resize(m_colunm);
 
-	for (int j = 0; j<colunm; j++)
+	for (int j = 0; j<m_colunm; j++)
 	{
-		MapData[j].resize(row);
+		MapData[j].resize(m_row);
 	}
 
 
-	while ((c = getc(fp)) != EOF || y < colunm)
+	while ((c = getc(fp)) != EOF || y < m_colunm)
 	{
 		if (isdigit(c))
 		{
@@ -63,7 +63,7 @@ void MapChip::Create(const char *filename)
 			MapData[y][x] = atoi(data);
 			x++;
 			i = 0;
-			if (x == row) {
+			if (x == m_row) {
 				y++;
 				x = 0;
 			}
@@ -74,9 +74,9 @@ void MapChip::Create(const char *filename)
 
 void MapChip::Render()
 {
-	for (int j = 0; j < colunm;j++)
+	for (int j = 0; j < m_colunm;j++)
 	{
-		for (int i = 0;i < row;i++)
+		for (int i = 0;i < m_row;i++)
 		{
 			if (MapData[j][i] == 0)
 			{
@@ -152,7 +152,7 @@ void MapChip::Update() {
 }
 
 bool MapChip::RestrictBottomScroll() {
-	float MapBottom = FIELD_TOP + (CELL_SIZE * (colunm + 1) )+ m_MapScrollY;
+	float MapBottom = FIELD_TOP + (CELL_SIZE * (m_colunm + 1) )+ m_MapScrollY;
 	if (MapBottom < DISPLAY_HEIGHT-20) {
 		return true;
 	}
@@ -162,7 +162,7 @@ bool MapChip::RestrictBottomScroll() {
 float MapChip::GetBottomPoint(int charaLeft, int charRight)
 {
 	float MapPosition = 0;
-	for (int i = colunm - 1; i > 0; --i) {
+	for (int i = m_colunm - 1; i > 0; --i) {
 		if (!MapData[i][charaLeft]) {
 			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
 		}
@@ -175,7 +175,7 @@ float MapChip::GetBottomPoint(int charaLeft, int charRight)
 float MapChip::GetBottomWorldPoint(int charaLeft, int charRight)
 {
 	float MapPosition = 0;
-	for (int i = colunm - 1; i > 0; --i) {
+	for (int i = m_colunm - 1; i > 0; --i) {
 		if (!MapData[i][charaLeft]) {
 			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
 		}

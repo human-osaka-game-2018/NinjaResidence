@@ -5,7 +5,7 @@
 */
 #include "DirectX.h"
 #include "GAMEMANAGER.h"
-
+#include <algorithm>
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define SAFE_RELEASE(p) {if(p){(p)->Release(); (p)=NULL;}}
@@ -244,13 +244,9 @@ void DirectX::CheckKeyStatus() {
 	}
 }
 
-bool DirectX::ChackPushAnykey() {
-	for (int i = 0; i < MaxKeyNumber; ++i) {
-		if (m_KeyState[i]) {
-			return true;
-		}
-	}
-	return false;
+bool DirectX::PushAnykey() {
+	BYTE* tmp = std::find_if(std::begin(m_KeyState), std::end(m_KeyState), [](BYTE m_KeyState) {return m_KeyState; });
+	return *tmp;
 }
 /*
 *

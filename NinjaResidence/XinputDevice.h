@@ -152,7 +152,7 @@ public:
 	* @param ButtomID 取得したいXInputボタン番号
 	* @param ButtomIndex 取得したいボタンの配列番号
 	* @sa enum ButtonIndex
-	* @details 使用時には　PadState[ButtomID]　の中身を確認すること
+	* @details 使用時には　m_PadState[ButtomID]　の中身を確認すること
 	*/
 	void CheckButtonState(WORD ButtomID, ButtonIndex ButtomIndex);
 
@@ -160,7 +160,7 @@ public:
 	~XinputDevice() {};
 private:
 	XINPUT_STATE m_Xinput = { NULL };
-	PADSTATE PadState[ButtomIndexMAX] = { PadOff };
-	PADSTATE PadOldState[ButtomIndexMAX] = { PadOff };
+	PADSTATE m_PadState[ButtomIndexMAX] = { PadOff };
+	PADSTATE m_PadOldState[ButtomIndexMAX] = { PadOff };
 
 };

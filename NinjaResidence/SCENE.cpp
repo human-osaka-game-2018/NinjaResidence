@@ -41,7 +41,7 @@ void Scene::GoToOptionScene() {
 
 }
 
-void Scene::RunOptionScene(int BGMvolume,int SEvolume) {
+void Scene::RunOptionScene(int m_BGMvolume,int m_SEvolume) {
 
 	
 }
@@ -50,14 +50,14 @@ void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  col
 void Scene::LoadAnimation() {
 	static int rad = 0;
 	rad += D3DX_PI;
-	CUSTOMVERTEX closs[4];
-	CENTRAL_STATE CLOSS = { CENTRAL_X,CENTRAL_Y,300,300 };
-	RevolveZ(closs, rad, CLOSS);
-	m_pDirectX->DrawTexture("CROSS_TEX", closs);
+	CUSTOMVERTEX cross[4];
+	CENTRAL_STATE CROSS = { CENTRAL_X,CENTRAL_Y,300,300 };
+	RevolveZ(cross, rad, CROSS);
+	m_pDirectX->DrawTexture("CROSS_TEX", cross);
 }
 
 void Scene::EndGame() {
-	GameState = WM_NULL;
+	m_GameState = WM_NULL;
 }
 
 void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {

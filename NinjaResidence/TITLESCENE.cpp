@@ -9,10 +9,10 @@
 
 TitleScene::TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
 {
-	pScene = this;
+	m_pScene = this;
 	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundManager);
 
-	CreateSquareVertex(TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 TitleScene::~TitleScene()
@@ -24,7 +24,7 @@ TitleScene::~TitleScene()
 
 SCENE_NUM  TitleScene::Update()
 {
-	timecount++;
+	m_timecount++;
 	m_pXinputDevice->DeviceUpdate();
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP))
@@ -66,10 +66,10 @@ void TitleScene::Render()
 {
 	
 	
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", TitleBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_TitleBackground);
 	RECT test = { 0,0,800,500 };
 	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "%d", timecount);
+	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
 	RECT testName = { 0, 200, 1280, 500 };
 	char TestName[ArrayLong] = "”EŽÒ‰®•~";
@@ -108,5 +108,5 @@ void TitleScene::ChoseMenu() {
 }
 
 void TitleScene::EndGame() {
-	GameState = WM_QUIT;
+	m_GameState = WM_QUIT;
 }

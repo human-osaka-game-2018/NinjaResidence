@@ -28,30 +28,30 @@ void Shuriken::KeyOperation(KeyInput vec)
 	switch (vec)
 	{
 	case THROW:
-		isActive = PermitThrow();
+		m_isActive = PermitThrow();
 		break;
 	case UP:
-		if (isActive) {
+		if (m_isActive) {
 			return;
 		}
-		DirectionDeg += Direction;
-		if (DirectionDeg>45) {
-			DirectionDeg = 45;
+		m_DirectionDeg += m_Direction;
+		if (m_DirectionDeg>45) {
+			m_DirectionDeg = 45;
 		}
-		if (DirectionDeg<-45) {
-			DirectionDeg = -45;
+		if (m_DirectionDeg<-45) {
+			m_DirectionDeg = -45;
 		}
 		break;
 	case DOWN:
-		if (isActive) {
+		if (m_isActive) {
 			return;;
 		}
-		DirectionDeg -= Direction;
-		if (DirectionDeg>45) {
-			DirectionDeg = 45;
+		m_DirectionDeg -= m_Direction;
+		if (m_DirectionDeg>45) {
+			m_DirectionDeg = 45;
 		}
-		if (DirectionDeg<-45) {
-			DirectionDeg = -45;
+		if (m_DirectionDeg<-45) {
+			m_DirectionDeg = -45;
 		}
 		break;
 	}
@@ -59,18 +59,18 @@ void Shuriken::KeyOperation(KeyInput vec)
 
 
 bool Shuriken::PermitThrow() {
-	if (!isChoseDeg && !isActive) {
-		isChoseDeg = true;
-		Direction = static_cast<float>(m_pGameChara->GetFacing());
+	if (!m_isChoseDeg && !m_isActive) {
+		m_isChoseDeg = true;
+		m_Direction = static_cast<float>(m_pGameChara->GetFacing());
 		return false;
 	}
-	if (isChoseDeg && !isActive) {
-		m_Shuriken.x = m_pGameChara->GetPositionX() +( Direction * m_Shuriken.scale_x);
+	if (m_isChoseDeg && !m_isActive) {
+		m_Shuriken.x = m_pGameChara->GetPositionX() +( m_Direction * m_Shuriken.scale_x);
 		m_Shuriken.y = m_pGameChara->GetPositionY();
-		isChoseDeg = false;
+		m_isChoseDeg = false;
 		return true;
 	}
-	if (isActive) {
+	if (m_isActive) {
 		return true;
 	}
 	//else return false;
@@ -80,25 +80,25 @@ bool Shuriken::PermitThrow() {
 }
 
 void Shuriken::InitPosition() {
-	isActive = false;
-	m_Shuriken.x = m_pGameChara->GetPositionX() + Direction * m_Shuriken.scale_x;
+	m_isActive = false;
+	m_Shuriken.x = m_pGameChara->GetPositionX() + m_Direction * m_Shuriken.scale_x;
 	m_Shuriken.y = m_pGameChara->GetPositionY();
-	DirectionDeg = 0;
+	m_DirectionDeg = 0;
 }
 
 void Shuriken::Update()
 {
-	if (isChoseDeg) {
-		m_DirectionArrow.x = m_pGameChara->GetPositionX() + Direction * CELL_SIZE * 2;
+	if (m_isChoseDeg) {
+		m_DirectionArrow.x = m_pGameChara->GetPositionX() + m_Direction * CELL_SIZE * 2;
 		m_DirectionArrow.y = m_pGameChara->GetPositionY();
 
 	}
 
-	if (!isActive) {
+	if (!m_isActive) {
 		return;
 	}
-	m_Shuriken.x += (MoveSpeed * Direction) * std::cos(DegToRad(DirectionDeg));
-	m_Shuriken.y -= (MoveSpeed * Direction) * std::sin(DegToRad(DirectionDeg));
+	m_Shuriken.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg));
+	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg));
 	if (m_Shuriken.x < 0 || m_Shuriken.x > DISPLAY_WIDTH) {
 		InitPosition();
 	}
@@ -112,17 +112,17 @@ void Shuriken::Update()
 void Shuriken::Render()
 {
 	static int rad = 0;
-	if (!isChoseDeg&&!isActive) {
+	if (!m_isChoseDeg&&!m_isActive) {
 		return;
 	}
-	if (isChoseDeg) {
+	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0,0,Direction);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0,0,m_Direction);
 		TextureRender("ARROW_TEX", DirectionArrowVertex);
 		rad = 0;
 		return;
 	}
-	if (isActive) {
+	if (m_isActive) {
 		CUSTOMVERTEX ShurikenVertex[4];
 		static int rad = 0;
 		rad += 3;

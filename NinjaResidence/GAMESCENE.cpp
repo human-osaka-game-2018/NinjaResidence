@@ -10,8 +10,8 @@
 GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage) :Scene(pDirectX,pSoundManager)
 {
 
-	StageNum = ChosedStage;
-	pScene = this;
+	m_StageNum = ChosedStage;
+	m_pScene = this;
 
 	m_pBusyMapChip = new MapChip(pDirectX, pSoundManager);
 	m_pBusyMapChip->Create("csv/Book1.csv");
@@ -20,7 +20,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
-	CreateSquareVertex(GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 GameScene::~GameScene()
@@ -42,7 +42,7 @@ GameScene::~GameScene()
 SCENE_NUM  GameScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
-	CheckPushAnyButton();
+	NotPushedAnyButton();
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W))
 	{
 		m_pGameChara->KeyOperation(JUMP);
@@ -77,7 +77,7 @@ SCENE_NUM  GameScene::Update()
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER))
 	{
-		Reverce();
+		Reverse();
 	}
 
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonY))
@@ -98,7 +98,7 @@ SCENE_NUM  GameScene::Update()
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
-		Reverce();
+		Reverse();
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonB))
 	{
@@ -156,7 +156,7 @@ SCENE_NUM  GameScene::Update()
 	return GetNextScene();
 }
 
-void GameScene::CheckPushAnyButton() {
+void GameScene::NotPushedAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_W)) {
 		return;
 	}
@@ -166,7 +166,6 @@ void GameScene::CheckPushAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_D)){
 		return;
 	}
-
 	if (m_pXinputDevice->GetButton(ButtonY))
 	{
 		return;
@@ -184,14 +183,14 @@ void GameScene::CheckPushAnyButton() {
 
 void GameScene::Render()
 {
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", GameBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
 #ifdef _DEBUG
 	RECT testName = { 0, 100, 1280, 720 };
 	char TestName[ArrayLong];
-	sprintf_s(TestName, ArrayLong, "STAGE_%d", StageNum);
+	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 	RECT test = { 0,0,800,500 };
 	char TestText[ArrayLong];
@@ -217,7 +216,7 @@ void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
 }
-void GameScene::Reverce()
+void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	m_pShuriken->Reverse();

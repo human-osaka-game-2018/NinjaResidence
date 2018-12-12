@@ -32,10 +32,10 @@ private:
 	SCENE_NUM m_NextScene;
 	DirectX * m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
-	int BGMvolume = 100;
-	int SEvolume = 100;
-	HANDLE threadHandle;
-	DWORD threadResult;
+	int m_BGMvolume = 100;
+	int m_SEvolume = 100;
+	HANDLE m_threadHandle;
+	DWORD m_threadResult;
 	void LoadAction();
 	bool isRunOnce = false;
 	bool isThreadActive = false;

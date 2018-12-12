@@ -56,19 +56,19 @@ public:
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void GoToOptionScene();
-	void RunOptionScene(int BGMvolume, int SEvolume);
+	void RunOptionScene(int m_BGMvolume, int m_SEvolume);
 	int GetStageNum() {
-		return StageNum;
+		return m_StageNum;
 	}
 	int GetGameState() {
-		return GameState;
+		return m_GameState;
 	}
 protected:
 	DirectX* m_pDirectX = NULL;
 	XinputDevice* m_pXinputDevice = NULL;
 	SoundsManager* m_pSoundManager = NULL;
-	int StageNum = 0;
-	int GameState = WM_NULL;
+	int m_StageNum = 0;
+	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
 
 private:

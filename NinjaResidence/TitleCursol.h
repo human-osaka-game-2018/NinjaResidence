@@ -26,7 +26,7 @@ public:
 	~TitleCursol();
 private:
 	CENTRAL_STATE m_Cursol = { 500,0,40,30 };
-	Cursol::CursolPosition CursolPos = Cursol::START;
+	Cursol::CursolPosition m_CursolPos = Cursol::START;
 	void MoveUp();
 	void MoveDown();
 };

@@ -14,9 +14,10 @@ class TitleCursol;
 class TitleScene : public Scene
 {
 private:
-	CUSTOMVERTEX  TitleBackground[4];
-	Scene * pScene = NULL;
-	int timecount = 0; 
+	CUSTOMVERTEX  m_TitleBackground[4];
+	Scene * m_pScene = NULL;
+	int m_timecount = 0; 
+	TitleCursol* m_pCursol = NULL;
 	void ChoseMenu();
 	void EndGame();
 public:
@@ -25,5 +26,5 @@ public:
 	SCENE_NUM Update();  
 	void Render();       
 	void LoadResouce();
-	TitleCursol* m_pCursol = NULL;
+
 };

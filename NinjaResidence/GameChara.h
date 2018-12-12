@@ -43,8 +43,8 @@ namespace PlayerAnimation {
 class GameChara :public Object
 {
 public:
-	int GetMapCharaPositionX() { return MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return MapCharaPositionY; }
+	int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
+	int GetMapCharaPositionY() { return m_MapCharaPositionY; }
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyInput vec);
 	void CharaInforSave(int MapReverse1, Object* MapChip);
@@ -77,7 +77,7 @@ public:
 	* @author Toshiya Matsuoka
 	*/
 	PlayerAnimation::DIRECTION GetFacing() {
-		return Facing;
+		return m_Facing;
 	}
 private:
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
@@ -88,12 +88,12 @@ private:
 	CUSTOMVERTEX m_SurfaceDisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_SurfaceWorldCharaCoordinate[4];
 
-	int m_PrevMapLeftDirectionPosition;//前フレームのMapLeftDirectionPositionの値
-	int m_PrevMapRightDirectionPosition;//前フレームのMapRightDirectionPositionの値
-	int m_PrevMapCharaPositionY;//前フレームのMapCharaPositionYの値
-	int MapLeftDirectionPosition;//キャラの左側のX座標
-	int MapRightDirectionPosition;//キャラの右側のX座標
-	int MapCharaPositionY;//キャラの上側のx座標
+	int m_PrevMapLeftDirectionPosition;//前フレームのm_MapLeftDirectionPositionの値
+	int m_PrevMapRightDirectionPosition;//前フレームのm_MapRightDirectionPositionの値
+	int m_PrevMapCharaPositionY;//前フレームのm_MapCharaPositionYの値
+	int m_MapLeftDirectionPosition;//キャラの左側のX座標
+	int m_MapRightDirectionPosition;//キャラの右側のX座標
+	int m_MapCharaPositionY;//キャラの上側のx座標
 	const float Gravity = 15.f;//毎フレームかける重力の値
 	const float CharaMoveSpeed = 15.f;
 	const float VerticalScrollingLevel = 5.f;
@@ -110,30 +110,30 @@ private:
 	float CharTv = 160 / 512.f;
 
 	//仮統合ファイルの切り取り情報
-	float TESTCharTu = 233 / 2048.f;
-	float TESTCharTv = 215 / 2048.f;
-	float TESTCharBias = 64 / 2024.f;
+	float m_TESTCharTu = 233 / 2048.f;
+	float m_TESTCharTv = 215 / 2048.f;
+	float m_TESTCharBias = 64 / 2024.f;
 
-	PlayerAnimation::MOTION ChangeAnimation = PlayerAnimation::STAND;
-	PlayerAnimation::DIRECTION Facing = PlayerAnimation::FACING_RIGHT;
+	PlayerAnimation::MOTION m_ChangeAnimation = PlayerAnimation::STAND;
+	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;
 	//! 仮置き変数
-	PlayerAnimation::DIRECTION_BIAS Bias = PlayerAnimation::ZERO;
+	PlayerAnimation::DIRECTION_BIAS m_Bias = PlayerAnimation::ZERO;
 
 
-	bool isScrollingDown = false;
-	bool isInTheAir = false;
-	bool isJump = false;
-	bool HeldOntoWallLeft = false;
-	bool HeldOntoWallRight = false;
-	bool CollisionHead = false;
+	bool m_isScrollingDown = false;
+	bool m_isInTheAir = false;
+	bool m_isJump = false;
+	bool m_HeldOntoWallLeft = false;
+	bool m_HeldOntoWallRight = false;
+	bool m_CollisionHead = false;
 
-	int RiseFlameTime = 0;
-	bool isJumpRight = false;
-	bool isJumpLeft = false;
+	int m_RiseFlameTime = 0;
+	bool m_isJumpRight = false;
+	bool m_isJumpLeft = false;
 
 	const float InitialAcceleration = 60.0f;
-	float AccelerationY = InitialAcceleration;
-	float AccelerationX = CharaMoveSpeed * 1.5f;
+	float m_AccelerationY = InitialAcceleration;
+	float m_AccelerationX = CharaMoveSpeed * 1.5f;
 
 
 	void CharaMoveOperation(KeyInput vec);

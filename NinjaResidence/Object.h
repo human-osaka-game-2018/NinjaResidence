@@ -98,10 +98,10 @@ public:
 	void setMapScrollY(int y){};
 
 	int getRow() {
-		return row;
+		return m_row;
 	}
 	int getColunm() {
-		return colunm;
+		return m_colunm;
 	}
 	int getMapChipData(int height,int width) {
 		return MapData[height][width];
@@ -121,9 +121,9 @@ protected:
 
 	/*static */std::vector< std::vector<int> > MapData;
 	//!çs
-	int row = 0;
+	int m_row = 0;
 	//!óÒ
-	int colunm = 0;
+	int m_colunm = 0;
 
 	const float CELL_SIZE = 40.f;
 	static const int ArrayLong = 64;
