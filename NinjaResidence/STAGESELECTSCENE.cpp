@@ -1,11 +1,11 @@
 /**
-* @file STAGESERECTSCENE.cpp
+* @file STAGESELECTSCENE.cpp
 * @brief ステージセレクトシーン
 * @author Toshiya Matsuoka
 */
-#include "STAGESERECTSCENE.h"
+#include "STAGESELECTSCENE.h"
 
-StageSerectScene::StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
+StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
 {
 	m_pScene = this;
 	CreateSquareVertex(m_SerectBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -17,13 +17,13 @@ StageSerectScene::StageSerectScene(DirectX* pDirectX, SoundsManager* pSoundManag
 
 }
 
-StageSerectScene::~StageSerectScene()
+StageSelectScene::~StageSelectScene()
 {
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
 
-SCENE_NUM  StageSerectScene::Update()
+SCENE_NUM  StageSelectScene::Update()
 {
 	m_timecount++;
 	m_pXinputDevice->DeviceUpdate();
@@ -78,7 +78,7 @@ SCENE_NUM  StageSerectScene::Update()
 	return GetNextScene();
 }
 
-void StageSerectScene::Render()
+void StageSelectScene::Render()
 {
 	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_SerectBackground);
@@ -114,7 +114,7 @@ void StageSerectScene::Render()
 
 }
 
-void StageSerectScene::LoadResouce()
+void StageSelectScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture(NULL, "TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
