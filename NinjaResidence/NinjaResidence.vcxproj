@@ -29,7 +29,8 @@
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shuriken.cpp" />
-    <ClCompile Include="STAGESERECTSCENE.cpp" />
+    <ClCompile Include="SkillSelect.cpp" />
+    <ClCompile Include="STAGESELECTSCENE.cpp" />
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
     <ClInclude Include="Shuriken.h" />
+    <ClInclude Include="SkillSelect.h" />
     <ClInclude Include="TitleCursol.h" />
     <ClInclude Include="XinputDevice.h" />
     <ClInclude Include="MapChip.h" />
@@ -47,7 +49,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="STAGESERECTSCENE.h" />
+    <ClInclude Include="STAGESELECTSCENE.h" />
     <ClInclude Include="TITLESCENE.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

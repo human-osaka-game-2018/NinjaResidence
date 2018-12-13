@@ -5,7 +5,7 @@
 */
 #include "SceneManager.h"
 #include "TITLESCENE.h"
-#include "STAGESERECTSCENE.h"
+#include "STAGESELECTSCENE.h"
 #include "GAMESCENE.h"
 
 Scene*	SceneManager::m_pScene = NULL;
@@ -47,7 +47,7 @@ int SceneManager::Update()
 				delete m_pScene;
 			}
 
-			m_pScene = new  StageSerectScene(m_pDirectX, m_pSoundManager);
+			m_pScene = new  StageSelectScene(m_pDirectX, m_pSoundManager);
 			LoadAction();
 			break;
 		case GAME_SCENE:
