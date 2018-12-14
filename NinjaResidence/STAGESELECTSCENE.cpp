@@ -85,7 +85,7 @@ void StageSelectScene::Render()
 	RECT test = { 0,0,800,500 };
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
-	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 	CUSTOMVERTEX StageImage[4];
 

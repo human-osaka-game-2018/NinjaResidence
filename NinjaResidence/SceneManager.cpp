@@ -17,7 +17,6 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
 	m_pSoundManager = pSoundManager;
 	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
 	//ゲームシーンへショートカットする
-	//m_pScene = new GameScene(pDirectX, m_pSoundManager,5);
 	//m_NextScene = GAME_SCENE;
 }
 
@@ -77,7 +76,8 @@ void SceneManager::Render()
 		RECT testName = { 0, 400, 1280, 720 };
 		char TestName[ArrayLong];
 		sprintf_s(TestName, ArrayLong, "TIME_%d", LoadTime);
-		m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
+		//m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
+		m_pDirectX->DrawWord(testName, "読み込み中...", "LOAD_FONT", DT_CENTER, 0xffffffff);
 
 	}
 }
