@@ -125,7 +125,7 @@ void Shuriken::Render()
 	if (m_isActive) {
 		CUSTOMVERTEX ShurikenVertex[4];
 		static int rad = 0;
-		rad += 3;
+		rad += 10;
 		RevolveZ(ShurikenVertex, rad, m_Shuriken);
 		m_pDirectX->DrawTexture("CROSS_TEX", ShurikenVertex);
 	}

@@ -9,6 +9,7 @@
 #include "SCENE.h"
 #include "GameChara.h"
 #include "MapReverse.h"
+#include "SkillSelect.h"
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -29,18 +30,25 @@ private:
 	Object * m_pBusyMapChip = NULL;//使用中のMapChip
 	Object * m_pIdleMapChip = NULL;//停止中のMapChip
 	Object * m_pShuriken = NULL;
+	SkillSelect* m_SkillSelect = NULL;
 
 	MapReverse * m_pMapReverse = NULL;
 	Scene * m_pScene = NULL;
+
+	int CurrentSkill;
 	/**
 	* @brief どんでん返し処理
 	* @author Toshiya Matsuoka
 	*/
 	void Reverse();
+	void SkillsUpdate();
+	void SkillStart();
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();
-	SCENE_NUM Update();     //ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
+	SCENE_NUM Update();
+	void KeyOperation();
+	//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void NotPushedAnyButton();
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
 	void LoadResouce();

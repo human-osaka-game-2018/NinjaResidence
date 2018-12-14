@@ -20,6 +20,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
+	m_SkillSelect=new SkillSelect(pDirectX, pSoundManager);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
@@ -35,127 +36,92 @@ GameScene::~GameScene()
 	m_pMapReverse = NULL;
 	delete m_pShuriken;
 	m_pShuriken = NULL;
+	delete m_SkillSelect;
+	m_SkillSelect = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
 
 SCENE_NUM  GameScene::Update()
 {
+	CurrentSkill = m_SkillSelect->GetSkillNum();
 	m_pXinputDevice->DeviceUpdate();
 	NotPushedAnyButton();
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W))
-	{
-		m_pGameChara->KeyOperation(JUMP);
-	}
-	//if (m_pDirectX->GetKeyStatus(DIK_S))
-	//{
-	//	m_pGameChara->KeyOperation(DOWN);
-	//}
-	if (m_pDirectX->GetKeyStatus(DIK_A))
-	{
-		m_pGameChara->KeyOperation(MOVE_LEFT);
-	}
-	if (m_pDirectX->GetKeyStatus(DIK_D))
-	{
-		m_pGameChara->KeyOperation(MOVE_RIGHT);
-	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E))
-	{
-		m_pShuriken->KeyOperation(THROW);
-		if (m_pShuriken->GetActive()) {
-			m_pGameChara->KeyOperation(THROW);
-		}
-	}
-	if (m_pDirectX->GetKeyStatus(DIK_UP))
-	{
-		m_pShuriken->KeyOperation(UP);
-	}
-	if (m_pDirectX->GetKeyStatus(DIK_DOWN))
-	{
-		m_pShuriken->KeyOperation(DOWN);
-	}
-
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER))
-	{
-		Reverse();
-	}
-
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonY))
-	{
-		m_pGameChara->KeyOperation(JUMP);
-	}
-	if (m_pXinputDevice->GetButton(ButtonDOWN))
-	{
-		m_pGameChara->KeyOperation(DOWN);
-	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
-	{
-		m_pGameChara->KeyOperation(MOVE_LEFT);
-	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
-	{
-		m_pGameChara->KeyOperation(MOVE_RIGHT);
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
-	{
-		Reverse();
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonB))
-	{
-		m_pShuriken->KeyOperation(THROW);
-		if (m_pShuriken->GetActive()) {
-			m_pGameChara->KeyOperation(THROW);
-		}
-	}
-	if (m_pXinputDevice->GetButton(ButtonUP))
-	{
-		m_pShuriken->KeyOperation(UP);
-	}
-	if (m_pXinputDevice->GetButton(ButtonDOWN))
-	{
-		m_pShuriken->KeyOperation(DOWN);
-	}
-
-	//マップ動作
-		//if (m_pDirectX->GetKeyStatus(DIK_W))
-		//{
-		//	m_pBusyMapChip->KeyOperation(UP);
-		//}
-		//if (m_pDirectX->GetKeyStatus(DIK_S))
-		//{
-		//	m_pBusyMapChip->KeyOperation(DOWN);
-		//}
-		//if (m_pDirectX->GetKeyStatus(DIK_A))
-		//{
-		//	m_pBusyMapChip->KeyOperation(LEFT);
-		//}
-		//if (m_pDirectX->GetKeyStatus(DIK_D))
-		//{
-		//	m_pBusyMapChip->KeyOperation(RIGHT);
-		//}
-	//テスト用処理
-	if (m_pDirectX->GetKeyStatus(DIK_PGUP))
-	{
-		m_pGameChara->DebugMove();
-	}
-	if (m_pXinputDevice->GetButton(ButtonRB))
-	{
-		m_pGameChara->DebugMove();
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonStart))
-	{
-		m_pGameChara->KeyOperation(SoundOn);
-	}
-	if (m_pDirectX->GetKeyStatus(DIK_L)) {
-		m_pGameChara->KeyOperation(SoundOn);
-	}
+	KeyOperation();
 	m_pGameChara->Update();
 	m_pGameChara->prevSaveMapCharaPos();
 	m_pBusyMapChip->Update();
-	m_pShuriken->Update();
+	SkillsUpdate();
 	return GetNextScene();
 }
 
+void GameScene::KeyOperation() {
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W) || PadRelease == m_pXinputDevice->GetButton(ButtonY))
+	{
+		m_pGameChara->KeyOperation(JUMP);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_A) || m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	{
+		m_pGameChara->KeyOperation(MOVE_LEFT);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_D) || m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	{
+		m_pGameChara->KeyOperation(MOVE_RIGHT);
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E) || PadRelease == m_pXinputDevice->GetButton(ButtonB))
+	{
+		SkillStart();
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_UP) || m_pXinputDevice->GetButton(ButtonUP))
+	{
+		m_pShuriken->KeyOperation(UP);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN))
+	{
+		m_pShuriken->KeyOperation(DOWN);
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
+	{
+		m_SkillSelect->KeyOperation(LEFT);
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
+	{
+		m_SkillSelect->KeyOperation(RIGHT);
+	}
+
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	{
+		Reverse();
+	}
+
+	//マップ動作
+	//if (m_pDirectX->GetKeyStatus(DIK_W))
+	//{
+	//	m_pBusyMapChip->KeyOperation(UP);
+	//}
+	//if (m_pDirectX->GetKeyStatus(DIK_S))
+	//{
+	//	m_pBusyMapChip->KeyOperation(DOWN);
+	//}
+	//if (m_pDirectX->GetKeyStatus(DIK_A))
+	//{
+	//	m_pBusyMapChip->KeyOperation(LEFT);
+	//}
+	//if (m_pDirectX->GetKeyStatus(DIK_D))
+	//{
+	//	m_pBusyMapChip->KeyOperation(RIGHT);
+	//}
+	//テスト用処理
+	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB))
+	{
+		m_pGameChara->DebugMove();
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_L) || PadRelease == m_pXinputDevice->GetButton(ButtonStart))
+	{
+		m_pGameChara->KeyOperation(SoundOn);
+	}
+
+}
 void GameScene::NotPushedAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_W)) {
 		return;
@@ -187,11 +153,13 @@ void GameScene::Render()
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
+	m_SkillSelect->Render();
+
 #ifdef _DEBUG
-	RECT testName = { 0, 100, 1280, 720 };
+	RECT testName = { 0, 100, 1250, 720 };
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
-	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 	RECT test = { 0,0,800,500 };
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
@@ -206,7 +174,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/nin_s.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
-
+	m_pDirectX->LoadTexture("texture/Scroll.png", "SCROLL_TEX");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundManager->AddFile("Sound/nc62985.wav", "DECISION");
@@ -222,3 +190,35 @@ void GameScene::Reverse()
 	m_pShuriken->Reverse();
 }
 
+void GameScene::SkillsUpdate() {
+	m_SkillSelect->Update();
+	switch (CurrentSkill) {
+	case SHURIKEN:
+		m_pShuriken->Update();
+		break;
+	case CLAWSHOT:
+		break;
+	case FIRE_ART:
+		break;
+	case HIGH_SHURIKEN_ART:
+		break;
+	}
+}
+
+void GameScene::SkillStart() {
+	switch (CurrentSkill) {
+	case SHURIKEN:
+		m_pShuriken->KeyOperation(THROW);
+		if (m_pShuriken->GetActive()) {
+			m_pGameChara->KeyOperation(THROW);
+		}
+		break;
+	case CLAWSHOT:
+		break;
+	case FIRE_ART:
+		break;
+	case HIGH_SHURIKEN_ART:
+		break;
+	}
+
+}

@@ -70,7 +70,7 @@ void TitleScene::Render()
 	RECT test = { 0,0,800,500 };
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
-	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
+	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
 	RECT testName = { 0, 200, 1280, 500 };
 	char TestName[ArrayLong] = "”EŽÒ‰®•~";
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
