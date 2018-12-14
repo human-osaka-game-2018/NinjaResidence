@@ -10,6 +10,7 @@
 #include "GameChara.h"
 #include "MapReverse.h"
 #include "SkillSelect.h"
+#include <algorithm>
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -43,6 +44,8 @@ private:
 	void Reverse();
 	void SkillsUpdate();
 	void SkillStart();
+	bool m_EnableSkill[MAX_ITEM - 1] = { true,0,1 };
+
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();

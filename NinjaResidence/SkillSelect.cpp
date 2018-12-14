@@ -7,7 +7,7 @@
 #include "SkillSelect.h"
 #define BLOCK_WIDTH  80.0f/512
 
-SkillSelect::SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager) :Object(pDirectX, pSoundManager)
+SkillSelect::SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager, bool* m_EnableSkill) :Object(pDirectX, pSoundManager), m_EnableSkill(m_EnableSkill)
 {
 
 }
@@ -51,15 +51,64 @@ void SkillSelect::Render()
 
 void SkillSelect::KeyOperation(KeyInput vec) {
 	if (vec == LEFT) {
-		++m_SkillNum;
-		if (m_SkillNum > MAX_ICON) {
-			m_SkillNum = SHURIKEN;
-		}
-		return;
+		SkillTransUp();
+			return;
 	}
-	--m_SkillNum;
-	if (m_SkillNum < 0) {
-		m_SkillNum = MAX_ICON - 1;
-	}
-
+	SkillTransDown();
 }
+
+void SkillSelect::SkillTransUp() {
+	switch (m_SkillNum) {
+	case SHURIKEN:
+		if (m_EnableSkill[0]) {
+			m_SkillNum = CLAWSHOT;
+			break;
+		}
+	case CLAWSHOT:
+		if (m_EnableSkill[1]) {
+			m_SkillNum = FIRE_ART;
+			break;
+		}
+	case FIRE_ART:
+		if (m_EnableSkill[2]) {
+			m_SkillNum = HIGH_SHURIKEN_ART;
+			break;
+		}
+	case HIGH_SHURIKEN_ART:
+		m_SkillNum = SHURIKEN;
+		break;
+	}
+}
+
+void SkillSelect::SkillTransDown() {
+	switch (m_SkillNum) {
+	case HIGH_SHURIKEN_ART:
+		if (m_EnableSkill[1]) {
+			m_SkillNum = FIRE_ART;
+			break;
+		}
+	case FIRE_ART:
+		if (m_EnableSkill[0]) {
+			m_SkillNum = CLAWSHOT;
+			break;
+		}
+	case CLAWSHOT:
+		m_SkillNum = SHURIKEN;
+		break;
+	case SHURIKEN:
+		if (m_EnableSkill[2]) {
+			m_SkillNum = HIGH_SHURIKEN_ART;
+			break;
+		}
+		if (m_EnableSkill[1]) {
+			m_SkillNum = FIRE_ART;
+			break;
+		}
+		if (m_EnableSkill[0]) {
+			m_SkillNum = CLAWSHOT;
+			break;
+		}
+
+	}
+}
+
