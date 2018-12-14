@@ -6,12 +6,12 @@
 #pragma once
 #include "Object.h"
 
-enum SkillIcon {
+enum Skill {
 	SHURIKEN,
 	CLAWSHOT,
 	FIRE_ART,
 	HIGH_SHURIKEN_ART,
-	MAX_ICON,
+	MAX_ITEM,
 };
 
 class SkillSelect :public Object
@@ -20,7 +20,7 @@ public:
 	void KeyOperation(KeyInput vec);
 	void Update();
 	void Render();
-	SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager);
+	SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager, bool* m_EnableSkill);
 	~SkillSelect();
 	int GetSkillNum() {
 		return m_SkillNum;
@@ -32,4 +32,9 @@ private:
 	std::string m_SkillTexKey = "CROSS_TEX";
 	int m_SkillNum = SHURIKEN;
 	DWORD m_Color = 0xFFFFFFFF;
+	bool* m_EnableSkill = NULL;
+
+	void SkillTransUp();
+	void SkillTransDown();
+
 };

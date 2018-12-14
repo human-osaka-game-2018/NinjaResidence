@@ -20,7 +20,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
-	m_SkillSelect=new SkillSelect(pDirectX, pSoundManager);
+	m_SkillSelect=new SkillSelect(pDirectX, pSoundManager, m_EnableSkill);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
@@ -160,9 +160,9 @@ void GameScene::Render()
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
-	RECT test = { 0,0,800,500 };
+	RECT test = { 400,0,800,500 };
 	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	//sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 #endif
 }
