@@ -31,6 +31,11 @@ bool Object::Update()
 }
 
 
+void Object::GameCharaInfo(int CharaX, int CharaY)
+{
+	m_CharaX = CharaX;
+	m_CharaY = CharaY;
+}
 
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {

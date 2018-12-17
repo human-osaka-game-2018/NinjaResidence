@@ -118,6 +118,19 @@ public:
 	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 0;}
 	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 0;}
 
+	void GameCharaInfo(int CharaX, int CharaY);
+
+	int getm_CharaX()
+	{
+		return m_CharaX;
+	}
+	int getm_CharaY()
+	{
+		return m_CharaY;
+	}
+
+	int m_CharaX;
+	int m_CharaY;
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
