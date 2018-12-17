@@ -5,12 +5,15 @@
 */
 #pragma once
 
-#include "SCENE.h"
 #include "GAMESCENE.h"
 #include "Object.h"
+#include "BlockInf.h"
 
+class BaseTarget;
 class GameScene;
 
+#define _CRTDBG_MAP_ALLOC
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 #define FIELD_LEFT 0
 #define FIELD_TOP  0 
@@ -37,6 +40,10 @@ class MapChip :public Object
 {
 public:
 
+	std::vector<BaseTarget* > pBaseTarget;
+	std::vector<BlockInf> GimmickVector;
+	std::vector<BlockInf> TargetVector;
+	
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~MapChip();
@@ -44,7 +51,9 @@ public:
 	* @brief マップチップの生成
 	* @param filename CSVファイルの相対パス
 	*/
+	void Activate();
 	void Create(const char *filename);
+	void CheckVector();
 	void Render();
 	void Update();
 	bool RestrictBottomScroll();
@@ -57,5 +66,6 @@ private:
 	int m_MapSelectedHEIGHT;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
-
+	int TargetCount = 0;
+	int GimmickCount = 0;
 };

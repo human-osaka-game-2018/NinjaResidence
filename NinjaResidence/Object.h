@@ -9,7 +9,7 @@
 #include "SCENE.h"
 
 
-enum KeyInput
+enum KeyDirection
 {
 	PUSH_NONE,
 	UP,
@@ -31,7 +31,7 @@ public:
 	*ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
 	*/
 	virtual void KeyOperation();
-	virtual void KeyOperation(KeyInput vec) {};
+	virtual void KeyOperation(KeyDirection vec) {};
 
 	virtual void Update();
 	virtual void Render();
@@ -111,6 +111,20 @@ public:
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
+	void GameCharaInfo(int CharaX, int CharaY);
+
+	int getm_CharaX()
+	{
+		return m_CharaX;
+	}
+	int getm_CharaY()
+	{
+		return m_CharaY;
+	}
+
+	int m_CharaX;
+	int m_CharaY;
+
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;

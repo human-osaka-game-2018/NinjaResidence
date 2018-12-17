@@ -224,7 +224,8 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_TEX");
+	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_A_TEX");
+	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/nin_s.png", "CHARA_TEX");

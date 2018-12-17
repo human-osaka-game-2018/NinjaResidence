@@ -5,6 +5,7 @@
 */
 #pragma once
 
+#include "enum_Scene.h"
 #include "GAMEMANAGER.h"
 #include "XinputDevice.h"
 #include "SoundOperater.h"
@@ -13,21 +14,6 @@
 #define CENTRAL_X (DISPLAY_WIDTH / 2)
 
 
-enum SCENE_NUM
-{
-	SCENE_NONE,
-
-	TITLE_SCENE,
-
-	STAGESELECT_SCENE,
-	
-	GAME_SCENE,
-
-	RESULT_SCENE,
-
-	MAX_SCENE,
-
-};
 
 struct CENTRAL_STATE
 {

@@ -444,7 +444,12 @@ void GameChara::Update()
 	else if (m_isJump) {
 		InitJumpParam();
 	}
+	if (m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) > 100)
+	{
+		m_pMapChip->GameCharaInfo(MapRightDirectionPosition, MapCharaPositionY - 2);
+		((MapChip*)m_pMapChip)->Activate();
 
+	}
 }
 
 bool GameChara::DownCollisionAnything(void) {

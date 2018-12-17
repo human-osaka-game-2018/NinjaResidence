@@ -1,0 +1,17 @@
+#pragma once
+
+enum SCENE_NUM
+{
+	SCENE_NONE,
+
+	TITLE_SCENE,
+
+	STAGESELECT_SCENE,
+
+	GAME_SCENE,
+
+	RESULT_SCENE,
+
+	MAX_SCENE,
+
+};
