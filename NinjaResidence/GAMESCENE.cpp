@@ -74,21 +74,24 @@ void GameScene::KeyOperation() {
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_UP) || m_pXinputDevice->GetButton(ButtonUP))
 	{
-		m_pShuriken->KeyOperation(UP);
+		SkillKeyOperation(UP);
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN))
 	{
-		m_pShuriken->KeyOperation(DOWN);
+		SkillKeyOperation(DOWN);
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
 	{
-		m_SkillSelect->KeyOperation(LEFT);
+		if (m_CanChangeSkill) {
+			m_SkillSelect->KeyOperation(LEFT);
+		}
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
-		m_SkillSelect->KeyOperation(RIGHT);
+		if (m_CanChangeSkill) {
+			m_SkillSelect->KeyOperation(RIGHT);
+		}
 	}
-
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		Reverse();
@@ -209,9 +212,25 @@ void GameScene::SkillStart() {
 	switch (CurrentSkill) {
 	case SHURIKEN:
 		m_pShuriken->KeyOperation(THROW);
+		m_CanChangeSkill = false;
 		if (m_pShuriken->GetActive()) {
+			m_CanChangeSkill = true;
 			m_pGameChara->KeyOperation(THROW);
 		}
+		break;
+	case CLAWSHOT:
+		break;
+	case FIRE_ART:
+		break;
+	case HIGH_SHURIKEN_ART:
+		break;
+	}
+
+}
+void GameScene::SkillKeyOperation(KeyInput vec) {
+	switch (CurrentSkill) {
+	case SHURIKEN:
+		m_pShuriken->KeyOperation(vec);
 		break;
 	case CLAWSHOT:
 		break;
