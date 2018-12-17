@@ -37,7 +37,7 @@ private:
 
 	HANDLE m_threadHandle;
 	DWORD m_threadResult;
-	
+
 	void LoadAction();
 	bool isRunOnce = false;
 	bool isThreadActive = false;
