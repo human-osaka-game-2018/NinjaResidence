@@ -12,6 +12,7 @@
 #include "SkillSelect.h"
 #include "DescriptionBoard.h"
 #include "PauseScene.h"
+#include "Target.h"
 #include <algorithm>
 
 #define _CRTDBG_MAP_ALLOC

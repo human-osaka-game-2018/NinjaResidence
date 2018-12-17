@@ -4,6 +4,8 @@
 * @author Kojiro Kawahara
 */
 #include "MapChip.h"
+#include "TargetandGimmickType.h"
+
 
 using std::vector;
 using namespace MapBlock;
@@ -22,7 +24,10 @@ MapChip::~MapChip()
 	}
 	MapData.clear();
 	vector<vector<int>>().swap(MapData);
-
+	for (BaseTarget* pi : pBaseTarget)
+	{
+		delete pi;
+	}
 }
 
 void MapChip::Create(const char *filename)
@@ -61,6 +66,24 @@ void MapChip::Create(const char *filename)
 		{
 			data[i] = NULL;
 			MapData[y][x] = atoi(data);
+			int blocktype = MapData[y][x] / 100;
+			if (blocktype)
+			{
+				if (blocktype < BT_PARTITIONBOARD)
+				{
+					int Amari = MapData[y][x] % 10;
+					BlockInf block = { x,y,Amari,blocktype };
+					TargetVector.push_back(block);
+					TargetCount++;
+				}
+				if (blocktype > BT_SWITCH)
+				{
+					int Amari = MapData[y][x] % 10;
+					BlockInf block = { x,y,Amari,blocktype };
+					GimmickVector.push_back(block);
+					GimmickCount++;
+				}
+			}
 			x++;
 			i = 0;
 			if (x == m_row) {
@@ -70,7 +93,52 @@ void MapChip::Create(const char *filename)
 		}
 	}
 	fclose(fp);
+	CheckVector();
 }
+
+
+void MapChip::CheckVector()
+{
+	BaseTarget* pBuf = nullptr;
+
+	for (int i = 0;i < TargetCount;i++)
+	{
+		for (int j = 0;j < GimmickCount;j++)
+		{
+			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
+			int Type = TargetVector[i].m_type;
+			switch (Type)
+			{
+			case 1://的
+
+				pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
+				break;
+				//case 2://ロープ
+				//	pBuf = new Rope();
+				//	break;
+				//case 3//スイッチ
+				//	pBuf = new Smith();
+				//	break;
+			}
+			pBaseTarget.push_back(pBuf);
+		}
+	}
+}
+
+
+void MapChip::Activate()
+{
+	for (auto& ite : pBaseTarget)
+	{
+		int CharaPosX = getm_CharaX();
+		int CharaPosY = getm_CharaY();
+		if (CharaPosX == ite->GetTargetInfo()->m_x && CharaPosY == ite->GetTargetInfo()->m_y)
+		{
+			ite->ActivateTarget();
+		}
+	}
+}
+
 
 void MapChip::Render()
 {
@@ -185,9 +253,15 @@ void MapChip::Render()
 				CELL[2].y += 80.f;
 				break;
 			}
-		TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
 		}
 	}
+	
+		for (BaseTarget* pi : pBaseTarget)
+	{
+		pi->Render(m_MapScrollY, m_MapScrollX, CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", CELL);
+	}
+	
 #ifdef _DEBUG
 
 	RECT test = { 0,500,1250,700 };
