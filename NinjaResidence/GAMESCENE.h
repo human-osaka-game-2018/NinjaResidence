@@ -44,8 +44,9 @@ private:
 	void Reverse();
 	void SkillsUpdate();
 	void SkillStart();
-	bool m_EnableSkill[MAX_ITEM - 1] = { true,0,1 };
-
+	void SkillKeyOperation(KeyInput vec);
+	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
+	bool m_CanChangeSkill = true;
 public:
 	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
 	~GameScene();

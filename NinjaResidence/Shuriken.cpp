@@ -31,7 +31,7 @@ void Shuriken::KeyOperation(KeyInput vec)
 		m_isActive = PermitThrow();
 		break;
 	case UP:
-		if (m_isActive) {
+		if (m_isActive || !m_isChoseDeg) {
 			return;
 		}
 		m_DirectionDeg += m_Direction;
@@ -43,8 +43,8 @@ void Shuriken::KeyOperation(KeyInput vec)
 		}
 		break;
 	case DOWN:
-		if (m_isActive) {
-			return;;
+		if (m_isActive || !m_isChoseDeg) {
+			return;
 		}
 		m_DirectionDeg -= m_Direction;
 		if (m_DirectionDeg>45) {
