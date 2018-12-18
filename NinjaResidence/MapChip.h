@@ -33,13 +33,6 @@ namespace MapBlock
 
 class MapChip :public Object
 {
-private:
-	int m_MapSelected;
-	int m_MapSelectedWIDTH;
-	int m_MapSelectedHEIGHT;
-	CUSTOMVERTEX CELL[4];
-	void CellInit();
-
 public:
 
 	//static std::vector< std::vector<int> > MapData;
@@ -55,4 +48,12 @@ public:
 	bool RestrictBottomScroll();
 	float GetBottomPoint(int charaLeft, int charRight);
 	float GetBottomWorldPoint(int charaLeft, int charRight);
+
+private:
+	int m_MapSelected;
+	int m_MapSelectedWIDTH;
+	int m_MapSelectedHEIGHT;
+	CUSTOMVERTEX CELL[4];
+	void CellInit();
+
 };
