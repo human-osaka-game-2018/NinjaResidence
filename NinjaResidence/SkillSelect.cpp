@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SkillSelect.cpp
-* @brief ”Ep‘I‘ğUI
+* @brief å¿è¡“é¸æŠUI
 * @author Toshiya Matsuoka
 */
 

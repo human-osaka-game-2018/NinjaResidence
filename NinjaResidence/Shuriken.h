@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file Shuriken.h
-* @brief è— Œ•ƒNƒ‰ƒX
+* @brief æ‰‹è£å‰£ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 
@@ -14,14 +14,14 @@ class Shuriken :public Object
 {
 public:
 	/*
-	* @brief ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
+	* @brief ã‚­ãƒ¼å…¥åŠ›æ™‚ã®å†…éƒ¨å‡¦ç†é–¢æ•°
 	*/
 	void KeyOperation(KeyInput vec);
 
 	/*
-	* @brief “Š±‹N“®ˆ—
-	* @return “Š‚°‚ç‚ê‚½‚çtrue
-	* @details “Š±‘O‚ÉŠp“xw’èƒtƒFƒCƒY‚ğ‹²‚Ş
+	* @brief æŠ•æ“²èµ·å‹•å‡¦ç†
+	* @return æŠ•ã’ã‚‰ã‚ŒãŸã‚‰true
+	* @details æŠ•æ“²å‰ã«è§’åº¦æŒ‡å®šãƒ•ã‚§ã‚¤ã‚ºã‚’æŒŸã‚€
 	*/
 	bool PermitThrow();
 
@@ -45,7 +45,7 @@ private:
 	bool m_isChoseDeg = false;
 
 	float m_DirectionDeg = 0;
-	//! ƒLƒƒƒ‰‚ÌŒü‚«‚Ì”»•Ê‚Ìˆ×
+	//! ã‚­ãƒ£ãƒ©ã®å‘ãã®åˆ¤åˆ¥ã®ç‚º
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
 
 	const float MoveSpeed = 10.f;

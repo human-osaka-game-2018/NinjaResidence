@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file TitleCursol.cpp
-* @brief ƒ^ƒCƒgƒ‹‚ÌƒJ[ƒ\ƒ‹ˆ—
+* @brief ã‚¿ã‚¤ãƒˆãƒ«ã®ã‚«ãƒ¼ã‚½ãƒ«å‡¦ç†
 * @author Toshiya Matsuoka
 */
 #include "TITLESCENE.h"
@@ -19,7 +19,7 @@ TitleCursol::~TitleCursol()
 }
 
 void TitleCursol::Update() {
-	//”’l‚Í‰¼
+	//æ•°å€¤ã¯ä»®
 	switch (m_CursolPos) {
 	case START:
 		m_Cursol.y = 440;

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GAMEMANAGER.h
-* @brief Mainƒ‹[ƒvˆ—,WindowŠÖ˜A
+* @brief Mainãƒ«ãƒ¼ãƒ—å‡¦ç†,Windowé–¢é€£
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -30,12 +30,12 @@ public:
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
 private:
-	const char ApiName[10] = "”EÒ‰®•~";
+	const char ApiName[10] = "å¿è€…å±‹æ•·";
 	static DirectX* pDirectX;
 	static SceneManager* pSceneManager;
 	static HWND hWnd;
-	static bool isWindowMode;	//true:Window@false:Full
+	static bool isWindowMode;	//true:Windowã€€false:Full
 	static bool isDeviceLost;
-	static RECT WinRect;			//Window Mode ‚Å‚ÌˆÊ’u‘å‚«‚³
+	static RECT WinRect;			//Window Mode ã§ã®ä½ç½®å¤§ãã•
 	static SoundsManager* pSoundManager;
 };

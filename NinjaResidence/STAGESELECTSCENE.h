@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file STAGESELECTSCENE.h
-* @brief ƒXƒe[ƒWƒZƒŒƒNƒgƒV[ƒ“
+* @brief ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³
 * @author Toshiya Matsuoka
 */
 #pragma once

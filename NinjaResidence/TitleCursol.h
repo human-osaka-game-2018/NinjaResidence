@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file TitleCursol.h
-* @brief ƒ^ƒCƒgƒ‹‚ÌƒJ[ƒ\ƒ‹ˆ—
+* @brief ã‚¿ã‚¤ãƒˆãƒ«ã®ã‚«ãƒ¼ã‚½ãƒ«å‡¦ç†
 * @author Toshiya Matsuoka
 */
 #pragma once

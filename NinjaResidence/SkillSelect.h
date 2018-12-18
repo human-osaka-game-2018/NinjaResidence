@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SkillSelect.h
-* @brief ”Ep‘I‘ğUI
+* @brief å¿è¡“é¸æŠUI
 * @author Toshiya Matsuoka
 */
 #pragma once

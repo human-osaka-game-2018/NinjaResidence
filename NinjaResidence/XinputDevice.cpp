@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file XinputDevice.cpp
-* @brief XinputDeviceŠÖ˜Aˆ—‚ğs‚¤
+* @brief XinputDeviceé–¢é€£å‡¦ç†ã‚’è¡Œã†
 * @author Toshiya Matsuoka
 */
 #include "DirectX.h"

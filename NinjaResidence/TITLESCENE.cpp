@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file TITLESCENE.cpp
-* @brief ƒ^ƒCƒgƒ‹ƒV[ƒ“
+* @brief ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
 * @author Toshiya Matsuoka
 */
 #include "SCENE.h"
@@ -72,14 +72,14 @@ void TitleScene::Render()
 	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
 	RECT testName = { 0, 200, 1280, 500 };
-	char TestName[ArrayLong] = "”EÒ‰®•~";
+	char TestName[ArrayLong] = "å¿è€…å±‹æ•·";
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
 	RECT pushEnter= { 0, 400, 1280, 700 };
-	char PUSH_ENTER[ArrayLong] = "ŠJn";
+	char PUSH_ENTER[ArrayLong] = "é–‹å§‹";
 	m_pDirectX->DrawWord(pushEnter, PUSH_ENTER, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char SETTING[ArrayLong] = "\nİ’è";
+	char SETTING[ArrayLong] = "\nè¨­å®š";
 	m_pDirectX->DrawWord(pushEnter, SETTING, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char END_GAME[ArrayLong] = "\n\nI—¹";
+	char END_GAME[ArrayLong] = "\n\nçµ‚äº†";
 	m_pDirectX->DrawWord(pushEnter, END_GAME, "MENU_FONT", DT_CENTER, 0xffffffff);
 	m_pCursol->Render();
 }
