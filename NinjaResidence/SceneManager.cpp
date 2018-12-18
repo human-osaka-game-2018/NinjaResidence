@@ -37,31 +37,33 @@ int SceneManager::Update()
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
+			isThreadActive = true;
 			m_pScene = new  TitleScene(m_pDirectX, m_pSoundManager);
-			LoadAction();
-
 			break;
 		case STAGESELECT_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
-
+			isThreadActive = true;
 			m_pScene = new  StageSelectScene(m_pDirectX, m_pSoundManager);
-			LoadAction();
 			break;
 		case GAME_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
+			isThreadActive = true;
 			m_pScene = new  GameScene(m_pDirectX, m_pSoundManager, ChosedStage);
-			LoadAction();
 			break;
 		}
+		m_NextScene = m_pScene->GetNextScene();
+
 	}
 	if (!isThreadActive) {
 		m_pScene->Update();
 		m_NextScene = m_pScene->GetNextScene();
 	}
+	else LoadAction();
+
 	return m_pScene->GetGameState();
 }
 
