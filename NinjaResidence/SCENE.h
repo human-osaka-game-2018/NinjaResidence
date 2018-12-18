@@ -63,6 +63,7 @@ public:
 	int GetGameState() {
 		return m_GameState;
 	}
+
 protected:
 	DirectX* m_pDirectX = NULL;
 	XinputDevice* m_pXinputDevice = NULL;

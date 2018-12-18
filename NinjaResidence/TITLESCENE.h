@@ -13,6 +13,13 @@ class TitleCursol;
 
 class TitleScene : public Scene
 {
+public:
+	TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager);
+	~TitleScene();
+	SCENE_NUM Update();
+	void Render();
+	void LoadResouce();
+
 private:
 	CUSTOMVERTEX  m_TitleBackground[4];
 	Scene * m_pScene = NULL;
@@ -20,11 +27,4 @@ private:
 	TitleCursol* m_pCursol = NULL;
 	void ChoseMenu();
 	void EndGame();
-public:
-	TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager);
-	~TitleScene();
-	SCENE_NUM Update();  
-	void Render();       
-	void LoadResouce();
-
 };

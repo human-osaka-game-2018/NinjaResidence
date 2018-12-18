@@ -25,6 +25,16 @@ class SoundManager;
 
 class GameScene : public Scene
 {
+public:
+	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
+	~GameScene();
+	SCENE_NUM Update();//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
+	void KeyOperation();
+	void NotPushedAnyButton();
+	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
+	void LoadResouce();
+	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
+
 private:
 	CUSTOMVERTEX  m_GameBackground[4];
 	GameChara * m_pGameChara = NULL;
@@ -35,7 +45,7 @@ private:
 
 	MapReverse * m_pMapReverse = NULL;
 	Scene * m_pScene = NULL;
-
+	//! 今の選択中忍術
 	int CurrentSkill;
 	/**
 	* @brief どんでん返し処理
@@ -47,15 +57,5 @@ private:
 	void SkillKeyOperation(KeyInput vec);
 	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
-public:
-	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
-	~GameScene();
-	SCENE_NUM Update();
-	void KeyOperation();
-	//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
-	void NotPushedAnyButton();
-	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
-	void LoadResouce();
-	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 
 };
