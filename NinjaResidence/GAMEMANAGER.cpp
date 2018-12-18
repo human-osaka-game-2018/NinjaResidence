@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GAMEMANAGER.cpp
-* @brief Mainƒ‹[ƒvˆ—,WindowŠÖ˜A
+* @brief Mainãƒ«ãƒ¼ãƒ—å‡¦ç†,Windowé–¢é€£
 * @author Toshiya Matsuoka
 */
 #include "GAMEMANAGER.h"
@@ -16,7 +16,7 @@
 #pragma comment(lib, "Xinput.lib")
 #pragma comment(lib,"SoundLib.lib")
 
-//static•Ï”‚ÌŽÀ‘Ì‰»
+//staticå¤‰æ•°ã®å®Ÿä½“åŒ–
 DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
 SoundsManager* GAMEMANAGER::pSoundManager = NULL;
@@ -33,7 +33,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
 	pSoundManager =new SoundsManager;
-	//Windows‰Šú‰»î•ñ‚ÌÝ’è
+	//WindowsåˆæœŸåŒ–æƒ…å ±ã®è¨­å®š
 	Wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	Wndclass.lpfnWndProc = WndProc;
 	Wndclass.cbClsExtra = Wndclass.cbWndExtra = 0;
@@ -42,21 +42,21 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	Wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	Wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	Wndclass.lpszMenuName = NULL;
-	Wndclass.lpszClassName = ApiName;	//ƒNƒ‰ƒX–¼
-	//Window‚Ì“o˜^
+	Wndclass.lpszClassName = ApiName;	//ã‚¯ãƒ©ã‚¹å
+	//Windowã®ç™»éŒ²
 	RegisterClass(&Wndclass);
-	//Window‚Ì¶¬
+	//Windowã®ç”Ÿæˆ
 	hWnd = CreateWindow(
-		ApiName,					//ƒEƒBƒ“ƒhƒE‚ÌƒNƒ‰ƒX–¼
-		ApiName, 					//ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,	//ƒEƒBƒ“ƒhƒEƒXƒ^ƒCƒ‹
-		CW_USEDEFAULT,						// ƒEƒBƒ“ƒhƒE‚Ì‰¡•ûŒü‚ÌˆÊ’ux
-		CW_USEDEFAULT,						// ƒEƒBƒ“ƒhƒE‚Ìc•ûŒü‚ÌˆÊ’uy
-		DISPLAY_WIDTH,						// Widthi•j
-		DISPLAY_HEIGHT,						// Heighti‚‚³j
+		ApiName,					//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¯ãƒ©ã‚¹å
+		ApiName, 					//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«
+		WS_OVERLAPPEDWINDOW | WS_VISIBLE,	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
+		CW_USEDEFAULT,						// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ¨ªæ–¹å‘ã®ä½ç½®x
+		CW_USEDEFAULT,						// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç¸¦æ–¹å‘ã®ä½ç½®y
+		DISPLAY_WIDTH,						// Widthï¼ˆå¹…ï¼‰
+		DISPLAY_HEIGHT,						// Heightï¼ˆé«˜ã•ï¼‰
 		NULL,
 		NULL,
-		hInstance,							// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒnƒ“ƒhƒ‹
+		hInstance,							// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
 		NULL
 	);
 	ShowWindow(hWnd, SW_SHOW);
@@ -79,7 +79,7 @@ GAMEMANAGER::~GAMEMANAGER()
 }
 
 
-// ‰æ–Êƒ‚[ƒh‚Ì•ÏX
+// ç”»é¢ãƒ¢ãƒ¼ãƒ‰ã®å¤‰æ›´
 void GAMEMANAGER::ChangeDisplayMode(void)
 {
 	HRESULT hr = NULL;
@@ -119,7 +119,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 	}
 }
 
-//ƒƒbƒZ[ƒWˆ—@ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒWndProc‚ÌÝ’è
+//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ã€€ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£WndProcã®è¨­å®š
 LRESULT CALLBACK GAMEMANAGER::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg)
@@ -127,13 +127,13 @@ LRESULT CALLBACK GAMEMANAGER::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
-	case WM_SYSKEYDOWN:     //! Alt + “ÁŽêƒL[‚Ìˆ—‚ÉŽg‚¤
+	case WM_SYSKEYDOWN:     //! Alt + ç‰¹æ®Šã‚­ãƒ¼ã®å‡¦ç†ã«ä½¿ã†
 		switch (wp) {
-		//! Alt + Enter‚ð‰Ÿ‚·‚ÆØ‚è‘Ö‚¦
+		//! Alt + Enterã‚’æŠ¼ã™ã¨åˆ‡ã‚Šæ›¿ãˆ
 		case VK_RETURN:
 			ChangeDisplayMode();
 			return 0;
-		//! Alt + F4‚ð‰Ÿ‚·‚ÆŽÀsI—¹
+		//! Alt + F4ã‚’æŠ¼ã™ã¨å®Ÿè¡Œçµ‚äº†
 		case VK_F4:
 			PostMessage(hWnd, WM_CLOSE, 0, 0);
 			return 0;
@@ -149,7 +149,7 @@ int GAMEMANAGER::MessageLoop()
 {
 
 	MSG msg;
-	DWORD SyncOld = timeGetTime();	//	ƒVƒXƒeƒ€ŽžŠÔ‚ðŽæ“¾
+	DWORD SyncOld = timeGetTime();	//	ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ã‚’å–å¾—
 	DWORD SyncNow;
 	timeBeginPeriod(1);
 	ZeroMemory(&msg, sizeof(msg));
@@ -165,7 +165,7 @@ int GAMEMANAGER::MessageLoop()
 		else
 		{
 			SyncNow = timeGetTime();
-			if (SyncNow - SyncOld >= 1000 / 60)//1•bŠÔ‚É60‰ñ‚±‚Ì’†‚É“ü‚é‚Í‚¸
+			if (SyncNow - SyncOld >= 1000 / 60)//1ç§’é–“ã«60å›žã“ã®ä¸­ã«å…¥ã‚‹ã¯ãš
 			{
 				pDirectX->CheckKeyStatus();
 				pDirectX->RenderingBegin();
@@ -177,7 +177,7 @@ int GAMEMANAGER::MessageLoop()
 
 				SyncOld = SyncNow;
 			}
-			//!”ñƒAƒNƒeƒBƒuó‘Ô‚©‚ç‚Ì•œ‹Aˆ—
+			//!éžã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‹ã‚‰ã®å¾©å¸°å‡¦ç†
 			if (D3DERR_DEVICELOST == pDirectX->GetDeviceState()&&
 				hWnd == GetActiveWindow()) {
 				HRESULT hr = NULL;

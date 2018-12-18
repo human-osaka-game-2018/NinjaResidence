@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file DirectX.cpp
-* @brief DirectXŠÖ˜A‚ðs‚¤
+* @brief DirectXé–¢é€£ã‚’è¡Œã†
 * @author Toshiya Matsuoka
 */
 #include "DirectX.h"
@@ -20,7 +20,7 @@ DirectX::DirectX() {
 DirectX::~DirectX() {
 	ReleaseDx();
 }
-//ƒƒ‚ƒŠŠJ•ú
+//ãƒ¡ãƒ¢ãƒªé–‹æ”¾
 void DirectX::ReleaseDx()
 {
 	m_pTexture.clear();
@@ -37,17 +37,17 @@ void DirectX::ReleaseDx()
 	SAFE_RELEASE(m_pDirect3D);
 }
 
-//ƒ_ƒCƒŒƒNƒg3D‚Ì‰Šú‰»ŠÖ”
+//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆ3Dã®åˆæœŸåŒ–é–¢æ•°
 HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
 {
 	HRESULT hr = NULL;
-	// uDirect3DvƒIƒuƒWƒFƒNƒg‚Ìì¬
+	// ã€ŒDirect3Dã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	if (!(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
 	{
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
-	// uDIRECT3DƒfƒoƒCƒXvƒIƒuƒWƒFƒNƒg‚Ìì¬
+	// ã€ŒDIRECT3Dãƒ‡ãƒã‚¤ã‚¹ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 
@@ -60,51 +60,51 @@ HRESULT DirectX::InitD3d(HWND hWnd, LPCSTR FilePath)
 		D3DCREATE_MIXED_VERTEXPROCESSING,
 		&d3dpp, &m_pD3Device)))
 	{
-		MessageBox(0, "HALƒ‚[ƒh‚ÅDIRECT3DƒfƒoƒCƒX‚ðì¬‚Å‚«‚Ü‚¹‚ñ\nREFƒ‚[ƒh‚ÅÄŽŽs‚µ‚Ü‚·", NULL, MB_OK);
+		MessageBox(0, "HALãƒ¢ãƒ¼ãƒ‰ã§DIRECT3Dãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œæˆã§ãã¾ã›ã‚“\nREFãƒ¢ãƒ¼ãƒ‰ã§å†è©¦è¡Œã—ã¾ã™", NULL, MB_OK);
 		if (FAILED(hr = m_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hWnd,
 			D3DCREATE_MIXED_VERTEXPROCESSING,
 			&d3dpp, &m_pD3Device)))
 		{
-			MessageBox(0, "DIRECT3DƒfƒoƒCƒX‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", NULL, MB_OK);
+			MessageBox(0, "DIRECT3Dãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", NULL, MB_OK);
 			return E_FAIL;
 		}
 	}
-	//uƒeƒNƒXƒ`ƒƒƒIƒuƒWƒFƒNƒgv‚Ìì¬
+	//ã€Œãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€ã®ä½œæˆ
 	if (FAILED(D3DXCreateTextureFromFileEx(m_pD3Device, FilePath, 100, 100, 0, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
 		0xff000000, NULL, NULL, &m_pTexture["Test"])))
 	{
 		eraseTexture("Test");
-		MessageBox(0, "ƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 	eraseTexture("Test");
 	return S_OK;
 }
 
-//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚Ì‰Šú‰»ŠÖ”
+//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®åˆæœŸåŒ–é–¢æ•°
 HRESULT DirectX::InitDinput(HWND hWnd)
 {
 	HRESULT hr;
 
-	//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚ÌƒIƒuƒWƒF‚Ìì¬
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®ã‚ªãƒ–ã‚¸ã‚§ã®ä½œæˆ
 	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
 		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDinput, NULL)))
 	{
 		return hr;
 	}
-	//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚ÌƒfƒoƒCƒX‚Ìì¬
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(hr = m_pDinput->CreateDevice(GUID_SysKeyboard,
 		&m_pKeyDevice, NULL)))
 	{
 		return hr;
 	}
-	//ƒfƒoƒCƒX‚ðƒL[ƒ{[ƒh‚ÌÝ’è
+	//ãƒ‡ãƒã‚¤ã‚¹ã‚’ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®è¨­å®š
 	if (FAILED(hr = m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{
 		return hr;
 	}
-	//‹¦’²ƒŒƒxƒ‹
+	//å”èª¿ãƒ¬ãƒ™ãƒ«
 	if (FAILED(hr = m_pKeyDevice->SetCooperativeLevel(
 		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
 	{
@@ -114,26 +114,26 @@ HRESULT DirectX::InitDinput(HWND hWnd)
 }
 
 HRESULT DirectX::BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
-	//ƒ_ƒCƒŒƒNƒg‚RD‚Ì‰Šú‰»ŠÖ”‚ðŒÄ‚Ô
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆï¼“Dã®åˆæœŸåŒ–é–¢æ•°ã‚’å‘¼ã¶
 	if (FAILED(InitD3d(hWnd, FilePath)))
 	{
 		return E_FAIL;
 	}
-	//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚Ì‰Šú‰»ŠÖ”‚ðŒÄ‚Ô
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®åˆæœŸåŒ–é–¢æ•°ã‚’å‘¼ã¶
 	if (FAILED(InitDinput(hWnd)))
 	{
-		MessageBox(0, "DirectInputDevice‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "DirectInputDeviceã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 
-	//DirectX ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	//DirectX ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	m_pDirect3D = Direct3DCreate9(
 		D3D_SDK_VERSION);
-	//¬Œ÷ƒ`ƒFƒbƒN
+	//æˆåŠŸãƒã‚§ãƒƒã‚¯
 	if (m_pDirect3D == NULL)
 	{
-		//¶¬‚ÉŽ¸”s‚µ‚½‚çI—¹‚·‚é
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		//ç”Ÿæˆã«å¤±æ•—ã—ãŸã‚‰çµ‚äº†ã™ã‚‹
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 
@@ -145,24 +145,24 @@ HRESULT DirectX::BuildDXDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
 		hWnd,
 		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 		&m_D3dPresentParameters, &m_pD3Device);
-	//¶¬ƒ`ƒFƒbƒN
+	//ç”Ÿæˆãƒã‚§ãƒƒã‚¯
 	if (m_pD3Device == NULL)
 	{
-		//¶¬‚ÉŽ¸”s‚µ‚½‚çDirectXƒIƒuƒWƒFƒNƒg‚ðŠJ•ú‚µ‚ÄI—¹‚·‚é
+		//ç”Ÿæˆã«å¤±æ•—ã—ãŸã‚‰DirectXã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é–‹æ”¾ã—ã¦çµ‚äº†ã™ã‚‹
 		m_pDirect3D->Release();
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
-	//•`‰æÝ’è
+	//æç”»è¨­å®š
 	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRC‚ÌÝ’è
+	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCã®è¨­å®š
 	m_pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	//m_pD3Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	//’¸“_‚É“ü‚ê‚éƒf[ƒ^‚ðÝ’è
+	//é ‚ç‚¹ã«å…¥ã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	m_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
 	return S_OK;
 }
@@ -276,7 +276,7 @@ void DirectX::RenderingEnd() {
 }
 
 /*
-*‰æ‘œ•`‰æˆ—
+*ç”»åƒæç”»å‡¦ç†
 */
 
 void DirectX::LoadTexture(LPCSTR FilePath, string TextureKey) {
@@ -304,10 +304,10 @@ void DirectX::ClearTexture() {
 void DirectX::DrawWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
 	m_pFont[FontNumber]->DrawText(
 		NULL,		// NULL
-		text,		// •`‰æƒeƒLƒXƒg
-		-1,			// ‘S‚Ä•\Ž¦
-		&rect,		// •\Ž¦”ÍˆÍ
-		TextFormat,	// ¶Šñ‚¹
+		text,		// æç”»ãƒ†ã‚­ã‚¹ãƒˆ
+		-1,			// å…¨ã¦è¡¨ç¤º
+		&rect,		// è¡¨ç¤ºç¯„å›²
+		TextFormat,	// å·¦å¯„ã›
 		color		// color
 	);
 }
@@ -348,10 +348,10 @@ HRESULT DirectX::ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd) {
 HRESULT DirectX::RecoverDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
 
 	HRESULT hr = NULL;
-	// uDirect3DvƒIƒuƒWƒFƒNƒg‚Ìì¬
+	// ã€ŒDirect3Dã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	if (!(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
 	{
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 	m_D3dPresentParameters = (WinMode) ? m_d3dppWin : m_d3dppFull;
@@ -362,72 +362,72 @@ HRESULT DirectX::RecoverDevice(HWND hWnd, bool WinMode, LPCSTR FilePath) {
 		hWnd,
 		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 		&m_D3dPresentParameters, &m_pD3Device);
-	//¶¬ƒ`ƒFƒbƒN
+	//ç”Ÿæˆãƒã‚§ãƒƒã‚¯
 	if (m_pD3Device == NULL)
 	{
-		//¶¬‚ÉŽ¸”s‚µ‚½‚çDirectXƒIƒuƒWƒFƒNƒg‚ðŠJ•ú‚µ‚ÄI—¹‚·‚é
+		//ç”Ÿæˆã«å¤±æ•—ã—ãŸã‚‰DirectXã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é–‹æ”¾ã—ã¦çµ‚äº†ã™ã‚‹
 		m_pDirect3D->Release();
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 
 
-	//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚ÌƒIƒuƒWƒF‚Ìì¬
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®ã‚ªãƒ–ã‚¸ã‚§ã®ä½œæˆ
 	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL),
 		DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDinput, NULL)))
 	{
 		return hr;
 	}
-	//ƒ_ƒCƒŒƒNƒgƒCƒ“ƒvƒbƒg‚ÌƒfƒoƒCƒX‚Ìì¬
+	//ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã‚¤ãƒ³ãƒ—ãƒƒãƒˆã®ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(hr = m_pDinput->CreateDevice(GUID_SysKeyboard,
 		&m_pKeyDevice, NULL)))
 	{
 		return hr;
 	}
-	//ƒfƒoƒCƒX‚ðƒL[ƒ{[ƒh‚ÌÝ’è
+	//ãƒ‡ãƒã‚¤ã‚¹ã‚’ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®è¨­å®š
 	if (FAILED(hr = m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{
 		return hr;
 	}
-	//‹¦’²ƒŒƒxƒ‹
+	//å”èª¿ãƒ¬ãƒ™ãƒ«
 	if (FAILED(hr = m_pKeyDevice->SetCooperativeLevel(
 		hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
 	{
 		return hr;
 	}
-		//DirectX ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+		//DirectX ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	m_pDirect3D = Direct3DCreate9(
 		D3D_SDK_VERSION);
-	//¬Œ÷ƒ`ƒFƒbƒN
+	//æˆåŠŸãƒã‚§ãƒƒã‚¯
 	if (m_pDirect3D == NULL)
 	{
-		//¶¬‚ÉŽ¸”s‚µ‚½‚çI—¹‚·‚é
-		MessageBox(0, "Direct3D‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		//ç”Ÿæˆã«å¤±æ•—ã—ãŸã‚‰çµ‚äº†ã™ã‚‹
+		MessageBox(0, "Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 
-	//uƒeƒNƒXƒ`ƒƒƒIƒuƒWƒFƒNƒgv‚Ìì¬
+	//ã€Œãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€ã®ä½œæˆ
 	if (FAILED(D3DXCreateTextureFromFileEx(m_pD3Device, FilePath, 100, 100, 0, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
 		0xff000000, NULL, NULL, &m_pTexture["Test"])))
 	{
 		eraseTexture("Test");
-		MessageBox(0, "ƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "", MB_OK);
+		MessageBox(0, "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
 	eraseTexture("Test");
 
 
-	//•`‰æÝ’è
+	//æç”»è¨­å®š
 	m_pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRC‚ÌÝ’è
+	m_pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);  //SRCã®è¨­å®š
 	m_pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 	m_pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	//m_pD3Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	//’¸“_‚É“ü‚ê‚éƒf[ƒ^‚ðÝ’è
+	//é ‚ç‚¹ã«å…¥ã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	m_pD3Device->SetFVF(D3DFVF_CUSTOMVERTEX);
 	return S_OK;
 

@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 /**
 * @file XinputDevice.h
-* @brief XinputDeviceŠÖ˜Aˆ—‚ğs‚¤
+* @brief XinputDeviceé–¢é€£å‡¦ç†ã‚’è¡Œã†
 * @author Toshiya Matsuoka
 */
 #include<Xinput.h>
@@ -9,22 +9,22 @@
 
 /**
 * @enum PADSTATE
-* ƒ{ƒ^ƒ“‚Ì‰Ÿ‰ºó‘Ô
+* ãƒœã‚¿ãƒ³ã®æŠ¼ä¸‹çŠ¶æ…‹
 */
 enum PADSTATE
 {
-	//! ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
+	//! æŠ¼ã•ã‚Œã¦ã„ãªã„
 	PadOff,
-	//! ‰Ÿ‚³‚ê‚Ä‚¢‚é
+	//! æŠ¼ã•ã‚Œã¦ã„ã‚‹
 	PadOn,
-	//! ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚é
+	//! æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹
 	PadPush,
-	//! —£‚³‚ê‚½
+	//! é›¢ã•ã‚ŒãŸ
 	PadRelease
 };
 /**
 * @enum ButtonIndex
-* ƒpƒbƒh‚Ìƒ{ƒ^ƒ“‚Ì—ñ‹“
+* ãƒ‘ãƒƒãƒ‰ã®ãƒœã‚¿ãƒ³ã®åˆ—æŒ™
 */
 enum ButtonIndex
 {
@@ -32,9 +32,9 @@ enum ButtonIndex
 	ButtonB,
 	ButtonX,
 	ButtonY,
-	//! R1ƒ{ƒ^ƒ“
+	//! R1ãƒœã‚¿ãƒ³
 	ButtonRB,
-	//! L1ƒ{ƒ^ƒ“
+	//! L1ãƒœã‚¿ãƒ³
 	ButtonLB,
 	ButtonStart,
 	ButtonBack,
@@ -42,16 +42,16 @@ enum ButtonIndex
 	ButtonDOWN,
 	ButtonLEFT,
 	ButtonRIGHT,
-	//!L3ƒ{ƒ^ƒ“
+	//!L3ãƒœã‚¿ãƒ³
 	ButtonLeftThumb,
-	//!R3ƒ{ƒ^ƒ“
+	//!R3ãƒœã‚¿ãƒ³
 	ButtonRightThumb,
 	ButtomIndexMAX
 };
 
 /**
 * @enum Analog
-* ƒAƒiƒƒOƒXƒeƒBƒbƒN‚ÌŒX‚«•ûŒü
+* ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å‚¾ãæ–¹å‘
 */
 enum Analog
 {
@@ -59,15 +59,15 @@ enum Analog
 	ANALOGDOWN,
 	ANALOGLEFT,
 	ANALOGRIGHT,
-	//!‰¡•ûŒü
+	//!æ¨ªæ–¹å‘
 	ANALOG_X,
-	//!c•ûŒü
+	//!ç¸¦æ–¹å‘
 	ANALOG_Y,
 	ANALOGMAX
 };
 /**
 * @enum AnalogTrigger
-* ¶‰E‚ÌƒgƒŠƒK[¯•Ê
+* å·¦å³ã®ãƒˆãƒªã‚¬ãƒ¼è­˜åˆ¥
 */
 enum AnalogTrigger
 {
@@ -80,79 +80,79 @@ class XinputDevice {
 public:
 
 	/**
-	* @brief XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ìæ“¾
-	* @param GamePadNumber ƒpƒbƒh”Ô†i0ƒx[ƒXj
+	* @brief XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
+	* @param GamePadNumber ãƒ‘ãƒƒãƒ‰ç•ªå·ï¼ˆ0ãƒ™ãƒ¼ã‚¹ï¼‰
 	*/
 	void GetControl(int GamePadNumber = 0);
 
 	/**
-	* @brief XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì“ü—Íæ“¾
-	* @param index æ“¾‚µ‚½‚¢ƒ{ƒ^ƒ“‚Ì”z—ñ”Ô†
-	* @return PADSTATE‚Ì’l
+	* @brief XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å…¥åŠ›å–å¾—
+	* @param index å–å¾—ã—ãŸã„ãƒœã‚¿ãƒ³ã®é…åˆ—ç•ªå·
+	* @return PADSTATEã®å€¤
 	* @sa enum PADSTATE
 	*/
 	PADSTATE GetButton(ButtonIndex index);
 
 	/**
-	* @brief ‘S‚Ä‚Ìƒ{ƒ^ƒ“‚É‘Î‚µ‚ÄCheckButtonState‚ğs‚¤
+	* @brief å…¨ã¦ã®ãƒœã‚¿ãƒ³ã«å¯¾ã—ã¦CheckButtonStateã‚’è¡Œã†
 	* @sa CheckButtonState(WORD ButtomID, int ButtomIndex)
 	*/
 	void BottonCheck();
 
 	/**
-	* @brief GetControl‚ÆBottonCheck‚ğ“Z‚ß‚Äs‚¤
-	* @param GamePadNumber ƒpƒbƒh”Ô†i0ƒx[ƒXj
+	* @brief GetControlã¨BottonCheckã‚’çºã‚ã¦è¡Œã†
+	* @param GamePadNumber ãƒ‘ãƒƒãƒ‰ç•ªå·ï¼ˆ0ãƒ™ãƒ¼ã‚¹ï¼‰
 	* @sa GetControl
 	* @sa BottonCheck
 	*/
 
 	void DeviceUpdate(int GamePadNumber = 0);
 	/**
-	* @brief XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì¶ƒAƒiƒƒOƒXƒeƒBƒbƒN“ü—Íæ“¾
-	* @param Trigger ƒgƒŠƒK[‚Ì¶‰E”F¯”Ô†
-	* @return 0`255‚Ì’lA‰Ÿ‚µ‚Ä‚È‚¯‚ê‚Î0
+	* @brief XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å·¦ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—
+	* @param Trigger ãƒˆãƒªã‚¬ãƒ¼ã®å·¦å³èªè­˜ç•ªå·
+	* @return 0ï½255ã®å€¤ã€æŠ¼ã—ã¦ãªã‘ã‚Œã°0
 	* @sa enum AnalogTrigger
 	*/
 	int GetAnalogTrigger(AnalogTrigger Trigger);
 
 	/**
-	* @brief XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì¶ƒAƒiƒƒOƒXƒeƒBƒbƒN“ü—Íæ“¾
-	* @param AnalogState ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯æ”Ô†
-	* @return ŒX‚¢‚Ä‚¢‚ê‚ÎTrueA‚»‚¤‚Å‚È‚¯‚ê‚ÎFalse
+	* @brief XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å·¦ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—
+	* @param AnalogState ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã‘å…ˆç•ªå·
+	* @return å‚¾ã„ã¦ã„ã‚Œã°Trueã€ãã†ã§ãªã‘ã‚Œã°False
 	* @sa enum Analog
 	*/
 	bool GetAnalogL(Analog AnalogState);
 
 	/**
-	* @brief  XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì‰EƒAƒiƒƒOƒXƒeƒBƒbƒN“ü—Íæ“¾
-	* @param AnalogState ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯æ”Ô†
-	* @return ŒX‚¢‚Ä‚¢‚ê‚ÎTrueA‚»‚¤‚Å‚È‚¯‚ê‚ÎFalse
+	* @brief  XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å³ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—
+	* @param AnalogState ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã‘å…ˆç•ªå·
+	* @return å‚¾ã„ã¦ã„ã‚Œã°Trueã€ãã†ã§ãªã‘ã‚Œã°False
 	* @sa enum Analog
 	*/
 	bool GetAnalogR(Analog AnalogState);
 
 	/**
-	* @brief  XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì¶ƒAƒiƒƒOƒXƒeƒBƒbƒN“ü—Íæ“¾
-	* @param AnalogState ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯æ”Ô†
-	* @return ŒX‚«‹ï‡‚Ì”’l@MAX32767@MIN-32768
+	* @brief  XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å·¦ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—
+	* @param AnalogState ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã‘å…ˆç•ªå·
+	* @return å‚¾ãå…·åˆã®æ•°å€¤ã€€MAXï¼32767ã€€MINï¼-32768
 	* @sa enum Analog
 	*/
 	int GetAnalogLValue(Analog AnalogState);
 
 	/**
-	* @brief  XinputDevice‚ÅƒQ[ƒ€ƒpƒbƒh‚Ì‰EƒAƒiƒƒOƒXƒeƒBƒbƒN“ü—Íæ“¾
-	* @param AnalogState ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯æ”Ô†
-	* @return ŒX‚«‹ï‡‚Ì”’l@MAX32767@MIN-32768
+	* @brief  XinputDeviceã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å³ã‚¢ãƒŠãƒ­ã‚°ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—
+	* @param AnalogState ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã‘å…ˆç•ªå·
+	* @return å‚¾ãå…·åˆã®æ•°å€¤ã€€MAXï¼32767ã€€MINï¼-32768
 	* @sa enum Analog
 	*/
 	int GetAnalogRValue(Analog AnalogState);
 
 	/**
-	* @brief Dinput‚ÅƒL[ƒ{[ƒh‚Ìó‘Ôæ“¾
-	* @param ButtomID æ“¾‚µ‚½‚¢XInputƒ{ƒ^ƒ“”Ô†
-	* @param ButtomIndex æ“¾‚µ‚½‚¢ƒ{ƒ^ƒ“‚Ì”z—ñ”Ô†
+	* @brief Dinputã§ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŠ¶æ…‹å–å¾—
+	* @param ButtomID å–å¾—ã—ãŸã„XInputãƒœã‚¿ãƒ³ç•ªå·
+	* @param ButtomIndex å–å¾—ã—ãŸã„ãƒœã‚¿ãƒ³ã®é…åˆ—ç•ªå·
 	* @sa enum ButtonIndex
-	* @details g—p‚É‚Í@m_PadState[ButtomID]@‚Ì’†g‚ğŠm”F‚·‚é‚±‚Æ
+	* @details ä½¿ç”¨æ™‚ã«ã¯ã€€m_PadState[ButtomID]ã€€ã®ä¸­èº«ã‚’ç¢ºèªã™ã‚‹ã“ã¨
 	*/
 	void CheckButtonState(WORD ButtomID, ButtonIndex ButtomIndex);
 

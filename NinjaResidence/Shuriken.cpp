@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file Shuriken.cpp
-* @brief è— Œ•ƒNƒ‰ƒX
+* @brief æ‰‹è£å‰£ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 #include "Shuriken.h"
@@ -24,7 +24,7 @@ Shuriken::~Shuriken()
 
 void Shuriken::KeyOperation(KeyInput vec)
 {
-	//Key‘€ì‚Å‚Ìˆ—
+	//Keyæ“ä½œã§ã®å‡¦ç†
 	switch (vec)
 	{
 	case THROW:

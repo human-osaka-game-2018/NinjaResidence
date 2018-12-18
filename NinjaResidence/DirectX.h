@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file DirectX.h
-* @brief DirectXŠÖ˜A‚ğs‚¤
+* @brief DirectXé–¢é€£ã‚’è¡Œã†
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -22,18 +22,18 @@ struct CUSTOMVERTEX
 };
 enum KEYSTATE
 {
-	//! ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
+	//! æŠ¼ã•ã‚Œã¦ã„ãªã„
 	KeyOff,
-	//! ‰Ÿ‚³‚ê‚Ä‚¢‚é
+	//! æŠ¼ã•ã‚Œã¦ã„ã‚‹
 	KeyOn,
-	//! ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚é
+	//! æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹
 	KeyPush,
-	//! —£‚³‚ê‚½
+	//! é›¢ã•ã‚ŒãŸ
 	KeyRelease
 };
 
 
-// TODO:Singleton‚É‚·‚é
+// TODO:Singletonã«ã™ã‚‹
 /**
 * @class DirectX
 * @brief DirectX
@@ -44,154 +44,154 @@ public:
 	~DirectX();
 
 	/**
-	* @brief ƒfƒBƒXƒvƒŒƒCƒNƒŠƒA
+	* @brief ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¯ãƒªã‚¢
 	*/
 	void ClearDisplay();
 	/**
-	* @brief ƒfƒoƒCƒXƒvƒŒƒ[ƒ“ƒg
+	* @brief ãƒ‡ãƒã‚¤ã‚¹ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 	* @sa GetDeviceState
-	* @details ƒvƒŒƒ[ƒ“ƒgƒƒ\ƒbƒh‚ğŒÄ‚ÑADeviceState‚ÉƒfƒoƒCƒX‚Ìó‘Ô‚ğ‹L˜^‚·‚é
+	* @details ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³ã€DeviceStateã«ãƒ‡ãƒã‚¤ã‚¹ã®çŠ¶æ…‹ã‚’è¨˜éŒ²ã™ã‚‹
 	*/
 	void PresentsDevice();
 
 	/**
-	* @brief •`‰æŠJnŠÖ”
+	* @brief æç”»é–‹å§‹é–¢æ•°
 	* @sa DrowSceneEnd
-	* @details DrowSceneEnd‚ÆƒZƒbƒg‚Åg‚¤‚±‚Æ
+	* @details DrowSceneEndã¨ã‚»ãƒƒãƒˆã§ä½¿ã†ã“ã¨
 	*/
 	void DrawSceneBegin();
 	/**
-	* @brief •`‰æI—¹ŠÖ”
+	* @brief æç”»çµ‚äº†é–¢æ•°
 	* @sa DrowSceneBegin()
-	* @details DrowSceneBegin‚ÆƒZƒbƒg‚Åg‚¤‚±‚Æ
+	* @details DrowSceneBeginã¨ã‚»ãƒƒãƒˆã§ä½¿ã†ã“ã¨
 	*/
 	void DrawSceneEnd();
 
 
 	/**
-	* @brief •`‰æŠJnŠÖ”
+	* @brief æç”»é–‹å§‹é–¢æ•°
 	* @sa RenderingEnd
-	* @details ClearDisplay‚ÆDrowSceneBegin‚ğs‚¤
+	* @details ClearDisplayã¨DrowSceneBeginã‚’è¡Œã†
 	*/
 	void RenderingBegin();
 	/**
-	* @brief •`‰æI—¹ŠÖ”
+	* @brief æç”»çµ‚äº†é–¢æ•°
 	* @sa RenderingBegin
-	* @details DrowSceneEnd‚ÆPresentsDevice‚ğs‚¤
+	* @details DrowSceneEndã¨PresentsDeviceã‚’è¡Œã†
 	*/
 	void RenderingEnd();
 
 	/**
-	* @brief ƒL[ƒ{[ƒhî•ñ‚Ì“Ç‚İæ‚è
+	* @brief ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æƒ…å ±ã®èª­ã¿å–ã‚Š
 	*/
 	void CheckKeyStatus();
 
 	/**
-	* @brief ‚¢‚¸‚ê‚©‚ÌƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚ÌŠm”F
-	* @return ‰½‚©‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Îtrue
+	* @brief ã„ãšã‚Œã‹ã®ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã®ç¢ºèª
+	* @return ä½•ã‹æŠ¼ã•ã‚Œã¦ã„ã‚Œã°true
 	*/
 	bool AnyKeyIsPressed();
 	/**
-	* @brief w’è‚ÌƒL[î•ñæ“¾
-	* @param KeyName DXINPUTƒL[‚Ì–¼‘O
+	* @brief æŒ‡å®šã®ã‚­ãƒ¼æƒ…å ±å–å¾—
+	* @param KeyName DXINPUTã‚­ãƒ¼ã®åå‰
 	*/
 	int GetKeyStatus(int KeyName) {
 		return m_KeyState[KeyName];
 	};
 	/**
-	* @brief ‰æ‘œ“Ç‚İ‚İ
-	* @param FilePath ‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX
-	* @param TextureKey ‰æ‘œ‚ÌŠi”[ƒL[
+	* @brief ç”»åƒèª­ã¿è¾¼ã¿
+	* @param FilePath ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	* @param TextureKey ç”»åƒã®æ ¼ç´ã‚­ãƒ¼
 	*/
 	void LoadTexture(LPCSTR FilePath, std::string TextureKey);
 	/**
-	* @brief ‰æ‘œ•\¦
-	* @param TextureKey ‰æ‘œ‚ÌŠi”[ƒL[
-	* @param TextureSize ’¸“_î•ñ
+	* @brief ç”»åƒè¡¨ç¤º
+	* @param TextureKey ç”»åƒã®æ ¼ç´ã‚­ãƒ¼
+	* @param TextureSize é ‚ç‚¹æƒ…å ±
 	*/
 	void DrawTexture(std::string TextureKey, const CUSTOMVERTEX* TextureSize);
 	/**
-	* @brief ‰æ‘œÁ‹
-	* @param TexKey ‰æ‘œ‚ÌŠi”[ƒL[
+	* @brief ç”»åƒæ¶ˆå»
+	* @param TexKey ç”»åƒã®æ ¼ç´ã‚­ãƒ¼
 	*/
 	void eraseTexture(std::string TexKey);
 	/**
-	* @brief ‰æ‘œ‘SÁ‹
+	* @brief ç”»åƒå…¨æ¶ˆå»
 	*/
 	void ClearTexture();
 	/**
-	* @brief DXƒtƒHƒ“ƒg•`‰æİ’è
-	* @param rect •\¦”ÍˆÍ
-	* @param text •\¦“à—e
-	* @param FontNumber •\¦•¶šİ’è‚ÌŠi”[ƒL[
-	* @param TextFormat ƒtƒH[ƒ}ƒbƒg
-	* @param color F
+	* @brief DXãƒ•ã‚©ãƒ³ãƒˆæç”»è¨­å®š
+	* @param rect è¡¨ç¤ºç¯„å›²
+	* @param text è¡¨ç¤ºå†…å®¹
+	* @param FontNumber è¡¨ç¤ºæ–‡å­—è¨­å®šã®æ ¼ç´ã‚­ãƒ¼
+	* @param TextFormat ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	* @param color è‰²
 	*/
 	void DrawWord(RECT rect, LPCSTR text, std::string FontNumber, int TextFormat = DT_LEFT, DWORD color = 0xff000000);
 	/**
-	* @brief DXƒtƒHƒ“ƒg•¶šİ’è
-	* @param height •¶š‚Ì‚‚³
-	* @param width •¶š‚Ì•
-	* @param FontKey •\¦•¶šİ’è‚ÌŠi”[æ”z—ñ”Ô†
-	* @param FontType g—p‚·‚éƒtƒHƒ“ƒg–¼
-	* @param CharSet ƒLƒƒƒ‰ƒZƒbƒgi‰pš‚È‚çDEFAULT_CHARSETCƒVƒtƒgJIS‚È‚çSHIFTJIS_CHARSETj
+	* @brief DXãƒ•ã‚©ãƒ³ãƒˆæ–‡å­—è¨­å®š
+	* @param height æ–‡å­—ã®é«˜ã•
+	* @param width æ–‡å­—ã®å¹…
+	* @param FontKey è¡¨ç¤ºæ–‡å­—è¨­å®šã®æ ¼ç´å…ˆé…åˆ—ç•ªå·
+	* @param FontType ä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆå
+	* @param CharSet ã‚­ãƒ£ãƒ©ã‚»ãƒƒãƒˆï¼ˆè‹±å­—ãªã‚‰DEFAULT_CHARSETï¼Œã‚·ãƒ•ãƒˆJISãªã‚‰SHIFTJIS_CHARSETï¼‰
 	*/
-	void SetFont(int height, int width, std::string FontKey, LPCSTR FontType = "‚l‚r@ƒSƒVƒbƒN", int CharSet = DEFAULT_CHARSET);
+	void SetFont(int height, int width, std::string FontKey, LPCSTR FontType = "ï¼­ï¼³ã€€ã‚´ã‚·ãƒƒã‚¯", int CharSet = DEFAULT_CHARSET);
 	/**
-	* @brief DXƒtƒHƒ“ƒgÁ‹
-	* @param FontKey •\¦•¶šİ’è‚ÌŠi”[æ”z—ñ”Ô†
+	* @brief DXãƒ•ã‚©ãƒ³ãƒˆæ¶ˆå»
+	* @param FontKey è¡¨ç¤ºæ–‡å­—è¨­å®šã®æ ¼ç´å…ˆé…åˆ—ç•ªå·
 	*/
 	void eraseFont(std::string FontKey);
 	/**
-	* @brief DXƒtƒHƒ“ƒg‘SÁ‹
+	* @brief DXãƒ•ã‚©ãƒ³ãƒˆå…¨æ¶ˆå»
 	*/
 	void ClearFont();
 
 	/**
-	* @brief DirectXƒfƒoƒCƒX‚Ìì¬
-	* @param hWnd ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	* @param isWindowMode ƒEƒBƒ“ƒhƒEƒ‚[ƒh@true:WindowMode@false:FullscreenMode
-	* @param FilePath ƒfƒoƒCƒX¶¬ƒ`ƒFƒbƒN—p‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX
+	* @brief DirectXãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
+	* @param hWnd ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	* @param isWindowMode ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã€€true:WindowModeã€€false:FullscreenMode
+	* @param FilePath ãƒ‡ãƒã‚¤ã‚¹ç”Ÿæˆãƒã‚§ãƒƒã‚¯ç”¨ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 	*/
 	HRESULT BuildDXDevice(HWND hWnd, bool isWindowMode, LPCSTR FilePath);
 	/**
-	* @brief ŠeƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Ìƒpƒ‰ƒ[ƒ^ƒZƒbƒeƒBƒ“ƒO
-	* @param hWnd ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+	* @brief å„ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒƒãƒ†ã‚£ãƒ³ã‚°
+	* @param hWnd ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 	*/
 	void InitPresentParameters(HWND hWnd);
 	/**
-	* @brief ‰ğ•úˆ—
+	* @brief è§£æ”¾å‡¦ç†
 	*/
 	void ReleaseDx();
 	/**
-	* @brief ƒfƒoƒCƒXƒŠƒZƒbƒg
-	* @param isWindowMode ƒEƒBƒ“ƒhƒE‚Ìƒ‚[ƒh
-	* @param WinRect ƒEƒBƒ“ƒhƒEƒTƒCƒY‚Ì•Û‘ —Ìˆæ
-	* @param hWnd ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+	* @brief ãƒ‡ãƒã‚¤ã‚¹ãƒªã‚»ãƒƒãƒˆ
+	* @param isWindowMode ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ¢ãƒ¼ãƒ‰
+	* @param WinRect ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®ä¿è”µé ˜åŸŸ
+	* @param hWnd ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 	*/
 	HRESULT ResetDevice(bool isWindowMode, RECT* WinRect, HWND hWnd);
 	/**
-	* @brief ƒfƒoƒCƒX‚Ìó‘Ôæ“¾
-	* @details ƒfƒoƒCƒXƒvƒŒƒ[ƒ“ƒgŠÖ”‚Åæ“¾‚µ‚½DeviceState‚ğæ“¾‚·‚é
+	* @brief ãƒ‡ãƒã‚¤ã‚¹ã®çŠ¶æ…‹å–å¾—
+	* @details ãƒ‡ãƒã‚¤ã‚¹ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆé–¢æ•°ã§å–å¾—ã—ãŸDeviceStateã‚’å–å¾—ã™ã‚‹
 	*/
 	HRESULT GetDeviceState() {
 		return DeviceState;
 	}
 	/**
-	* @brief DirectXƒfƒoƒCƒX‚Ì•œ‹A
-	* @param hWnd ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	* @param isWindowMode ƒEƒBƒ“ƒhƒEƒ‚[ƒh@true:WindowMode@false:FullscreenMode
-	* @param FilePath ƒfƒoƒCƒX¶¬ƒ`ƒFƒbƒN—p‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX
+	* @brief DirectXãƒ‡ãƒã‚¤ã‚¹ã®å¾©å¸°
+	* @param hWnd ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	* @param isWindowMode ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã€€true:WindowModeã€€false:FullscreenMode
+	* @param FilePath ãƒ‡ãƒã‚¤ã‚¹ç”Ÿæˆãƒã‚§ãƒƒã‚¯ç”¨ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 	*/
 	HRESULT RecoverDevice(HWND hWnd, bool isWindowMode, LPCSTR FilePath);
 
 private:
-	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //‰æ‘œ‚Ìî•ñ‚ğ“ü‚ê‚Ä‚¨‚­ˆ×‚Ìƒ|ƒCƒ“ƒ^”z—ñ
+	std::map<std::string, LPDIRECT3DTEXTURE9> m_pTexture; //ç”»åƒã®æƒ…å ±ã‚’å…¥ã‚Œã¦ãŠãç‚ºã®ãƒã‚¤ãƒ³ã‚¿é…åˆ—
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL; 
 	LPDIRECTINPUT8 m_pDinput = NULL;			
-	IDirect3DDevice9*  m_pD3Device = NULL; //Direct3D‚ÌƒfƒoƒCƒX
-	IDirect3D9*    m_pDirect3D = NULL; //DIrect3D‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
-	D3DPRESENT_PARAMETERS m_D3dPresentParameters;		//	ƒpƒ‰ƒ[ƒ^
+	IDirect3DDevice9*  m_pD3Device = NULL; //Direct3Dã®ãƒ‡ãƒã‚¤ã‚¹
+	IDirect3D9*    m_pDirect3D = NULL; //DIrect3Dã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+	D3DPRESENT_PARAMETERS m_D3dPresentParameters;		//	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	//D3DDISPLAYMODE		  m_D3DdisplayMode;
 	std::map<std::string, LPD3DXFONT> m_pFont;
 	D3DPRESENT_PARAMETERS m_d3dppWin, m_d3dppFull;

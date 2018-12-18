@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file TITLESCENE.h
-* @brief ƒ^ƒCƒgƒ‹ƒV[ƒ“
+* @brief ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
 * @author Toshiya Matsuoka
 */
 #pragma once
