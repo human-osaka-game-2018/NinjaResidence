@@ -8,9 +8,10 @@
 #include "XinputDevice.h"
 
 
+
 void XinputDevice::GetControl(int GamePadNumber)
 {
-	XInputGetState(GamePadNumber, &m_Xinput);
+	static DWORD INFO = XInputGetState(GamePadNumber, &m_Xinput);
 }
 
 PADSTATE XinputDevice::GetButton(ButtonIndex index)
@@ -36,6 +37,15 @@ void XinputDevice::BottonCheck() {
 	CheckButtonState(XINPUT_GAMEPAD_BACK, ButtonBack);
 	CheckButtonState(XINPUT_GAMEPAD_LEFT_THUMB, ButtonLeftThumb);
 	CheckButtonState(XINPUT_GAMEPAD_RIGHT_THUMB, ButtonRightThumb);
+
+	AnalogLStateDivide(ANALOGUP);
+	AnalogRStateDivide(ANALOGUP);
+	AnalogLStateDivide(ANALOGDOWN);
+	AnalogRStateDivide(ANALOGDOWN);
+	AnalogLStateDivide(ANALOGLEFT);
+	AnalogRStateDivide(ANALOGLEFT);
+	AnalogLStateDivide(ANALOGRIGHT);
+	AnalogRStateDivide(ANALOGRIGHT);
 
 }
 
@@ -71,7 +81,6 @@ void XinputDevice::CheckButtonState(WORD ButtomID, ButtonIndex ButtomIndex)
 		}
 		m_PadOldState[ButtomIndex] = PadOff;
 	}
-
 }
 
 int XinputDevice::GetAnalogTrigger(AnalogTrigger Trigger)
@@ -91,25 +100,25 @@ bool XinputDevice::GetAnalogL(Analog AnalogState)
 	switch (AnalogState)
 	{
 	case ANALOGUP:
-		if (m_Xinput.Gamepad.sThumbLY > 65535 / 4)
+		if (GetAnalogLValue(ANALOG_Y) > 65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGDOWN:
-		if (m_Xinput.Gamepad.sThumbLY < -65535 / 4)
+		if (GetAnalogLValue(ANALOG_Y) < -65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGLEFT:
-		if (m_Xinput.Gamepad.sThumbLX < 65535 / 4)
+		if (GetAnalogLValue(ANALOG_X) > 65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGRIGHT:
-		if (m_Xinput.Gamepad.sThumbLX > -65535 / 4)
+		if (GetAnalogLValue(ANALOG_X) < -65535 / 4)
 		{
 			return true;
 		}
@@ -125,25 +134,25 @@ bool XinputDevice::GetAnalogR(Analog AnalogState)
 	switch (AnalogState)
 	{
 	case ANALOGUP:
-		if (m_Xinput.Gamepad.sThumbRY > 65535 / 4)
+		if (GetAnalogRValue(ANALOG_Y) > 65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGDOWN:
-		if (m_Xinput.Gamepad.sThumbRY < -65535 / 4)
+		if (GetAnalogRValue(ANALOG_Y) < -65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGLEFT:
-		if (m_Xinput.Gamepad.sThumbRX < 65535 / 4)
+		if (GetAnalogRValue(ANALOG_X) > 65535 / 4)
 		{
 			return true;
 		}
 		break;
 	case ANALOGRIGHT:
-		if (m_Xinput.Gamepad.sThumbRX > -65535 / 4)
+		if (GetAnalogRValue(ANALOG_X) < -65535 / 4)
 		{
 			return true;
 		}
@@ -186,245 +195,64 @@ int XinputDevice::GetAnalogRValue(Analog AnalogState)
 
 PADSTATE XinputDevice::GetAnalogLState(Analog AnalogState)
 {
-	static PADSTATE AnalogLOldState[4] = { PadOff };
-	static PADSTATE AnalogLState[4] = { PadOff };
-	//! 内容でかいので今後関数分けなどで小さくする予定
-	switch (AnalogState)
-	{
-	case ANALOGUP:
-		if (GetAnalogL(ANALOGUP))
-		{
-			if (AnalogLOldState[ANALOGUP] == PadOn)
-			{
-				AnalogLState[ANALOGUP] = PadOn;
-			}
-			else
-			{
-				AnalogLState[ANALOGUP] = PadPush;
-			}
-
-			AnalogLOldState[ANALOGUP] = PadOn;
-		}
-		else
-		{
-			if (AnalogLOldState[ANALOGUP] == PadOn)
-			{
-				AnalogLState[ANALOGUP] = PadRelease;
-			}
-			else
-			{
-				AnalogLState[ANALOGUP] = PadOff;
-			}
-			AnalogLOldState[ANALOGUP] = PadOff;
-		}	
-		break;
-	case ANALOGDOWN:
-		if (GetAnalogL(ANALOGDOWN))
-		{
-			if (AnalogLOldState[ANALOGDOWN] == PadOn)
-			{
-				AnalogLState[ANALOGDOWN] = PadOn;
-			}
-			else
-			{
-				AnalogLState[ANALOGDOWN] = PadPush;
-			}
-
-			AnalogLOldState[ANALOGDOWN] = PadOn;
-		}
-		else
-		{
-			if (AnalogLOldState[ANALOGDOWN] == PadOn)
-			{
-				AnalogLState[ANALOGDOWN] = PadRelease;
-			}
-			else
-			{
-				AnalogLState[ANALOGDOWN] = PadOff;
-			}
-			AnalogLOldState[ANALOGDOWN] = PadOff;
-		}
-		break;
-	case ANALOGLEFT:
-		if (GetAnalogL(ANALOGLEFT))
-		{
-			if (AnalogLOldState[ANALOGLEFT] == PadOn)
-			{
-				AnalogLState[ANALOGLEFT] = PadOn;
-			}
-			else
-			{
-				AnalogLState[ANALOGLEFT] = PadPush;
-			}
-
-			AnalogLOldState[ANALOGLEFT] = PadOn;
-		}
-		else
-		{
-			if (AnalogLOldState[ANALOGLEFT] == PadOn)
-			{
-				AnalogLState[ANALOGLEFT] = PadRelease;
-			}
-			else
-			{
-				AnalogLState[ANALOGLEFT] = PadOff;
-			}
-			AnalogLOldState[ANALOGLEFT] = PadOff;
-		}
-		break;
-	case ANALOGRIGHT:
-		if (GetAnalogL(ANALOGRIGHT))
-		{
-			if (AnalogLOldState[ANALOGRIGHT] == PadOn)
-			{
-				AnalogLState[ANALOGRIGHT] = PadOn;
-			}
-			else
-			{
-				AnalogLState[ANALOGRIGHT] = PadPush;
-			}
-
-			AnalogLOldState[ANALOGRIGHT] = PadOn;
-		}
-		else
-		{
-			if (AnalogLOldState[ANALOGRIGHT] == PadOn)
-			{
-				AnalogLState[ANALOGRIGHT] = PadRelease;
-			}
-			else
-			{
-				AnalogLState[ANALOGRIGHT] = PadOff;
-			}
-			AnalogLOldState[ANALOGRIGHT] = PadOff;
-		}
-		break;
-	default:
-	{}
-	break;
-	}
-	return AnalogLState[AnalogState];
+	return m_AnalogLState[AnalogState];
 }
 
 PADSTATE XinputDevice::GetAnalogRState(Analog AnalogState)
 {
-	static PADSTATE AnalogROldState[4] = { PadOff };
-	static PADSTATE AnalogRState[4] = { PadOff };
-	//! 内容でかいので今後関数分けなどで小さくする予定
-	switch (AnalogState)
-	{
-	case ANALOGUP:
-		if (GetAnalogR(ANALOGUP))
-		{
-			if (AnalogROldState[ANALOGUP] == PadOn)
-			{
-				AnalogRState[ANALOGUP] = PadOn;
-			}
-			else
-			{
-				AnalogRState[ANALOGUP] = PadPush;
-			}
-
-			AnalogROldState[ANALOGUP] = PadOn;
-		}
-		else
-		{
-			if (AnalogROldState[ANALOGUP] == PadOn)
-			{
-				AnalogRState[ANALOGUP] = PadRelease;
-			}
-			else
-			{
-				AnalogRState[ANALOGUP] = PadOff;
-			}
-			AnalogROldState[ANALOGUP] = PadOff;
-		}
-		break;
-	case ANALOGDOWN:
-		if (GetAnalogR(ANALOGDOWN))
-		{
-			if (AnalogROldState[ANALOGDOWN] == PadOn)
-			{
-				AnalogRState[ANALOGDOWN] = PadOn;
-			}
-			else
-			{
-				AnalogRState[ANALOGDOWN] = PadPush;
-			}
-
-			AnalogROldState[ANALOGDOWN] = PadOn;
-		}
-		else
-		{
-			if (AnalogROldState[ANALOGDOWN] == PadOn)
-			{
-				AnalogRState[ANALOGDOWN] = PadRelease;
-			}
-			else
-			{
-				AnalogRState[ANALOGDOWN] = PadOff;
-			}
-			AnalogROldState[ANALOGDOWN] = PadOff;
-		}
-		break;
-	case ANALOGLEFT:
-		if (GetAnalogR(ANALOGLEFT))
-		{
-			if (AnalogROldState[ANALOGLEFT] == PadOn)
-			{
-				AnalogRState[ANALOGLEFT] = PadOn;
-			}
-			else
-			{
-				AnalogRState[ANALOGLEFT] = PadPush;
-			}
-
-			AnalogROldState[ANALOGLEFT] = PadOn;
-		}
-		else
-		{
-			if (AnalogROldState[ANALOGLEFT] == PadOn)
-			{
-				AnalogRState[ANALOGLEFT] = PadRelease;
-			}
-			else
-			{
-				AnalogRState[ANALOGLEFT] = PadOff;
-			}
-			AnalogROldState[ANALOGLEFT] = PadOff;
-		}
-		break;
-	case ANALOGRIGHT:
-		if (GetAnalogR(ANALOGRIGHT))
-		{
-			if (AnalogROldState[ANALOGRIGHT] == PadOn)
-			{
-				AnalogRState[ANALOGRIGHT] = PadOn;
-			}
-			else
-			{
-				AnalogRState[ANALOGRIGHT] = PadPush;
-			}
-
-			AnalogROldState[ANALOGRIGHT] = PadOn;
-		}
-		else
-		{
-			if (AnalogROldState[ANALOGRIGHT] == PadOn)
-			{
-				AnalogRState[ANALOGRIGHT] = PadRelease;
-			}
-			else
-			{
-				AnalogRState[ANALOGRIGHT] = PadOff;
-			}
-			AnalogROldState[ANALOGRIGHT] = PadOff;
-		}
-		break;
-	default:
-	{}
-	break;
-	}
-	return AnalogRState[AnalogState];
+	return m_AnalogRState[AnalogState];
 }
 
+void XinputDevice::AnalogRStateDivide(Analog AnalogState) {
+	if (GetAnalogR(AnalogState))
+	{
+		if (m_AnalogROldState[AnalogState] == PadOn)
+		{
+			m_AnalogRState[AnalogState] = PadOn;
+		}
+		else
+		{
+			m_AnalogRState[AnalogState] = PadPush;
+		}
+		m_AnalogROldState[AnalogState] = PadOn;
+	}
+	else
+	{
+		if (m_AnalogROldState[AnalogState] == PadOn)
+		{
+			m_AnalogRState[AnalogState] = PadRelease;
+		}
+		else
+		{
+			m_AnalogRState[AnalogState] = PadOff;
+		}
+		m_AnalogROldState[AnalogState] = PadOff;
+	}
+}
+
+void XinputDevice::AnalogLStateDivide(Analog AnalogState) {
+	if (GetAnalogL(AnalogState))
+	{
+		if (m_AnalogLOldState[AnalogState] == PadOn)
+		{
+			m_AnalogLState[AnalogState] = PadOn;
+		}
+		else
+		{
+			m_AnalogLState[AnalogState] = PadPush;
+		}
+		m_AnalogLOldState[AnalogState] = PadOn;
+	}
+	else
+	{
+		if (m_AnalogLOldState[AnalogState] == PadOn)
+		{
+			m_AnalogLState[AnalogState] = PadRelease;
+		}
+		else
+		{
+			m_AnalogLState[AnalogState] = PadOff;
+		}
+		m_AnalogLOldState[AnalogState] = PadOff;
+	}
+}

@@ -43,11 +43,11 @@ SCENE_NUM  TitleScene::Update()
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
-	if (PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGUP))
+	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 	{
 		m_pCursol->KeyOperation(UP);
 	}
-	if (PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
+	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
