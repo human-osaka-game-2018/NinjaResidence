@@ -43,11 +43,11 @@ SCENE_NUM  TitleScene::Update()
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGUP))
+	if (PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 	{
 		m_pCursol->KeyOperation(UP);
 	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGDOWN))
+	if (PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
@@ -67,26 +67,25 @@ void TitleScene::Render()
 	
 	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_TitleBackground);
-	RECT test = { 0,0,800,500 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
-	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT",DT_LEFT,0xffffffff);
-	RECT testName = { 0, 200, 1280, 500 };
-	char TestName[ArrayLong] = "忍者屋敷";
-	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_CENTER, 0xffff0000);
-	RECT pushEnter= { 0, 400, 1280, 700 };
-	char PUSH_ENTER[ArrayLong] = "開始";
-	m_pDirectX->DrawWord(pushEnter, PUSH_ENTER, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char SETTING[ArrayLong] = "\n設定";
-	m_pDirectX->DrawWord(pushEnter, SETTING, "MENU_FONT", DT_CENTER, 0xffffffff);
-	char END_GAME[ArrayLong] = "\n\n終了";
-	m_pDirectX->DrawWord(pushEnter, END_GAME, "MENU_FONT", DT_CENTER, 0xffffffff);
+
+	CUSTOMVERTEX LogoVertex[4];
+	CreateSquareVertex(LogoVertex, m_Logo);
+	m_pDirectX->DrawTexture("LOGO_TEX", LogoVertex);
+
 	m_pCursol->Render();
+
+	CUSTOMVERTEX MenuVertex[4];
+	CreateSquareVertex(MenuVertex, m_Menu);
+	m_pDirectX->DrawTexture("MENU_TEX", MenuVertex);
+
 }
 
 void TitleScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/Shuriken.png", "CURSOL_TEX");
+	m_pDirectX->LoadTexture("texture/Kunai.png", "CURSOL_TEX");
+	m_pDirectX->LoadTexture("texture/TitleLogo.png", "LOGO_TEX");
+	m_pDirectX->LoadTexture("texture/Titlemenu.png", "MENU_TEX");
+
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(75, 40, "MENU_FONT");

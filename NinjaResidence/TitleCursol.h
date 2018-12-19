@@ -25,7 +25,7 @@ public:
 	TitleCursol(DirectX* pDirectX, SoundsManager* pSoundManager);
 	~TitleCursol();
 private:
-	CENTRAL_STATE m_Cursol = { 500,0,40,30 };
+	CENTRAL_STATE m_Cursol = { 480,0,40,30 };
 	Cursol::CursolPosition m_CursolPos = Cursol::START;
 	void MoveUp();
 	void MoveDown();
