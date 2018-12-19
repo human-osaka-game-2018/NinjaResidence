@@ -163,6 +163,10 @@ public:
 	*/
 	PADSTATE GetAnalogRState(Analog AnalogState);
 
+	void AnalogRStateDivide(Analog AnalogState);
+
+	void AnalogLStateDivide(Analog AnalogState);
+
 	/**
 	* @brief Dinputでキーボードの状態取得
 	* @param ButtomID 取得したいXInputボタン番号
@@ -176,7 +180,14 @@ public:
 	~XinputDevice() {};
 private:
 	XINPUT_STATE m_Xinput = { NULL };
+
 	PADSTATE m_PadState[ButtomIndexMAX] = { PadOff };
 	PADSTATE m_PadOldState[ButtomIndexMAX] = { PadOff };
+
+	PADSTATE m_AnalogROldState[ANALOGMAX] = { PadOff };
+	PADSTATE m_AnalogRState[ANALOGMAX] = { PadOff };
+
+	PADSTATE m_AnalogLOldState[ANALOGMAX] = { PadOff };
+	PADSTATE m_AnalogLState[ANALOGMAX] = { PadOff };
 
 };
