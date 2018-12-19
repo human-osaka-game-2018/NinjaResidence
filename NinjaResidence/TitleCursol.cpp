@@ -22,13 +22,13 @@ void TitleCursol::Update() {
 	//数値は仮
 	switch (m_CursolPos) {
 	case START:
-		m_Cursol.y = 440;
+		m_Cursol.y = 430;
 		break;
 	case OPTION:
-		m_Cursol.y = 520;
+		m_Cursol.y = 500;
 		break;
 	case END:
-		m_Cursol.y = 580;
+		m_Cursol.y = 570;
 		break;
 	}
 
@@ -36,7 +36,7 @@ void TitleCursol::Update() {
 void TitleCursol::Render()
 {
 	CUSTOMVERTEX CursolVertex[4];
-	CreateSquareVertex(CursolVertex,m_Cursol);
+	RevolveZ(CursolVertex, DegToRad(180),m_Cursol);
 	TextureRender("CURSOL_TEX", CursolVertex);
 
 }
