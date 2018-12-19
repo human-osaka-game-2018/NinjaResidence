@@ -148,6 +148,22 @@ public:
 	int GetAnalogRValue(Analog AnalogState);
 
 	/**
+	* @brief  XinputDeviceでゲームパッドの左アナログスティック入力状態取得
+	* @param AnalogState スティックの方向け先番号
+	* @return 方向け状態
+	* @sa enum Analog
+	*/
+	PADSTATE GetAnalogLState(Analog AnalogState);
+
+	/**
+	* @brief  XinputDeviceでゲームパッドの左アナログスティック入力状態取得
+	* @param AnalogState スティックの方向け先番号
+	* @return 方向け状態
+	* @sa enum Analog
+	*/
+	PADSTATE GetAnalogRState(Analog AnalogState);
+
+	/**
 	* @brief Dinputでキーボードの状態取得
 	* @param ButtomID 取得したいXInputボタン番号
 	* @param ButtomIndex 取得したいボタンの配列番号
