@@ -79,7 +79,6 @@ void SceneManager::Render()
 		char TestName[ArrayLong];
 		sprintf_s(TestName, ArrayLong, "TIME_%d", LoadTime);
 		//m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
-		m_pDirectX->DrawWord(testName, "ì«Ç›çûÇ›íÜ...", "LOAD_FONT", DT_CENTER, 0xffffffff);
 
 	}
 }
