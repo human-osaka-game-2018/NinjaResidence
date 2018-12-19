@@ -27,6 +27,7 @@ private:
 	CENTRAL_STATE m_Menu = { CENTRAL_X ,500,100,100 };
 	
 	int m_timecount = 0;
+	
 	TitleCursol* m_pCursol = NULL;
 	
 	void ChoseMenu();
