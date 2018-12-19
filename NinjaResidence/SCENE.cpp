@@ -11,6 +11,8 @@ Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDire
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundManager = pSoundManager;
 	m_pDirectX->LoadTexture("texture/Shuriken.png", "CROSS_TEX");
+	m_pDirectX->LoadTexture("texture/Load_BG.jpg", "LOAD_BG_TEX");
+
 	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }
 
@@ -48,10 +50,14 @@ void Scene::RunOptionScene(int m_BGMvolume,int m_SEvolume) {
 void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 void Scene::LoadAnimation() {
+	CUSTOMVERTEX LoadBg[4];
+	CreateSquareVertex(LoadBg, DISPLAY_WIDTH, DISPLAY_HEIGHT - 20);
+	m_pDirectX->DrawTexture("LOAD_BG_TEX", LoadBg);
+
 	static int rad = 0;
-	rad += D3DX_PI;
+	rad += D3DX_PI*3;
 	CUSTOMVERTEX cross[4];
-	CENTRAL_STATE CROSS = { CENTRAL_X,CENTRAL_Y,300,300 };
+	CENTRAL_STATE CROSS = { 1200,630,50,50 };
 	RevolveZ(cross, rad, CROSS);
 	m_pDirectX->DrawTexture("CROSS_TEX", cross);
 }

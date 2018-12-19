@@ -24,7 +24,7 @@
 # https://www.gnu.org/software/libiconv/ for the list of possible encodings.
 # The default value is: UTF-8.
 
-DOXYFILE_ENCODING      = SHIFT_JIS
+DOXYFILE_ENCODING      = UTF-8
 
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded by
 # double-quotes, unless you are using Doxywizard) that should identify the
@@ -1376,7 +1376,7 @@ GENERATE_CHI           = NO
 # and project file content.
 # This tag requires that the tag GENERATE_HTMLHELP is set to YES.
 
-CHM_INDEX_ENCODING     = Shift_Jis
+CHM_INDEX_ENCODING     = UTF-8
 
 # The BINARY_TOC flag controls whether a binary table of contents is generated
 # (YES) or a normal table of contents (NO) in the .chm file. Furthermore it
