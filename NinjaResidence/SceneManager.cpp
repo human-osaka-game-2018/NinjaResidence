@@ -35,8 +35,10 @@ SceneManager::~SceneManager()
 int SceneManager::Update()
 {
 	if (m_pScene->GetSoundSetting()) {
+		
 		TestTime++;
 		m_pVolumeSettingScene->Update();
+		
 		if (m_pVolumeSettingScene->GetExitScene()) {
 			m_pScene->InactiveSoundSetting();
 			m_pVolumeSettingScene->InitExitScene();

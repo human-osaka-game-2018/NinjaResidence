@@ -78,7 +78,7 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 		MoveDown();
 	}
 
-	//m_pSoundOperater->AllSetVolume(m_ALLvolume);
+
 	return SCENE_NONE;
 }
 
