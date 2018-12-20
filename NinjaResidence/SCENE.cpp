@@ -13,6 +13,9 @@ Scene :: Scene(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDire
 	m_pDirectX->LoadTexture("texture/Shuriken.png", "CROSS_TEX");
 	m_pDirectX->LoadTexture("texture/Load_BG.jpg", "LOAD_BG_TEX");
 
+	m_pDirectX->LoadTexture("Texture/GyoushoNumber.png", "NUMBER_TEX");
+	m_pDirectX->LoadTexture("Texture/SoundVolumeMenu.png", "SV_MENU_TEX");
+
 	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }
 
