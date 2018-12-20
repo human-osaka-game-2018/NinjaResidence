@@ -21,6 +21,7 @@ class Scene;
 class MapChip;
 class GameChara;
 class MapReverse;
+class DescriptionBoard;
 class SoundManager;
 
 class GameScene : public Scene
