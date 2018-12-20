@@ -22,6 +22,7 @@ public:
 
 private:
 	CUSTOMVERTEX  m_SerectBackground[4];
+	
 	Scene* m_pScene = NULL;
 	
 	int m_timecount = 0;
