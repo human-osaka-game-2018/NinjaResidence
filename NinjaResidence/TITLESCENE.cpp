@@ -24,7 +24,6 @@ TitleScene::~TitleScene()
 
 SCENE_NUM  TitleScene::Update()
 {
-	m_timecount++;
 	m_pXinputDevice->DeviceUpdate();
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP))

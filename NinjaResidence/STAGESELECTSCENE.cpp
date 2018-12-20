@@ -25,7 +25,6 @@ StageSelectScene::~StageSelectScene()
 
 SCENE_NUM  StageSelectScene::Update()
 {
-	m_timecount++;
 	m_pXinputDevice->DeviceUpdate();
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
@@ -82,10 +81,6 @@ void StageSelectScene::Render()
 {
 	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_SerectBackground);
-	RECT test = { 0,0,800,500 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "%d", m_timecount);
-	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 
 	CUSTOMVERTEX StageImage[4];
 

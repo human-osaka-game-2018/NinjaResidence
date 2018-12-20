@@ -152,6 +152,7 @@ public:
 	* @param AnalogState スティックの方向け先番号
 	* @return 方向け状態
 	* @sa enum Analog
+	* @sa enum PADSTATE
 	*/
 	PADSTATE GetAnalogLState(Analog AnalogState);
 
@@ -160,12 +161,21 @@ public:
 	* @param AnalogState スティックの方向け先番号
 	* @return 方向け状態
 	* @sa enum Analog
+	* @sa enum PADSTATE
 	*/
 	PADSTATE GetAnalogRState(Analog AnalogState);
-
-	void AnalogRStateDivide(Analog AnalogState);
-
+	/**
+	* @brief  XinputDeviceでゲームパッドの左アナログスティック入力状態振り分け
+	* @param AnalogState ANALOG_X　or　ANALOG_Y
+	* @sa enum Analog
+	*/
 	void AnalogLStateDivide(Analog AnalogState);
+	/**
+	* @brief  XinputDeviceでゲームパッドの右アナログスティック入力状態振り分け
+	* @param AnalogState ANALOG_X　or　ANALOG_Y
+	* @sa enum Analog
+	*/
+	void AnalogRStateDivide(Analog AnalogState);
 
 	/**
 	* @brief Dinputでキーボードの状態取得
@@ -189,5 +199,6 @@ private:
 
 	PADSTATE m_AnalogLOldState[ANALOGMAX] = { PadOff };
 	PADSTATE m_AnalogLState[ANALOGMAX] = { PadOff };
-
+	//! デバイスの状態確認用
+	DWORD XINPUT_INFO = -1;
 };
