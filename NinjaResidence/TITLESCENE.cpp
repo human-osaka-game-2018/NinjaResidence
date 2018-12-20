@@ -97,7 +97,7 @@ void TitleScene::ChoseMenu() {
 		SetNextScene(STAGESELECT_SCENE);
 		break;
 	case Cursol::OPTION:
-		
+		m_SountSetting = true;
 		break;
 	case Cursol::END:
 		EndGame();

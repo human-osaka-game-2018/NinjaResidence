@@ -28,6 +28,14 @@ SceneManager::~SceneManager()
 
 int SceneManager::Update()
 {
+	if (m_pScene->GetSoundSetting()) {
+		TestTime++;
+		if (TestTime > 120) {
+			m_pScene->InactiveSoundSetting();
+			TestTime = 0;
+		}
+		return m_pScene->GetGameState();
+	}
 	if (m_CurrentScene != m_NextScene)
 	{
 		int ChosedStage = m_pScene->GetStageNum();
@@ -69,16 +77,20 @@ int SceneManager::Update()
 
 void SceneManager::Render()
 {
+	if (m_pScene->GetSoundSetting()) {
+		const int ArrayLong = 64;
+		RECT testName = { 0, 400, 1280, 720 };
+		char TestName[ArrayLong];
+		sprintf_s(TestName, ArrayLong, "TIME_%d", TestTime);
+		m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
+		return;
+	}
+
 	if (!isThreadActive) {
 		m_pScene->Render();
 	}
 	else {
 		LoadAnimation();
-		const int ArrayLong = 64;
-		RECT testName = { 0, 400, 1280, 720 };
-		char TestName[ArrayLong];
-		sprintf_s(TestName, ArrayLong, "TIME_%d", LoadTime);
-		//m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
 
 	}
 }

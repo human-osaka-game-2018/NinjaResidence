@@ -63,6 +63,12 @@ public:
 	int GetGameState() {
 		return m_GameState;
 	}
+	bool GetSoundSetting() {
+		return m_SountSetting;
+	}
+	void InactiveSoundSetting() {
+		m_SountSetting = false;
+	}
 
 protected:
 	DirectX* m_pDirectX = NULL;
@@ -71,7 +77,7 @@ protected:
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
-
+	bool m_SountSetting = false;
 private:
 	SCENE_NUM	m_NextScene;	//Ÿ‚ÌƒV[ƒ“
 	};

@@ -34,6 +34,7 @@
     <ClCompile Include="STAGESELECTSCENE.cpp" />
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
+    <ClCompile Include="VOLUMESELECTSCENE.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +46,7 @@
     <ClInclude Include="Shuriken.h" />
     <ClInclude Include="SkillSelect.h" />
     <ClInclude Include="TitleCursol.h" />
+    <ClInclude Include="VOLUMESELECTSCENE.h" />
     <ClInclude Include="XinputDevice.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapReverse.h" />
