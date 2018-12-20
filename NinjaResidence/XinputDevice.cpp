@@ -11,7 +11,7 @@
 
 void XinputDevice::GetControl(int GamePadNumber)
 {
-	static DWORD INFO = XInputGetState(GamePadNumber, &m_Xinput);
+	XINPUT_INFO = XInputGetState(GamePadNumber, &m_Xinput);
 }
 
 PADSTATE XinputDevice::GetButton(ButtonIndex index)
@@ -111,13 +111,13 @@ bool XinputDevice::GetAnalogL(Analog AnalogState)
 			return true;
 		}
 		break;
-	case ANALOGLEFT:
+	case ANALOGRIGHT:
 		if (GetAnalogLValue(ANALOG_X) > 65535 / 4)
 		{
 			return true;
 		}
 		break;
-	case ANALOGRIGHT:
+	case ANALOGLEFT:
 		if (GetAnalogLValue(ANALOG_X) < -65535 / 4)
 		{
 			return true;

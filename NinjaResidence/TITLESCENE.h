@@ -25,7 +25,7 @@ private:
 	Scene* m_pScene = NULL;
 	CENTRAL_STATE m_Logo={ CENTRAL_X ,200,400,150 };
 	CENTRAL_STATE m_Menu = { CENTRAL_X ,500,100,100 };
-	int m_timecount = 0; 
+	int m_timecount = 0;
 	TitleCursol* m_pCursol = NULL;
 	void ChoseMenu();
 	void EndGame();

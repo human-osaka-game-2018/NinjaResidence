@@ -63,11 +63,11 @@ void GameScene::KeyOperation() {
 	{
 		m_pGameChara->KeyOperation(JUMP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_A) || m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	if (m_pDirectX->GetKeyStatus(DIK_A) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
 	{
 		m_pGameChara->KeyOperation(MOVE_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_D) || m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	if (m_pDirectX->GetKeyStatus(DIK_D) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
 	{
 		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
