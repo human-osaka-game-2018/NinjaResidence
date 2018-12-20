@@ -57,6 +57,8 @@ public:
 
 	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
 
+	void GmmickHitCheck();
+
 	void NoOperation();
 	/**
 	* @brief Debug—pƒLƒƒƒ‰ã¸ˆ—

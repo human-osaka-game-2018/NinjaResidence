@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -23,6 +23,7 @@
     <ClCompile Include="BaseTarget.cpp" />
     <ClCompile Include="DescriptionBoard.cpp" />
     <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="FallRock.cpp" />
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
     <ClCompile Include="VOLUMESELECTSCENE.cpp" />
+    <ClCompile Include="Water.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -50,9 +52,12 @@
     <ClInclude Include="DescriptionBoard.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="enum_Scene.h" />
+    <ClInclude Include="FallRock.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
+    <ClInclude Include="MapBlock.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PartitionBoard.h" />
     <ClInclude Include="Shuriken.h" />
@@ -62,10 +67,10 @@
     <ClInclude Include="TargetandGimmickType.h" />
     <ClInclude Include="TitleCursol.h" />
     <ClInclude Include="VOLUMESELECTSCENE.h" />
+    <ClInclude Include="Water.h" />
     <ClInclude Include="XinputDevice.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapReverse.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="STAGESELECTSCENE.h" />

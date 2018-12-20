@@ -19,7 +19,11 @@ public:
 	void GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip);
 	MapReverse(DirectX* pDirectX, SoundOperater* pSoundOperater, GameChara * GameChara);
 	~MapReverse();
-	static bool MapDataReverseState;
+	bool getMapDataReverseState()
+	{
+		return MapDataReverseState;
+	}
+	
 private:
 	CENTRAL_STATE m_Player = { 400,10,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	int m_SurfaceMapScrollX;
@@ -27,4 +31,5 @@ private:
 	int m_ReverseMapScrollX;
 	int m_ReverseMapScrollY;
 	GameChara* m_pGameChara = NULL;
+	static bool MapDataReverseState;
 };

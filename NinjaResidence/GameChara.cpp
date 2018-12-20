@@ -243,6 +243,29 @@ void GameChara::MapReversePointSearch(int BlockNumber)
 }
 
 
+void GameChara::GmmickHitCheck()
+{
+	//仕切り板の当たり判定
+	//左の方向のブロックを確かめる
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD))
+	{
+
+	}
+
+	//右方向のブロックを確かめる
+	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition) != BT_PARTITIONBOARD))
+	{
+
+	}
+}
+
+
 void GameChara::CharaInforSave(Object* MapChip,int BlockNumber)
 {
 	m_pMapChip = MapChip;

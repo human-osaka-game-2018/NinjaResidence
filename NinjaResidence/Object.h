@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "SCENE.h"
+#include "BlockInf.h"
 
 
 enum KeyDirection
@@ -34,7 +35,7 @@ public:
 	virtual void KeyOperation(KeyDirection vec) {};
 
 	virtual void Update();
-	virtual void Render();
+	virtual void Render(bool MapDataReverse);
 	virtual void prevSaveMapCharaPos() {};
 
 	/*
@@ -74,7 +75,7 @@ public:
 	*@brief CSV読み取りとマップデータ生成
 	* @param filename CSVファイルパス
 	*/
-	virtual void Create(const char *filename) {};
+	virtual void Create(const char *filename, MapDataState MapState) {};
 
 	struct MAPCharPosition {
 		int X;
@@ -90,8 +91,8 @@ public:
 		return MapCharaPosition.Y;
 	};
 
-	void setMapScrollX(int x){};
-	void setMapScrollY(int y){};
+	void setMapScrollX(int x) {};
+	void setMapScrollY(int y) {};
 
 	int getRow() {
 		return m_row;
@@ -99,7 +100,7 @@ public:
 	int getColunm() {
 		return m_colunm;
 	}
-	int getMapChipData(int height,int width) {
+	int getMapChipData(int height, int width) {
 		return MapData[height][width];
 	}
 	virtual bool RestrictBottomScroll() { return false; };

@@ -8,6 +8,7 @@
 #include "GAMESCENE.h"
 #include "Object.h"
 #include "BlockInf.h"
+#include "MapBlock.h"
 
 class BaseTarget;
 class GameScene;
@@ -20,29 +21,15 @@ class GameScene;
 #define BLOCK_WIDTH  80.0f/512
 #define BLOCK_HEIGHT 80.0f/512
 
-namespace MapBlock
-{
-	enum BLOCKTYPE//CSVのブロックの番号
-	{
-		NONE,
-		WOOD_BLOCK,
-		ROCK_BLOCK,
-		WOOD_TRACT,
-		ROCK_TRACT,
-		WOOD_REVERSE_ZONE,
-		ROCK_REVERSE_ZONE,
-		DESCRIPTION_BOARD,
-		DESCRIPTION_BOARD2,
-	};
-};
+
 
 class MapChip :public Object
 {
 public:
 
-	std::vector<BaseTarget* > pBaseTarget;
-	std::vector<BlockInf> GimmickVector;
-	std::vector<BlockInf> TargetVector;
+	static std::vector<BaseTarget* > pBaseTarget;
+	static std::vector<BlockInf> GimmickVector;
+	static std::vector<BlockInf> TargetVector;
 	
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
@@ -52,9 +39,9 @@ public:
 	* @param filename CSVファイルの相対パス
 	*/
 	void Activate();
-	void Create(const char *filename);
+	void Create(const char *filename, MapDataState MapState);
 	void CheckVector();
-	void Render();
+	void Render(bool MapDataReverse);
 	void Update();
 	bool RestrictBottomScroll();
 	float GetBottomPoint(int charaLeft, int charRight);
@@ -66,6 +53,6 @@ private:
 	int m_MapSelectedHEIGHT;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
-	int TargetCount = 0;
-	int GimmickCount = 0;
+	static int m_TargetCount;
+	static int m_GimmickCount;
 };
