@@ -33,8 +33,23 @@ class SoundManager;
 
 class GameScene : public Scene
 {
+<<<<<<< HEAD
 public:
 	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage);
+=======
+private:
+	CUSTOMVERTEX  GameBackground[4];
+	GameChara* pGameChara = NULL;
+	Object* pBusyMapChip = NULL;//使用中のMapChip
+	Object* pIdleMapChip = NULL;//停止中のMapChip
+	MapReverse* m_pMapReverse = NULL;
+	DescriptionBoard* m_pDescriptionBoard = NULL;
+	Scene* pScene = NULL;
+	
+public:
+
+	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
+>>>>>>> 繧ｿ繝ｼ繧ｲ繝�繝医→繧ｮ繝溘ャ繧ｯ繧定｣上→陦ｨ縺ｮ縺ｩ縺薙↓鄂ｮ縺�縺ｦ繧ゅ＞縺代ｋ讒倥↓縺励◆
 	~GameScene();
 	SCENE_NUM Update();//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void KeyOperation();

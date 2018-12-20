@@ -126,7 +126,7 @@ void GameScene::KeyOperation() {
 		}
 		else
 		{
-			m_pDescriptionBoard->GoDescriptionBoard(m_pBusyMapChip);
+			m_pDescriptionBoard->GoDescriptionBoard(pBusyMapChip);
 		}
 
 	}
