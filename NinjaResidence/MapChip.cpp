@@ -101,44 +101,88 @@ void MapChip::Render()
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
 				break;
 			case ROCK_BLOCK:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
 				break;
 			case WOOD_TRACT:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
 				break;
 			case ROCK_TRACT:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
 				break;
 			case WOOD_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
-				CELL[0].x;
-				CELL[3].x;
-				CELL[1].x;
-				CELL[2].x;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
 				break;
 			case ROCK_REVERSE_ZONE:
 				CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
 				CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
 				CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
-				CELL[0].x;
-				CELL[3].x;
-				CELL[1].x;
-				CELL[2].x;
+				CELL[0].tv = 0.f;
+				CELL[1].tv = 0.f;
+				CELL[2].tv = BLOCK_HEIGHT;
+				CELL[3].tv = BLOCK_HEIGHT;
+				break;
+			case DESCRIPTION_BOARD:
+				CELL[0].tu = 0.f;
+				CELL[3].tu = 0.f;
+				CELL[1].tu = 0.24f;
+				CELL[2].tu = 0.24f;
+				CELL[0].tv = 0.16f;
+				CELL[1].tv = 0.16f;
+				CELL[2].tv = BLOCK_HEIGHT + 0.16f;
+				CELL[3].tv = BLOCK_HEIGHT + 0.16f;
+				CELL[1].x += 120.f;
+				CELL[2].x += 120.f;
+				CELL[3].y += 80.f;
+				CELL[2].y += 80.f;
+				break;
+			case DESCRIPTION_BOARD2:
+				CELL[0].tu = 0.f;
+				CELL[3].tu = 0.f;
+				CELL[1].tu = 0.24f;
+				CELL[2].tu = 0.24f;
+				CELL[0].tv = 0.16f;
+				CELL[1].tv = 0.16f;
+				CELL[2].tv = BLOCK_HEIGHT + 0.16f;
+				CELL[3].tv = BLOCK_HEIGHT + 0.16f;
+				CELL[1].x += 120.f;
+				CELL[2].x += 120.f;
+				CELL[3].y += 80.f;
+				CELL[2].y += 80.f;
 				break;
 			}
 			TextureRender("BLOCK_INTEGRATION_TEX", CELL);

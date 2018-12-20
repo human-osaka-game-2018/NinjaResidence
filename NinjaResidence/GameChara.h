@@ -232,7 +232,7 @@ private:
 
 public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate(){return m_DisplayCharaCoordinate[4];}
-	int GetMapCharaPositionX() { return MapLeftDirectionPosition; }
+	int GetMapLeftDirectionPosition() { return MapLeftDirectionPosition; }
 	int GetMapCharaPositionY() { return MapCharaPositionY; }
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyDirection vec);

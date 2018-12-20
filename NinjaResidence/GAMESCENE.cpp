@@ -19,9 +19,15 @@ GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int Chosed
 	m_pIdleMapChip->Create("csv/Book2.csv");
 	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
+<<<<<<< HEAD
 	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
 	m_SkillSelect=new SkillSelect(pDirectX, pSoundManager, m_EnableSkill);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+=======
+	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundManager, m_pGameChara, m_pBusyMapChip);
+
+	CreateSquareVertex(GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+>>>>>>> 元の状態に戻しました
 }
 
 GameScene::~GameScene()
@@ -76,7 +82,25 @@ void GameScene::KeyOperation() {
 	{
 		SkillKeyOperation(UP);
 	}
+<<<<<<< HEAD
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN))
+=======
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN))
+	{
+		//�����Ŕ�ǂ�
+		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
+			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
+		{
+			m_pDescriptionBoard->DescriptionNumberdecision = m_pDescriptionBoard->NONE;
+		}
+		else
+		{
+			m_pDescriptionBoard->GoDescriptionBoard(m_pBusyMapChip);
+		}
+	}
+
+	if (m_pXinputDevice->GetButton(ButtonUP))
+>>>>>>> 元の状態に戻しました
 	{
 		SkillKeyOperation(DOWN);
 	}
@@ -97,6 +121,7 @@ void GameScene::KeyOperation() {
 		Reverse();
 	}
 
+<<<<<<< HEAD
 	//�}�b�v����
 	//if (m_pDirectX->GetKeyStatus(DIK_W))
 	//{
@@ -116,6 +141,11 @@ void GameScene::KeyOperation() {
 	//}
 	//�e�X�g�p����
 	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB))
+=======
+	
+	//�����̃e�X�g�p�������Ă�
+	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
+>>>>>>> 元の状態に戻しました
 	{
 		m_pGameChara->DebugMove();
 	}
@@ -165,7 +195,19 @@ void GameScene::Render()
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 	RECT test = { 400,0,800,500 };
 	char TestText[ArrayLong];
+<<<<<<< HEAD
 	//sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+=======
+	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
+	{
+		m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
+	}
+	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2)
+	{
+		m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
+	}
+>>>>>>> 元の状態に戻しました
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 #endif
 }
@@ -175,9 +217,14 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+<<<<<<< HEAD
 	m_pDirectX->LoadTexture("texture/nin_s.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
 	m_pDirectX->LoadTexture("texture/Scroll.png", "SCROLL_TEX");
+=======
+	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");
+	m_pDirectX->LoadTexture("texture/Kanban2.png", "KANBAN_TEX2");
+>>>>>>> 元の状態に戻しました
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundManager->AddFile("Sound/nc62985.wav", "DECISION");

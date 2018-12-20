@@ -25,12 +25,21 @@ MapReverse::~MapReverse()
 
 void MapReverse::GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip)
 {
+<<<<<<< HEAD
 	int MapPosiinonX = pGameChara->GetMapLeftDirectionPosition();
 	int MapPosiinonY = pGameChara->GetMapCharaPositionY();
 	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
+=======
+	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
+	int MapPosiinonY = m_pGameChara->GetMapCharaPositionY();
+	if ((*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
+>>>>>>> 元の状態に戻しました
 	{
 		Object* Mapbuf;
 		Mapbuf = (*pBusyMapChip);

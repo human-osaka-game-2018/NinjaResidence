@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DescriptionBoard.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DescriptionBoard.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
