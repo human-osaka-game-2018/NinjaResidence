@@ -64,10 +64,10 @@ public:
 		return m_GameState;
 	}
 	bool GetSoundSetting() {
-		return m_SountSetting;
+		return m_SoundSetting;
 	}
 	void InactiveSoundSetting() {
-		m_SountSetting = false;
+		m_SoundSetting = false;
 	}
 
 protected:
@@ -77,7 +77,8 @@ protected:
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
-	bool m_SountSetting = false;
+	//! Œã‚Å–¼Ì•ÏX
+	bool m_SoundSetting = false;
 private:
 	SCENE_NUM	m_NextScene;	//Ÿ‚ÌƒV[ƒ“
 	};

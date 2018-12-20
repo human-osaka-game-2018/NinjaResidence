@@ -7,6 +7,7 @@
 #include "TITLESCENE.h"
 #include "STAGESELECTSCENE.h"
 #include "GAMESCENE.h"
+#include "VOLUMESELECTSCENE.h"
 
 Scene*	SceneManager::m_pScene = NULL;
 
@@ -14,8 +15,10 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
 	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
-	m_pSoundManager = pSoundManager;
 	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
+	m_pSoundManager = pSoundManager;
+	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundManager);
+
 	//ゲームシーンへショートカットする
 	//m_NextScene = GAME_SCENE;
 }
@@ -24,15 +27,17 @@ SceneManager::~SceneManager()
 {
 	delete m_pScene;
 	m_pScene = NULL;
+	delete m_pVolumeSettingScene;
+	m_pVolumeSettingScene = NULL;
 }
 
 int SceneManager::Update()
 {
 	if (m_pScene->GetSoundSetting()) {
 		TestTime++;
-		if (TestTime > 120) {
+		m_pVolumeSettingScene->Update();
+		if (m_pVolumeSettingScene->GetExitScene()) {
 			m_pScene->InactiveSoundSetting();
-			TestTime = 0;
 		}
 		return m_pScene->GetGameState();
 	}
@@ -78,6 +83,8 @@ int SceneManager::Update()
 void SceneManager::Render()
 {
 	if (m_pScene->GetSoundSetting()) {
+		m_pVolumeSettingScene->Render();
+
 		const int ArrayLong = 64;
 		RECT testName = { 0, 400, 1280, 720 };
 		char TestName[ArrayLong];
