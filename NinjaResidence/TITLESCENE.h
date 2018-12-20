@@ -28,6 +28,7 @@ private:
 	
 	int m_timecount = 0;
 	TitleCursol* m_pCursol = NULL;
+	
 	void ChoseMenu();
 	void EndGame();
 };
