@@ -10,10 +10,10 @@ BaseTarget::BaseTarget(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX)
 		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX);
 		break;
 	case BT_WATER:
-		//m_pBaseGimmick = new Water();
+		m_pBaseGimmick = new Water(Gimmick, pDirectX);
 		break;
 	case BT_FALLROCK:
-		//m_pBaseGimmick = new FallRock();
+		m_pBaseGimmick = new FallRock(Gimmick, pDirectX);
 		break;
 	}
 }

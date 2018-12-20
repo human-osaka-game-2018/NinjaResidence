@@ -1,9 +1,16 @@
 #pragma once
 
+enum MapDataState
+{
+	Surface,//表
+	Reverse,//裏
+};
+
 struct BlockInf
 {
-	int m_x;
-	int m_y;
-	int PairNumber;
-	int m_type;
+	int m_x;//X座標
+	int m_y;//Y座標
+	int PairNumber;//下2桁
+	int m_type;//Targetなら1.2.3、Gimmickなら4.5.6
+	MapDataState MapDataState;
 };

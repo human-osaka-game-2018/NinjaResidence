@@ -43,7 +43,7 @@ void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 }
 
 
-void Object::Render()
+void Object::Render(bool MapDataReverse)
 {
 }
 

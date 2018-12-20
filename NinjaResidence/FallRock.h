@@ -3,19 +3,18 @@
 #include "DirectX.h"
 #include "BlockInf.h"
 #include "BaseGimmick.h"
+#include "TargetandGimmickType.h"
 
-class PartitionBoard : public BaseGimmick
+class FallRock : public BaseGimmick
 {
 private:
-	CUSTOMVERTEX PartitionSIZE[4];
-	float PartitionX1;
-	float PartitionY1;
-	float PartitionX2;
-	float PartitionY2;
+	CUSTOMVERTEX FallRockSIZE[4];
+	float FallRockY;
+	float FallRockX;
 	bool flag = false;
 public:
 	void Activate();
 	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize);
-	PartitionBoard(BlockInf Gimmick, DirectX* pDirectX);
-	~PartitionBoard();
+	FallRock(BlockInf Gimmick, DirectX* pDirectX);
+	~FallRock();
 };

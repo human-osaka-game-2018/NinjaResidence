@@ -1,0 +1,17 @@
+#pragma once
+
+namespace MapBlock
+{
+	enum BLOCKTYPE//CSVÇÃÉuÉçÉbÉNÇÃî‘çÜ
+	{
+		NONE,
+		WOOD_BLOCK,
+		ROCK_BLOCK,
+		WOOD_TRACT,
+		ROCK_TRACT,
+		WOOD_REVERSE_ZONE,
+		ROCK_REVERSE_ZONE,
+		DESCRIPTION_BOARD,
+		DESCRIPTION_BOARD2,
+	};
+}

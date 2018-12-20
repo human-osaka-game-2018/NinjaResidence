@@ -14,9 +14,9 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 	m_pScene = this;
 
 	m_pBusyMapChip = new MapChip(pDirectX, pSoundOperater);
-	m_pBusyMapChip->Create("csv/Book1.csv");
+	pBusyMapChip->Create("csv/Book1.csv", Surface);
 	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
-	m_pIdleMapChip->Create("csv/Book2.csv");
+	pIdleMapChip->Create("csv/Book2.csv",Reverse);
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
@@ -29,12 +29,12 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 
 GameScene::~GameScene()
 {
-	delete m_pBusyMapChip;
-	m_pBusyMapChip = NULL;
-	delete m_pIdleMapChip;
-	m_pIdleMapChip = NULL;
-	delete m_pGameChara;
-	m_pGameChara = NULL;
+	delete pBusyMapChip;
+	pBusyMapChip = NULL;
+	delete pIdleMapChip;
+	pIdleMapChip = NULL;
+	delete pGameChara;
+	pGameChara = NULL;
 	delete m_pMapReverse;
 	m_pMapReverse = NULL;
 	delete m_pShuriken;
@@ -197,7 +197,7 @@ void GameScene::Render()
 	}
 
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
-	m_pBusyMapChip->Render();
+ 	pBusyMapChip->Render(m_pMapReverse->getMapDataReverseState());
 	m_pGameChara->Render();
 	m_pShuriken->Render();
 	m_SkillSelect->Render();
