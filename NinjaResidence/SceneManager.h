@@ -32,6 +32,7 @@ private:
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
+
 	int m_BGMvolume = 100;
 	int m_SEvolume = 100;
 	HANDLE m_threadHandle;
@@ -40,4 +41,5 @@ private:
 	bool isRunOnce = false;
 	bool isThreadActive = false;
 	int LoadTime = 0;
+	int TestTime = 0;
 };
