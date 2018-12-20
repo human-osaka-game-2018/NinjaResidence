@@ -213,25 +213,51 @@ void GameChara::NoOperation() {
 
 }
 
-void GameChara::CharaInforSave(int MapReverseSelect,Object* MapChip)
+void GameChara::MapReversePointSearch(int BlockNumber)
 {
 	m_pMapChip = MapChip;
-	m_row = m_pMapChip->getRow();
-	m_colunm = m_pMapChip->getColunm();
+	row = m_pMapChip->getRow();
+	colunm = m_pMapChip->getColunm();
 
-	if (!MapReverseSelect)
+	for (int i = 0;i < colunm;i++)
 	{
-		ValueAllSetCUSTOMVERTEX(m_SurfaceDisplayCharaCoordinate, m_DisplayCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_SurfaceWorldCharaCoordinate, m_WorldCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_DisplayCharaCoordinate, m_ReverseDisplayCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_WorldCharaCoordinate, m_ReverseWorldCharaCoordinate);
+		for (int j = 0;j < row;j++)
+		{
+			if (m_pMapChip->getMapChipData(i, j) == BlockNumber)
+			{
+				m_WorldCharaCoordinate[0].x = (j * CELL_SIZE);
+				m_WorldCharaCoordinate[1].x = (j * CELL_SIZE) + m_Player.scale_x;
+				m_WorldCharaCoordinate[2].x = (j * CELL_SIZE) + m_Player.scale_x;
+				m_WorldCharaCoordinate[3].x = (j * CELL_SIZE);
+				m_WorldCharaCoordinate[0].y = (i * CELL_SIZE) - m_Player.scale_y;
+				m_WorldCharaCoordinate[1].y = (i * CELL_SIZE) - m_Player.scale_y;
+				m_WorldCharaCoordinate[2].y = (i * CELL_SIZE);
+				m_WorldCharaCoordinate[3].y = (i * CELL_SIZE);
+				for (int i = 0;i < 4;i++)
+				{
+					m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+				}
+				for (int i = 0;i < 4;i++)
+				{
+					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_pMapChip->m_MapScrollX;
+				}
+			}
+		}
 	}
-	else 
+}
+
+
+void GameChara::CharaInforSave(Object* MapChip,int BlockNumber)
+{
+	m_pMapChip = MapChip;
+	switch (BlockNumber)
 	{
-		ValueAllSetCUSTOMVERTEX(m_ReverseDisplayCharaCoordinate, m_DisplayCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_ReverseWorldCharaCoordinate, m_WorldCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_DisplayCharaCoordinate, m_SurfaceDisplayCharaCoordinate);
-		ValueAllSetCUSTOMVERTEX(m_WorldCharaCoordinate, m_SurfaceWorldCharaCoordinate);
+	case WOOD_REVERSE_ZONE:
+		MapReversePointSearch(BlockNumber);
+		break;
+	case ROCK_REVERSE_ZONE:
+		MapReversePointSearch(BlockNumber);
+		break;
 	}
 }
 
