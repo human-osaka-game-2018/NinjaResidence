@@ -17,3 +17,4 @@ namespace MapBlock
 		GOAL_ZONE,
 	};
 }
+

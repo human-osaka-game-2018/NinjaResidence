@@ -8,6 +8,7 @@
 #include "GAMESCENE.h"
 #include "Object.h"
 #include "BlockInf.h"
+#include "MapBlock.h"
 
 class BaseTarget;
 class GameScene;

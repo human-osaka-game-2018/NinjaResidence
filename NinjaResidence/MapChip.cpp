@@ -154,7 +154,7 @@ void MapChip::Activate(int X, int Y)
 }
 
 
-void MapChip::Render()
+void MapChip::Render(bool MapDataReverse)
 {
 	for (int j = 0; j < m_colunm;j++)
 	{
