@@ -63,6 +63,7 @@ public:
 	void InitExitScene() {
 		m_ExitScene = false;
 	}
+	
 private:
 	int m_BGMvolume = 100;
 	int m_SEvolume = 100;

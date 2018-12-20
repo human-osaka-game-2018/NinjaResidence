@@ -92,7 +92,7 @@ void TitleScene::LoadResouce()
 
 	m_pSoundOperater->AddFile("Sound/saihate.mp3","TEST",BGM);
 	m_pSoundOperater->AddFile("Sound/nc162748.wav", "TEST2", SE);
-	
+
 }
 void TitleScene::ChoseMenu() {
 	switch (m_pCursol->getCursolPosition()) {

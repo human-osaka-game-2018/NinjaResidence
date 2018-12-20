@@ -119,7 +119,7 @@
     <ClInclude Include="DescriptionBoard.h">
        <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="VOLUMESELECTSCENE.h"> 
+    <ClInclude Include="VOLUMESELECTSCENE.h">
      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SoundOperater.h">
