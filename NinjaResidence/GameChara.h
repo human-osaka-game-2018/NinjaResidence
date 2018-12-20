@@ -105,10 +105,16 @@ private:
 	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
 	const int DisplayCharMoveScopeX = 300;//両端からのX座標の稼働範囲
 
+
+	void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
+	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
+	void MapReversePointSearch(int BlockNumber);
+	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;
 	Object* m_pMapChip = NULL;
 	float CharTu = 80 / 512.f;
 	float CharTv = 160 / 512.f;
+
 
 	//仮統合ファイルの切り取り情報
 	float m_TESTCharTu = 233 / 2048.f;
@@ -223,4 +229,17 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool LeftCollisionCheck(int block);
+
+public:
+	CUSTOMVERTEX GetDisplayCharaCoordinate(){return m_DisplayCharaCoordinate[4];}
+	int GetMapCharaPositionX() { return MapLeftDirectionPosition; }
+	int GetMapCharaPositionY() { return MapCharaPositionY; }
+	void prevSaveMapCharaPos();
+	void KeyOperation(KeyDirection vec);
+	void CharaInforSave( Object* MapChip, int BlockNumber);
+	void Update();
+	void Render();
+	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
+	~GameChara();
+
 };
