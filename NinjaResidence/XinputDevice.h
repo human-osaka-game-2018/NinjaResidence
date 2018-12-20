@@ -203,4 +203,5 @@ private:
 	DWORD XINPUT_INFO = -1;
 	
 	const int INCLINATION_THRESHOLD_VALUE = 65535 / 4;
+	
 };
