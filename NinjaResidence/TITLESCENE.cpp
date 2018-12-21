@@ -7,7 +7,7 @@
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 
-TitleScene::TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
+TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	m_pScene = this;
 	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundManager);

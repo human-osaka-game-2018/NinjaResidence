@@ -8,7 +8,7 @@
 using namespace MapBlock;
 bool MapReverse::MapDataReverseState = true;
 
-MapReverse::MapReverse(DirectX* pDirectX, SoundsManager* pSoundManager, GameChara * GameChara) :Object(pDirectX, pSoundManager)
+MapReverse::MapReverse(DirectX* pDirectX, SoundOperater* pSoundOperater, GameChara * GameChara) :Object(pDirectX, pSoundOperater)
 {
 	m_pGameChara = GameChara;
 	m_SurfaceMapScrollX = 0;

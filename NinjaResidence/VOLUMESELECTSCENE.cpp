@@ -1,8 +1,13 @@
+/**
+* @file VOLUMESELECTSCENE.cpp
+* @brief âπó ê›íË
+* @author Toshiya Matsuoka
+*/
 #include "VOLUMESELECTSCENE.h"
 #include <cmath>
 
 
-VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX, SoundLib::SoundsManager* pSoundManager) :Scene(pDirectX, pSoundManager)
+VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX,SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
 	LoadResouce();
 	for (int i = 0; i < VolumeMaxNum; ++i) {

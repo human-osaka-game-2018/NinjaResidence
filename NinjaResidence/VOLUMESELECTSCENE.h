@@ -1,3 +1,8 @@
+/**
+* @file VOLUMESELECTSCENE.h
+* @brief âπó ê›íË
+* @author Toshiya Matsuoka
+*/
 #pragma once
 
 #include "SCENE.h"
@@ -9,7 +14,7 @@ class Scene;
 class VOLUMESELECTSCENE :public Scene
 {
 public:
-	VOLUMESELECTSCENE(DirectX* pDirectX, SoundsManager* pSoundManager);
+	VOLUMESELECTSCENE(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~VOLUMESELECTSCENE();
 
 	SCENE_NUM Update();

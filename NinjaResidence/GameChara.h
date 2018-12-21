@@ -49,7 +49,7 @@ public:
 	void CharaInforSave(Object* MapChip, int BlockNumber);
 	void Update();
 	void Render();
-	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
+	GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip);
 	~GameChara();
 
 	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }

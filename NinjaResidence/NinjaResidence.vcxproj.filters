@@ -65,7 +65,11 @@
     </ClCompile>
       <ClCompile Include="VOLUMESELECTSCENE.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile></ItemGroup>
+    </ClCompile>
+        <ClCompile Include="SoundOperater.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAMEMANAGER.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -115,7 +119,11 @@
     <ClInclude Include="DescriptionBoard.h">
           <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="VOLUMESELECTSCENE.h">  <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="VOLUMESELECTSCENE.h"> 
+     <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundOperater.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

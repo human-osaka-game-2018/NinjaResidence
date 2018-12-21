@@ -7,20 +7,20 @@
 #include "Shuriken.h"
 
 
-GameScene::GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage) :Scene(pDirectX,pSoundManager)
+GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage) :Scene(pDirectX,pSoundOperater)
 {
 
 	m_StageNum = ChosedStage;
 	m_pScene = this;
 
-	m_pBusyMapChip = new MapChip(pDirectX, pSoundManager);
+	m_pBusyMapChip = new MapChip(pDirectX, pSoundOperater);
 	m_pBusyMapChip->Create("csv/Book1.csv");
-	m_pIdleMapChip = new MapChip(pDirectX, pSoundManager);
+	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
 	m_pIdleMapChip->Create("csv/Book2.csv");
-	m_pGameChara = new GameChara(pDirectX, pSoundManager, m_pBusyMapChip);
-	m_pMapReverse = new MapReverse(pDirectX, pSoundManager, m_pGameChara);
-	m_pShuriken = new Shuriken(pDirectX, pSoundManager, m_pBusyMapChip, m_pGameChara);
-	m_SkillSelect=new SkillSelect(pDirectX, pSoundManager, m_EnableSkill);
+	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
+	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
+	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_SkillSelect=new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundManager, m_pGameChara, m_pBusyMapChip);
 

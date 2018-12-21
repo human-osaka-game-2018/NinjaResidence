@@ -7,9 +7,7 @@
 #include <vector>
 
 #include "SCENE.h"
-#include "SoundsManager.h"
 
-using SoundLib::SoundsManager;
 
 enum KeyInput
 {
@@ -46,8 +44,8 @@ public:
 	*/
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 
-	Object(DirectX* pDirectX, SoundsManager* pSoundManager);
-	Object(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) {};
+	Object(DirectX* pDirectX, SoundOperater* pSoundOperater);
+	Object(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip) {};
 	~Object();
 
 	/**
@@ -117,7 +115,7 @@ public:
 	}
 protected:
 	DirectX* m_pDirectX = NULL;
-	SoundsManager* m_pSoundManager = NULL;
+	SoundOperater* m_pSoundManager = NULL;
 
 	/*static */std::vector< std::vector<int> > MapData;
 	//!çs

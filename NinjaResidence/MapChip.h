@@ -38,7 +38,7 @@ class MapChip :public Object
 public:
 
 	//static std::vector< std::vector<int> > MapData;
-	MapChip(DirectX* pDirectX, SoundsManager* pSoundManager);
+	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~MapChip();
 	/**
 	* @brief マップチップの生成

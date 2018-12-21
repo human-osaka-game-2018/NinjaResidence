@@ -28,7 +28,7 @@ class SoundManager;
 class GameScene : public Scene
 {
 public:
-	GameScene(DirectX* pDirectX, SoundsManager* pSoundManager, int ChosedStage);
+	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage);
 	~GameScene();
 	SCENE_NUM Update();//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void KeyOperation();

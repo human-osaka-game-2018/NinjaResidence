@@ -5,7 +5,7 @@
 */
 #include "STAGESELECTSCENE.h"
 
-StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundsManager* pSoundManager) :Scene(pDirectX,pSoundManager)
+StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	m_pScene = this;
 	CreateSquareVertex(m_SerectBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);

@@ -22,7 +22,7 @@ public:
 	void Update();
 	void Render();
 	Cursol::CursolPosition getCursolPosition();
-	TitleCursol(DirectX* pDirectX, SoundsManager* pSoundManager);
+	TitleCursol(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~TitleCursol();
 private:
 	CENTRAL_STATE m_Cursol = { 480,0,40,30 };
