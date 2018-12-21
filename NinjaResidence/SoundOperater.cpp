@@ -100,6 +100,7 @@ bool SoundOperater::AllSetVolume(uint8_t volume)
 	}
 	return SuccessAddFile;
 }
+
 bool SoundOperater::BGMSetVolume(uint8_t volume)
 {
 	bool SetSuccess = true;
@@ -110,6 +111,7 @@ bool SoundOperater::BGMSetVolume(uint8_t volume)
 	}
 	return SetSuccess;
 }
+
 bool SoundOperater::SESetVolume(uint8_t volume)
 {
 	bool SetSuccess = true;

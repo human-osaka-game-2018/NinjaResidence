@@ -8,7 +8,6 @@
 #include "SCENE.h"
 #include "SoundOperater.h"
 
-
 enum SCENE_NUM;
 class Scene;
 class VOLUMESELECTSCENE;

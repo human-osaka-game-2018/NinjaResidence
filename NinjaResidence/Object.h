@@ -118,6 +118,7 @@ protected:
 	SoundOperater* m_pSoundOperater = NULL;
 
 	std::vector< std::vector<int> > MapData;
+	
 	//!s
 	int m_row = 0;
 	//!—ñ
