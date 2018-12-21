@@ -84,12 +84,6 @@ void SceneManager::Render()
 {
 	if (m_pScene->GetSoundSetting()) {
 		m_pVolumeSettingScene->Render();
-
-		const int ArrayLong = 64;
-		RECT testName = { 0, 400, 1280, 720 };
-		char TestName[ArrayLong];
-		sprintf_s(TestName, ArrayLong, "TIME_%d", TestTime);
-		m_pDirectX->DrawWord(testName, TestName, "LOAD_FONT", DT_CENTER, 0xffffffff);
 		return;
 	}
 
