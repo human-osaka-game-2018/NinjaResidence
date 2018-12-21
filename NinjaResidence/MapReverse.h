@@ -17,7 +17,7 @@ class MapReverse :public Object
 {
 public:
 	void GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip);
-	MapReverse(DirectX* pDirectX, SoundsManager* pSoundManager, GameChara * GameChara);
+	MapReverse(DirectX* pDirectX, SoundOperater* pSoundOperater, GameChara * GameChara);
 	~MapReverse();
 	static bool MapDataReverseState;
 private:

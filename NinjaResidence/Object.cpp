@@ -7,7 +7,7 @@
 
 
 
-Object::Object(DirectX* pDirectX, SoundsManager* pSoundManager):m_pDirectX(pDirectX), m_pSoundManager(pSoundManager)
+Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundManager(pSoundOperater)
 {
 }
 

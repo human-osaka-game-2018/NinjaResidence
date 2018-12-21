@@ -8,7 +8,7 @@
 using  namespace MapBlock;
 using namespace PlayerAnimation;
 
-GameChara::GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip) :Object(pDirectX,pSoundManager)
+GameChara::GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip) :Object(pDirectX,pSoundOperater)
 {
 	//MapChip‚Ìî•ñ‚ğæ“¾‚·‚é‚½‚ß‚É•K—v
 	m_pMapChip = MapChip;

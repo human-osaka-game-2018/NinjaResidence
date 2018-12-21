@@ -7,7 +7,7 @@
 #include "SkillSelect.h"
 #define BLOCK_WIDTH  80.0f/512
 
-SkillSelect::SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager, bool* m_EnableSkill) :Object(pDirectX, pSoundManager), m_EnableSkill(m_EnableSkill)
+SkillSelect::SkillSelect(DirectX* pDirectX, SoundOperater* pSoundOperater, bool* m_EnableSkill) :Object(pDirectX, pSoundOperater), m_EnableSkill(m_EnableSkill)
 {
 
 }

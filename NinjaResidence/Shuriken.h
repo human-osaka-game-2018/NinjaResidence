@@ -31,7 +31,7 @@ public:
 	void Reverse(Object* MapChip);
 
 
-	Shuriken(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip, GameChara* GameChara);
+	Shuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara);
 	~Shuriken();
 	bool GetActive() { return m_isActive; };
 private:

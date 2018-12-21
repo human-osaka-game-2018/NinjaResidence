@@ -19,7 +19,7 @@
 //static変数の実体化
 DirectX* GAMEMANAGER::pDirectX = NULL;
 SceneManager* GAMEMANAGER::pSceneManager = NULL;
-SoundsManager* GAMEMANAGER::pSoundManager = NULL;
+SoundOperater* GAMEMANAGER::pSoundOperater = NULL;
 HWND GAMEMANAGER::hWnd = NULL;
 bool GAMEMANAGER::isWindowMode = true;
 bool GAMEMANAGER::isDeviceLost;
@@ -32,7 +32,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	isDeviceLost = false;
 	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
-	pSoundManager =new SoundsManager;
+	pSoundOperater =new SoundOperater;
 	//Windows初期化情報の設定
 	Wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	Wndclass.lpfnWndProc = WndProc;
@@ -63,7 +63,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	UpdateWindow(hWnd);
 	pDirectX->InitPresentParameters(hWnd);
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-	pSoundManager->Initialize();
+	pSoundOperater->Initialize();
 
 
 }
@@ -74,8 +74,8 @@ GAMEMANAGER::~GAMEMANAGER()
 	pSceneManager = NULL;
 	delete pDirectX;
 	pDirectX = NULL;
-	delete pSoundManager;
-	pSoundManager = NULL;
+	delete pSoundOperater;
+	pSoundOperater = NULL;
 }
 
 
@@ -93,7 +93,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 
 	pDirectX->ReleaseDx();
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-	pSoundManager->Initialize();
+	pSoundOperater->Initialize();
 	pSceneManager->LoadResouce();
 
 	if (FAILED(hr)) {
@@ -153,7 +153,7 @@ int GAMEMANAGER::MessageLoop()
 	DWORD SyncNow;
 	timeBeginPeriod(1);
 	ZeroMemory(&msg, sizeof(msg));
-	pSceneManager = new SceneManager(pDirectX,pSoundManager);
+	pSceneManager = new SceneManager(pDirectX,pSoundOperater);
 	while (msg.message != WM_QUIT)
 	{
 		Sleep(1);
@@ -190,7 +190,7 @@ int GAMEMANAGER::MessageLoop()
 				pDirectX->ReleaseDx();
 
 				pDirectX->RecoverDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
-				pSoundManager->Initialize();
+				pSoundOperater->Initialize();
 				pSceneManager->LoadResouce();
 
 				SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);

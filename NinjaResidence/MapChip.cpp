@@ -8,7 +8,7 @@
 using std::vector;
 using namespace MapBlock;
 
-MapChip::MapChip(DirectX* pDirectX, SoundsManager* pSoundManager) :Object(pDirectX,pSoundManager)
+MapChip::MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX,pSoundOperater)
 {
 	CellInit();
 }

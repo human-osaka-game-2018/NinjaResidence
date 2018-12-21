@@ -11,12 +11,12 @@
 
 Scene*	SceneManager::m_pScene = NULL;
 
-SceneManager::SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager)
+SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
 	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
-	m_pSoundManager = pSoundManager;
+	m_pSoundManager = pSoundOperater;
 	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundManager);
 
 	//ゲームシーンへショートカットする

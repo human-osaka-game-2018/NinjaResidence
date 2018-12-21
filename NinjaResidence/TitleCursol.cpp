@@ -8,7 +8,7 @@
 
 using namespace Cursol;
 
-TitleCursol::TitleCursol(DirectX* pDirectX, SoundsManager* pSoundManager) :Object(pDirectX, pSoundManager)
+TitleCursol::TitleCursol(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)
 {
 
 }

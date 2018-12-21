@@ -7,12 +7,11 @@
 
 #include "GAMEMANAGER.h"
 #include "XinputDevice.h"
-#include "SoundsManager.h"
+#include "SoundOperater.h"
 
 #define CENTRAL_Y (DISPLAY_HEIGHT / 2)
 #define CENTRAL_X (DISPLAY_WIDTH / 2)
 
-using SoundLib::SoundsManager;
 
 enum SCENE_NUM
 {
@@ -45,7 +44,7 @@ public:
 	{
 		m_NextScene = NextScene;
 	}
-	Scene(DirectX* pDirectX, SoundsManager* pSoundManager);
+	Scene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~Scene();
 	virtual SCENE_NUM Update() = 0;
 	virtual void LoadResouce() = 0;
@@ -73,7 +72,7 @@ public:
 protected:
 	DirectX* m_pDirectX = NULL;
 	XinputDevice* m_pXinputDevice = NULL;
-	SoundsManager* m_pSoundManager = NULL;
+	SoundOperater* m_pSoundManager = NULL;
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;

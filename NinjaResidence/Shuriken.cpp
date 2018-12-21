@@ -4,10 +4,9 @@
 * @author Toshiya Matsuoka
 */
 #include "Shuriken.h"
-using SoundLib::SoundsManager;
 using namespace PlayerAnimation;
 
-Shuriken::Shuriken(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip, GameChara* GameChara) :Object(pDirectX, pSoundManager)
+Shuriken::Shuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :Object(pDirectX, pSoundOperater)
 {
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;

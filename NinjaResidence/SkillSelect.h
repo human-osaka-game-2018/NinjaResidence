@@ -20,7 +20,7 @@ public:
 	void KeyOperation(KeyInput vec);
 	void Update();
 	void Render();
-	SkillSelect(DirectX* pDirectX, SoundsManager* pSoundManager, bool* m_EnableSkill);
+	SkillSelect(DirectX* pDirectX, SoundOperater* pSoundOperater, bool* m_EnableSkill);
 	~SkillSelect();
 	int GetSkillNum() {
 		return m_SkillNum;

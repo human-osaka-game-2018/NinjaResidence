@@ -31,6 +31,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="SkillSelect.cpp" />
+    <ClCompile Include="SoundOperater.cpp" />
     <ClCompile Include="STAGESELECTSCENE.cpp" />
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="GameChara.h" />
     <ClInclude Include="Shuriken.h" />
     <ClInclude Include="SkillSelect.h" />
+    <ClInclude Include="SoundOperater.h" />
     <ClInclude Include="TitleCursol.h" />
     <ClInclude Include="VOLUMESELECTSCENE.h" />
     <ClInclude Include="XinputDevice.h" />

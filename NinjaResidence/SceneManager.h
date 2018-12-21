@@ -6,9 +6,8 @@
 #pragma once
 
 #include "SCENE.h"
-#include "SoundsManager.h"
+#include "SoundOperater.h"
 
-using SoundLib::SoundsManager;
 
 enum SCENE_NUM;
 class Scene;
@@ -18,7 +17,7 @@ class VOLUMESELECTSCENE;
 class SceneManager
 {
 public:
-	SceneManager(DirectX* pDirectX, SoundsManager* pSoundManager);
+	SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~SceneManager();
 	int Update();
 	void Render();
@@ -33,7 +32,7 @@ private:
 	static Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;
-	SoundsManager* m_pSoundManager = NULL;
+	SoundOperater* m_pSoundManager = NULL;
 	VOLUMESELECTSCENE* m_pVolumeSettingScene = NULL;
 
 	HANDLE m_threadHandle;

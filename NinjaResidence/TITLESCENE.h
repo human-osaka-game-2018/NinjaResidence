@@ -14,7 +14,7 @@ class TitleCursol;
 class TitleScene : public Scene
 {
 public:
-	TitleScene(DirectX* pDirectX, SoundsManager* pSoundManager);
+	TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~TitleScene();
 	SCENE_NUM Update();
 	void Render();

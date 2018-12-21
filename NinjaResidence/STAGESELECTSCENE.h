@@ -14,7 +14,7 @@ class Scene;
 class StageSelectScene : public Scene
 {
 public:
-	StageSelectScene(DirectX* pDirectX, SoundsManager* pSoundManager);
+	StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~StageSelectScene();
 	SCENE_NUM Update();
 	void Render();

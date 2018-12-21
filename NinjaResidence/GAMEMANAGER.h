@@ -7,7 +7,7 @@
 
 #include "DirectX.h"
 #include "SceneManager.h"
-#include "SoundsManager.h"
+#include "SoundOperater.h"
 
 
 #define _CRTDBG_MAP_ALLOC
@@ -16,7 +16,6 @@
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
 
-using SoundLib::SoundsManager;
 
 class SceneManager;
 
@@ -37,5 +36,5 @@ private:
 	static bool isWindowMode;	//true:Window　false:Full
 	static bool isDeviceLost;
 	static RECT WinRect;			//Window Mode での位置大きさ
-	static SoundsManager* pSoundManager;
+	static SoundOperater* pSoundOperater;
 };
