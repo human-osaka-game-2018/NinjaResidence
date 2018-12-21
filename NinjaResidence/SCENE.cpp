@@ -50,7 +50,6 @@ void Scene::RunOptionScene(int m_BGMvolume,int m_SEvolume) {
 
 	
 }
-void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 void Scene::LoadAnimation() {
 	CUSTOMVERTEX LoadBg[4];
@@ -69,7 +68,7 @@ void Scene::EndGame() {
 	m_GameState = WM_NULL;
 }
 
-void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
+void Scene::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];

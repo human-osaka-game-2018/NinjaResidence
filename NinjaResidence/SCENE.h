@@ -79,6 +79,12 @@ protected:
 	static const int ArrayLong = 64;
 	//! Œã‚Å–¼Ì•ÏX
 	bool m_SoundSetting = false;
+
+	float DegToRad(float deg) {
+		return deg * (D3DX_PI / 180);
+	}
+	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+
 private:
 	SCENE_NUM	m_NextScene;	//Ÿ‚ÌƒV[ƒ“
 	};
