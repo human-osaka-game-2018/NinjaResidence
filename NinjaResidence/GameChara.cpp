@@ -192,7 +192,7 @@ void GameChara::KeyOperation(KeyInput vec)
 		CharaMoveOperation(MOVE_LEFT);
 		break;
 	case SoundOn:
-		m_pSoundManager->Start("DECISION");
+		m_pSoundOperater->Start("DECISION");
 		break;
 	case PUSH_NONE:
 		NoOperation();

@@ -213,7 +213,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Kanban2.png", "KANBAN_TEX2");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
-	m_pSoundManager->AddFile("Sound/nc62985.wav", "DECISION");
+	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
 
 }
 void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)

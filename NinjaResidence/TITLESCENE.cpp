@@ -10,7 +10,7 @@
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	m_pScene = this;
-	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundManager);
+	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundOperater);
 
 	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
@@ -90,6 +90,7 @@ void TitleScene::LoadResouce()
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(75, 40, "MENU_FONT");
 
+	m_pSoundOperater->AddFile("Sound/saihate.mp3","TEST",BGM);
 }
 void TitleScene::ChoseMenu() {
 	switch (m_pCursol->getCursolPosition()) {

@@ -32,7 +32,7 @@ private:
 	static Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;
-	SoundOperater* m_pSoundManager = NULL;
+	SoundOperater* m_pSoundOperater = NULL;
 	VOLUMESELECTSCENE* m_pVolumeSettingScene = NULL;
 
 	HANDLE m_threadHandle;
