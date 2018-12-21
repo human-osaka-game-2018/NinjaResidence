@@ -39,7 +39,6 @@ public:
 
 	bool Initialize();
 
-
 	/**
 	* @brief 音声ファイルの登録
 	* @param pFilePath 
@@ -55,7 +54,6 @@ public:
 	bool Pause(const char* pKey);
 
 	bool Resume(const char* pKey);
-
 
 	/**
 	* @brief 登録されている音声の全停止

@@ -77,6 +77,7 @@ protected:
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
+	
 	//! Œã‚Å–¼Ì•ÏX
 	bool m_SoundSetting = false;
 

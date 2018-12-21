@@ -85,6 +85,7 @@ private:
 
 	const DWORD WHITE = 0xFFFFFFFF;
 	DWORD m_CursorColor = 0xFFDA8C0D;
+	
 	const CENTRAL_STATE LeftCursolNeutral = { 850,200,40,30 };
 	const CENTRAL_STATE RightCursolNeutral = { 500,200,40,30 };
 	const float NeutralCursorY = 195;
