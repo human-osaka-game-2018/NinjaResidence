@@ -12,7 +12,6 @@ SoundOperater::SoundOperater()
 	m_pSoundManager = new SoundsManager;
 }
 
-
 SoundOperater::~SoundOperater()
 {
 	m_SoundKey.clear();

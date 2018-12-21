@@ -10,6 +10,7 @@ Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDir
 	m_pDirectX = pDirectX;
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundOperater = pSoundOperater;
+	
 	m_pDirectX->LoadTexture("texture/Shuriken.png", "CROSS_TEX");
 	m_pDirectX->LoadTexture("texture/Load_BG.jpg", "LOAD_BG_TEX");
 

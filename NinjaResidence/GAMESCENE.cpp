@@ -83,7 +83,7 @@ void GameScene::KeyOperation() {
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN))
 	{
-		//à–¾ŠÅ”Â‚ğ“Ç‚İ
+		//à–¾ŠÅ”Â‚ğ“Ç‚Ş
 		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
 			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
 		{

@@ -28,6 +28,7 @@ private:
 	void LoadAnimation();
 
 	SCENE_NUM m_CurrentScene;	//今のシーン
+	
 	//! メモリリーク検知器では検出されないと思われる。
 	static Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
