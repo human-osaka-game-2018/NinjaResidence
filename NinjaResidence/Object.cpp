@@ -30,7 +30,6 @@ void Object::Update()
 
 
 
-
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);

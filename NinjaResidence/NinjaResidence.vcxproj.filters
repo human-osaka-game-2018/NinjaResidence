@@ -66,7 +66,7 @@
     <ClCompile Include="VOLUMESELECTSCENE.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-     <ClCompile Include="SoundOperater.cpp">
+    <ClCompile Include="SoundOperater.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

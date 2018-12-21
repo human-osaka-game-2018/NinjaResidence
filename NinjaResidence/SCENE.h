@@ -73,6 +73,7 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	XinputDevice* m_pXinputDevice = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
+	
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;

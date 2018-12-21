@@ -4,8 +4,10 @@
 * @author Toshiya Matsuoka
 */
 #pragma once
+
 #include <vector>
 #include "SoundsManager.h"
+
 using SoundLib::SoundsManager;
 
 enum SoundType {

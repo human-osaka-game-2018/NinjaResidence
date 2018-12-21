@@ -115,7 +115,7 @@ void SceneManager::LoadAnimation() {
 
 void SceneManager::LoadAction() {
 	++LoadTime;
-	//static bool isRunOnce = false;
+	
 	if (!isRunOnce) {
 	m_threadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Thread, m_pScene, 0, NULL);
 	ResumeThread(m_threadHandle);

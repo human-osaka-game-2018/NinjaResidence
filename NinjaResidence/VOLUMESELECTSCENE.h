@@ -30,10 +30,12 @@ public:
 	* @brief ボリュームの上昇
 	*/
 	void IncreaseVolume();
+	
 	/**
 	* @brief ボリュームの下降
 	*/
 	void DecreaseVolume();
+	
 	/**
 	* @brief 数字から指定する桁が10のn乗掛けるいくつか返す
 	* @param Value もとの数字
@@ -41,14 +43,17 @@ public:
 	* @return 計算された桁数の数
 	*/
 	int DigitCalc(int Value, int DigitNum);
+	
 	/**
 	* @brief カーソルの今いる位置のY座標の設定
 	*/
 	void CursorMove();
+	
 	/**
 	* @brief カーソルの上昇
 	*/
 	void MoveUp();
+	
 	/**
 	* @brief カーソウルの下降
 	*/

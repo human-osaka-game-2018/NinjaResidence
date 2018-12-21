@@ -117,7 +117,7 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
 
-	/*static */std::vector< std::vector<int> > MapData;
+	std::vector< std::vector<int> > MapData;
 	//!çs
 	int m_row = 0;
 	//!óÒ
