@@ -8,6 +8,17 @@
 #include "SoundsManager.h"
 using SoundLib::SoundsManager;
 
+enum SoundType {
+	TYPE_NONE,
+	BGM,
+	SE,
+};
+
+struct SoundKey {
+	const char* Key;
+	SoundType Type;
+};
+
 class SoundOperater
 {
 public:
@@ -26,7 +37,7 @@ public:
 
 	bool Initialize();
 
-	bool AddFile(const char* pFilePath, const char* pKey);
+	bool AddFile(const char* pFilePath, const char* pKey, SoundType type);
 
 	bool Start(const char* pKey, bool isLoopPlayback = false);
 
@@ -38,9 +49,19 @@ public:
 
 	bool AllStop();
 
-	bool AllSetVolume();
+	bool AllSetVolume(uint8_t volume);
+
+	bool BGMSetVolume(uint8_t volume);
+
+	bool SESetVolume(uint8_t volume);
 private:
-	SoundsManager* m_pSoundManager;
-	std::vector<const char*> SoundKey;
+	SoundsManager* m_pSoundManager = NULL;
+	std::vector<SoundKey*> m_SoundKey;
+
+	SoundKey Buff;
+
+	SoundType GetSoundType(int arrayNum) {
+		return m_SoundKey[arrayNum]->Type;
+	}
 };
 

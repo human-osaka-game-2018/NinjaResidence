@@ -15,9 +15,9 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
-	m_pScene = new TitleScene(m_pDirectX, m_pSoundManager);
-	m_pSoundManager = pSoundOperater;
-	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundManager);
+	m_pScene = new TitleScene(m_pDirectX, m_pSoundOperater);
+	m_pSoundOperater = pSoundOperater;
+	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundOperater);
 
 	//ゲームシーンへショートカットする
 	//m_NextScene = GAME_SCENE;
@@ -25,6 +25,7 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 
 SceneManager::~SceneManager()
 {
+	m_pSoundOperater->AllStop();
 	delete m_pScene;
 	m_pScene = NULL;
 	delete m_pVolumeSettingScene;
@@ -51,21 +52,21 @@ int SceneManager::Update()
 				delete m_pScene;
 			}
 			isThreadActive = true;
-			m_pScene = new  TitleScene(m_pDirectX, m_pSoundManager);
+			m_pScene = new  TitleScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case STAGESELECT_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
 			isThreadActive = true;
-			m_pScene = new  StageSelectScene(m_pDirectX, m_pSoundManager);
+			m_pScene = new  StageSelectScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case GAME_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
 			isThreadActive = true;
-			m_pScene = new  GameScene(m_pDirectX, m_pSoundManager, ChosedStage);
+			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater, ChosedStage);
 			break;
 		}
 		m_NextScene = m_pScene->GetNextScene();

@@ -10,6 +10,11 @@
 enum SCENE_NUM;
 class Scene;
 
+enum TargetingSoundType {
+	Target_BGM,
+	Target_SE,
+	Target_ALL,
+};
 
 class VOLUMESELECTSCENE :public Scene
 {
@@ -42,6 +47,7 @@ private:
 	const float MenuHight = (810.f / 1024.f);
 	const float TriangleWidth = (137.f / 512.f);
 	const float DigitWidth = 75.f;
+	const float TriangleCursolHeght = 150.f;
 	const DWORD WHITE = 0xFFFFFFFF;
 	const CENTRAL_STATE LeftCursolNeutral = { 850,200,40,30 };
 	const CENTRAL_STATE RightCursolNeutral = { 500,200,40,30 };
