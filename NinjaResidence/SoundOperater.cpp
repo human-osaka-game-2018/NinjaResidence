@@ -96,6 +96,7 @@ bool SoundOperater::AllSetVolume(uint8_t volume)
 {
 	bool SuccessAddFile = true;
 	for (int i = 0; i < m_SoundKey.size(); ++i) {
+
 		SuccessAddFile = m_pSoundManager->SetVolume(m_SoundKey[i]->Key, volume);
 	}
 	return SuccessAddFile;

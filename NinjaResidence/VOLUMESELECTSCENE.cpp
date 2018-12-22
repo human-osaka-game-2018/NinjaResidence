@@ -19,7 +19,7 @@ VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX, SoundOperater* pSoundOpe
 		m_SEVolumeNum[i].x = VolumeNumNeutral.x - (i * DigitWidth);
 		m_ALLVolumeNum[i].x = VolumeNumNeutral.x - (i * DigitWidth);
 
-		m_LeftCursol[i].y = LeftCursolNeutral.y + (i * TriangleCursolHeght);
+		m_LeftCursol[i].y = LeftCursolNeutral.y + 10 + (i * TriangleCursolHeght);
 		m_RightCursol[i].y = RightCursolNeutral.y + (i * TriangleCursolHeght);
 	}
 }
@@ -31,29 +31,41 @@ VOLUMESELECTSCENE::~VOLUMESELECTSCENE()
 }
 
 SCENE_NUM VOLUMESELECTSCENE::Update() {
+	CursorMove();
 	bool buff = m_pSoundOperater->Start("TEST", true);
 
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) ||PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		ReturnScene();
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadOn == m_pXinputDevice->GetButton(ButtonLEFT))
 	{
-		DecreaseVolume(&m_BGMvolume);
-		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
-
+		static int KeyInterval = 0;
+		++KeyInterval;
+		if (KeyInterval > 4) {
+			DecreaseVolume();
+			KeyInterval = 0;
+		}
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadOn == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
-		IncreaseVolume(&m_BGMvolume);
-		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		static int KeyInterval = 0;
+		++KeyInterval;
+		if (KeyInterval > 4) {
+			IncreaseVolume();
+			KeyInterval = 0;
+		}
 
 	}
-
-	--m_ALLvolume;
-	if (m_ALLvolume < 0) {
-		m_ALLvolume = 100;
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP) || PadRelease == m_pXinputDevice->GetButton(ButtonUP) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
+	{
+		MoveUp();
 	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_DOWN) || PadRelease == m_pXinputDevice->GetButton(ButtonDOWN) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
+	{
+		MoveDown();
+	}
+
 	//m_pSoundOperater->AllSetVolume(m_ALLvolume);
 	return SCENE_NONE;
 }
@@ -63,6 +75,9 @@ void VOLUMESELECTSCENE::Render() {
 
 	CreateSquareVertex(SetVolumeVertex, m_Menu, WHITE, 0, 0, 1, MenuHight);
 	m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+
+	CreateSquareVertex(SetVolumeVertex, m_Cursor, 0xFFFFFF77);
+	m_pDirectX->DrawTexture("SV_CURSOR_TEX", SetVolumeVertex);
 
 	for (int i = 0; i < VolumeMaxNum; ++i) {
 		RevolveZ(SetVolumeVertex, DegToRad(180), m_RightCursol[i], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
@@ -91,20 +106,111 @@ void VOLUMESELECTSCENE::LoadResouce() {
 
 void  VOLUMESELECTSCENE::SetVolume() {
 
-	m_pSoundOperater->SetVolume("DECISION", m_SEvolume);
 
 
 }
 
-void VOLUMESELECTSCENE::IncreaseVolume(int* Volume) {
-	++(*Volume);
+void VOLUMESELECTSCENE::IncreaseVolume() {
+	switch (m_CursolPos) {
+	case Target_BGM:
+		++m_BGMvolume;
+		if (m_BGMvolume> 100) {
+			m_BGMvolume = 100;
+		}
+		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		break;
+	case Target_SE:
+		++m_SEvolume;
+		if (m_SEvolume> 100) {
+			m_SEvolume = 100;
+		}
+		m_pSoundOperater->SESetVolume(m_SEvolume);
+		m_pSoundOperater->Start("TEST2");
+		break;
+	case Target_ALL:
+		++m_ALLvolume;
+		if (m_ALLvolume> 100) {
+			m_ALLvolume = 100;
+		}
+		m_BGMvolume = m_ALLvolume;
+		m_SEvolume = m_ALLvolume;
+		m_pSoundOperater->AllSetVolume(m_ALLvolume);
+		m_pSoundOperater->Start("TEST2");
+		break;
+	}
 }
-void VOLUMESELECTSCENE::DecreaseVolume(int* Volume) {
-	--(*Volume);
+void VOLUMESELECTSCENE::DecreaseVolume() {
+	switch (m_CursolPos) {
+	case Target_BGM:
+		--m_BGMvolume;
+		if (m_BGMvolume <= 0) {
+			m_BGMvolume = 0;
+		}
+		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		break;
+	case Target_SE:
+		--m_SEvolume;
+		if (m_SEvolume <= 0) {
+			m_SEvolume = 0;
+		}
+		m_pSoundOperater->SESetVolume(m_SEvolume);
+		m_pSoundOperater->Start("TEST2");
+		break;
+	case Target_ALL:
+		--m_ALLvolume;
+		if (m_ALLvolume <= 0) {
+			m_ALLvolume = 0;
+		}
+		m_BGMvolume = m_ALLvolume;
+		m_SEvolume = m_ALLvolume;
+		m_pSoundOperater->AllSetVolume(m_ALLvolume);
+		m_pSoundOperater->Start("TEST2");
+		break;
+	}
 }
 int VOLUMESELECTSCENE::DigitCalc(int Value, int DigitNum) {
 
 	int Buff = (Value / static_cast<int>(std::pow(10, DigitNum)));
 	return Buff % 10;
+}
+
+void VOLUMESELECTSCENE::CursorMove() {
+	switch (m_CursolPos) {
+	case Target_BGM:
+		m_Cursor.y = 195;
+		break;
+	case Target_SE:
+		m_Cursor.y = 345;
+		break;
+	case Target_ALL:
+		m_Cursor.y = 495;
+		break;
+	}
+}
+void VOLUMESELECTSCENE::MoveUp() {
+	switch (m_CursolPos) {
+	case Target_BGM:
+		m_CursolPos = Target_ALL;
+		break;
+	case Target_SE:
+		m_CursolPos = Target_BGM;
+		break;
+	case Target_ALL:
+		m_CursolPos = Target_SE;
+		break;
+	}
+}
+void VOLUMESELECTSCENE::MoveDown() {
+	switch (m_CursolPos) {
+	case Target_BGM:
+		m_CursolPos = Target_SE;
+		break;
+	case Target_SE:
+		m_CursolPos = Target_ALL;
+		break;
+	case Target_ALL:
+		m_CursolPos = Target_BGM;
+		break;
+	}
 }
 
