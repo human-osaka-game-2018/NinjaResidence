@@ -41,12 +41,22 @@ GameScene::~GameScene()
 	m_pShuriken = NULL;
 	delete m_SkillSelect;
 	m_SkillSelect = NULL;
+	delete m_pPauseScene;
+	m_pPauseScene = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
 
 SCENE_NUM  GameScene::Update()
 {
+	if (RunPause) {
+		m_pPauseScene->Update();
+		if (m_pPauseScene->GetExitScene()) {
+			m_pPauseScene->InitExitScene();
+			RunPause = false;
+		}
+		return GetNextScene();
+	}
 	CurrentSkill = m_SkillSelect->GetSkillNum();
 	m_pXinputDevice->DeviceUpdate();
 	NotPushedAnyButton();
@@ -115,6 +125,10 @@ void GameScene::KeyOperation() {
 	{
 		Reverse();
 	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_TAB) || PadRelease == m_pXinputDevice->GetButton(ButtonStart))
+	{
+		TransePause();
+	}
 
 	//ƒ}ƒbƒv“®ì
 	//if (m_pDirectX->GetKeyStatus(DIK_W))
@@ -141,7 +155,7 @@ void GameScene::KeyOperation() {
 	{
 		m_pGameChara->DebugMove();
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_L) || PadRelease == m_pXinputDevice->GetButton(ButtonStart))
+	if (m_pDirectX->GetKeyStatus(DIK_L) || PadRelease == m_pXinputDevice->GetButton(ButtonBack))
 	{
 		m_pGameChara->KeyOperation(SoundOn);
 	}
@@ -174,6 +188,11 @@ void GameScene::NotPushedAnyButton() {
 
 void GameScene::Render()
 {
+	if (RunPause) {
+		m_pPauseScene->Render();
+		return;
+	}
+
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
@@ -211,6 +230,9 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Scroll.png", "SCROLL_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban2.png", "KANBAN_TEX2");
+	m_pDirectX->LoadTexture("texture/Pause.png", "PAUSETITLE_TEX");
+	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
+	
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
