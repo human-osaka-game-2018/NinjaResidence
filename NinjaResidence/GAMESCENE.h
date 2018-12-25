@@ -10,6 +10,7 @@
 #include "GameChara.h"
 #include "MapReverse.h"
 #include "SkillSelect.h"
+#include "DescriptionBoard.h"
 #include <algorithm>
 
 #define _CRTDBG_MAP_ALLOC
@@ -43,7 +44,7 @@ private:
 	Object * m_pIdleMapChip = NULL;//’â~’†‚ÌMapChip
 	Object * m_pShuriken = NULL;
 	SkillSelect* m_SkillSelect = NULL;
-
+	DescriptionBoard* m_pDescriptionBoard = NULL;
 	MapReverse * m_pMapReverse = NULL;
 	Scene * m_pScene = NULL;
 	//! ¡‚Ì‘I‘ğ’†”Ep
