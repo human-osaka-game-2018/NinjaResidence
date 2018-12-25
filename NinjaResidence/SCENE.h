@@ -49,7 +49,10 @@ public:
 	virtual SCENE_NUM Update() = 0;
 	virtual void LoadResouce() = 0;
 	virtual void Render() = 0;
-	virtual void EndGame();
+	void EndGame(){
+		m_GameState = WM_QUIT;
+	}
+
 
 	void LoadAnimation();
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
@@ -87,6 +90,6 @@ protected:
 	
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
+	SCENE_NUM m_NextScene;	//次のシーン
 private:
-	SCENE_NUM	m_NextScene;	//次のシーン
 	};

@@ -37,6 +37,9 @@ public:
 
 private:
 	bool m_ExitScene = false;
+
+	DWORD m_CursorColor = 0xFFDA8C0D;
+
 	TargetingMenu m_CursolPos = RETURN_GAME;
 	const float NeutralCursorY = 0;
 	CENTRAL_STATE m_Cursor = { CENTRAL_X,NeutralCursorY,250,100 };

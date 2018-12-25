@@ -32,5 +32,4 @@ private:
 	TitleCursol* m_pCursol = NULL;
 	
 	void ChoseMenu();
-	void EndGame();
 };
