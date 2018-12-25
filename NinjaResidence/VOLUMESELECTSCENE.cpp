@@ -118,20 +118,22 @@ void VOLUMESELECTSCENE::LoadResouce() {
 
 
 void VOLUMESELECTSCENE::IncreaseVolume() {
+	bool SoundSuccess = false;
 	switch (m_CursolPos) {
 	case Target_BGM:
 		++m_BGMvolume;
 		if (m_BGMvolume> 100) {
 			m_BGMvolume = 100;
 		}
-		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		SoundSuccess = m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		m_pSoundOperater->Start("TEST", true);
 		break;
 	case Target_SE:
 		++m_SEvolume;
 		if (m_SEvolume> 100) {
 			m_SEvolume = 100;
 		}
-		m_pSoundOperater->SESetVolume(m_SEvolume);
+		SoundSuccess = m_pSoundOperater->SESetVolume(m_SEvolume);
 		m_pSoundOperater->Start("TEST2");
 		break;
 	case Target_ALL:
@@ -141,26 +143,28 @@ void VOLUMESELECTSCENE::IncreaseVolume() {
 		}
 		m_BGMvolume = m_ALLvolume;
 		m_SEvolume = m_ALLvolume;
-		m_pSoundOperater->AllSetVolume(m_ALLvolume);
+		SoundSuccess = m_pSoundOperater->AllSetVolume(m_ALLvolume);
 		m_pSoundOperater->Start("TEST2");
 		break;
 	}
 }
 void VOLUMESELECTSCENE::DecreaseVolume() {
+	bool SoundSuccess = false;
 	switch (m_CursolPos) {
 	case Target_BGM:
 		--m_BGMvolume;
 		if (m_BGMvolume <= 0) {
 			m_BGMvolume = 0;
 		}
-		m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		SoundSuccess = m_pSoundOperater->BGMSetVolume(m_BGMvolume);
+		m_pSoundOperater->Start("TEST", true);
 		break;
 	case Target_SE:
 		--m_SEvolume;
 		if (m_SEvolume <= 0) {
 			m_SEvolume = 0;
 		}
-		m_pSoundOperater->SESetVolume(m_SEvolume);
+		SoundSuccess = m_pSoundOperater->SESetVolume(m_SEvolume);
 		m_pSoundOperater->Start("TEST2");
 		break;
 	case Target_ALL:
@@ -170,7 +174,7 @@ void VOLUMESELECTSCENE::DecreaseVolume() {
 		}
 		m_BGMvolume = m_ALLvolume;
 		m_SEvolume = m_ALLvolume;
-		m_pSoundOperater->AllSetVolume(m_ALLvolume);
+		SoundSuccess = m_pSoundOperater->AllSetVolume(m_ALLvolume);
 		m_pSoundOperater->Start("TEST2");
 		break;
 	}
