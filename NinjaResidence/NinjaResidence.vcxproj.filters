@@ -51,7 +51,6 @@
     <ClCompile Include="TitleCursol.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Shuriken.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -59,9 +58,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="STAGESELECTSCENE.cpp">
-=======
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="DescriptionBoard.cpp">
->>>>>>> 元の状態に戻しました
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,7 +101,6 @@
     <ClInclude Include="TitleCursol.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Shuriken.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -110,9 +108,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="STAGESELECTSCENE.h">
-=======
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="DescriptionBoard.h">
->>>>>>> 元の状態に戻しました
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,6 +6,7 @@
 #include "MapReverse.h"
 
 using namespace MapBlock;
+bool MapReverse::MapDataReverseState = true;
 
 MapReverse::MapReverse(DirectX* pDirectX, SoundsManager* pSoundManager, GameChara * GameChara) :Object(pDirectX, pSoundManager)
 {
@@ -25,38 +26,47 @@ MapReverse::~MapReverse()
 
 void MapReverse::GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip)
 {
-<<<<<<< HEAD
-	int MapPosiinonX = pGameChara->GetMapLeftDirectionPosition();
-	int MapPosiinonY = pGameChara->GetMapCharaPositionY();
-	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
-=======
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
 	int MapPosiinonY = m_pGameChara->GetMapCharaPositionY();
 	if ((*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
 		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
 		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
 		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
->>>>>>> 元の状態に戻しました
 	{
 		Object* Mapbuf;
-		Mapbuf = (*pBusyMapChip);
-		*pBusyMapChip = *pIdleMapChip;
-		*pIdleMapChip = Mapbuf;
+		Mapbuf = (*m_pBusyMapChip);
+		*m_pBusyMapChip = *m_pIdleMapChip;
+		*m_pIdleMapChip = Mapbuf;
+		if (MapDataReverseState == true)
+		{
+			MapDataReverseState = false;
+		}
+		else
+		{
+			MapDataReverseState = true;
+		}
+
 		m_pGameChara->CharaInforSave(*m_pBusyMapChip, WOOD_REVERSE_ZONE);
 	}
-	
-	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == ROCK_REVERSE_ZONE)
+	if ((*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == ROCK_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == ROCK_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == ROCK_REVERSE_ZONE ||
+		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == ROCK_REVERSE_ZONE)
 	{
 		Object* Mapbuf;
-		Mapbuf = (*pBusyMapChip);
-		*pBusyMapChip = *pIdleMapChip;
-		*pIdleMapChip = Mapbuf;
-		pGameChara->CharaInforSave(*pBusyMapChip, ROCK_REVERSE_ZONE);
+		Mapbuf = (*m_pBusyMapChip);
+		*m_pBusyMapChip = *m_pIdleMapChip;
+		*m_pIdleMapChip = Mapbuf;
+		if (MapDataReverseState == true)
+		{
+			MapDataReverseState = false;
+		}
+		else
+		{
+			MapDataReverseState = true;
+		}
+
+
+		m_pGameChara->CharaInforSave(*m_pBusyMapChip, ROCK_REVERSE_ZONE);
 	}
 }

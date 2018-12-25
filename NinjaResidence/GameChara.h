@@ -44,15 +44,7 @@ class GameChara :public Object
 {
 public:
 	int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return m_MapCharaPositionY; }
-	void prevSaveMapCharaPos();
-	void KeyOperation(KeyInput vec);
 	void NoOperation();
-	void CharaInforSave(int MapReverse1, Object* MapChip);
-	void Update();
-	void Render();
-	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
-	~GameChara();
 	/**
 	* @brief Debug用キャラ上昇処理
 	* @author Toshiya Matsuoka
@@ -106,8 +98,7 @@ private:
 	const int DisplayCharMoveScopeX = 300;//両端からのX座標の稼働範囲
 
 
-	void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
-	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
+	void CharaMoveOperation(KeyInput vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;
@@ -145,7 +136,6 @@ private:
 
 	void CharaMoveOperation(KeyInput vec);
 	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
-	void MapScroolCheck();
 
 	/**
 	* @breaf ジャンプの起動
@@ -232,10 +222,10 @@ private:
 
 public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate(){return m_DisplayCharaCoordinate[4];}
-	int GetMapLeftDirectionPosition() { return MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return MapCharaPositionY; }
+	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
+	int GetMapCharaPositionY() { return m_MapRightDirectionPosition; }
 	void prevSaveMapCharaPos();
-	void KeyOperation(KeyDirection vec);
+	void KeyOperation(KeyInput vec);
 	void CharaInforSave( Object* MapChip, int BlockNumber);
 	void Update();
 	void Render();
