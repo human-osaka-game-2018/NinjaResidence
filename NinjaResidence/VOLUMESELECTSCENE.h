@@ -1,6 +1,6 @@
-/**
+﻿/**
 * @file VOLUMESELECTSCENE.h
-* @brief ���ʐݒ�
+* @brief 音量設定画面
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -25,12 +25,33 @@ public:
 	SCENE_NUM Update();
 	void Render();
 	void LoadResouce();
-	void SetVolume();
+
+	/**
+	* @brief ボリュームの上昇
+	*/
 	void IncreaseVolume();
+	/**
+	* @brief ボリュームの下降
+	*/
 	void DecreaseVolume();
+	/**
+	* @brief 数字から指定する桁が10のn乗掛けるいくつか返す
+	* @param Value もとの数字
+	* @param DigitNum ほしい桁数-1
+	* @return 計算された桁数の数
+	*/
 	int DigitCalc(int Value, int DigitNum);
+	/**
+	* @brief カーソルの今いる位置のY座標の設定
+	*/
 	void CursorMove();
+	/**
+	* @brief カーソルの上昇
+	*/
 	void MoveUp();
+	/**
+	* @brief カーソウルの下降
+	*/
 	void MoveDown();
 	void ReturnScene() {
 		m_pSoundOperater->Stop("TEST");
@@ -39,12 +60,15 @@ public:
 	bool GetExitScene() {
 		return m_ExitScene;
 	}
+	void InitExitScene() {
+		m_ExitScene = false;
+	}
 private:
 	unsigned int m_BGMvolume = 100;
 	unsigned int m_SEvolume = 100;
 	unsigned int m_ALLvolume = 100;
 
-	//! ���ʂ̍ő包���Ɛݒ荀�ڐ�
+	//! 音量の最大桁数と設定項目数
 	static const int VolumeMaxNum = 3;
 	const float NumTu = (102.f / 1024.f);
 	const float NumTv = (186.f / 256.f);
@@ -52,7 +76,9 @@ private:
 	const float TriangleWidth = (137.f / 512.f);
 	const float DigitWidth = 75.f;
 	const float TriangleCursolHeght = 150.f;
+
 	const DWORD WHITE = 0xFFFFFFFF;
+	DWORD m_CursorColor = 0xFFDA8C0D;
 	const CENTRAL_STATE LeftCursolNeutral = { 850,200,40,30 };
 	const CENTRAL_STATE RightCursolNeutral = { 500,200,40,30 };
 	const float NeutralCursorY = 195;

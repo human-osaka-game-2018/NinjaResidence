@@ -26,11 +26,11 @@ SCENE_NUM  TitleScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
 
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP))
 	{
 		m_pCursol->KeyOperation(UP);
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_DOWN))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN))
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}

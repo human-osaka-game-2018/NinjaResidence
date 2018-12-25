@@ -1,6 +1,6 @@
-/**
+Ôªø/**
 * @file VOLUMESELECTSCENE.cpp
-* @brief âπó ê›íË
+* @brief Èü≥ÈáèË®≠ÂÆöÁîªÈù¢
 * @author Toshiya Matsuoka
 */
 #include "VOLUMESELECTSCENE.h"
@@ -10,7 +10,7 @@
 VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
 	for (int i = 0; i < VolumeMaxNum; ++i) {
-		//! Ç∆ÇËÇ†Ç¶Ç∏âºíuÇ´ÇÃêîéö
+		//! „Å®„Çä„ÅÇ„Åà„Åö‰ªÆÁΩÆ„Åç„ÅÆÊï∞Â≠ó
 		m_BGMVolumeNum[i].y = 200;
 		m_SEVolumeNum[i].y = 350;
 		m_ALLVolumeNum[i].y = 500;
@@ -32,8 +32,20 @@ VOLUMESELECTSCENE::~VOLUMESELECTSCENE()
 
 SCENE_NUM VOLUMESELECTSCENE::Update() {
 	CursorMove();
-	bool buff = m_pSoundOperater->Start("TEST", true);
-
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TEST")) {
+		bool buff = m_pSoundOperater->Start("TEST", true);
+	}
+	static int CursorAnimeInterval = 0;
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 20) {
+		if (CursorColorOn) {
+			m_CursorColor += 0xFF << 24;
+		}
+		else m_CursorColor -= 0xFF << 24;
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
+	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		ReturnScene();
@@ -76,7 +88,7 @@ void VOLUMESELECTSCENE::Render() {
 	CreateSquareVertex(SetVolumeVertex, m_Menu, WHITE, 0, 0, 1, MenuHight);
 	m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
 
-	CreateSquareVertex(SetVolumeVertex, m_Cursor, 0xFFFFFF77);
+	CreateSquareVertex(SetVolumeVertex, m_Cursor, m_CursorColor);
 	m_pDirectX->DrawTexture("SV_CURSOR_TEX", SetVolumeVertex);
 
 	for (int i = 0; i < VolumeMaxNum; ++i) {
@@ -104,11 +116,6 @@ void VOLUMESELECTSCENE::LoadResouce() {
 
 }
 
-void  VOLUMESELECTSCENE::SetVolume() {
-
-
-
-}
 
 void VOLUMESELECTSCENE::IncreaseVolume() {
 	switch (m_CursolPos) {
@@ -170,8 +177,8 @@ void VOLUMESELECTSCENE::DecreaseVolume() {
 }
 int VOLUMESELECTSCENE::DigitCalc(int Value, int DigitNum) {
 
-	int Buff = (Value / static_cast<int>(std::pow(10, DigitNum)));
-	return Buff % 10;
+	int m_SoundKeyBuff = (Value / static_cast<int>(std::pow(10, DigitNum)));
+	return m_SoundKeyBuff % 10;
 }
 
 void VOLUMESELECTSCENE::CursorMove() {
