@@ -26,7 +26,7 @@ enum KEYSTATE
 	KeyOff,
 	//! 押されている
 	KeyOn,
-	//! 押し続けている
+	//! 押された
 	KeyPush,
 	//! 離された
 	KeyRelease

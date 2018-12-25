@@ -39,6 +39,7 @@ int SceneManager::Update()
 		m_pVolumeSettingScene->Update();
 		if (m_pVolumeSettingScene->GetExitScene()) {
 			m_pScene->InactiveSoundSetting();
+			m_pVolumeSettingScene->InitExitScene();
 		}
 		return m_pScene->GetGameState();
 	}
@@ -126,6 +127,7 @@ void SceneManager::LoadAction() {
 		LoadTime = 0;
 		isThreadActive = false;
 		m_CurrentScene = m_NextScene;
+		Sleep(100);
 	}
 }
 

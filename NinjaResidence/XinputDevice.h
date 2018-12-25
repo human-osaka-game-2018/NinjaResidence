@@ -17,7 +17,7 @@ enum PADSTATE
 	PadOff,
 	//! 押されている
 	PadOn,
-	//! 押し続けている
+	//! 押された
 	PadPush,
 	//! 離された
 	PadRelease

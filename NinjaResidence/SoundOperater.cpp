@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SoundOperater.h
-* @brief ƒTƒEƒ“ƒhƒL[‚ÌŠÇ—
+* @brief ã‚µã‚¦ãƒ³ãƒ‰ã‚­ãƒ¼ã®ç®¡ç†
 * @author Toshiya Matsuoka
 */
 #include "SoundOperater.h"
@@ -56,9 +56,9 @@ bool SoundOperater::AddFile(const char* pFilePath, const char* pKey, SoundType t
 	bool SuccessAddFile = false;
 	SuccessAddFile = m_pSoundManager->AddFile(pFilePath, pKey);
 	if (SuccessAddFile) {
-		Buff.Key = pKey;
-		Buff.Type = type;
-		m_SoundKey.push_back(&Buff);
+		m_SoundKeyBuff.Key = pKey;
+		m_SoundKeyBuff.Type = type;
+		m_SoundKey.push_back(&m_SoundKeyBuff);
 	}
 	return SuccessAddFile;
 }

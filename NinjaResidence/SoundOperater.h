@@ -1,6 +1,6 @@
-/**
+﻿/**
 * @file SoundOperater.h
-* @brief �T�E���h�L�[�̊Ǘ�
+* @brief サウンドキーの管理
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -37,6 +37,13 @@ public:
 
 	bool Initialize();
 
+
+	/**
+	* @brief 音声ファイルの登録
+	* @param pFilePath 
+	* @param pKey 
+	* @param type 
+	*/
 	bool AddFile(const char* pFilePath, const char* pKey, SoundType type);
 
 	bool Start(const char* pKey, bool isLoopPlayback = false);
@@ -47,18 +54,31 @@ public:
 
 	bool Resume(const char* pKey);
 
+
+	/**
+	* @brief 登録されている音声の全停止
+	*/
 	bool AllStop();
 
+	/**
+	* @brief 登録されている音声すべての音量変更
+	*/
 	bool AllSetVolume(uint8_t volume);
 
+	/**
+	* @brief SoundTypeがBGMの音声の音量変更
+	*/
 	bool BGMSetVolume(uint8_t volume);
 
+	/**
+	* @brief SoundTypeがSEの音声の音量変更
+	*/
 	bool SESetVolume(uint8_t volume);
 private:
 	SoundsManager* m_pSoundManager = NULL;
 	std::vector<SoundKey*> m_SoundKey;
 
-	SoundKey Buff;
+	SoundKey m_SoundKeyBuff;
 
 	SoundType GetSoundType(int arrayNum) {
 		return m_SoundKey[arrayNum]->Type;
