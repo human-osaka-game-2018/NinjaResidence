@@ -49,12 +49,19 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
+	if (m_pPauseScene->GetSoundSetting()) {
+		m_SoundSetting = true;
+		m_pPauseScene->InactiveSoundSetting();
+		return GetNextScene();
+	}
 	if (RunPause) {
 		m_pPauseScene->Update();
 		if (m_pPauseScene->GetExitScene()) {
 			m_pPauseScene->InitExitScene();
 			RunPause = false;
 		}
+		m_GameState = m_pPauseScene->GetGameState();
+		SetNextScene(m_pPauseScene->GetNextScene());
 		return GetNextScene();
 	}
 	CurrentSkill = m_SkillSelect->GetSkillNum();
@@ -204,8 +211,8 @@ void GameScene::Render()
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
-	RECT test = { 400,0,800,500 };
-	char TestText[ArrayLong];
+	//RECT test = { 400,0,800,500 };
+	//char TestText[ArrayLong];
 	//sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)

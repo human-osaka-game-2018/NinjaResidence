@@ -62,9 +62,6 @@ void Scene::LoadAnimation() {
 	m_pDirectX->DrawTexture("CROSS_TEX", cross);
 }
 
-void Scene::EndGame() {
-	m_GameState = WM_NULL;
-}
 
 void Scene::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 

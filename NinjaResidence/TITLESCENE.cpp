@@ -109,6 +109,3 @@ void TitleScene::ChoseMenu() {
 	}
 }
 
-void TitleScene::EndGame() {
-	m_GameState = WM_QUIT;
-}
