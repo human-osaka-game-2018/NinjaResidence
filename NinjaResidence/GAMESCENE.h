@@ -11,6 +11,7 @@
 #include "MapReverse.h"
 #include "SkillSelect.h"
 #include "DescriptionBoard.h"
+#include "PauseScene.h"
 #include <algorithm>
 
 #define _CRTDBG_MAP_ALLOC
@@ -36,7 +37,9 @@ public:
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
 	void LoadResouce();
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
-
+	void TransePause() {
+		RunPause = true;
+	}
 private:
 	CUSTOMVERTEX  m_GameBackground[4];
 	GameChara* m_pGameChara = NULL;
@@ -59,5 +62,5 @@ private:
 	void SkillKeyOperation(KeyInput vec);
 	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
-
+	bool RunPause = false;
 };
