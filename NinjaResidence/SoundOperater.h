@@ -76,12 +76,12 @@ public:
 	bool SESetVolume(uint8_t volume);
 private:
 	SoundsManager* m_pSoundManager = NULL;
-	std::vector<SoundKey*> m_SoundKey;
+	std::vector<SoundKey> m_SoundKey;
 
 	SoundKey m_SoundKeyBuff;
 
 	SoundType GetSoundType(int arrayNum) {
-		return m_SoundKey[arrayNum]->Type;
+		return m_SoundKey[arrayNum].Type;
 	}
 };
 

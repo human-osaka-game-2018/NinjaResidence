@@ -64,9 +64,9 @@ public:
 		m_ExitScene = false;
 	}
 private:
-	unsigned int m_BGMvolume = 100;
-	unsigned int m_SEvolume = 100;
-	unsigned int m_ALLvolume = 100;
+	int m_BGMvolume = 100;
+	int m_SEvolume = 100;
+	int m_ALLvolume = 100;
 
 	//! 音量の最大桁数と設定項目数
 	static const int VolumeMaxNum = 3;

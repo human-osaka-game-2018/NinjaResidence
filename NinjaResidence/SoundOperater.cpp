@@ -16,7 +16,7 @@ SoundOperater::SoundOperater()
 SoundOperater::~SoundOperater()
 {
 	m_SoundKey.clear();
-	std::vector<SoundKey*>().swap(m_SoundKey);
+	std::vector<SoundKey>().swap(m_SoundKey);
 	delete m_pSoundManager;
 	m_pSoundManager = NULL;
 }
@@ -58,7 +58,7 @@ bool SoundOperater::AddFile(const char* pFilePath, const char* pKey, SoundType t
 	if (SuccessAddFile) {
 		m_SoundKeyBuff.Key = pKey;
 		m_SoundKeyBuff.Type = type;
-		m_SoundKey.push_back(&m_SoundKeyBuff);
+		m_SoundKey.push_back(m_SoundKeyBuff);
 	}
 	return SuccessAddFile;
 }
@@ -87,7 +87,7 @@ bool SoundOperater::AllStop()
 {
 	bool SuccessAddFile = true;
 	for (int i = 0; i < m_SoundKey.size(); ++i) {
-		SuccessAddFile = m_pSoundManager->Stop(m_SoundKey[i]->Key);
+		SuccessAddFile = m_pSoundManager->Stop(m_SoundKey[i].Key);
 	}
 	return SuccessAddFile;
 }
@@ -97,7 +97,7 @@ bool SoundOperater::AllSetVolume(uint8_t volume)
 	bool SuccessAddFile = true;
 	for (int i = 0; i < m_SoundKey.size(); ++i) {
 
-		SuccessAddFile = m_pSoundManager->SetVolume(m_SoundKey[i]->Key, volume);
+		SuccessAddFile = m_pSoundManager->SetVolume(m_SoundKey[i].Key, volume);
 	}
 	return SuccessAddFile;
 }
@@ -106,7 +106,7 @@ bool SoundOperater::BGMSetVolume(uint8_t volume)
 	bool SetSuccess = true;
 	for (int i = 0; i < m_SoundKey.size(); ++i) {
 		if (BGM == GetSoundType(i)) {
-			SetSuccess = m_pSoundManager->SetVolume(m_SoundKey[i]->Key, volume);
+			SetSuccess = m_pSoundManager->SetVolume(m_SoundKey[i].Key, volume);
 		}
 	}
 	return SetSuccess;
@@ -116,7 +116,7 @@ bool SoundOperater::SESetVolume(uint8_t volume)
 	bool SetSuccess = true;
 	for (int i = 0; i < m_SoundKey.size(); ++i) {
 		if (SE == GetSoundType(i)) {
-			SetSuccess = m_pSoundManager->SetVolume(m_SoundKey[i]->Key, volume);
+			SetSuccess = m_pSoundManager->SetVolume(m_SoundKey[i].Key, volume);
 		}
 	}
 	return SetSuccess;
