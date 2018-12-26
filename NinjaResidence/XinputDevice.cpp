@@ -100,25 +100,25 @@ bool XinputDevice::GetAnalogL(Analog AnalogState)
 	switch (AnalogState)
 	{
 	case ANALOGUP:
-		if (GetAnalogLValue(ANALOG_Y) > 65535 / 4)
+		if (GetAnalogLValue(ANALOG_Y) > INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGDOWN:
-		if (GetAnalogLValue(ANALOG_Y) < -65535 / 4)
+		if (GetAnalogLValue(ANALOG_Y) < -INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGRIGHT:
-		if (GetAnalogLValue(ANALOG_X) > 65535 / 4)
+		if (GetAnalogLValue(ANALOG_X) > INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGLEFT:
-		if (GetAnalogLValue(ANALOG_X) < -65535 / 4)
+		if (GetAnalogLValue(ANALOG_X) < -INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
@@ -134,25 +134,25 @@ bool XinputDevice::GetAnalogR(Analog AnalogState)
 	switch (AnalogState)
 	{
 	case ANALOGUP:
-		if (GetAnalogRValue(ANALOG_Y) > 65535 / 4)
+		if (GetAnalogRValue(ANALOG_Y) > INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGDOWN:
-		if (GetAnalogRValue(ANALOG_Y) < -65535 / 4)
+		if (GetAnalogRValue(ANALOG_Y) < -INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGLEFT:
-		if (GetAnalogRValue(ANALOG_X) > 65535 / 4)
+		if (GetAnalogRValue(ANALOG_X) > INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
 	case ANALOGRIGHT:
-		if (GetAnalogRValue(ANALOG_X) < -65535 / 4)
+		if (GetAnalogRValue(ANALOG_X) < -INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
