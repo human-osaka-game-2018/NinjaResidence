@@ -32,7 +32,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	isDeviceLost = false;
 	pDirectX = new DirectX;
 	WNDCLASS Wndclass;
-	pSoundOperater =new SoundOperater;
+	pSoundOperater = new SoundOperater;
 	//Windows初期化情報の設定
 	Wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	Wndclass.lpfnWndProc = WndProc;

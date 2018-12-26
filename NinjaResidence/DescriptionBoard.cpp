@@ -2,7 +2,7 @@
 
 using namespace MapBlock;
 
-DescriptionBoard::DescriptionBoard(DirectX* pDirectX,SoundsManager* pSoundManager ,GameChara * GameChara, Object * m_pBusyMapChip) :Object(pDirectX, pSoundManager)
+DescriptionBoard::DescriptionBoard(DirectX* pDirectX,SoundOperater* pSoundOperater,GameChara * GameChara, Object * m_pBusyMapChip) :Object(pDirectX, pSoundOperater)
 {
 	m_pGameChara = GameChara;
 	m_pMapChip = m_pBusyMapChip;

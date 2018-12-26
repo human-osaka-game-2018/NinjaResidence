@@ -39,11 +39,9 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;
 	if (CursorAnimeInterval > 20) {
-		//TODO:三項演算子で計算するようにする
-		if (CursorColorOn) {
-			m_CursorColor += 0xFF << 24;
-		}
-		else m_CursorColor -= 0xFF << 24;
+
+		m_CursorColor += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+
 		CursorColorOn = !CursorColorOn;
 		CursorAnimeInterval = 0;
 	}
