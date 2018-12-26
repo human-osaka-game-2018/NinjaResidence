@@ -43,7 +43,20 @@ namespace PlayerAnimation {
 class GameChara :public Object
 {
 public:
+	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCharaCoordinate[4]; }
+	void prevSaveMapCharaPos();
+	void KeyOperation(KeyInput vec);
+	void CharaInforSave(Object* MapChip, int BlockNumber);
+	void Update();
+	void Render();
+	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
+	~GameChara();
+
+	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
+	int GetMapCharaPositionY() { return m_MapRightDirectionPosition; }
+
 	int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
+
 	void NoOperation();
 	/**
 	* @brief Debug用キャラ上昇処理
@@ -72,6 +85,7 @@ public:
 	PlayerAnimation::DIRECTION GetFacing() {
 		return m_Facing;
 	}
+
 private:
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
@@ -98,7 +112,7 @@ private:
 	const int DisplayCharMoveScopeX = 300;//両端からのX座標の稼働範囲
 
 
-	void CharaMoveOperation(KeyInput vec);
+	//void CharaMoveOperation(KeyInput vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;
@@ -219,17 +233,5 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool LeftCollisionCheck(int block);
-
-public:
-	CUSTOMVERTEX GetDisplayCharaCoordinate(){return m_DisplayCharaCoordinate[4];}
-	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return m_MapRightDirectionPosition; }
-	void prevSaveMapCharaPos();
-	void KeyOperation(KeyInput vec);
-	void CharaInforSave( Object* MapChip, int BlockNumber);
-	void Update();
-	void Render();
-	GameChara(DirectX* pDirectX, SoundsManager* pSoundManager, Object* MapChip);
-	~GameChara();
 
 };
