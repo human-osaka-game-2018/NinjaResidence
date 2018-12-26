@@ -61,8 +61,7 @@ SCENE_NUM  GameScene::Update()
 			RunPause = false;
 		}
 		m_GameState = m_pPauseScene->GetGameState();
-		SetNextScene(m_pPauseScene->GetNextScene());
-		return GetNextScene();
+		return m_pPauseScene->GetNextScene();
 	}
 	CurrentSkill = m_SkillSelect->GetSkillNum();
 	m_pXinputDevice->DeviceUpdate();

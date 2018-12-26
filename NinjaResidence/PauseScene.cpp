@@ -1,4 +1,9 @@
-﻿#include "PauseScene.h"
+﻿/**
+* @file PauseScene.cpp
+* @brief ポーズ画面
+* @author Toshiya Matsuoka
+*/
+#include "PauseScene.h"
 
 
 
@@ -14,9 +19,6 @@ PauseScene::~PauseScene()
 
 SCENE_NUM PauseScene::Update() {
 	CursorMove();
-	//if (SoundLib::Playing != m_pSoundOperater->GetStatus("TEST")) {
-	//	bool buff = m_pSoundOperater->Start("TEST", true);
-	//}
 	static int CursorAnimeInterval = 0;
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;
@@ -51,7 +53,7 @@ void PauseScene::Render() {
 	m_pDirectX->DrawTexture("PAUSEMENU_TEX", PauseMenuVertex);
 	CreateSquareVertex(PauseMenuVertex, m_MenuTitle);
 	m_pDirectX->DrawTexture("PAUSETITLE_TEX", PauseMenuVertex);
-	CreateSquareVertex(PauseMenuVertex, m_Cursor);
+	CreateSquareVertex(PauseMenuVertex, m_Cursor, m_CursorColor);
 	m_pDirectX->DrawTexture("SV_CURSOR_TEX", PauseMenuVertex);
 
 }
