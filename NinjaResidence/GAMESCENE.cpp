@@ -22,8 +22,8 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_SkillSelect=new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundManager, m_pGameChara, m_pBusyMapChip);
-
+	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
+	m_pPauseScene = new PauseScene(pDirectX, pSoundOperater);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
@@ -154,7 +154,9 @@ void GameScene::KeyOperation() {
 	//	m_pBusyMapChip->KeyOperation(RIGHT);
 	//}
 	//テスト用処理
-	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB))
+	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB)) {
+
+	}
 	
 	//音声のテスト用処理を呼ぶ
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
@@ -210,9 +212,8 @@ void GameScene::Render()
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
-	//RECT test = { 400,0,800,500 };
-	//char TestText[ArrayLong];
-	//sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	RECT test = { 400,0,800,500 };
+	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
 	{

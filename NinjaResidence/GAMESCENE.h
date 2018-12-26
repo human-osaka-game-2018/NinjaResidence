@@ -49,6 +49,7 @@ private:
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;
 	MapReverse* m_pMapReverse = NULL;
+	PauseScene* m_pPauseScene = NULL;
 	Scene* m_pScene = NULL;
 	//! ¡‚Ì‘I‘ğ’†”Ep
 	int CurrentSkill;

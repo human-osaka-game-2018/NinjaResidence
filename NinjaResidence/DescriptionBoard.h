@@ -21,6 +21,6 @@ public:
 	};
 	DescriptionNumber DescriptionNumberdecision;
 	void GoDescriptionBoard(Object * m_pBusyMapChip);
-	DescriptionBoard(DirectX* pDirectX,SoundsManager* pSoundManager, GameChara * GameChara, Object * m_pBusyMapChip);
+	DescriptionBoard(DirectX* pDirectX,SoundOperater* pSoundOperater, GameChara * GameChara, Object * m_pBusyMapChip);
 	~DescriptionBoard();
 };

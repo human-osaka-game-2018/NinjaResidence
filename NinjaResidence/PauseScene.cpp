@@ -23,10 +23,9 @@ SCENE_NUM PauseScene::Update() {
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;
 	if (CursorAnimeInterval > 20) {
-		if (CursorColorOn) {
-			m_CursorColor += 0xFF << 24;
-		}
-		else m_CursorColor -= 0xFF << 24;
+
+		m_CursorColor += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+
 		CursorColorOn = !CursorColorOn;
 		CursorAnimeInterval = 0;
 	}
