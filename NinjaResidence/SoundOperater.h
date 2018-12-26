@@ -21,6 +21,10 @@ struct SoundKey {
 	SoundType Type;
 };
 
+/**
+* @brief 音声キーの管理クラス
+* @sa SoundLib::SoundsManager
+*/
 class SoundOperater
 {
 public:
@@ -47,12 +51,25 @@ public:
 	*/
 	bool AddFile(const char* pFilePath, const char* pKey, SoundType type);
 
+	/**
+	* @brief 音声の再生
+	*/
 	bool Start(const char* pKey, bool isLoopPlayback = false);
 
+	/**
+	* @brief 音声の停止
+	* @sa SoundLib::Stop
+	*/
 	bool Stop(const char* pKey);
 
+	/**
+	* @brief 音声の一時停止
+	*/
 	bool Pause(const char* pKey);
 
+	/**
+	* @brief 一時停止中の音声を続きから再生
+	*/
 	bool Resume(const char* pKey);
 
 	/**

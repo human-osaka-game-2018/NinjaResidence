@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file PauseScene.h
+* @brief ポーズ画面
+* @author Toshiya Matsuoka
+*/
+#pragma once
 #include "SCENE.h"
 
 
@@ -10,17 +15,28 @@ enum TargetingMenu {
 };
 
 
-class PauseScene :
-	public Scene
+class PauseScene :public Scene
 {
 public:
 	PauseScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~PauseScene();
 	SCENE_NUM Update();
 	void Render();
+	/**
+	* @brief メニュー選択後の処理
+	*/
 	void TransrateScene();
+	/**
+	* @brief メニューカーソル移動処理
+	*/
 	void CursorMove();
+	/**
+	* @brief メニューカーソル上昇
+	*/
 	void MoveUp();
+	/**
+	* @brief メニューカーソル下降
+	*/
 	void MoveDown();
 	void ReturnScene() {
 		m_ExitScene = true;
