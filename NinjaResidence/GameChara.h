@@ -98,7 +98,7 @@ private:
 	const int DisplayCharMoveScopeX = 300;//óºí[Ç©ÇÁÇÃXç¿ïWÇÃâ“ì≠îÕàÕ
 
 
-	void CharaMoveOperation(KeyInput vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
+	void CharaMoveOperation(KeyInput vec);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;

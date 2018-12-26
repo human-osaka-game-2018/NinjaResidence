@@ -9,8 +9,8 @@ class MapChip;
 class DescriptionBoard :public Object
 {
 private:
-	GameChara * m_pGameChara = NULL;
-	Object * m_pMapChip = NULL;
+	GameChara* m_pGameChara = NULL;
+	Object* m_pMapChip = NULL;
 public:
 	CUSTOMVERTEX DescriptionBoardSIZE[4];
 	enum DescriptionNumber

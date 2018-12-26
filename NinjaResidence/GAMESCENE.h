@@ -39,14 +39,14 @@ public:
 
 private:
 	CUSTOMVERTEX  m_GameBackground[4];
-	GameChara * m_pGameChara = NULL;
-	Object * m_pBusyMapChip = NULL;//égópíÜÇÃMapChip
-	Object * m_pIdleMapChip = NULL;//í‚é~íÜÇÃMapChip
-	Object * m_pShuriken = NULL;
+	GameChara* m_pGameChara = NULL;
+	Object* m_pBusyMapChip = NULL;//égópíÜÇÃMapChip
+	Object* m_pIdleMapChip = NULL;//í‚é~íÜÇÃMapChip
+	Object* m_pShuriken = NULL;
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;
-	MapReverse * m_pMapReverse = NULL;
-	Scene * m_pScene = NULL;
+	MapReverse* m_pMapReverse = NULL;
+	Scene* m_pScene = NULL;
 	//! ç°ÇÃëIëíÜîEèp
 	int CurrentSkill;
 	/**

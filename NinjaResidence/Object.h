@@ -116,7 +116,7 @@ public:
 		return deg * (D3DX_PI / 180);
 	}
 protected:
-	DirectX * m_pDirectX = NULL;
+	DirectX* m_pDirectX = NULL;
 	SoundsManager* m_pSoundManager = NULL;
 
 	/*static */std::vector< std::vector<int> > MapData;
