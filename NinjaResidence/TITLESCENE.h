@@ -22,7 +22,7 @@ public:
 
 private:
 	CUSTOMVERTEX  m_TitleBackground[4];
-	Scene * m_pScene = NULL;
+	Scene* m_pScene = NULL;
 	int m_timecount = 0; 
 	TitleCursol* m_pCursol = NULL;
 	void ChoseMenu();
