@@ -63,10 +63,10 @@
     <ClCompile Include="DescriptionBoard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-      <ClCompile Include="VOLUMESELECTSCENE.cpp">
+    <ClCompile Include="VOLUMESELECTSCENE.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-        <ClCompile Include="SoundOperater.cpp">
+     <ClCompile Include="SoundOperater.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,7 +117,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="DescriptionBoard.h">
-          <Filter>ヘッダー ファイル</Filter>
+       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="VOLUMESELECTSCENE.h"> 
      <Filter>ヘッダー ファイル</Filter>
