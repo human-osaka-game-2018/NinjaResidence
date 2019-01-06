@@ -53,9 +53,9 @@ public:
 	~GameChara();
 
 	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return m_MapRightDirectionPosition; }
+	int GetMapCharaPositionY() { return m_MapCharaPositionY; }
 
-	int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
+	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
 
 	void NoOperation();
 	/**

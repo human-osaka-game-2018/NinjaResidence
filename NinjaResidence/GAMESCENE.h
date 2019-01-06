@@ -24,6 +24,7 @@ class MapChip;
 class GameChara;
 class MapReverse;
 class DescriptionBoard;
+class Shuriken;
 class SoundManager;
 
 class GameScene : public Scene
@@ -45,7 +46,7 @@ private:
 	GameChara* m_pGameChara = NULL;
 	Object* m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
 	Object* m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
-	Object* m_pShuriken = NULL;
+	Shuriken* m_pShuriken = NULL;
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;
 	MapReverse* m_pMapReverse = NULL;
