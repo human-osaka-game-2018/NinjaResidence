@@ -95,9 +95,10 @@ void GameScene::KeyOperation() {
 	{
 		SkillKeyOperation(UP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN))
+	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN)) {
+	}
 
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN))
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_SPACE))
 	{
 		//à–¾ŠÅ”Â‚ð“Ç‚Þ
 		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
@@ -215,6 +216,8 @@ void GameScene::Render()
 	RECT test = { 400,0,800,500 };
 	char TestText[ArrayLong];
 	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
+#endif
 	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
 	{
 		m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
@@ -223,8 +226,6 @@ void GameScene::Render()
 	{
 		m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
 	}
-	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
-#endif
 }
 
 void GameScene::LoadResouce()
@@ -252,7 +253,7 @@ void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
-	m_pShuriken->Reverse();
+	//m_pShuriken->Reverse(m_pBusyMapChip);
 }
 
 void GameScene::SkillsUpdate() {
