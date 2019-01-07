@@ -2,8 +2,8 @@
 
 enum MapDataState
 {
-	Surface,//•\
-	Reverse,//— 
+	SURFACE,//•\
+	REVERSE,//— 
 };
 
 struct BlockInf

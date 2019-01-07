@@ -35,6 +35,7 @@ public:
 	virtual void KeyOperation(KeyDirection vec) {};
 
 	virtual void Update();
+	virtual void Render() {};
 	virtual void Render(bool MapDataReverse);
 	virtual void prevSaveMapCharaPos() {};
 
@@ -47,7 +48,7 @@ public:
 
 	Object(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	Object(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip) {};
-	~Object();
+	virtual ~Object();
 
 	/**
 	*@brief CUSTOMVERTEX‚Éƒpƒ‰ƒ[ƒ^‚ğ“ü‚ê‚é

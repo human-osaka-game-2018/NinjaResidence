@@ -17,7 +17,7 @@ enum Skill {
 class SkillSelect :public Object
 {
 public:
-	void KeyOperation(KeyInput vec);
+	void KeyOperation(KeyDirection vec);
 	void Update();
 	void Render();
 	SkillSelect(DirectX* pDirectX, SoundOperater* pSoundOperater, bool* m_EnableSkill);

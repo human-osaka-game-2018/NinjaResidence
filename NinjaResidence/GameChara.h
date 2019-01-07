@@ -45,7 +45,7 @@ class GameChara :public Object
 public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCharaCoordinate[4]; }
 	void prevSaveMapCharaPos();
-	void KeyOperation(KeyInput vec);
+	void KeyOperation(KeyDirection vec);
 	void CharaInforSave(Object* MapChip, int BlockNumber);
 	void Update();
 	void Render();
@@ -115,7 +115,7 @@ private:
 	const int DisplayCharMoveScopeX = 300;//óºí[Ç©ÇÁÇÃXç¿ïWÇÃâ“ì≠îÕàÕ
 
 
-	//void CharaMoveOperation(KeyInput vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
+	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
 	MapReverse* m_pMapReverse = NULL;
@@ -152,7 +152,7 @@ private:
 	float m_AccelerationX = MOVE_SPEED * 1.5f;
 
 
-	void CharaMoveOperation(KeyInput vec);
+	void CharaMoveOperation(KeyDirection vec);
 	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
 
 	/**

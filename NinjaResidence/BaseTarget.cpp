@@ -21,6 +21,7 @@ BaseTarget::BaseTarget(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX)
 BaseTarget::~BaseTarget()
 {
 	delete m_pBaseGimmick;
+	m_pBaseGimmick = NULL;
 }
 
 void BaseTarget::Activate()

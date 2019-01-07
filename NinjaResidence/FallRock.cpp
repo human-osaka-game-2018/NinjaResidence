@@ -1,7 +1,6 @@
 #include "FallRock.h"
 #include <string>
 
-int X;
 
 FallRock::FallRock(BlockInf Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
 {

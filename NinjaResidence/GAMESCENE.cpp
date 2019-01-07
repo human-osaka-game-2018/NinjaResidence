@@ -14,9 +14,9 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 	m_pScene = this;
 
 	m_pBusyMapChip = new MapChip(pDirectX, pSoundOperater);
-	pBusyMapChip->Create("csv/Book1.csv", Surface);
+	m_pBusyMapChip->Create("csv/Book1.csv", SURFACE);
 	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
-	pIdleMapChip->Create("csv/Book2.csv",Reverse);
+	m_pIdleMapChip->Create("csv/Book2.csv",REVERSE);
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
@@ -29,12 +29,12 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 
 GameScene::~GameScene()
 {
-	delete pBusyMapChip;
-	pBusyMapChip = NULL;
-	delete pIdleMapChip;
-	pIdleMapChip = NULL;
-	delete pGameChara;
-	pGameChara = NULL;
+	delete m_pBusyMapChip;
+	m_pBusyMapChip = NULL;
+	delete m_pIdleMapChip;
+	m_pIdleMapChip = NULL;
+	delete m_pGameChara;
+	m_pGameChara = NULL;
 	delete m_pMapReverse;
 	m_pMapReverse = NULL;
 	delete m_pShuriken;
@@ -43,6 +43,9 @@ GameScene::~GameScene()
 	m_SkillSelect = NULL;
 	delete m_pPauseScene;
 	m_pPauseScene = NULL;
+	delete m_pDescriptionBoard;
+	m_pDescriptionBoard = NULL;
+
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
@@ -96,7 +99,6 @@ void GameScene::KeyOperation() {
 		SkillKeyOperation(UP);
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN)) {
-
 		SkillKeyOperation(DOWN);
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
@@ -197,7 +199,7 @@ void GameScene::Render()
 	}
 
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
- 	pBusyMapChip->Render(m_pMapReverse->getMapDataReverseState());
+ 	m_pBusyMapChip->Render(m_pMapReverse->getMapDataReverseState());
 	m_pGameChara->Render();
 	m_pShuriken->Render();
 	m_SkillSelect->Render();
@@ -285,7 +287,7 @@ void GameScene::SkillStart() {
 	}
 
 }
-void GameScene::SkillKeyOperation(KeyInput vec) {
+void GameScene::SkillKeyOperation(KeyDirection vec) {
 	switch (CurrentSkill) {
 	case SHURIKEN:
 		m_pShuriken->KeyOperation(vec);
