@@ -41,7 +41,7 @@ void TitleCursol::Render()
 
 }
 
-void TitleCursol::KeyOperation(KeyInput vec) {
+void TitleCursol::KeyOperation(KeyDirection vec) {
 
 	switch (vec)
 	{

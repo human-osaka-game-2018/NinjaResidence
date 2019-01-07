@@ -16,5 +16,5 @@ public:
 	void Activate();
 	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize);
 	FallRock(BlockInf Gimmick, DirectX* pDirectX);
-	~FallRock();
+	virtual ~FallRock();
 };

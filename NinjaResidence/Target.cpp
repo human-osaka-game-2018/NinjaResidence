@@ -9,7 +9,8 @@ Target::Target(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX) :BaseTarget
 
 Target::~Target()
 {
-
+	delete m_pBaseGimmick;
+	m_pBaseGimmick = NULL;
 }
 
 
@@ -23,7 +24,7 @@ void Target::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float C
 {
 	int x = TargetIfno.m_x;
 	int y = TargetIfno.m_y;
-	if (MapDataReverse == true && TargetIfno.MapDataState == Surface)
+	if (MapDataReverse == true && TargetIfno.MapDataState == SURFACE)
 	{
 		float WIDTH = 80.0f / 512.0f;
 		float HEIGHT = 80.0f / 512.0f;
@@ -48,7 +49,7 @@ void Target::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float C
 
 		m_pDirectX->DrawTexture(TextureKey, TextureSize);
 	}
-	if (MapDataReverse == false && TargetIfno.MapDataState == Reverse)
+	if (MapDataReverse == false && TargetIfno.MapDataState == REVERSE)
 	{
 		float WIDTH = 80.0f / 512.0f;
 		float HEIGHT = 80.0f / 512.0f;

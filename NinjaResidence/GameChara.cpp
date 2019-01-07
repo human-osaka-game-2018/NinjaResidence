@@ -118,7 +118,7 @@ void GameChara::JumpingLateralMotion() {
 //	return false;
 //}
 
-void GameChara::CharaMoveOperation(KeyInput vec)
+void GameChara::CharaMoveOperation(KeyDirection vec)
 {
 	switch (vec)
 	{
@@ -171,7 +171,7 @@ void GameChara::prevSaveMapCharaPos()
 	m_PrevMapCharaPositionY = (int)m_WorldCharaCoordinate[3].y + 10;
 }
 
-void GameChara::KeyOperation(KeyInput vec)
+void GameChara::KeyOperation(KeyDirection vec)
 {
 	static bool isThrowing = false;
 	//Key操作での処理
@@ -215,7 +215,7 @@ void GameChara::NoOperation() {
 
 void GameChara::MapReversePointSearch(int BlockNumber)
 {
-	for (int i = 0;i < colunm;i++)
+	for (int i = 0;i < m_colunm;i++)
 	{
 		for (int j = 0;j < m_row;j++)
 		{
@@ -247,19 +247,19 @@ void GameChara::GmmickHitCheck()
 {
 	//仕切り板の当たり判定
 	//左の方向のブロックを確かめる
-	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD))
+	if ((m_pMapChip->getMapChipData(m_MapCharaPositionY - 1, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 2, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 3, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 4, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD))
 	{
 
 	}
 
 	//右方向のブロックを確かめる
-	if ((m_pMapChip->getMapChipData(MapCharaPositionY - 1, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 3, MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(MapCharaPositionY - 4, MapRightDirectionPosition) != BT_PARTITIONBOARD))
+	if ((m_pMapChip->getMapChipData(m_MapCharaPositionY - 1, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 2, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 3, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
+		(m_pMapChip->getMapChipData(m_MapCharaPositionY - 4, m_MapRightDirectionPosition) != BT_PARTITIONBOARD))
 	{
 
 	}
@@ -467,9 +467,9 @@ void GameChara::Update()
 	else if (m_isJump) {
 		InitJumpParam();
 	}
-	if (m_pMapChip->getMapChipData(MapCharaPositionY - 2, MapRightDirectionPosition) > 100)
+	if (m_pMapChip->getMapChipData(m_MapCharaPositionY - 2, m_MapRightDirectionPosition) > 100)
 	{
-		m_pMapChip->GameCharaInfo(MapRightDirectionPosition, MapCharaPositionY - 2);
+		m_pMapChip->GameCharaInfo(m_MapRightDirectionPosition, m_MapCharaPositionY - 2);
 		((MapChip*)m_pMapChip)->Activate();
 
 	}

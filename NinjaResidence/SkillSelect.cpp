@@ -41,15 +41,15 @@ void SkillSelect::Render()
 {
 	CUSTOMVERTEX UIVertex[4];
 	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0, BLOCK_WIDTH, BLOCK_WIDTH*1.5, BLOCK_WIDTH);
-	TextureRender("BLOCK_INTEGRATION_TEX", UIVertex);
+	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
 	CUSTOMVERTEX SkillVertex[4];
 	CreateSquareVertex(SkillVertex,m_SkillUI,m_Color);
 	TextureRender(m_SkillTexKey, SkillVertex);
-
+	
 }
 
-void SkillSelect::KeyOperation(KeyInput vec) {
+void SkillSelect::KeyOperation(KeyDirection vec) {
 	if (vec == LEFT) {
 		SkillTransUp();
 			return;

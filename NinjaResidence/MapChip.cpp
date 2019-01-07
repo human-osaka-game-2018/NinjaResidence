@@ -30,9 +30,10 @@ MapChip::~MapChip()
 	}
 	MapData.clear();
 	vector<vector<int>>().swap(MapData);
-	for (BaseTarget* pi : pBaseTarget)
+	for (int i = 1 - pBaseTarget.size(); i >= 0; --i)
 	{
-		delete pi;
+		delete pBaseTarget[i];
+		pBaseTarget[i] = NULL;
 	}
 }
 
@@ -100,7 +101,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 		}
 	}
 	fclose(fp);
-	if (MapState == Reverse)
+	if (MapState == REVERSE)
 	{
 		CheckVector();
 	}
@@ -109,7 +110,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 
 void MapChip::CheckVector()
 {
-	BaseTarget* pBuf = nullptr;
+	BaseTarget* pBuf = NULL;
 
 	for (int i = 0;i < m_TargetCount;i++)
 	{
@@ -297,13 +298,13 @@ void MapChip::Render(bool MapDataReverse)
 				}
 				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 			}
-			TextureRender("BLOCK_INTEGRATION_TEX", CELL);
+			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
 	
-		for (BaseTarget* pi : pBaseTarget)
+	for (BaseTarget* pi : pBaseTarget)
 	{
-			pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse,CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", CELL);
+		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse,CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", CELL);
 	}
 	
 #ifdef _DEBUG

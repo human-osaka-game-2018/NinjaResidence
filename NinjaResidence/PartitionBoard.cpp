@@ -38,7 +38,7 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse,
 		PartitionY2 = (CELL_SIZE * (y + 15));
 		flag = true;
 	}
-	if (MapDataReverse == true && GimmickInfo.MapDataState == Surface)
+	if (MapDataReverse == true && GimmickInfo.MapDataState == SURFACE)
 	{
 		PartitionSIZE[0] = TextureSize[0];
 		PartitionSIZE[1] = TextureSize[1];
@@ -68,7 +68,7 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse,
 		m_pDirectX->DrawTexture(TextureKey, TextureSize);
 	}
 
-	if (MapDataReverse == false && GimmickInfo.MapDataState == Reverse)
+	if (MapDataReverse == false && GimmickInfo.MapDataState == REVERSE)
 	{
 		PartitionSIZE[0] = TextureSize[0];
 		PartitionSIZE[1] = TextureSize[1];

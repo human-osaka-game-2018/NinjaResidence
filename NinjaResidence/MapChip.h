@@ -33,7 +33,7 @@ public:
 	
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
-	~MapChip();
+	virtual ~MapChip();
 	/**
 	* @brief マップチップの生成
 	* @param filename CSVファイルの相対パス

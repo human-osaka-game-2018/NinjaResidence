@@ -63,7 +63,7 @@ private:
 	void Reverse();
 	void SkillsUpdate();
 	void SkillStart();
-	void SkillKeyOperation(KeyInput vec);
+	void SkillKeyOperation(KeyDirection vec);
 	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
 	bool RunPause = false;

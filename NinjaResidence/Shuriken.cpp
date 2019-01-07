@@ -21,7 +21,7 @@ Shuriken::~Shuriken()
 
 
 
-void Shuriken::KeyOperation(KeyInput vec)
+void Shuriken::KeyOperation(KeyDirection vec)
 {
 	//Key操作での処理
 	switch (vec)

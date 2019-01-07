@@ -16,7 +16,7 @@ public:
 	/*
 	* @brief キー入力時の内部処理関数
 	*/
-	void KeyOperation(KeyInput vec);
+	void KeyOperation(KeyDirection vec);
 
 	/*
 	* @brief 投擲起動処理
