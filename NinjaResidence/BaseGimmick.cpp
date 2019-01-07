@@ -1,7 +1,7 @@
 #include "BaseGimmick.h"
 
 
-BaseGimmick::BaseGimmick(BlockInf Gimmick, DirectX* pDirectX) :GimmickInfo(Gimmick)
+BaseGimmick::BaseGimmick(BlockInfo Gimmick, DirectX* pDirectX) :m_GimmickInfo(Gimmick)
 {
 
 }

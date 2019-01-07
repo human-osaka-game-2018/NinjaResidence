@@ -10,12 +10,21 @@
 
 class BaseGimmick
 {
-protected:
-	DirectX* m_pDirectX = NULL;
 public:
-	BlockInf GimmickInfo;
+	BlockInfo m_GimmickInfo;
 	virtual void Activate() = 0;
 	virtual void Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize) = 0;
-	BaseGimmick(BlockInf Gimmick, DirectX* pDirectX);
+	BaseGimmick(BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseGimmick();
+protected:
+	DirectX* m_pDirectX = NULL;
+
+	int m_GimmickPosX;
+	int m_GimmickPosY;
+
+	float WorldPosLeft;
+	float WorldPosRight;
+	float WorldPosTop;
+	float WorldPosBottom;
+
 };

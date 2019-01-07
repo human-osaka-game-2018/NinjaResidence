@@ -1,10 +1,8 @@
 #include "Water.h"
 #include <string>
 
-int x ;
-int y ;
 
-Water::Water(BlockInf Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
+Water::Water(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
 }
@@ -22,8 +20,8 @@ void Water::Activate()
 
 void Water::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
-	x = GimmickInfo.m_x;
-	y = GimmickInfo.m_y;
+	m_GimmickPosX = m_GimmickInfo.PositionX;
+	m_GimmickPosY = m_GimmickInfo.PositionY;
 	WaterSIZE[0] = TextureSize[0];
 	WaterSIZE[1] = TextureSize[1];
 	WaterSIZE[2] = TextureSize[2];
@@ -31,21 +29,21 @@ void Water::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CE
 
 	if (flag == false)
 	{
-		WaterX1 = (CELL_SIZE * x);
-		WaterY1 = (CELL_SIZE * y);
-		WaterX2 = (CELL_SIZE * (x + 1));
-		WaterY2 = (CELL_SIZE * (y + 1));
+		WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
+		WorldPosTop = (CELL_SIZE * m_GimmickPosY);
+		WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 1));
+		WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 1));
 		flag = true;
 	}
 
-	TextureSize[0].x = WaterX1 + MapScrollX;
-	TextureSize[0].y = WaterY1 + MapScrollY;
-	TextureSize[1].x = WaterX2 + MapScrollX;
-	TextureSize[1].y = WaterY1 + MapScrollY;
-	TextureSize[2].x = WaterX2 + MapScrollX;
-	TextureSize[2].y = WaterY2 + MapScrollY;
-	TextureSize[3].x = WaterX1 + MapScrollX;
-	TextureSize[3].y = WaterY2 + MapScrollY;
+	TextureSize[0].x = WorldPosLeft + MapScrollX;
+	TextureSize[0].y = WorldPosTop + MapScrollY;
+	TextureSize[1].x = WorldPosRight + MapScrollX;
+	TextureSize[1].y = WorldPosTop + MapScrollY;
+	TextureSize[2].x = WorldPosRight + MapScrollX;
+	TextureSize[2].y = WorldPosBottom + MapScrollY;
+	TextureSize[3].x = WorldPosLeft + MapScrollX;
+	TextureSize[3].y = WorldPosBottom + MapScrollY;
 
 	TextureSize[0].tu = 240.0f / 512.0f;
 	TextureSize[1].tu = 320.0f / 512.0f;

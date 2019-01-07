@@ -33,7 +33,7 @@ enum KEYSTATE
 };
 
 
-// TODO:Singletonにする
+//TODO:Singletonにする
 /**
 * @class DirectX
 * @brief DirectX

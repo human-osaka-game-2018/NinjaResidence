@@ -28,8 +28,8 @@ class MapChip :public Object
 public:
 
 	static std::vector<BaseTarget* > pBaseTarget;
-	static std::vector<BlockInf> GimmickVector;
-	static std::vector<BlockInf> TargetVector;
+	static std::vector<BlockInfo> GimmickVector;
+	static std::vector<BlockInfo> TargetVector;
 	
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
@@ -38,7 +38,7 @@ public:
 	* @brief マップチップの生成
 	* @param filename CSVファイルの相対パス
 	*/
-	void Activate();
+	void Activate(int X, int Y);
 	void Create(const char *filename, MapDataState MapState);
 	void CheckVector();
 	void Render(bool MapDataReverse);

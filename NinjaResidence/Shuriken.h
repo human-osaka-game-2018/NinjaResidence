@@ -44,6 +44,9 @@ private:
 	bool m_isActive = false;
 	bool m_isChoseDeg = false;
 
+	int m_MapPositionX;
+	int m_MapPositionY;
+
 	float m_DirectionDeg = 0;
 	//! キャラの向きの判別の為
 	float m_Direction = PlayerAnimation::FACING_NOTHING;

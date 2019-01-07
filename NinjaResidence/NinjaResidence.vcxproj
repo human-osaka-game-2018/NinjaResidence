@@ -48,7 +48,7 @@
   <ItemGroup>
     <ClInclude Include="BaseGimmick.h" />
     <ClInclude Include="BaseTarget.h" />
-    <ClInclude Include="BlockInf.h" />
+    <ClInclude Include="BlockInfo.h" />
     <ClInclude Include="DescriptionBoard.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="enum_Scene.h" />

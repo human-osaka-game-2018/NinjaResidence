@@ -8,7 +8,6 @@
 int Object::m_MapScrollX = 0;
 int Object::m_MapScrollY = 0;
 
-
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
 }
@@ -31,11 +30,6 @@ void Object::Update()
 }
 
 
-void Object::GameCharaInfo(int CharaX, int CharaY)
-{
-	m_CharaX = CharaX;
-	m_CharaY = CharaY;
-}
 
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {

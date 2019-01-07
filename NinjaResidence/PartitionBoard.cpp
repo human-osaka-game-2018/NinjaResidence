@@ -1,7 +1,7 @@
 #include "PartitionBoard.h"
 #include <string>
 
-PartitionBoard::PartitionBoard(BlockInf Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
+PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
 }
@@ -14,12 +14,12 @@ PartitionBoard::~PartitionBoard()
 void PartitionBoard::Activate()
 {
 	//ŽdØ‚è”Â‚Ì“®‚«
-	while (PartitionY2 >= 0.f)
+	while (WorldPosBottom >= 0.f)
 	{
-		PartitionY2 -= 10.f;
+		WorldPosBottom -= 10.f;
 		break;
 	}
-	if (PartitionY2 >= 0.f)
+	if (WorldPosBottom >= 0.f)
 	{
 
 	}
@@ -28,17 +28,17 @@ void PartitionBoard::Activate()
 
 void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
-	int x = GimmickInfo.m_x;
-	int y = GimmickInfo.m_y;
+	m_GimmickPosX = m_GimmickInfo.PositionX;
+	m_GimmickPosY = m_GimmickInfo.PositionY;
 	if (flag == false)
 	{
-		PartitionX1 = (CELL_SIZE * x);
-		PartitionY1 = (CELL_SIZE * y);
-		PartitionX2 = (CELL_SIZE * (x + 3));
-		PartitionY2 = (CELL_SIZE * (y + 15));
+		WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
+		WorldPosTop = (CELL_SIZE * m_GimmickPosY);
+		WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 3));
+		WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 15));
 		flag = true;
 	}
-	if (MapDataReverse == true && GimmickInfo.MapDataState == SURFACE)
+	if (MapDataReverse == true && m_GimmickInfo.MapDataState == SURFACE)
 	{
 		PartitionSIZE[0] = TextureSize[0];
 		PartitionSIZE[1] = TextureSize[1];
@@ -46,14 +46,14 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse,
 		PartitionSIZE[3] = TextureSize[3];
 
 
-		TextureSize[0].x = PartitionX1 + MapScrollX;
-		TextureSize[0].y = PartitionY1 + MapScrollY;
-		TextureSize[1].x = PartitionX2 + MapScrollX;
-		TextureSize[1].y = PartitionY1 + MapScrollY;
-		TextureSize[2].x = PartitionX2 + MapScrollX;
-		TextureSize[2].y = PartitionY2 + MapScrollY;
-		TextureSize[3].x = PartitionX1 + MapScrollX;
-		TextureSize[3].y = PartitionY2 + MapScrollY;
+		TextureSize[0].x = WorldPosLeft + MapScrollX;
+		TextureSize[0].y = WorldPosTop + MapScrollY;
+		TextureSize[1].x = WorldPosRight + MapScrollX;
+		TextureSize[1].y = WorldPosTop + MapScrollY;
+		TextureSize[2].x = WorldPosRight + MapScrollX;
+		TextureSize[2].y = WorldPosBottom + MapScrollY;
+		TextureSize[3].x = WorldPosLeft + MapScrollX;
+		TextureSize[3].y = WorldPosBottom + MapScrollY;
 
 		TextureSize[0].tu = 240.0f / 512.0f;
 		TextureSize[1].tu = 400.0f / 512.0f;
@@ -68,7 +68,7 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse,
 		m_pDirectX->DrawTexture(TextureKey, TextureSize);
 	}
 
-	if (MapDataReverse == false && GimmickInfo.MapDataState == REVERSE)
+	if (MapDataReverse == false && m_GimmickInfo.MapDataState == REVERSE)
 	{
 		PartitionSIZE[0] = TextureSize[0];
 		PartitionSIZE[1] = TextureSize[1];
@@ -76,14 +76,14 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, bool MapDataReverse,
 		PartitionSIZE[3] = TextureSize[3];
 
 		
-		TextureSize[0].x = PartitionX1 + MapScrollX;
-		TextureSize[0].y = PartitionY1 + MapScrollY;
-		TextureSize[1].x = PartitionX2 + MapScrollX;
-		TextureSize[1].y = PartitionY1 + MapScrollY;
-		TextureSize[2].x = PartitionX2 + MapScrollX;
-		TextureSize[2].y = PartitionY2 + MapScrollY;
-		TextureSize[3].x = PartitionX1 + MapScrollX;
-		TextureSize[3].y = PartitionY2 + MapScrollY;
+		TextureSize[0].x = WorldPosLeft + MapScrollX;
+		TextureSize[0].y = WorldPosTop + MapScrollY;
+		TextureSize[1].x = WorldPosRight + MapScrollX;
+		TextureSize[1].y = WorldPosTop + MapScrollY;
+		TextureSize[2].x = WorldPosRight + MapScrollX;
+		TextureSize[2].y = WorldPosBottom + MapScrollY;
+		TextureSize[3].x = WorldPosLeft + MapScrollX;
+		TextureSize[3].y = WorldPosBottom + MapScrollY;
 
 		TextureSize[0].tu = 240.0f / 512.0f;
 		TextureSize[1].tu = 400.0f / 512.0f;

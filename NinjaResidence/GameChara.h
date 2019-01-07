@@ -53,11 +53,11 @@ public:
 	~GameChara();
 
 	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
-	int GetMapCharaPositionY() { return m_MapCharaPositionY; }
+	int GetMapPositionY() { return m_MapPositionY; }
 
 	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
 
-	void GmmickHitCheck();
+	void GimmickHitCheck();
 
 	void NoOperation();
 	/**
@@ -99,10 +99,10 @@ private:
 
 	int m_PrevMapLeftDirectionPosition;//前フレームのm_MapLeftDirectionPositionの値
 	int m_PrevMapRightDirectionPosition;//前フレームのm_MapRightDirectionPositionの値
-	int m_PrevMapCharaPositionY;//前フレームのm_MapCharaPositionYの値
+	int m_PrevMapCharaPositionY;//前フレームのm_MapPositionYの値
 	int m_MapLeftDirectionPosition;//キャラの左側のX座標
 	int m_MapRightDirectionPosition;//キャラの右側のX座標
-	int m_MapCharaPositionY;//キャラの上側のx座標
+	int m_MapPositionY;//キャラの上側のx座標
 
 	const float GRAVITY = 15.f;//毎フレームかける重力の値
 	const float MOVE_SPEED = 15.f;

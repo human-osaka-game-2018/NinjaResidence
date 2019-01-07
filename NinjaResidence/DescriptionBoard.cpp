@@ -22,7 +22,7 @@ void DescriptionBoard::GoDescriptionBoard(Object * m_pBusyMapChip)
 {
 	m_pMapChip = m_pBusyMapChip;
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
-	int MapPosiinonY = m_pGameChara->GetMapCharaPositionY();
+	int MapPosiinonY = m_pGameChara->GetMapPositionY();
 	if ((m_pMapChip->getMapChipData(MapPosiinonY - 5, MapPosiinonX) == DESCRIPTION_BOARD) ||
 		(m_pMapChip->getMapChipData(MapPosiinonY - 5, MapPosiinonX + 1) == DESCRIPTION_BOARD) ||
 		(m_pMapChip->getMapChipData(MapPosiinonY - 5, MapPosiinonX + 2) == DESCRIPTION_BOARD) ||
