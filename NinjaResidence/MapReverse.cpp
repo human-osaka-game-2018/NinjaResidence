@@ -33,6 +33,7 @@ void MapReverse::GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip)
 		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
 		(*m_pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
 	{
+
 		Object* Mapbuf;
 		Mapbuf = (*m_pBusyMapChip);
 		*m_pBusyMapChip = *m_pIdleMapChip;

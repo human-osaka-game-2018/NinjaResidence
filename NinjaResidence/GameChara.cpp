@@ -138,8 +138,8 @@ void GameChara::CharaMoveOperation(KeyInput vec)
 		m_Bias = ZERO;
 		for (int i = 0;i < 4;i++)
 		{
-			m_WorldCharaCoordinate[i].x += CharaMoveSpeed;
-			m_DisplayCharaCoordinate[i].x += CharaMoveSpeed;
+			m_WorldCharaCoordinate[i].x += MOVE_SPEED;
+			m_DisplayCharaCoordinate[i].x += MOVE_SPEED;
 		}
 		break;
 	case MOVE_LEFT:
@@ -149,8 +149,8 @@ void GameChara::CharaMoveOperation(KeyInput vec)
 		m_Bias = ONE;
 		for (int i = 0;i < 4;i++)
 		{
-			m_WorldCharaCoordinate[i].x -= CharaMoveSpeed;
-			m_DisplayCharaCoordinate[i].x -= CharaMoveSpeed;
+			m_WorldCharaCoordinate[i].x -= MOVE_SPEED;
+			m_DisplayCharaCoordinate[i].x -= MOVE_SPEED;
 		}
 		break;
 	}
@@ -235,11 +235,11 @@ void GameChara::MapReversePointSearch(int BlockNumber)
 				m_WorldCharaCoordinate[3].y = (i * CELL_SIZE);
 				for (int i = 0;i < 4;i++)
 				{
-					m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+					m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 				}
 				for (int i = 0;i < 4;i++)
 				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_pMapChip->m_MapScrollX;
+					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
 				}
 			}
 		}
@@ -265,7 +265,7 @@ void GameChara::MapScroolCheck()
 {
 	//キャラ当たり判定が2段の地面の間に吸われている
 	if (m_pMapChip->RestrictBottomScroll()){
-		m_pMapChip->m_MapScrollY += VerticalScrollingLevel;
+		m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
 		m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
 		m_WorldCharaCoordinate[1].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
 		m_WorldCharaCoordinate[2].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Player.scale_y;
@@ -282,11 +282,11 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeDown - m_Player.scale_y);
 		m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeDown);
 		m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeDown);
-		m_pMapChip->m_MapScrollY -= VerticalScrollingLevel;
+		m_MapScrollY -= (VERTICAL_SCROLLING_LEVEL + GravityAcceleration * 2);
 		
-		m_isScrollingDown = true;
+		//m_isScrollingDown = true;
 	}
-	else m_isScrollingDown = false;
+	//else m_isScrollingDown = false;
 	//上にスクロール移動
 	if (m_DisplayCharaCoordinate[1].y < DisplayCharMoveScopeUp)
 	{
@@ -296,7 +296,7 @@ void GameChara::MapScroolCheck()
 			m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeUp);
 			m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
 			m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
-			m_pMapChip->m_MapScrollY += CharaMoveSpeed;
+			m_MapScrollY += MOVE_SPEED * 2;
 		}
 	}
 
@@ -309,7 +309,7 @@ void GameChara::MapScroolCheck()
 			m_DisplayCharaCoordinate[1].x = (DisplayCharMoveScopeRight);
 			m_DisplayCharaCoordinate[2].x = (DisplayCharMoveScopeRight);
 			m_DisplayCharaCoordinate[3].x = (DisplayCharMoveScopeRight - m_Player.scale_x);
-			m_pMapChip->m_MapScrollX -= CharaMoveSpeed;
+			m_MapScrollX -= MOVE_SPEED;
 		}
 	}
 	//左にスクロール移動
@@ -321,7 +321,7 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[1].x = (DisplayCharMoveScopeLeft + m_Player.scale_x);
 		m_DisplayCharaCoordinate[2].x = (DisplayCharMoveScopeLeft + m_Player.scale_x);
 		m_DisplayCharaCoordinate[3].x = (DisplayCharMoveScopeLeft);
-		m_pMapChip->m_MapScrollX += CharaMoveSpeed;
+		m_MapScrollX += MOVE_SPEED;
 		}
 	}
 
@@ -369,14 +369,14 @@ void GameChara::Update()
 		m_WorldCharaCoordinate[3].y = ((m_MapCharaPositionY)* CELL_SIZE);
 		for (int i = 0; i < 4; i++)
 		{
-			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 		}
 		//2段ある地面にめり込んだときの復帰処理
 		if (m_pMapChip->getMapChipData(m_MapCharaPositionY - 1, m_MapLeftDirectionPosition + 1) != NONE) {
 			for (int i = 0; i < 4; i++)
 			{
 				m_WorldCharaCoordinate[i].y -= CELL_SIZE;
-				m_DisplayCharaCoordinate[i].y -= m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+				m_DisplayCharaCoordinate[i].y -= m_WorldCharaCoordinate[i].y + m_MapScrollY;
 			}
 
 		}
@@ -396,7 +396,7 @@ void GameChara::Update()
 			m_WorldCharaCoordinate[3].y = ((m_MapCharaPositionY + 1) * CELL_SIZE);
 			for (int i = 0; i < 4; i++)
 			{
-				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 			}
 		}
 	}
@@ -416,7 +416,7 @@ void GameChara::Update()
 				m_WorldCharaCoordinate[3].x = ((m_MapLeftDirectionPosition + 1) * CELL_SIZE);
 				for (int i = 0; i < 4; i++)
 				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_pMapChip->m_MapScrollX;
+					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
 				}
 			}
 		}
@@ -437,7 +437,7 @@ void GameChara::Update()
 				m_WorldCharaCoordinate[3].x = ((m_MapRightDirectionPosition - 2) * CELL_SIZE) - 1;
 				for (int i = 0; i < 4; i++)
 				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_pMapChip->m_MapScrollX - 1;
+					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX - 1;
 				}
 			}
 		}
@@ -536,28 +536,34 @@ void GameChara::Render()
 
 void GameChara::AddGravity() {
 	//重力を毎フレームかける
-	if (m_isScrollingDown) {
-		for (int i = 0; i < 4; i++)
-		{
-			if (/*m_DisplayCharaCoordinate[3].y < */DisplayCharMoveScopeDown) {
-				m_WorldCharaCoordinate[i].y += VerticalScrollingLevel;
-			}
-			m_DisplayCharaCoordinate[i].y += VerticalScrollingLevel;
-		}
-		return;
+	//if (m_isScrollingDown) {
+	//	for (int i = 0; i < 4; i++)
+	//	{
+	//		if (/*m_DisplayCharaCoordinate[3].y < */DisplayCharMoveScopeDown) {
+	//			m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
+	//		}
+	//		m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
+	//	}
+	//	return;
+	//}
+	if (!DownCollisionAnything())
+	{
+		GravityAcceleration += 0.1f;
 	}
+	else GravityAcceleration = 0;
+
 	for (int i = 0; i < 4; i++)
 	{
-		m_WorldCharaCoordinate[i].y += Gravity;
-		m_DisplayCharaCoordinate[i].y += Gravity;
+		m_WorldCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
+		m_DisplayCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 	}
 }
 
 void GameChara::DebugMove() {
 	for (int i = 0; i < 4; i++)
 	{
-		m_WorldCharaCoordinate[i].y -= CharaMoveSpeed * 1.5f;
-		m_DisplayCharaCoordinate[i].y -= CharaMoveSpeed * 1.5f;
+		m_WorldCharaCoordinate[i].y -= MOVE_SPEED * 1.5f;
+		m_DisplayCharaCoordinate[i].y -= MOVE_SPEED * 1.5f;
 	}
 }
 

@@ -101,11 +101,12 @@ private:
 	int m_MapLeftDirectionPosition;//キャラの左側のX座標
 	int m_MapRightDirectionPosition;//キャラの右側のX座標
 	int m_MapCharaPositionY;//キャラの上側のx座標
-	const float Gravity = 15.f;//毎フレームかける重力の値
-	const float CharaMoveSpeed = 15.f;
-	const float VerticalScrollingLevel = 5.f;
 
-	const int DisplayCharMoveScopeUp = 100;//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
+	const float GRAVITY = 15.f;//毎フレームかける重力の値
+	const float MOVE_SPEED = 15.f;
+	const float VERTICAL_SCROLLING_LEVEL = 12.f;
+
+	const int DisplayCharMoveScopeUp = 150;//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
 	const int DisplayCharMoveScopeDown = 630;//m_DisplayCharaCoordinateのY座標がこの値を超えると上にスクロールする
 	const int DisplayCharMoveScopeLeft = 300;//m_DisplayCharaCoordinateのX座標がこの値を下回ると左にスクロールする
 	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
@@ -119,6 +120,7 @@ private:
 	Object* m_pMapChip = NULL;
 	float CharTu = 80 / 512.f;
 	float CharTv = 160 / 512.f;
+	float GravityAcceleration = 0;
 
 
 	//仮統合ファイルの切り取り情報
@@ -145,7 +147,7 @@ private:
 
 	const float InitialAcceleration = 60.0f;
 	float m_AccelerationY = InitialAcceleration;
-	float m_AccelerationX = CharaMoveSpeed * 1.5f;
+	float m_AccelerationX = MOVE_SPEED * 1.5f;
 
 
 	void CharaMoveOperation(KeyInput vec);
