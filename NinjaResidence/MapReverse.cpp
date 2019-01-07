@@ -27,7 +27,7 @@ MapReverse::~MapReverse()
 void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 {
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
-	int MapPosiinonY = m_pGameChara->GetMapCharaPositionY();
+	int MapPosiinonY = m_pGameChara->GetMapPositionY();
 	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
 		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||

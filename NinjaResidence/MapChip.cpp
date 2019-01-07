@@ -13,11 +13,13 @@ int MapChip::m_TargetCount = 0;
 int MapChip::m_GimmickCount = 0;
 
 vector<BaseTarget*> MapChip::pBaseTarget;
-vector<BlockInf> MapChip::GimmickVector;
-vector<BlockInf> MapChip::TargetVector;
+vector<BlockInfo> MapChip::GimmickVector;
+vector<BlockInfo> MapChip::TargetVector;
 
 MapChip::MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX,pSoundOperater)
 {
+	m_TargetCount = 0;
+	m_GimmickCount = 0;
 	CellInit();
 }
 
@@ -30,11 +32,14 @@ MapChip::~MapChip()
 	}
 	MapData.clear();
 	vector<vector<int>>().swap(MapData);
-	for (int i = 1 - pBaseTarget.size(); i >= 0; --i)
+	GimmickVector.clear();
+	TargetVector.clear();
+	for (int i = (pBaseTarget.size() - 1); i >= 0; --i)
 	{
 		delete pBaseTarget[i];
 		pBaseTarget[i] = NULL;
 	}
+	pBaseTarget.clear();
 }
 
 void MapChip::Create(const char *filename, MapDataState MapState)
@@ -64,7 +69,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 
 	while ((c = getc(fp)) != EOF || y < m_colunm)
 	{
-		BlockInf block;
+		BlockInfo block;
 		if (isdigit(c))
 		{
 			data[i] = (char)c;
@@ -117,27 +122,27 @@ void MapChip::CheckVector()
 		for (int j = 0;j < m_GimmickCount;j++)
 		{
 			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
-			int Type = TargetVector[i].m_type;
+			int Type = TargetVector[i].Type;
 			switch (Type)
 			{
 			case 1://“I
-				if (GimmickVector[j].m_type == 4)
+				if (GimmickVector[j].Type == 4)
 				{
 					for (int a = 0;a < 3;a++)
 					{
 						for (int i = 1;i < 15;i++)
 						{
-							MapData[GimmickVector[j].m_y + i][GimmickVector[j].m_x + a] = 900;
+							MapData[GimmickVector[j].PositionY + i][GimmickVector[j].PositionX + a] = 900;
 						}
 					}
 				}
-				if (GimmickVector[j].m_type == 6)
+				if (GimmickVector[j].Type == 6)
 				{
 					for (int a = 0;a < 2;a++)
 					{
 						for (int i = 1;i < 2;i++)
 						{
-							MapData[GimmickVector[j].m_y + i][GimmickVector[j].m_x + a] = 900;
+							MapData[GimmickVector[j].PositionY + i][GimmickVector[j].PositionX + a] = 900;
 						}
 					}
 				}
@@ -156,13 +161,11 @@ void MapChip::CheckVector()
 }
 
 
-void MapChip::Activate()
+void MapChip::Activate(int X, int Y)
 {
 	for (auto& ite : pBaseTarget)
 	{
-		int CharaPosX = getm_CharaX();
-		int CharaPosY = getm_CharaY();
-		if (CharaPosX == ite->GetTargetInfo()->m_x && CharaPosY == ite->GetTargetInfo()->m_y)
+		if (X == ite->GetTargetInfo()->PositionX && Y == ite->GetTargetInfo()->PositionY)
 		{
 			ite->ActivateTarget();
 		}
@@ -295,13 +298,15 @@ void MapChip::Render(bool MapDataReverse)
 					CELL[2].tv = 400.f / 512.f;
 					CELL[3].tv = 400.f / 512.f;
 					break;
+				default:
+					continue;
 				}
 				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 			}
 			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
-	
+
 	for (BaseTarget* pi : pBaseTarget)
 	{
 		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse,CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", CELL);

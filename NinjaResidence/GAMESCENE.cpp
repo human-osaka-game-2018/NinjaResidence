@@ -250,7 +250,7 @@ void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
-	//m_pShuriken->Reverse(m_pBusyMapChip);
+	m_pShuriken->Reverse(m_pBusyMapChip);
 }
 
 void GameScene::SkillsUpdate() {

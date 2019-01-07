@@ -1,10 +1,10 @@
 #include "BaseTarget.h"
 #include "TargetandGimmickType.h"
 
-BaseTarget::BaseTarget(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX)
-	:TargetIfno(Target), GimmickInfo(Gimmick), m_pDirectX(pDirectX)
+BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
+	:m_TargetInfo(Target), m_GimmickInfo(Gimmick), m_pDirectX(pDirectX)
 {
-	switch (GimmickInfo.m_type)
+	switch (m_GimmickInfo.Type)
 	{
 	case BT_PARTITIONBOARD:
 		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX);

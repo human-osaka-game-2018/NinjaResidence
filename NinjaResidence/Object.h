@@ -38,7 +38,7 @@ public:
 	virtual void Render() {};
 	virtual void Render(bool MapDataReverse);
 	virtual void prevSaveMapCharaPos() {};
-
+	virtual void Activate(int X,int Y) {};
 	/*
 	* @brief テクスチャの貼り付け
 	* @param TextureKey テクスチャキー
@@ -108,24 +108,11 @@ public:
 	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
 	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
 
-	virtual void Reverse() {};
+	virtual void Reverse(Object* MapChip) {};
 	virtual bool GetActive() { return false; };
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
-	void GameCharaInfo(int CharaX, int CharaY);
-
-	int getm_CharaX()
-	{
-		return m_CharaX;
-	}
-	int getm_CharaY()
-	{
-		return m_CharaY;
-	}
-
-	int m_CharaX;
-	int m_CharaY;
 
 protected:
 	DirectX* m_pDirectX = NULL;

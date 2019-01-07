@@ -98,10 +98,18 @@ void Shuriken::Update()
 	}
 	m_Shuriken.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg));
 	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg));
+	m_MapPositionX = static_cast<int>((m_Shuriken.x - m_MapScrollX )/ CELL_SIZE);
+	m_MapPositionY = static_cast<int>((m_Shuriken.y - m_MapScrollY) / CELL_SIZE);
 	if (m_Shuriken.x < 0 || m_Shuriken.x > DISPLAY_WIDTH) {
 		InitPosition();
 	}
-	if (m_Shuriken.y < 0 || m_Shuriken.y > DISPLAY_HEIGHT) {
+	if (m_MapPositionY == 0 || m_Shuriken.y < 0 || m_Shuriken.y > DISPLAY_HEIGHT) {
+		InitPosition();
+	}
+	int buf = 0;
+	if (buf = m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	{
+		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
 

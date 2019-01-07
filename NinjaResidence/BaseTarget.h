@@ -11,17 +11,21 @@
 
 class BaseTarget
 {
-protected:
-	BaseGimmick* m_pBaseGimmick = NULL;
-	DirectX* m_pDirectX = NULL;
-	BlockInf TargetIfno;
-	BlockInf GimmickInfo;
 public:
-	BlockInf* GetTargetInfo() { return &TargetIfno; }
+	BlockInfo* GetTargetInfo() { return &m_TargetInfo; }
 	void Activate();
 	virtual void ActivateTarget() = 0;
 	void ActivateGimmick();
 	virtual void Render(int MapScrollY, int MapScrollX,bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize) = 0;
-	BaseTarget(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX);
+	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseTarget();
+protected:
+	BaseGimmick * m_pBaseGimmick = NULL;
+	DirectX* m_pDirectX = NULL;
+	BlockInfo m_TargetInfo;
+	BlockInfo m_GimmickInfo;
+
+	int m_TargetPosX;
+	int m_TargetPosY;
+
 };
