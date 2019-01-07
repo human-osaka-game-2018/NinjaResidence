@@ -89,8 +89,6 @@ public:
 	int getMapCharaPositionY() {
 		return MapCharaPosition.Y;
 	};
-	int m_MapScrollX = 0;
-	int m_MapScrollY = 0;
 
 	void setMapScrollX(int x){};
 	void setMapScrollY(int y){};
@@ -116,6 +114,9 @@ public:
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
+
+	static int m_MapScrollX;
+	static int m_MapScrollY;
 
 	std::vector< std::vector<int> > MapData;
 	

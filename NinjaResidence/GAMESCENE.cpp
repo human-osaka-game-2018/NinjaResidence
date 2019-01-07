@@ -100,16 +100,6 @@ void GameScene::KeyOperation() {
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_SPACE))
 	{
-		//à–¾ŠÅ”Â‚ð“Ç‚Þ
-		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
-			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
-		{
-			m_pDescriptionBoard->DescriptionNumberdecision = m_pDescriptionBoard->NONE;
-		}
-		else
-		{
-			m_pDescriptionBoard->GoDescriptionBoard(m_pBusyMapChip);
-		}
 	}
 
 	if (m_pXinputDevice->GetButton(ButtonUP))
@@ -131,6 +121,17 @@ void GameScene::KeyOperation() {
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		Reverse();
+		//à–¾ŠÅ”Â‚ð“Ç‚Þ
+		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
+			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
+		{
+			m_pDescriptionBoard->DescriptionNumberdecision = m_pDescriptionBoard->NONE;
+		}
+		else
+		{
+			m_pDescriptionBoard->GoDescriptionBoard(m_pBusyMapChip);
+		}
+
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_TAB) || PadRelease == m_pXinputDevice->GetButton(ButtonStart))
 	{
