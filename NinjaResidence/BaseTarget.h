@@ -1,10 +1,11 @@
 #pragma once
 
-#include <windows.h>
 #include "BaseGimmick.h"
+
 #include "PartitionBoard.h"
 #include "Water.h"
 #include "FallRock.h"
+
 #include "DirectX.h"
 
 

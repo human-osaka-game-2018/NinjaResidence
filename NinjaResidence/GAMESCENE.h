@@ -13,6 +13,9 @@
 #include "DescriptionBoard.h"
 #include "PauseScene.h"
 #include "Target.h"
+#include "Rope.h"
+#include "Switch.h"
+
 #include <algorithm>
 
 #define _CRTDBG_MAP_ALLOC
