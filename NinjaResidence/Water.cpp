@@ -18,41 +18,37 @@ void Water::Activate()
 
 }
 
-void Water::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize)
+void Water::Render(int MapScrollY, int MapScrollX, bool MapDataReverse)
 {
 	m_GimmickPosX = m_GimmickInfo.PositionX;
 	m_GimmickPosY = m_GimmickInfo.PositionY;
-	WaterSIZE[0] = TextureSize[0];
-	WaterSIZE[1] = TextureSize[1];
-	WaterSIZE[2] = TextureSize[2];
-	WaterSIZE[3] = TextureSize[3];
 
-	if (flag == false)
+	if (m_isActive == false)
 	{
 		WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
 		WorldPosTop = (CELL_SIZE * m_GimmickPosY);
 		WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 1));
 		WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 1));
-		flag = true;
+		m_isActive = true;
 	}
 
-	TextureSize[0].x = WorldPosLeft + MapScrollX;
-	TextureSize[0].y = WorldPosTop + MapScrollY;
-	TextureSize[1].x = WorldPosRight + MapScrollX;
-	TextureSize[1].y = WorldPosTop + MapScrollY;
-	TextureSize[2].x = WorldPosRight + MapScrollX;
-	TextureSize[2].y = WorldPosBottom + MapScrollY;
-	TextureSize[3].x = WorldPosLeft + MapScrollX;
-	TextureSize[3].y = WorldPosBottom + MapScrollY;
+	GimmickVertex[0].x = WorldPosLeft + MapScrollX;
+	GimmickVertex[0].y = WorldPosTop + MapScrollY;
+	GimmickVertex[1].x = WorldPosRight + MapScrollX;
+	GimmickVertex[1].y = WorldPosTop + MapScrollY;
+	GimmickVertex[2].x = WorldPosRight + MapScrollX;
+	GimmickVertex[2].y = WorldPosBottom + MapScrollY;
+	GimmickVertex[3].x = WorldPosLeft + MapScrollX;
+	GimmickVertex[3].y = WorldPosBottom + MapScrollY;
 
-	TextureSize[0].tu = 240.0f / 512.0f;
-	TextureSize[1].tu = 320.0f / 512.0f;
-	TextureSize[2].tu = 320.0f / 512.0f;
-	TextureSize[3].tu = 240.0f / 512.0f;
+	GimmickVertex[0].tu = 240.0f / 512.0f;
+	GimmickVertex[1].tu = 320.0f / 512.0f;
+	GimmickVertex[2].tu = 320.0f / 512.0f;
+	GimmickVertex[3].tu = 240.0f / 512.0f;
 
-	TextureSize[0].tv = 80.0f / 512.0f;
-	TextureSize[1].tv = 80.0f / 512.0f;
-	TextureSize[2].tv = 160.0f / 512.0f;
-	TextureSize[3].tv = 160.0f / 512.0f;
-	m_pDirectX->DrawTexture(TextureKey, TextureSize);
+	GimmickVertex[0].tv = 80.0f / 512.0f;
+	GimmickVertex[1].tv = 80.0f / 512.0f;
+	GimmickVertex[2].tv = 160.0f / 512.0f;
+	GimmickVertex[3].tv = 160.0f / 512.0f;
+	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", GimmickVertex);
 }

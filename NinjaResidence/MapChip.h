@@ -7,7 +7,7 @@
 
 #include "GAMESCENE.h"
 #include "Object.h"
-#include "BlockInf.h"
+#include "BlockInfo.h"
 #include "MapBlock.h"
 
 class BaseTarget;

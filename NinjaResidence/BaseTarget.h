@@ -5,7 +5,6 @@
 #include "PartitionBoard.h"
 #include "Water.h"
 #include "FallRock.h"
-#include "BlockInf.h"
 #include "DirectX.h"
 
 
@@ -16,7 +15,7 @@ public:
 	void Activate();
 	virtual void ActivateTarget() = 0;
 	void ActivateGimmick();
-	virtual void Render(int MapScrollY, int MapScrollX,bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize) = 0;
+	virtual void Render(int MapScrollY, int MapScrollX,bool MapDataReverse) = 0;
 	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseTarget();
 protected:
@@ -24,8 +23,10 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	BlockInfo m_TargetInfo;
 	BlockInfo m_GimmickInfo;
+	CUSTOMVERTEX TargetVertex[4];
 
 	int m_TargetPosX;
 	int m_TargetPosY;
+	bool m_isSwitchedOn = false;
 
 };

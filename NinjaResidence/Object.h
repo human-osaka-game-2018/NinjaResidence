@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "SCENE.h"
-#include "BlockInf.h"
+#include "BlockInfo.h"
 
 
 enum KeyDirection
@@ -128,7 +128,6 @@ protected:
 	//!—ñ
 	int m_colunm = 0;
 
-	const float CELL_SIZE = 40.f;
 	static const int ArrayLong = 64;
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
