@@ -16,10 +16,8 @@ class GameScene;
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
-#define FIELD_LEFT 0
-#define FIELD_TOP  0 
-#define BLOCK_WIDTH  80.0f/512
-#define BLOCK_HEIGHT 80.0f/512
+#define FIELD_LEFT 0.f
+#define FIELD_TOP  0.f
 
 
 
