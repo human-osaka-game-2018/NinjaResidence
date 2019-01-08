@@ -44,6 +44,7 @@ MapChip::~MapChip()
 
 void MapChip::Create(const char *filename, MapDataState MapState)
 {
+	m_MapDataState = MapState;
 	const int mapMaxWidth = 256;
 	FILE *fp = NULL;
 	char data[4];
@@ -171,7 +172,7 @@ void MapChip::Activate(int X, int Y)
 }
 
 
-void MapChip::Render(bool MapDataReverse)
+void MapChip::Render()
 {
 	for (int j = 0; j < m_colunm;j++)
 	{
@@ -306,7 +307,7 @@ void MapChip::Render(bool MapDataReverse)
 	}
 	for (BaseTarget* pi : pBaseTarget)
 	{
-		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse);
+		pi->Render(m_MapScrollY, m_MapScrollX, m_MapDataState);
 	}
 	
 #ifdef _DEBUG
@@ -322,6 +323,11 @@ void MapChip::Update() {
 	if (m_MapScrollY > 0) {
 		m_MapScrollY = 0;
 	}
+	for (auto& ite : pBaseTarget)
+	{
+		ite->Update();
+	}
+
 }
 
 bool MapChip::RestrictBottomScroll() {

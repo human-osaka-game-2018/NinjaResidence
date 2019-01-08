@@ -39,12 +39,14 @@ public:
 	void Activate(int X, int Y);
 	void Create(const char *filename, MapDataState MapState);
 	void CheckVector();
-	void Render(bool MapDataReverse);
+	void Render();
 	void Update();
 	bool RestrictBottomScroll();
 	float GetBottomPoint(int charaLeft, int charRight);
 	float GetBottomWorldPoint(int charaLeft, int charRight);
-
+	MapDataState GetMapDataState() {
+		return m_MapDataState;
+	}
 private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;
@@ -53,4 +55,5 @@ private:
 	void CellInit();
 	static int m_TargetCount;
 	static int m_GimmickCount;
+	MapDataState m_MapDataState;
 };
