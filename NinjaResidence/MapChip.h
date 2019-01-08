@@ -7,8 +7,6 @@
 
 #include "GAMESCENE.h"
 #include "Object.h"
-#include "BlockInfo.h"
-#include "MapBlock.h"
 
 class BaseTarget;
 class GameScene;
@@ -40,13 +38,16 @@ public:
 	void Create(const char *filename, MapDataState MapState);
 	void CheckVector();
 	void Render();
-	void Update();
+	bool Update();
 	bool RestrictBottomScroll();
 	float GetBottomPoint(int charaLeft, int charRight);
 	float GetBottomWorldPoint(int charaLeft, int charRight);
 	MapDataState GetMapDataState() {
 		return m_MapDataState;
 	}
+	int SerchBlockX(MapBlock::BLOCKTYPE Block);
+	int SerchBlockY(MapBlock::BLOCKTYPE Block);
+
 private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;

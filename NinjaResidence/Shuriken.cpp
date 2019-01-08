@@ -85,7 +85,7 @@ void Shuriken::InitPosition() {
 	m_DirectionDeg = 0;
 }
 
-void Shuriken::Update()
+bool Shuriken::Update()
 {
 	if (m_isChoseDeg) {
 		m_DirectionArrow.x = m_pGameChara->GetPositionX() + m_Direction * CELL_SIZE * 2;
@@ -94,7 +94,7 @@ void Shuriken::Update()
 	}
 
 	if (!m_isActive) {
-		return;
+		return true;
 	}
 	m_Shuriken.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg));
 	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg));
@@ -112,7 +112,7 @@ void Shuriken::Update()
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
-
+	return true;
 }
 
 

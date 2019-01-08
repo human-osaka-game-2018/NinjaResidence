@@ -19,7 +19,7 @@ class TitleCursol :public Object
 {
 public:
 	void KeyOperation(KeyDirection vec);
-	void Update();
+	bool Update();
 	void Render();
 	Cursol::CursolPosition getCursolPosition();
 	TitleCursol(DirectX* pDirectX, SoundOperater* pSoundOperater);

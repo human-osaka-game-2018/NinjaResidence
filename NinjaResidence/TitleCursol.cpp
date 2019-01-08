@@ -18,7 +18,7 @@ TitleCursol::~TitleCursol()
 
 }
 
-void TitleCursol::Update() {
+bool TitleCursol::Update() {
 	//数値は仮
 	switch (m_CursolPos) {
 	case START:
@@ -31,7 +31,7 @@ void TitleCursol::Update() {
 		m_Cursol.y = 570;
 		break;
 	}
-
+	return true;
 }
 void TitleCursol::Render()
 {

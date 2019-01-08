@@ -67,7 +67,9 @@ private:
 	void SkillsUpdate();
 	void SkillStart();
 	void SkillKeyOperation(KeyDirection vec);
+	void ClearAnime();
 	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
 	bool RunPause = false;
+	bool m_isClear = false;
 };

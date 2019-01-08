@@ -246,8 +246,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case ROCK_BLOCK:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -256,8 +256,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case WOOD_TRACT:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -266,8 +266,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case ROCK_TRACT:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -276,8 +276,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case WOOD_REVERSE_ZONE:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -286,8 +286,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case ROCK_REVERSE_ZONE:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -296,8 +296,8 @@ void MapChip::Render()
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case DESCRIPTION_BOARD:
 					CELL[0].tu = 0.f;
@@ -306,8 +306,8 @@ void MapChip::Render()
 					CELL[2].tu = 0.24f;
 					CELL[0].tv = 0.16f;
 					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
 					CELL[1].x += 120.f;
 					CELL[2].x += 120.f;
 					CELL[3].y += 80.f;
@@ -320,8 +320,8 @@ void MapChip::Render()
 					CELL[2].tu = 0.24f;
 					CELL[0].tv = 0.16f;
 					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
 					CELL[1].x += 120.f;
 					CELL[2].x += 120.f;
 					CELL[3].y += 80.f;
@@ -332,10 +332,10 @@ void MapChip::Render()
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
 					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[0].tv = BLOCK_INTEGRATION_WIDTH * 4;
-					CELL[1].tv = BLOCK_INTEGRATION_WIDTH * 4;
-					CELL[2].tv = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[3].tv = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 4;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 4;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
 					break;
 				default:
 					continue;
@@ -359,7 +359,7 @@ void MapChip::Render()
 #endif
 }
 
-void MapChip::Update() {
+bool MapChip::Update() {
 	if (m_MapScrollY > 0) {
 		m_MapScrollY = 0;
 	}
@@ -367,7 +367,7 @@ void MapChip::Update() {
 	{
 		ite->Update();
 	}
-
+	return true;
 }
 
 bool MapChip::RestrictBottomScroll() {
@@ -417,3 +417,30 @@ void MapChip::CellInit() {
 	CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 
 }
+
+int MapChip::SerchBlockX(BLOCKTYPE Block) {
+	for (int j = 0; j < m_colunm; j++)
+	{
+		for (int i = 0; i < m_row; i++)
+		{
+			if (MapData[j][i] == Block)
+			{
+				return i;
+			}
+		}
+	}
+}
+
+int MapChip::SerchBlockY(BLOCKTYPE Block) {
+	for (int j = 0; j < m_colunm; j++)
+	{
+		for (int i = 0; i < m_row; i++)
+		{
+			if (MapData[j][i] == Block)
+			{
+				return j;
+			}
+		}
+	}
+}
+

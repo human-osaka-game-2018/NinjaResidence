@@ -42,10 +42,10 @@ void Switch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
 		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
 
-		m_TargetVertex[0].tu = 0;
-		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
-		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
-		m_TargetVertex[3].tu = 0;
+		m_TargetVertex[0].tu = BLOCK_INTEGRATION_WIDTH*4;
+		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH*5;
+		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH*5;
+		m_TargetVertex[3].tu = BLOCK_INTEGRATION_WIDTH*4;
 
 		m_TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
 		m_TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;

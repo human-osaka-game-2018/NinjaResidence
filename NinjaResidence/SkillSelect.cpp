@@ -5,7 +5,6 @@
 */
 
 #include "SkillSelect.h"
-#define BLOCK_WIDTH  80.0f/512
 
 SkillSelect::SkillSelect(DirectX* pDirectX, SoundOperater* pSoundOperater, bool* m_EnableSkill) :Object(pDirectX, pSoundOperater), m_EnableSkill(m_EnableSkill)
 {
@@ -17,7 +16,7 @@ SkillSelect::~SkillSelect()
 
 }
 
-void SkillSelect::Update() {
+bool SkillSelect::Update() {
 	switch (m_SkillNum) {
 	case SHURIKEN:
 		m_SkillTexKey = "CROSS_TEX";
@@ -36,11 +35,12 @@ void SkillSelect::Update() {
 		m_Color = 0xFF00FFFF;
 		break;
 	}
+	return true;
 }
 void SkillSelect::Render()
 {
 	CUSTOMVERTEX UIVertex[4];
-	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0, BLOCK_WIDTH, BLOCK_WIDTH*1.5, BLOCK_WIDTH);
+	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT*1.5, BLOCK_INTEGRATION_HEIGHT);
 	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
 	CUSTOMVERTEX SkillVertex[4];

@@ -25,8 +25,9 @@ void Object::KeyOperation()
 }
 
 
-void Object::Update()
+bool Object::Update()
 {
+	return true;
 }
 
 

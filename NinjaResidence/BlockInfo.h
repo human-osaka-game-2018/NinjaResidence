@@ -2,6 +2,7 @@
 //Œp³ŠÖŒW‚Å–Ê“|‚È‚½‚ß‰¼’u‚«A‚¢‚¢’u‚«•û‚ ‚ê‚Î‹³‚¦‚Ä‚Ù‚µ‚¢
 const float CELL_SIZE = 40.f;
 const float BLOCK_INTEGRATION_WIDTH = 80.0f / 512.0f;
+const float BLOCK_INTEGRATION_HEIGHT = 80.0f / 1024.0f;
 
 enum MapDataState
 {

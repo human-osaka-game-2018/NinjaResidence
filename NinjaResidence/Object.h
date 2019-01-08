@@ -8,6 +8,7 @@
 
 #include "SCENE.h"
 #include "BlockInfo.h"
+#include "MapBlock.h"
 
 
 enum KeyDirection
@@ -34,7 +35,8 @@ public:
 	virtual void KeyOperation();
 	virtual void KeyOperation(KeyDirection vec) {};
 
-	virtual void Update();
+	virtual bool Update();
+
 	virtual void Render() {};
 	virtual void Render(bool MapDataReverse);
 	virtual void prevSaveMapCharaPos() {};
@@ -113,6 +115,8 @@ public:
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
+	virtual int SerchBlockX(MapBlock::BLOCKTYPE Block) {return 0;}
+	virtual int SerchBlockY(MapBlock::BLOCKTYPE Block) {return 0;}
 
 protected:
 	DirectX* m_pDirectX = NULL;
