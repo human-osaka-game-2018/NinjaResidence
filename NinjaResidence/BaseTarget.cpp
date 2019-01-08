@@ -6,6 +6,7 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 {
 	for (int i = 0; i < 4; ++i) {
 		m_TargetVertex[i].color = 0xFFFFFFFF;
+		m_TargetVertex[i].rhw = 1;
 	}
 
 	switch (m_GimmickInfo.GimmickType)

@@ -363,7 +363,7 @@ bool MapChip::Update() {
 	if (m_MapScrollY > 0) {
 		m_MapScrollY = 0;
 	}
-	for (auto& ite : pBaseTarget)
+	for (auto ite : pBaseTarget)
 	{
 		ite->Update();
 	}
