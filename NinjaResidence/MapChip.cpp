@@ -182,8 +182,8 @@ void MapChip::Render(bool MapDataReverse)
 				continue;
 			}
 			CellInit();
-			int top = FIELD_TOP + (CELL_SIZE * j) + m_MapScrollY;
-			int left = FIELD_LEFT + (CELL_SIZE * i) + m_MapScrollX;
+			float top = FIELD_TOP + (CELL_SIZE * j) + static_cast<float>(m_MapScrollY);
+			float left = FIELD_LEFT + (CELL_SIZE * i) + static_cast<float>(m_MapScrollX);
 			CELL[0].x = left;
 			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
@@ -304,7 +304,6 @@ void MapChip::Render(bool MapDataReverse)
 			//TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
-	CUSTOMVERTEX HOGE[4];
 	for (BaseTarget* pi : pBaseTarget)
 	{
 		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse);

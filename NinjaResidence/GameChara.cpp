@@ -63,7 +63,7 @@ void GameChara::Jump()
 		m_DisplayCharaCoordinate[i].y -= m_AccelerationY;
 		m_WorldCharaCoordinate[i].y -= m_AccelerationY;
 	}
-	m_MapPositionY = (int)(m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE;
+	m_MapPositionY = static_cast<int>(m_WorldCharaCoordinate[3].y + 10 / CELL_SIZE);
 	m_ChangeAnimation = JUMPING;
 	if (m_RiseFlameTime < 15) {
 		m_RiseFlameTime++;
@@ -295,52 +295,52 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Player.scale_y;
 	}
 	//下にスクロール移動
-	else if (m_DisplayCharaCoordinate[3].y > DisplayCharMoveScopeDown)
+	else if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
 	{
-		m_DisplayCharaCoordinate[0].y = (DisplayCharMoveScopeDown - m_Player.scale_y);
-		m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeDown - m_Player.scale_y);
-		m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeDown);
-		m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeDown);
-		m_MapScrollY -= (VERTICAL_SCROLLING_LEVEL + GravityAcceleration * 2);
+		m_DisplayCharaCoordinate[0].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Player.scale_y);
+		m_DisplayCharaCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Player.scale_y);
+		m_DisplayCharaCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeDown));
+		m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
+		m_pMapChip->m_MapScrollY -= VerticalScrollingLevel;
 		
-		//m_isScrollingDown = true;
+		m_isScrollingDown = true;
 	}
-	//else m_isScrollingDown = false;
+	else m_isScrollingDown = false;
 	//上にスクロール移動
-	if (m_DisplayCharaCoordinate[1].y < DisplayCharMoveScopeUp)
+	if (m_DisplayCharaCoordinate[1].y < static_cast<float>(DisplayCharMoveScopeUp))
 	{
-		if (m_WorldCharaCoordinate[0].y >= DisplayCharMoveScopeUp)
+		if (m_WorldCharaCoordinate[0].y >= static_cast<float>(DisplayCharMoveScopeUp))
 		{
-			m_DisplayCharaCoordinate[0].y = (DisplayCharMoveScopeUp);
-			m_DisplayCharaCoordinate[1].y = (DisplayCharMoveScopeUp);
-			m_DisplayCharaCoordinate[2].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
-			m_DisplayCharaCoordinate[3].y = (DisplayCharMoveScopeUp + m_Player.scale_y);
-			m_MapScrollY += MOVE_SPEED * 2;
+			m_DisplayCharaCoordinate[0].y = (static_cast<float>(DisplayCharMoveScopeUp));
+			m_DisplayCharaCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeUp));
+			m_DisplayCharaCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Player.scale_y);
+			m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Player.scale_y);
+			m_MapScrollY += ScrollSpeed;
 		}
 	}
 
 	//右にスクロール移動
-	if (m_DisplayCharaCoordinate[1].x > DisplayCharMoveScopeRight)
+	if (m_DisplayCharaCoordinate[1].x > static_cast<float>(DisplayCharMoveScopeRight))
 	{
-		if (m_WorldCharaCoordinate[1].x <= ((m_row * CELL_SIZE)- DisplayCharMoveScopeX))
+		if (m_WorldCharaCoordinate[1].x <= ((m_row * CELL_SIZE)- static_cast<float>(DisplayCharMoveScopeX)))
 		{
-			m_DisplayCharaCoordinate[0].x = (DisplayCharMoveScopeRight - m_Player.scale_x);
-			m_DisplayCharaCoordinate[1].x = (DisplayCharMoveScopeRight);
-			m_DisplayCharaCoordinate[2].x = (DisplayCharMoveScopeRight);
-			m_DisplayCharaCoordinate[3].x = (DisplayCharMoveScopeRight - m_Player.scale_x);
-			m_MapScrollX -= MOVE_SPEED;
+			m_DisplayCharaCoordinate[0].x = (static_cast<float>(DisplayCharMoveScopeRight) - m_Player.scale_x);
+			m_DisplayCharaCoordinate[1].x = (static_cast<float>(DisplayCharMoveScopeRight));
+			m_DisplayCharaCoordinate[2].x = (static_cast<float>(DisplayCharMoveScopeRight));
+			m_DisplayCharaCoordinate[3].x = (static_cast<float>(DisplayCharMoveScopeRight) - m_Player.scale_x);
+			m_pMapChip->m_MapScrollX -= ScrollSpeed;
 		}
 	}
 	//左にスクロール移動
-	if (m_DisplayCharaCoordinate[0].x < DisplayCharMoveScopeLeft)
+	if (m_DisplayCharaCoordinate[0].x < static_cast<float>(DisplayCharMoveScopeLeft))
 	{
-		if(m_WorldCharaCoordinate[0].x >= DisplayCharMoveScopeX)
+		if(m_WorldCharaCoordinate[0].x >= static_cast<float>(DisplayCharMoveScopeX))
 		{
-		m_DisplayCharaCoordinate[0].x = (DisplayCharMoveScopeLeft);
-		m_DisplayCharaCoordinate[1].x = (DisplayCharMoveScopeLeft + m_Player.scale_x);
-		m_DisplayCharaCoordinate[2].x = (DisplayCharMoveScopeLeft + m_Player.scale_x);
-		m_DisplayCharaCoordinate[3].x = (DisplayCharMoveScopeLeft);
-		m_MapScrollX += MOVE_SPEED;
+		m_DisplayCharaCoordinate[0].x = (static_cast<float>(DisplayCharMoveScopeLeft));
+		m_DisplayCharaCoordinate[1].x = (static_cast<float>(DisplayCharMoveScopeLeft) + m_Player.scale_x);
+		m_DisplayCharaCoordinate[2].x = (static_cast<float>(DisplayCharMoveScopeLeft) + m_Player.scale_x);
+		m_DisplayCharaCoordinate[3].x = (static_cast<float>(DisplayCharMoveScopeLeft));
+		m_pMapChip->m_MapScrollX += ScrollSpeed;
 		}
 	}
 
@@ -558,16 +558,16 @@ void GameChara::Render()
 
 void GameChara::AddGravity() {
 	//重力を毎フレームかける
-	//if (m_isScrollingDown) {
-	//	for (int i = 0; i < 4; i++)
-	//	{
-	//		if (/*m_DisplayCharaCoordinate[3].y < */DisplayCharMoveScopeDown) {
-	//			m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
-	//		}
-	//		m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
-	//	}
-	//	return;
-	//}
+	if (m_isScrollingDown) {
+		for (int i = 0; i < 4; i++)
+		{
+			if (/*m_DisplayCharaCoordinate[3].y < */DisplayCharMoveScopeDown) {
+				m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
+			}
+			m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
+		}
+		return;
+	}
 	if (!DownCollisionAnything())
 	{
 		GravityAcceleration += 0.1f;
@@ -597,5 +597,6 @@ float GameChara::GetPositionX()
 	case FACING_RIGHT:
 		return m_DisplayCharaCoordinate[0].x+m_Player.scale_x;
 	}
+	return 0.f;
 }
 

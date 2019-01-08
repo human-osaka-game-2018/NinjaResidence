@@ -162,7 +162,7 @@ void GameScene::KeyOperation() {
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_L) || PadRelease == m_pXinputDevice->GetButton(ButtonBack))
 	{
-		m_pGameChara->KeyOperation(SoundOn);
+		//m_pGameChara->KeyOperation(SoundOn);
 	}
 
 }

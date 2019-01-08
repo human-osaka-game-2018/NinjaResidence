@@ -55,10 +55,10 @@ void Scene::LoadAnimation() {
 	m_pDirectX->DrawTexture("LOAD_BG_TEX", LoadBg);
 
 	static int rad = 0;
-	rad += D3DX_PI*3;
+	rad += static_cast<int>(D3DX_PI) * 3;
 	CUSTOMVERTEX cross[4];
 	CENTRAL_STATE CROSS = { 1200,630,50,50 };
-	RevolveZ(cross, rad, CROSS);
+	RevolveZ(cross, static_cast<float>(rad), CROSS);
 	m_pDirectX->DrawTexture("CROSS_TEX", cross);
 }
 
