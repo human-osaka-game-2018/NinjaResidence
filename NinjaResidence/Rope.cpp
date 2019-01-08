@@ -1,31 +1,28 @@
-#include "Target.h"
-#include "DirectX.h"
-#include "TargetandGimmickType.h"
+#include "Rope.h"
 
-Target::Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX) :BaseTarget(Target, Gimmick, pDirectX)
+
+
+Rope::Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX) :BaseTarget(Target, Gimmick, pDirectX)
 {
-
-}
-
-Target::~Target()
-{
-	delete m_pBaseGimmick;
-	m_pBaseGimmick = NULL;
 }
 
 
-void Target::ActivateTarget()
+Rope::~Rope()
+{
+}
+
+void Rope::ActivateTarget()
 {
 	m_pBaseGimmick->Activate();
 }
 
-void Target::Update()
+void Rope::Update()
 {
 	m_pBaseGimmick->Update();
 }
 
 
-void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
+void Rope::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 {
 	if (MapDataReverse != m_TargetInfo.MapDataState)
 	{
@@ -34,7 +31,7 @@ void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_TargetPosX = m_TargetInfo.PositionX;
 	m_TargetPosY = m_TargetInfo.PositionY;
 	//TODO:的のオンオフ切り替え
-	if (MapDataReverse ==m_TargetInfo.MapDataState)
+	if (MapDataReverse == m_TargetInfo.MapDataState)
 	{
 		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
 		m_TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
@@ -49,11 +46,11 @@ void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
 		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
 		m_TargetVertex[3].tu = 0;
-		
-		m_TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		m_TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		m_TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
-		m_TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
+
+		m_TargetVertex[0].tv = 480.f/512.f;
+		m_TargetVertex[1].tv = 480.f/512.f;
+		m_TargetVertex[2].tv = 1;
+		m_TargetVertex[3].tv = 1;
 
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
 	}

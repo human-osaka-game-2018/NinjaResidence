@@ -25,9 +25,9 @@ void PartitionBoard::Update()
 		m_WorldPosBottom -= 10.f;
 		break;
 	}
-	if (m_WorldPosBottom >= 0.f)
+	if (m_WorldPosBottom <= 0.f)
 	{
-
+		m_isActive = false;
 	}
 
 }

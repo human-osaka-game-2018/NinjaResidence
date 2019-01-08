@@ -8,7 +8,7 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 		m_TargetVertex[i].color = 0xFFFFFFFF;
 	}
 
-	switch (m_GimmickInfo.Type)
+	switch (m_GimmickInfo.GimmickType)
 	{
 	case BT_PARTITIONBOARD:
 		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX);

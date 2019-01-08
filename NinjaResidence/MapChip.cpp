@@ -117,29 +117,29 @@ void MapChip::CheckVector()
 {
 	BaseTarget* pBuf = NULL;
 
-	for (int i = 0;i < m_TargetCount;i++)
+	for (int i = 0; i < m_TargetCount; i++)
 	{
-		for (int j = 0;j < m_GimmickCount;j++)
+		for (int j = 0; j < m_GimmickCount; j++)
 		{
 			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
-			switch (TargetVector[i].Type)
+			switch (TargetVector[i].GimmickType)
 			{
 			case 1://的
-				if (GimmickVector[j].Type == BT_PARTITIONBOARD)
+				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
 				{
-					for (int k = 0;k < 3;k++)
+					for (int k = 0; k < 3; k++)
 					{
-						for (int l = 1;l < 15;l++)
+						for (int l = 1; l < 15; l++)
 						{
 							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
 						}
 					}
 				}
-				if (GimmickVector[j].Type == BT_FALLROCK)
+				if (GimmickVector[j].GimmickType == BT_FALLROCK)
 				{
-					for (int k = 0;k < 2;k++)
+					for (int k = 0; k < 2; k++)
 					{
-						for (int l = 1;l < 2;l++)
+						for (int l = 1; l < 2; l++)
 						{
 							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
 						}
@@ -147,12 +147,52 @@ void MapChip::CheckVector()
 				}
 				pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-				//case 2://ロープ
-				//	pBuf = new Rope();
-				//	break;
-				//case 3//スイッチ
-				//	pBuf = new Smith();
-				//	break;
+			case 2://ロープ
+				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
+				{
+					for (int k = 0; k < 3; k++)
+					{
+						for (int l = 1; l < 15; l++)
+						{
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
+						}
+					}
+				}
+				if (GimmickVector[j].GimmickType == BT_FALLROCK)
+				{
+					for (int k = 0; k < 2; k++)
+					{
+						for (int l = 1; l < 2; l++)
+						{
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
+						}
+					}
+				}
+				pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
+				break;
+			case 3://スイッチ
+				if (GimmickVector[j].GimmickType == BT_PARTITIONBOARD)
+				{
+					for (int k = 0; k < 3; k++)
+					{
+						for (int l = 1; l < 15; l++)
+						{
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
+						}
+					}
+				}
+				if (GimmickVector[j].GimmickType == BT_FALLROCK)
+				{
+					for (int k = 0; k < 2; k++)
+					{
+						for (int l = 1; l < 2; l++)
+						{
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
+						}
+					}
+				}
+				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
+				break;
 			}
 			pBaseTarget.push_back(pBuf);
 		}
