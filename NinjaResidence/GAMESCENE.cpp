@@ -70,7 +70,10 @@ SCENE_NUM  GameScene::Update()
 	m_pXinputDevice->DeviceUpdate();
 	NotPushedAnyButton();
 	KeyOperation();
-	m_pGameChara->Update();
+	m_isClear = m_pGameChara->Update();
+	if (m_isClear) {
+		ClearAnime();
+	}
 	m_pGameChara->prevSaveMapCharaPos();
 	m_pBusyMapChip->Update();
 	SkillsUpdate();
@@ -203,7 +206,12 @@ void GameScene::Render()
 	m_pGameChara->Render();
 	m_pShuriken->Render();
 	m_SkillSelect->Render();
-
+	if (m_isClear) {
+		CUSTOMVERTEX LogoVertex[4];
+		CENTRAL_STATE m_Logo = { CENTRAL_X ,200,400,150 };
+		CreateSquareVertex(LogoVertex, m_Logo);
+		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
+	}
 #ifdef _DEBUG
 	RECT testName = { 0, 100, 1250, 720 };
 	char TestName[ArrayLong];
@@ -226,7 +234,7 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/Block_Integration.png", "BLOCK_INTEGRATION_A_TEX");
+	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
@@ -237,7 +245,8 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Kanban2.png", "KANBAN_TEX2");
 	m_pDirectX->LoadTexture("texture/Pause.png", "PAUSETITLE_TEX");
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
-	
+	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
+
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
@@ -299,5 +308,14 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 	case HIGH_SHURIKEN_ART:
 		break;
 	}
+}
 
+void GameScene::ClearAnime()
+{
+	static int StandbyTime = 0;
+	++StandbyTime;
+	if (StandbyTime > 120) {
+		SetNextScene(STAGESELECT_SCENE);
+		StandbyTime = 0;
+	}
 }

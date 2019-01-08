@@ -57,10 +57,10 @@ void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 4;
 	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3;
 
-	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_WIDTH;
-	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_WIDTH;
-	m_GimmickVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 2;
-	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 2;
+	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_HEIGHT;
+	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_HEIGHT;
+	m_GimmickVertex[2].tv = BLOCK_INTEGRATION_HEIGHT * 2;
+	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 2;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_GimmickVertex);
 }

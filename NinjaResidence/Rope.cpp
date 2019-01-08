@@ -42,17 +42,17 @@ void Rope::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
 		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
 
-		m_TargetVertex[0].tu = 0;
-		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
-		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
-		m_TargetVertex[3].tu = 0;
+		m_TargetVertex[0].tu = 480.f / 512.f;
+		m_TargetVertex[1].tu = 1;
+		m_TargetVertex[2].tu = 1;
+		m_TargetVertex[3].tu = 480.f / 512.f;
 
-		m_TargetVertex[0].tv = 480.f/512.f;
-		m_TargetVertex[1].tv = 480.f/512.f;
+		m_TargetVertex[0].tv = 0;
+		m_TargetVertex[1].tv = 0;
 		m_TargetVertex[2].tv = 1;
 		m_TargetVertex[3].tv = 1;
 
-		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_TargetVertex);
 	}
 
 	if (m_GimmickInfo.GimmickType == BT_WATER)

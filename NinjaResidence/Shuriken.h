@@ -26,7 +26,7 @@ public:
 	bool PermitThrow();
 
 
-	void Update();
+	bool Update();
 	void Render();
 	void Reverse(Object* MapChip);
 

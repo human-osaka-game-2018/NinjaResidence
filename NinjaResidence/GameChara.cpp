@@ -14,6 +14,8 @@ GameChara::GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* M
 	m_pMapChip = MapChip;
 	m_row = m_pMapChip->getRow();
 	m_colunm = m_pMapChip->getColunm();
+	m_Player.x = static_cast<float>(m_pMapChip->SerchBlockX(START_ZONE))*CELL_SIZE;
+	m_Player.y = static_cast<float>(m_pMapChip->SerchBlockY(START_ZONE))*CELL_SIZE;
 	CreateSquareVertex(m_Player, m_DisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
 	CreateSquareVertex(m_Player, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
 	CreateSquareVertex(m_Player, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
@@ -366,7 +368,7 @@ void GameChara::ThrowAnime() {
 		m_ChangeAnimation = STAND;
 	}
 }
-void GameChara::Update()
+bool GameChara::Update()
 {
 	ThrowAnime();
 	m_MapLeftDirectionPosition = static_cast<int>(m_WorldCharaCoordinate[3].x / CELL_SIZE);
@@ -471,6 +473,10 @@ void GameChara::Update()
 	{
 		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY - 2);
 	}
+	if (DownCollisionCheck(GOAL_ZONE)) {
+		return true;
+	}
+	return false;
 }
 
 bool GameChara::DownCollisionAnything(void) {
@@ -561,11 +567,11 @@ void GameChara::AddGravity() {
 	if (m_isScrollingDown) {
 		for (int i = 0; i < 4; i++)
 		{
-			if (/*m_DisplayCharaCoordinate[3].y < */DisplayCharMoveScopeDown) {
-				m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
-			}
+			
+			m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;			
 			m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
 		}
+		SetGround();
 		return;
 	}
 	if (!DownCollisionAnything())
@@ -600,3 +606,28 @@ float GameChara::GetPositionX()
 	return 0.f;
 }
 
+void GameChara::SetGround() {
+
+	if (DownCollisionAnything())
+	{
+		m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 4) * CELL_SIZE);
+		m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 4) * CELL_SIZE);
+		m_WorldCharaCoordinate[2].y = ((m_MapPositionY)* CELL_SIZE);
+		m_WorldCharaCoordinate[3].y = ((m_MapPositionY)* CELL_SIZE);
+		for (int i = 0; i < 4; i++)
+		{
+			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+		}
+		//2’i‚ ‚é’n–Ê‚É‚ß‚èž‚ñ‚¾‚Æ‚«‚Ì•œ‹Aˆ—
+		if (m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition + 1) != NONE) {
+			for (int i = 0; i < 4; i++)
+			{
+				m_WorldCharaCoordinate[i].y -= CELL_SIZE;
+				m_DisplayCharaCoordinate[i].y -= m_WorldCharaCoordinate[i].y + m_pMapChip->m_MapScrollY;
+			}
+
+		}
+	}
+	else 	m_ChangeAnimation = JUMPING;
+
+}

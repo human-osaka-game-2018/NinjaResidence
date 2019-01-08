@@ -18,7 +18,7 @@ class SkillSelect :public Object
 {
 public:
 	void KeyOperation(KeyDirection vec);
-	void Update();
+	bool Update();
 	void Render();
 	SkillSelect(DirectX* pDirectX, SoundOperater* pSoundOperater, bool* m_EnableSkill);
 	~SkillSelect();

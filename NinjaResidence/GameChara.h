@@ -47,7 +47,7 @@ public:
 	void prevSaveMapCharaPos();
 	void KeyOperation(KeyDirection vec);
 	void CharaInforSave(Object* MapChip, int BlockNumber);
-	void Update();
+	bool Update();
 	void Render();
 	GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip);
 	~GameChara();
@@ -71,6 +71,7 @@ public:
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionX();
+	void SetGround();
 	/**
 	* @brief キャラのディスプレイ上中心Y座標の取得
 	* @author Toshiya Matsuoka
