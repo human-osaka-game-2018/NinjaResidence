@@ -47,10 +47,10 @@ void Switch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH*5;
 		m_TargetVertex[3].tu = BLOCK_INTEGRATION_WIDTH*4;
 
-		m_TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		m_TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		m_TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
-		m_TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
+		m_TargetVertex[0].tv = BLOCK_INTEGRATION_HEIGHT * 2;
+		m_TargetVertex[1].tv = BLOCK_INTEGRATION_HEIGHT * 2;
+		m_TargetVertex[2].tv = BLOCK_INTEGRATION_HEIGHT * 3;
+		m_TargetVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 3;
 
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
 	}

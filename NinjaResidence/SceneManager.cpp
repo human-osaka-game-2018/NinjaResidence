@@ -20,7 +20,7 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundOperater);
 
 	//ゲームシーンへショートカットする
-	m_NextScene = GAME_SCENE;
+	//m_NextScene = GAME_SCENE;
 }
 
 SceneManager::~SceneManager()

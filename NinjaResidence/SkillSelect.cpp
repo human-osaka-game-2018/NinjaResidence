@@ -40,7 +40,7 @@ bool SkillSelect::Update() {
 void SkillSelect::Render()
 {
 	CUSTOMVERTEX UIVertex[4];
-	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT*1.5, BLOCK_INTEGRATION_HEIGHT);
+	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0.f, 480.f / 1024.f ,120.f/512.f, 120.f / 1024.f);
 	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
 	CUSTOMVERTEX SkillVertex[4];
