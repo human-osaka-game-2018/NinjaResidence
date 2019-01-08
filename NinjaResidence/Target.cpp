@@ -20,72 +20,69 @@ void Target::ActivateTarget()
 }
 
 
-void Target::Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize)
+void Target::Render(int MapScrollY, int MapScrollX, bool MapDataReverse)
 {
 	m_TargetPosX = m_TargetInfo.PositionX;
 	m_TargetPosY = m_TargetInfo.PositionY;
+	//TODO:的のオンオフ切り替え
 	if (MapDataReverse == true && m_TargetInfo.MapDataState == SURFACE)
 	{
-		float WIDTH = 80.0f / 512.0f;
-		float HEIGHT = 80.0f / 512.0f;
-		TextureSize[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TextureSize[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TextureSize[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TextureSize[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TextureSize[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TextureSize[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
-		TextureSize[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TextureSize[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
 
-		TextureSize[0].tu = 0;
-		TextureSize[1].tu = WIDTH;
-		TextureSize[2].tu = WIDTH;
-		TextureSize[3].tu = 0;
+		TargetVertex[0].tu = 0;
+		TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
+		TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
+		TargetVertex[3].tu = 0;
+		
+		TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
+		TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
 
-		TextureSize[0].tv = HEIGHT*2;
-		TextureSize[1].tv = HEIGHT*2;
-		TextureSize[2].tv = HEIGHT*3;
-		TextureSize[3].tv = HEIGHT*3;
-
-		m_pDirectX->DrawTexture(TextureKey, TextureSize);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", TargetVertex);
 	}
 	if (MapDataReverse == false && m_TargetInfo.MapDataState == REVERSE)
 	{
-		float WIDTH = 80.0f / 512.0f;
-		float HEIGHT = 80.0f / 512.0f;
-		TextureSize[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TextureSize[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TextureSize[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TextureSize[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TextureSize[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TextureSize[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
-		TextureSize[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TextureSize[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
 
-		TextureSize[0].tu = 0;
-		TextureSize[1].tu = WIDTH;
-		TextureSize[2].tu = WIDTH;
-		TextureSize[3].tu = 0;
+		TargetVertex[0].tu = 0;
+		TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
+		TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
+		TargetVertex[3].tu = 0;
 
-		TextureSize[0].tv = HEIGHT * 2;
-		TextureSize[1].tv = HEIGHT * 2;
-		TextureSize[2].tv = HEIGHT * 3;
-		TextureSize[3].tv = HEIGHT * 3;
+		TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
+		TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
 
 
-		m_pDirectX->DrawTexture(TextureKey, TextureSize);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", TargetVertex);
 	}
 
 	if (m_GimmickInfo.Type == BT_WATER)
 	{
-		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse, CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", TextureSize);
+		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
 	}
 	if (m_GimmickInfo.Type == BT_PARTITIONBOARD)
 	{
-		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse, CELL_SIZE, "BLOCK_INTEGRATION_B_TEX", TextureSize);
+		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
 	}
 	if (m_GimmickInfo.Type == BT_FALLROCK)
 	{
-		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse, CELL_SIZE, "BLOCK_INTEGRATION_B_TEX", TextureSize);
+		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
 	}
 }

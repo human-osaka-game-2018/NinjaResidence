@@ -66,7 +66,6 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 		MapData[j].resize(m_row);
 	}
 
-
 	while ((c = getc(fp)) != EOF || y < m_colunm)
 	{
 		BlockInfo block;
@@ -85,14 +84,14 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 				if (blocktype < BT_PARTITIONBOARD)
 				{
 					int Amari = MapData[y][x] % 10;
-						block = { x,y,Amari,blocktype,MapState };
+					block = { x,y,Amari,blocktype,MapState };
 					TargetVector.push_back(block);
 					m_TargetCount++;
 				}
 				if (blocktype > BT_SWITCH)
 				{
 					int Amari = MapData[y][x] % 10;
-						block = { x,y,Amari,blocktype,MapState };
+					block = { x,y,Amari,blocktype,MapState };
 					GimmickVector.push_back(block);
 					m_GimmickCount++;
 				}
@@ -122,27 +121,26 @@ void MapChip::CheckVector()
 		for (int j = 0;j < m_GimmickCount;j++)
 		{
 			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
-			int Type = TargetVector[i].Type;
-			switch (Type)
+			switch (TargetVector[i].Type)
 			{
 			case 1://“I
-				if (GimmickVector[j].Type == 4)
+				if (GimmickVector[j].Type == BT_PARTITIONBOARD)
 				{
-					for (int a = 0;a < 3;a++)
+					for (int k = 0;k < 3;k++)
 					{
-						for (int i = 1;i < 15;i++)
+						for (int l = 1;l < 15;l++)
 						{
-							MapData[GimmickVector[j].PositionY + i][GimmickVector[j].PositionX + a] = 900;
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
 						}
 					}
 				}
-				if (GimmickVector[j].Type == 6)
+				if (GimmickVector[j].Type == BT_FALLROCK)
 				{
-					for (int a = 0;a < 2;a++)
+					for (int k = 0;k < 2;k++)
 					{
-						for (int i = 1;i < 2;i++)
+						for (int l = 1;l < 2;l++)
 						{
-							MapData[GimmickVector[j].PositionY + i][GimmickVector[j].PositionX + a] = 900;
+							MapData[GimmickVector[j].PositionY + l][GimmickVector[j].PositionX + k] = 900;
 						}
 					}
 				}
@@ -201,64 +199,64 @@ void MapChip::Render(bool MapDataReverse)
 				switch (m_MapSelected)
 				{
 				case WOOD_BLOCK:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case ROCK_BLOCK:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case WOOD_TRACT:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case ROCK_TRACT:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_WIDTH * m_MapSelected;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_HEIGHT;
-					CELL[3].tv = BLOCK_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 					break;
 				case DESCRIPTION_BOARD:
 					CELL[0].tu = 0.f;
@@ -267,8 +265,8 @@ void MapChip::Render(bool MapDataReverse)
 					CELL[2].tu = 0.24f;
 					CELL[0].tv = 0.16f;
 					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_HEIGHT + 0.16f;
-					CELL[3].tv = BLOCK_HEIGHT + 0.16f;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
 					CELL[1].x += 120.f;
 					CELL[2].x += 120.f;
 					CELL[3].y += 80.f;
@@ -281,35 +279,35 @@ void MapChip::Render(bool MapDataReverse)
 					CELL[2].tu = 0.24f;
 					CELL[0].tv = 0.16f;
 					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_HEIGHT + 0.16f;
-					CELL[3].tv = BLOCK_HEIGHT + 0.16f;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH + 0.16f;
 					CELL[1].x += 120.f;
 					CELL[2].x += 120.f;
 					CELL[3].y += 80.f;
 					CELL[2].y += 80.f;
 					break;
 				case 900:
-					CELL[0].tu = 400.f / 512.f;
-					CELL[1].tu = 480.f / 512.f;
-					CELL[2].tu = 480.f / 512.f;
-					CELL[3].tu = 400.f / 512.f;
-					CELL[0].tv = 320.f / 512.f;
-					CELL[1].tv = 320.f / 512.f;
-					CELL[2].tv = 400.f / 512.f;
-					CELL[3].tv = 400.f / 512.f;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[0].tv = BLOCK_INTEGRATION_WIDTH * 4;
+					CELL[1].tv = BLOCK_INTEGRATION_WIDTH * 4;
+					CELL[2].tv = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[3].tv = BLOCK_INTEGRATION_WIDTH * 5;
 					break;
 				default:
 					continue;
 				}
 				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 			}
-			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
+			//TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
-
+	CUSTOMVERTEX HOGE[4];
 	for (BaseTarget* pi : pBaseTarget)
 	{
-		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse,CELL_SIZE, "BLOCK_INTEGRATION_A_TEX", CELL);
+		pi->Render(m_MapScrollY, m_MapScrollX, MapDataReverse);
 	}
 	
 #ifdef _DEBUG
@@ -370,7 +368,7 @@ void MapChip::CellInit() {
 	}
 	CELL[0].tv = 0.f;
 	CELL[1].tv = 0.f;
-	CELL[2].tv = BLOCK_HEIGHT;
-	CELL[3].tv = BLOCK_HEIGHT;
+	CELL[2].tv = BLOCK_INTEGRATION_WIDTH;
+	CELL[3].tv = BLOCK_INTEGRATION_WIDTH;
 
 }

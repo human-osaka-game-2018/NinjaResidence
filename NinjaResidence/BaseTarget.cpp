@@ -4,6 +4,10 @@
 BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 	:m_TargetInfo(Target), m_GimmickInfo(Gimmick), m_pDirectX(pDirectX)
 {
+	for (int i = 0; i < 4; ++i) {
+		TargetVertex[i].color = 0xFFFFFFFF;
+	}
+
 	switch (m_GimmickInfo.Type)
 	{
 	case BT_PARTITIONBOARD:
