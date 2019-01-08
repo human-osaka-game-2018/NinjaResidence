@@ -7,8 +7,10 @@ class Water : public BaseGimmick
 {
 public:
 	void Activate();
-	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse );
+	void Update();
+	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse );
 	Water(BlockInfo Gimmick, DirectX* pDirectX);
 	~Water();
 private:
+
 };

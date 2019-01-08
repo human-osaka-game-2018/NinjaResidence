@@ -9,7 +9,8 @@ class Target :public BaseTarget
 {
 public:
 	void ActivateTarget();
-	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse);
+	void Update();
+	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
 	Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~Target();
 private:

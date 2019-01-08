@@ -15,40 +15,52 @@ Water::~Water()
 void Water::Activate()
 {
 	//…‚Ì“®‚«
-
+	m_isActive = true;
 }
 
-void Water::Render(int MapScrollY, int MapScrollX, bool MapDataReverse)
+void Water::Update()
 {
+	if (!m_isActive) return;
+	m_QuantityOfMovement -= 10.f;
+}
+
+void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
+{
+	if (MapDataReverse != m_GimmickInfo.MapDataState)
+	{
+		return;
+	}
+
 	m_GimmickPosX = m_GimmickInfo.PositionX;
 	m_GimmickPosY = m_GimmickInfo.PositionY;
 
-	if (m_isActive == false)
+	if (m_isFirstTime == false)
 	{
-		WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
-		WorldPosTop = (CELL_SIZE * m_GimmickPosY);
-		WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 1));
-		WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 1));
-		m_isActive = true;
+		m_WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
+		m_WorldPosTop = (CELL_SIZE * m_GimmickPosY);
+		m_WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 1));
+		m_WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 1));
+		m_isFirstTime = true;
 	}
 
-	GimmickVertex[0].x = WorldPosLeft + MapScrollX;
-	GimmickVertex[0].y = WorldPosTop + MapScrollY;
-	GimmickVertex[1].x = WorldPosRight + MapScrollX;
-	GimmickVertex[1].y = WorldPosTop + MapScrollY;
-	GimmickVertex[2].x = WorldPosRight + MapScrollX;
-	GimmickVertex[2].y = WorldPosBottom + MapScrollY;
-	GimmickVertex[3].x = WorldPosLeft + MapScrollX;
-	GimmickVertex[3].y = WorldPosBottom + MapScrollY;
+	m_GimmickVertex[0].x = m_WorldPosLeft + MapScrollX;
+	m_GimmickVertex[0].y = m_WorldPosTop + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[1].x = m_WorldPosRight + MapScrollX;
+	m_GimmickVertex[1].y = m_WorldPosTop + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[2].x = m_WorldPosRight + MapScrollX;
+	m_GimmickVertex[2].y = m_WorldPosBottom + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[3].x = m_WorldPosLeft + MapScrollX;
+	m_GimmickVertex[3].y = m_WorldPosBottom + MapScrollY + m_QuantityOfMovement;
 
-	GimmickVertex[0].tu = 240.0f / 512.0f;
-	GimmickVertex[1].tu = 320.0f / 512.0f;
-	GimmickVertex[2].tu = 320.0f / 512.0f;
-	GimmickVertex[3].tu = 240.0f / 512.0f;
+	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3;
+	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 4;
+	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 4;
+	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3;
 
-	GimmickVertex[0].tv = 80.0f / 512.0f;
-	GimmickVertex[1].tv = 80.0f / 512.0f;
-	GimmickVertex[2].tv = 160.0f / 512.0f;
-	GimmickVertex[3].tv = 160.0f / 512.0f;
-	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", GimmickVertex);
+	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_WIDTH;
+	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_WIDTH;
+	m_GimmickVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 2;
+	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 2;
+
+	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_GimmickVertex);
 }

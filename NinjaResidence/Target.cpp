@@ -19,58 +19,43 @@ void Target::ActivateTarget()
 	m_pBaseGimmick->Activate();
 }
 
-
-void Target::Render(int MapScrollY, int MapScrollX, bool MapDataReverse)
+void Target::Update()
 {
+	m_pBaseGimmick->Update();
+}
+
+
+void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
+{
+	if (MapDataReverse != m_TargetInfo.MapDataState)
+	{
+		return;
+	}
 	m_TargetPosX = m_TargetInfo.PositionX;
 	m_TargetPosY = m_TargetInfo.PositionY;
 	//TODO:的のオンオフ切り替え
-	if (MapDataReverse == true && m_TargetInfo.MapDataState == SURFACE)
+	if (MapDataReverse ==m_TargetInfo.MapDataState)
 	{
-		TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
-		TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		m_TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		m_TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
+		m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
+		m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
+		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
+		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
 
-		TargetVertex[0].tu = 0;
-		TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
-		TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
-		TargetVertex[3].tu = 0;
+		m_TargetVertex[0].tu = 0;
+		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
+		m_TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
+		m_TargetVertex[3].tu = 0;
 		
-		TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
-		TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
+		m_TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		m_TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
+		m_TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
+		m_TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
 
-		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", TargetVertex);
-	}
-	if (MapDataReverse == false && m_TargetInfo.MapDataState == REVERSE)
-	{
-		TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-		TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
-		TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE;
-
-		TargetVertex[0].tu = 0;
-		TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH;
-		TargetVertex[2].tu = BLOCK_INTEGRATION_WIDTH;
-		TargetVertex[3].tu = 0;
-
-		TargetVertex[0].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		TargetVertex[1].tv = BLOCK_INTEGRATION_WIDTH * 2;
-		TargetVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 3;
-		TargetVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 3;
-
-
-		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", TargetVertex);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
 	}
 
 	if (m_GimmickInfo.Type == BT_WATER)

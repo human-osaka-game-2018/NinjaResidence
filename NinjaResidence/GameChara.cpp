@@ -63,7 +63,7 @@ void GameChara::Jump()
 		m_DisplayCharaCoordinate[i].y -= m_AccelerationY;
 		m_WorldCharaCoordinate[i].y -= m_AccelerationY;
 	}
-	m_MapPositionY = static_cast<int>(m_WorldCharaCoordinate[3].y + 10 / CELL_SIZE);
+	m_MapPositionY = static_cast<int>((m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE);
 	m_ChangeAnimation = JUMPING;
 	if (m_RiseFlameTime < 15) {
 		m_RiseFlameTime++;

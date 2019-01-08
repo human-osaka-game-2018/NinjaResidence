@@ -14,8 +14,9 @@ public:
 	BlockInfo* GetTargetInfo() { return &m_TargetInfo; }
 	void Activate();
 	virtual void ActivateTarget() = 0;
+	virtual void Update() = 0;
 	void ActivateGimmick();
-	virtual void Render(int MapScrollY, int MapScrollX,bool MapDataReverse) = 0;
+	virtual void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse) = 0;
 	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseTarget();
 protected:
@@ -23,7 +24,7 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	BlockInfo m_TargetInfo;
 	BlockInfo m_GimmickInfo;
-	CUSTOMVERTEX TargetVertex[4];
+	CUSTOMVERTEX m_TargetVertex[4];
 
 	int m_TargetPosX;
 	int m_TargetPosY;

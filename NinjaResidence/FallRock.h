@@ -8,7 +8,8 @@ class FallRock : public BaseGimmick
 {
 public:
 	void Activate();
-	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse);
+	void Update();
+	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
 	FallRock(BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~FallRock();
 private:

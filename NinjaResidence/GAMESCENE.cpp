@@ -199,7 +199,7 @@ void GameScene::Render()
 	}
 
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
- 	m_pBusyMapChip->Render(m_pMapReverse->getMapDataReverseState());
+ 	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
 	m_SkillSelect->Render();
