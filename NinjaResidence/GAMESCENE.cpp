@@ -218,7 +218,7 @@ void GameScene::Render()
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 	RECT test = { 400,0,800,500 };
 	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "X-L:%d,X-R:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
+	sprintf_s(TestText, ArrayLong, "X:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
 	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 #endif
 	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)

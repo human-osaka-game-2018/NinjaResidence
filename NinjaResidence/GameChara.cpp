@@ -315,7 +315,7 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Player.scale_y);
 		m_DisplayCharaCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
-		m_MapScrollY -= VerticalScrollingLevel;
+		m_MapScrollY -= VERTICAL_SCROLLING_LEVEL;
 		
 		m_isScrollingDown = true;
 	}
