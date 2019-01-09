@@ -4,6 +4,7 @@
 #include "BaseGimmick.h"
 #include "TargetandGimmickType.h"
 
+
 class FallRock : public BaseGimmick
 {
 public:

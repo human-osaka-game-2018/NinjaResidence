@@ -14,11 +14,14 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 	case BT_PARTITIONBOARD:
 		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX);
 		break;
-	case BT_WATER:
-		m_pBaseGimmick = new Water(Gimmick, pDirectX);
-		break;
 	case BT_FALLROCK:
-		m_pBaseGimmick = new FallRock(Gimmick, pDirectX);
+		m_pBaseGimmick = new FallRock(Gimmick, pDirectX, GimmickIfno.m_pMapChip);
+		break;
+	case BT_WATER:
+		//m_pBaseGimmick = new Water(Gimmick, pDirectX);
+		break;
+	case BT_ADHEREBOARD:
+		//m_pBaseGimmick = new AdhereBoard(Gimmick, pDirectX);
 		break;
 	}
 }

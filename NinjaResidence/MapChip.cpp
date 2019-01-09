@@ -112,6 +112,41 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 	}
 }
 
+void MapChip::MapDataGimmickSearch()
+{
+	for (int i = 0; i < colunm; i++)
+	{
+		for (int j = 0;j < row; j++)
+		{
+			if (MapData[i][j] > 400 && MapData[i][j] < 500)
+			{
+				MapDataVectorSet(i, j,15,3);
+			}
+		}
+	}
+}
+
+void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int GimmickY,int GimmickX)
+{
+	for (int i = 0;i < GimmickX;i++)
+	{
+		for (int j = 1;j < GimmickY;j++)
+		{
+			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 900;
+		}
+	}
+}
+
+void MapChip::MapDataVectorSet0()
+{
+	for (int i = 0;i < 3;i++)
+	{
+		for (int j = 1;j < 15;j++)
+		{
+			MapData[3 + j][15 + i] = 0;
+		}
+	}
+}
 
 void MapChip::CheckVector()
 {
@@ -135,10 +170,14 @@ void MapChip::CheckVector()
 			case 3://スイッチ
 				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
+				case BT_TORCH://たいまつ
+				pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX);
+				break;
 			}
 			pBaseTarget.push_back(pBuf);
 		}
 	}
+	MapDataGimmickSearch();
 }
 
 
@@ -153,6 +192,18 @@ void MapChip::Activate(int X, int Y)
 	}
 }
 
+int MapChip::GimmickMapDataCheck(int y, int x)
+{ 
+	if (MapData[y][x] == 0)
+	{
+		return 0;
+	}
+
+	if (MapData[y][x] > 300)
+	{
+		return 3;
+	}
+}
 
 void MapChip::Render(bool MapDataReverse)
 {

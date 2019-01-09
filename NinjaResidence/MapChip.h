@@ -7,7 +7,7 @@
 
 #include "GAMESCENE.h"
 #include "Object.h"
-#include "BlockInf.h"
+#include "BlockInfo.h"
 #include "MapBlock.h"
 
 class BaseTarget;
@@ -38,6 +38,9 @@ public:
 	*/
 	void Activate(int X, int Y);
 	void Create(const char *filename, MapDataState MapState);
+	void MapDataVectorSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
+	void MapDataVectorSet0();
+	void MapDataGimmickSearch();
 	void CheckVector();
 	void Render();
 	bool Update();

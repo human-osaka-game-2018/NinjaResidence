@@ -27,7 +27,6 @@ public:
 	int MessageLoop();
 	static void ChangeDisplayMode(void);
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
-
 private:
 	const char ApiName[10] = "忍者屋敷";
 	static DirectX* pDirectX;

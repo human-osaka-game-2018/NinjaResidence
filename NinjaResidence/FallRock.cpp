@@ -1,10 +1,13 @@
 #include "FallRock.h"
 #include <string>
+#include "MapChip.h"
 
 
 FallRock::FallRock(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
+	m_pMapChip = MapChip;
+	FallRockStateFlag = true;
 }
 
 FallRock::~FallRock()

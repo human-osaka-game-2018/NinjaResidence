@@ -119,10 +119,10 @@ private:
 	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
-	MapReverse* m_pMapReverse = NULL;
-	Object* m_pMapChip = NULL;
 	float CharTu = 80 / 512.f;
 	float CharTv = 160 / 512.f;
+	MapReverse* m_pMapReverse = NULL;
+	Object* m_pMapChip = NULL;
 	float GravityAcceleration = 0;
 
 
