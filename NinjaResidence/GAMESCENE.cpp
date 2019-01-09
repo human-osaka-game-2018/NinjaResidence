@@ -9,7 +9,6 @@
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage) :Scene(pDirectX,pSoundOperater)
 {
-
 	m_StageNum = ChosedStage;
 	m_pScene = this;
 
@@ -126,7 +125,7 @@ void GameScene::KeyOperation() {
 		}
 		else
 		{
-			m_pDescriptionBoard->GoDescriptionBoard(pBusyMapChip);
+			m_pDescriptionBoard->GoDescriptionBoard(m_pBusyMapChip);
 		}
 
 	}

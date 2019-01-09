@@ -4,6 +4,8 @@ const float CELL_SIZE = 40.f;
 const float BLOCK_INTEGRATION_WIDTH = 80.0f / 512.0f;
 const float BLOCK_INTEGRATION_HEIGHT = 80.0f / 1024.0f;
 
+class MapChip;
+
 enum MapDataState
 {
 	SURFACE,//ï\
@@ -17,4 +19,5 @@ struct BlockInfo
 	int PairNumber;//â∫2åÖ
 	int GimmickType;//TargetÇ»ÇÁ1.2.3ÅAGimmickÇ»ÇÁ4.5.6
 	MapDataState MapDataState;
+	MapChip* pMapChip;
 };

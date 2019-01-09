@@ -2,9 +2,9 @@
 
 using namespace MapBlock;
 
-DescriptionBoard::DescriptionBoard(DirectX* pDirectX,SoundOperater* pSoundOperater,GameChara * GameChara, Object * m_pBusyMapChip) :Object(pDirectX, pSoundOperater)
+DescriptionBoard::DescriptionBoard(DirectX* pDirectX,SoundOperater* pSoundOperater,GameChara * GameChara, Object * pBusyMapChip) :Object(pDirectX, pSoundOperater)
 {
-	pGameChara = GameChara;
+	m_pGameChara = GameChara;
 	m_pMapChip = pBusyMapChip;
 	DescriptionNumberdecision = NONE;
 	DescriptionBoardSIZE[0] = { 300,110,1.0f, 1.0f,0xFFFFFFFF, 0.f, 0.f };
@@ -20,7 +20,7 @@ DescriptionBoard::~DescriptionBoard()
 
 void DescriptionBoard::GoDescriptionBoard(Object* pBusyMapChip)
 {
-	m_pMapChip = m_pBusyMapChip;
+	m_pMapChip = pBusyMapChip;
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
 	int MapPosiinonY = m_pGameChara->GetMapPositionY();
 	if ((m_pMapChip->getMapChipData(MapPosiinonY - 5, MapPosiinonX) == DESCRIPTION_BOARD) ||

@@ -106,17 +106,14 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 		}
 	}
 	fclose(fp);
-	if (MapState == REVERSE)
-	{
-		CheckVector();
-	}
+	CheckVector();
 }
 
 void MapChip::MapDataGimmickSearch()
 {
-	for (int i = 0; i < colunm; i++)
+	for (int i = 0; i < m_colunm; i++)
 	{
-		for (int j = 0;j < row; j++)
+		for (int j = 0;j < m_row; j++)
 		{
 			if (MapData[i][j] > 400 && MapData[i][j] < 500)
 			{
@@ -159,19 +156,17 @@ void MapChip::CheckVector()
 			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
 			switch (TargetVector[i].GimmickType)
 			{
-			case 1://的
-			
+			case BT_TARGET://的
 			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-			case 2://ロープ
-
-				pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
+			case BT_ROPE://ロープ
+			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-			case 3://スイッチ
-				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
+			case BT_SWITCH://スイッチ
+			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 				case BT_TORCH://たいまつ
-				pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX);
+			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 			}
 			pBaseTarget.push_back(pBuf);
@@ -205,7 +200,7 @@ int MapChip::GimmickMapDataCheck(int y, int x)
 	}
 }
 
-void MapChip::Render(bool MapDataReverse)
+void MapChip::Render()
 {
 	for (int j = 0; j < m_colunm;j++)
 	{
@@ -411,6 +406,7 @@ int MapChip::SearchBlockX(BLOCKTYPE Block) {
 			}
 		}
 	}
+	return 2;
 }
 
 int MapChip::SearchBlockY(BLOCKTYPE Block) {
@@ -424,5 +420,6 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 			}
 		}
 	}
+	return 2;
 }
 
