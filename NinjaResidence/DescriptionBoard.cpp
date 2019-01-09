@@ -18,7 +18,7 @@ DescriptionBoard::~DescriptionBoard()
 
 }
 
-void DescriptionBoard::GoDescriptionBoard(Object * pBusyMapChip)
+void DescriptionBoard::GoDescriptionBoard(Object* pBusyMapChip)
 {
 	m_pMapChip = m_pBusyMapChip;
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();

@@ -1,5 +1,7 @@
 #pragma once
 
+class MapChip;
+
 enum MapDataState
 {
 	Surface,//•\
@@ -13,4 +15,5 @@ struct BlockInf
 	int PairNumber;//‰º2Œ…
 	int m_type;//Target‚È‚ç1.2.3AGimmick‚È‚ç4.5.6
 	MapDataState MapDataState;
+	MapChip* m_pMapChip;
 };

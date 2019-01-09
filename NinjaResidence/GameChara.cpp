@@ -249,7 +249,6 @@ void GameChara::MapReversePointSearch(int BlockNumber)
 
 void GameChara::GimmickHitCheck()
 {
-	//仕切り板の当たり判定
 	//左の方向のブロックを確かめる
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition)/100 != BT_PARTITIONBOARD) ||

@@ -44,7 +44,8 @@
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
     <ClCompile Include="VOLUMESELECTSCENE.cpp" />
-    <ClCompile Include="Water.cpp" />
+        <ClCompile Include="Torch.cpp" />
+        <ClCompile Include="Water.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +79,8 @@
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="STAGESELECTSCENE.h" />
-    <ClInclude Include="TITLESCENE.h" />
+     <ClInclude Include="Torch.h" />
+     <ClInclude Include="TITLESCENE.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
