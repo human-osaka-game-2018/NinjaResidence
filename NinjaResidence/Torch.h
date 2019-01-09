@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseTarget.h"
-#include "BlockInf.h"
+#include "BlockInfo.h"
 #include "Object.h"
 
 class MapReverse;
@@ -12,7 +12,8 @@ private:
 
 public:
 	void ActivateTarget();
-	void Render(int MapScrollY, int MapScrollX, bool MapDataReverse, float CELL_SIZE, std::string TextureKey, CUSTOMVERTEX* TextureSize);
-	Torch(BlockInf Target, BlockInf Gimmick, DirectX* pDirectX);
+	void Update();
+	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
+	Torch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	~Torch();
 };

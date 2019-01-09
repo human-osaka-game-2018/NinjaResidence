@@ -32,6 +32,4 @@ private:
 	int m_ReverseMapScrollY;
 	GameChara* m_pGameChara = NULL;
 	static bool MapDataReverseState;
-	GameChara* pGameChara = NULL;
-	static bool MapDataReverseState;
 };

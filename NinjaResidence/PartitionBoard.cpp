@@ -4,7 +4,6 @@
 PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
-	PartitionBoardStateFlag = true;
 }
 
 PartitionBoard::~PartitionBoard()

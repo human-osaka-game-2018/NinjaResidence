@@ -15,7 +15,6 @@
 #include "Target.h"
 #include "Rope.h"
 #include "Switch.h"
-
 #include "Torch.h"
 
 #define _CRTDBG_MAP_ALLOC
