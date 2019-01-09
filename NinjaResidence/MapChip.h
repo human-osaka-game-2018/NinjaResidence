@@ -45,8 +45,8 @@ public:
 	MapDataState GetMapDataState() {
 		return m_MapDataState;
 	}
-	int SerchBlockX(MapBlock::BLOCKTYPE Block);
-	int SerchBlockY(MapBlock::BLOCKTYPE Block);
+	int SearchBlockX(MapBlock::BLOCKTYPE Block);
+	int SearchBlockY(MapBlock::BLOCKTYPE Block);
 
 private:
 	int m_MapSelected;

@@ -418,7 +418,7 @@ void MapChip::CellInit() {
 
 }
 
-int MapChip::SerchBlockX(BLOCKTYPE Block) {
+int MapChip::SearchBlockX(BLOCKTYPE Block) {
 	for (int j = 0; j < m_colunm; j++)
 	{
 		for (int i = 0; i < m_row; i++)
@@ -431,7 +431,7 @@ int MapChip::SerchBlockX(BLOCKTYPE Block) {
 	}
 }
 
-int MapChip::SerchBlockY(BLOCKTYPE Block) {
+int MapChip::SearchBlockY(BLOCKTYPE Block) {
 	for (int j = 0; j < m_colunm; j++)
 	{
 		for (int i = 0; i < m_row; i++)

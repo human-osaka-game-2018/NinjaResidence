@@ -71,7 +71,7 @@ public:
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionX();
-	void SetGround();
+	bool SetGround();
 	/**
 	* @brief キャラのディスプレイ上中心Y座標の取得
 	* @author Toshiya Matsuoka
