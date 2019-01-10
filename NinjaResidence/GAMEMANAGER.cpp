@@ -212,3 +212,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	delete pGameManager;
 	pGameManager = NULL;
 }
+
+void WriteLog(std::string Text)
+{
+	const char* fileName = "test.txt";
+	std::ofstream ofs(fileName, std::ios::out);
+
+	if (!ofs)
+	{
+		std::cout << "ファイルが開けませんでした。" << std::endl;
+		std::cin.get();
+		return;
+	}
+
+	ofs << Text << std::endl;
+	std::cout << fileName << "に書き込みました。" << std::endl;
+
+	std::cin.get();
+}

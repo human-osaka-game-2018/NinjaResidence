@@ -21,7 +21,10 @@ void Water::Activate()
 void Water::Update()
 {
 	if (!m_isActive) return;
-	m_QuantityOfMovement -= 10.f;
+	if (m_QuantityOfMovement > -(80.f*4.f)) {
+		m_QuantityOfMovement -= 5.f;
+	}
+
 }
 
 void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
@@ -52,10 +55,10 @@ void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_GimmickVertex[3].x = m_WorldPosLeft + MapScrollX;
 	m_GimmickVertex[3].y = m_WorldPosBottom + MapScrollY + m_QuantityOfMovement;
 
-	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3;
-	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 4;
-	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 4;
-	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3;
+	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 2;
+	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 3;
+	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 3;
+	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 2;
 
 	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_HEIGHT;
 	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_HEIGHT;
@@ -63,4 +66,16 @@ void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 2;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_GimmickVertex);
+
+	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3;
+	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 4;
+	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 4;
+	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3;
+
+	m_GimmickVertex[0].y = m_GimmickVertex[2].y;
+	m_GimmickVertex[1].y = m_GimmickVertex[3].y;
+	m_GimmickVertex[2].y = m_WorldPosBottom + MapScrollY;
+	m_GimmickVertex[3].y = m_WorldPosBottom + MapScrollY;
+	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_GimmickVertex);
+
 }

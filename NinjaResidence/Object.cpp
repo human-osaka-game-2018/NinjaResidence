@@ -10,6 +10,8 @@ int Object::m_MapScrollY = 0;
 
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
+	m_MapScrollX = 0;
+	m_MapScrollY = 0;
 }
 
 
@@ -146,5 +148,23 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, color, tu, tv + scaleTv };
 
+}
+
+void Object::WriteLog(std::string Text)
+{
+	const char* fileName = "test.txt";
+	std::ofstream ofs(fileName, std::ios::out);
+
+	if (!ofs)
+	{
+		std::cout << "ファイルが開けませんでした。" << std::endl;
+		std::cin.get();
+		return;
+	}
+
+	ofs << Text << std::endl;
+	std::cout << fileName << "に書き込みました。" << std::endl;
+
+	std::cin.get();
 }
 

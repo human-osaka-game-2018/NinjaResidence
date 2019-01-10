@@ -10,6 +10,7 @@
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage) :Scene(pDirectX,pSoundOperater)
 {
+	WriteLog("Constract");
 	m_StageNum = ChosedStage;
 	m_pScene = this;
 
@@ -25,6 +26,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
 	m_pPauseScene = new PauseScene(pDirectX, pSoundOperater);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+
 }
 
 GameScene::~GameScene()
@@ -54,6 +56,7 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
+	WriteLog("update");
 	if (m_pPauseScene->GetSoundSetting()) {
 		m_SoundSetting = true;
 		m_pPauseScene->InactiveSoundSetting();
@@ -69,10 +72,19 @@ SCENE_NUM  GameScene::Update()
 		return m_pPauseScene->GetNextScene();
 	}
 	CurrentSkill = m_SkillSelect->GetSkillNum();
+	WriteLog("ninjutu");
 	m_pXinputDevice->DeviceUpdate();
+	WriteLog("XINPUT");
+
 	NotPushedAnyButton();
+	WriteLog("NONE");
+
 	KeyOperation();
+	WriteLog("key");
+
 	m_isClear = m_pGameChara->Update();
+	WriteLog("ƒLƒƒƒ‰UPDATE");
+
 	if (m_isClear) {
 		ClearAnime();
 	}
@@ -98,6 +110,10 @@ void GameScene::KeyOperation() {
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush== m_pXinputDevice->GetButton(ButtonB))
 	{
 		SkillStart();
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_E) || PadOn == m_pXinputDevice->GetButton(ButtonB)) {
+		m_pGameChara->FireArtAnime();
+
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E) || PadRelease == m_pXinputDevice->GetButton(ButtonB)) {
 		SkillEND();
@@ -205,6 +221,8 @@ void GameScene::NotPushedAnyButton() {
 		return;
 	}
 	m_pGameChara->NoOperation();
+	WriteLog("“ü—ÍI—¹");
+
 }
 
 void GameScene::Render()
@@ -335,10 +353,8 @@ void GameScene::SkillEND() {
 	case CLAWSHOT:
 		break;
 	case FIRE_ART:
-
 		m_CanChangeSkill = true;
 		m_pFireArt->KeyOperation(END_ART);
-
 		break;
 	case HIGH_SHURIKEN_ART:
 		break;

@@ -205,8 +205,12 @@ void MapChip::Activate(int X, int Y)
 {
 	for (auto& ite : pBaseTarget)
 	{
+		WriteLog("ACTIVATE_ROOP");
+
 		if (X == ite->GetTargetInfo()->PositionX && Y == ite->GetTargetInfo()->PositionY)
 		{
+			WriteLog("TARGET");
+
 			ite->ActivateTarget();
 		}
 	}

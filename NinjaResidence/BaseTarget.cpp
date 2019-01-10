@@ -18,7 +18,7 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 		m_pBaseGimmick = new FallRock(Gimmick, pDirectX, m_GimmickInfo.pMapChip);
 		break;
 	case BT_WATER:
-		//m_pBaseGimmick = new Water(Gimmick, pDirectX);
+		m_pBaseGimmick = new Water(Gimmick, pDirectX);
 		break;
 	case BT_ADHEREBOARD:
 		//m_pBaseGimmick = new AdhereBoard(Gimmick, pDirectX);
