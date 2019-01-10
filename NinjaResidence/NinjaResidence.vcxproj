@@ -24,6 +24,7 @@
     <ClCompile Include="DescriptionBoard.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="FallRock.cpp" />
+    <ClCompile Include="FireArt.cpp" />
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shuriken.cpp" />
+    <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="SkillSelect.cpp" />
     <ClCompile Include="SoundOperater.cpp" />
     <ClCompile Include="STAGESELECTSCENE.cpp" />
@@ -44,8 +46,8 @@
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TITLESCENE.cpp" />
     <ClCompile Include="VOLUMESELECTSCENE.cpp" />
-        <ClCompile Include="Torch.cpp" />
-        <ClCompile Include="Water.cpp" />
+    <ClCompile Include="Torch.cpp" />
+    <ClCompile Include="Water.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +58,7 @@
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="enum_Scene.h" />
     <ClInclude Include="FallRock.h" />
+    <ClInclude Include="FireArt.h" />
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
@@ -65,6 +68,7 @@
     <ClInclude Include="PartitionBoard.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="Shuriken.h" />
+    <ClInclude Include="SkillBase.h" />
     <ClInclude Include="SkillSelect.h" />
     <ClInclude Include="SoundOperater.h" />
     <ClInclude Include="Switch.h" />
@@ -79,8 +83,8 @@
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="STAGESELECTSCENE.h" />
-     <ClInclude Include="Torch.h" />
-     <ClInclude Include="TITLESCENE.h" />
+    <ClInclude Include="Torch.h" />
+    <ClInclude Include="TITLESCENE.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
