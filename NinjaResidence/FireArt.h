@@ -43,6 +43,8 @@ private:
 	float m_DirectionDeg = 0;
 	//! ƒLƒƒƒ‰‚ÌŒü‚«‚Ì”»•Ê‚Ìˆ×
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
+	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
+	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;
 
 	const float MoveSpeed = 10.f;
 	void InitPosition();

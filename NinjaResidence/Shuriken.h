@@ -34,6 +34,8 @@ private:
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
 
+	float PrevMapScrollX = 0;
+	float PrevMapScrollY = 0;
 
 	const float MoveSpeed = 10.f;
 	void InitPosition();

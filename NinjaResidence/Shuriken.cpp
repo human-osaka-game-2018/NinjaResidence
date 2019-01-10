@@ -67,6 +67,9 @@ bool Shuriken::PermitThrow() {
 	if (m_isChoseDeg && !m_isActive) {
 		m_Shuriken.x = m_pGameChara->GetPositionX() +( m_Direction * m_Shuriken.scale_x);
 		m_Shuriken.y = m_pGameChara->GetPositionY();
+		PrevMapScrollX = m_MapScrollX;
+		PrevMapScrollY = m_MapScrollY;
+
 		m_isChoseDeg = false;
 		return true;
 	}
@@ -91,15 +94,16 @@ bool Shuriken::Update()
 	if (m_isChoseDeg) {
 		m_DirectionArrow.x = m_pGameChara->GetPositionX() + m_Direction * CELL_SIZE * 2;
 		m_DirectionArrow.y = m_pGameChara->GetPositionY();
-
 	}
 
 	if (!m_isActive) {
 		return true;
 	}
-	m_Shuriken.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg));
-	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg));
-	m_MapPositionX = static_cast<int>((m_Shuriken.x - m_MapScrollX )/ CELL_SIZE);
+	PrevMapScrollX -= m_MapScrollX;
+	PrevMapScrollY -= m_MapScrollY;
+	m_Shuriken.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
+	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;;
+	m_MapPositionX = static_cast<int>((m_Shuriken.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Shuriken.y - m_MapScrollY) / CELL_SIZE);
 	if (m_Shuriken.x < 0 || m_Shuriken.x > DISPLAY_WIDTH) {
 		InitPosition();
@@ -113,6 +117,9 @@ bool Shuriken::Update()
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
+	PrevMapScrollX = m_MapScrollX;
+	PrevMapScrollY = m_MapScrollY;
+
 	return true;
 }
 

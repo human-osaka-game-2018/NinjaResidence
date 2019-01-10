@@ -77,5 +77,6 @@ protected:
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	SCENE_NUM m_NextScene;	//éüÇÃÉVÅ[Éì
+	void WriteLog(std::string Text);
 private:
 	};

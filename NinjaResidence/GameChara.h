@@ -22,7 +22,6 @@ namespace PlayerAnimation {
 		JUMPING,
 		THROWING,
 		WATER_ART,
-		STANDBY,
 		//! ï«íÕÇ‹ÇË
 		WALLHOLD,
 		FIREART,
@@ -90,6 +89,7 @@ public:
 	PlayerAnimation::DIRECTION GetFacing() {
 		return m_Facing;
 	}
+	void FireArtAnime();
 
 private:
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
@@ -142,11 +142,12 @@ private:
 	bool m_HeldOntoWallLeft = false;
 	bool m_HeldOntoWallRight = false;
 	bool m_CollisionHead = false;
+	bool m_isFire = false;
 
 	int m_RiseFlameTime = 0;
 	bool m_isJumpRight = false;
 	bool m_isJumpLeft = false;
-
+	bool m_isUsingArt = false;
 	const float InitialAcceleration = 60.0f;
 	float m_AccelerationY = InitialAcceleration;
 	float m_AccelerationX = MOVE_SPEED * 1.5f;
@@ -187,6 +188,7 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	void ThrowAnime();
+
 
 	/**
 	* @breaf â€èdóÕèàóù

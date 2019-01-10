@@ -53,7 +53,7 @@ bool FireArt::PermitThrow() {
 
 void FireArt::InitPosition() {
 	m_isActive = false;
-	m_Fire.x = m_pGameChara->GetPositionX() + m_Direction * m_Fire.scale_x;
+	m_Fire.x = m_pGameChara->GetPositionX() + m_Direction * (m_Fire.scale_x + 5.f);
 	m_Fire.y = m_pGameChara->GetPositionY();
 	m_DirectionDeg = 0;
 	m_Animation = 0.f;
@@ -71,8 +71,12 @@ bool FireArt::Update()
 		m_Animation += 1.f;
 		AnimeCount = 0;
 	}
+	if (m_Direction == FACING_RIGHT) {
+		m_DirectionBias = ZERO;
+	}
+	else m_DirectionBias = ONE;
 	m_Fire.x = m_pGameChara->GetPositionX() + m_Direction * m_Fire.scale_x;
-	m_Fire.y = m_pGameChara->GetPositionY();
+	m_Fire.y = m_pGameChara->GetPositionY()-10.f;
 	m_MapPositionX = static_cast<int>((m_Fire.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Fire.y - m_MapScrollY) / CELL_SIZE);
 	if (m_Fire.x < 0 || m_Fire.x > DISPLAY_WIDTH) {
@@ -99,13 +103,13 @@ void FireArt::Render()
 	}
 	if (m_isActive) {
 		CUSTOMVERTEX Vertex[4];
-		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF, 0, m_CharTv * 8, m_CharTu, m_CharTv);
+		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF, m_DirectionBias * m_CharTu, m_CharTv * 8, m_CharTu * m_Direction, m_CharTv);
 		m_pDirectX->DrawTexture("CHARA_TEX", Vertex);
-		m_Fire.x += 85;
-		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF, 1 * m_CharTu, m_CharTv * 8, m_CharTu, m_CharTv);
+		m_Fire.x += 85 * m_Direction;
+		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF,(m_DirectionBias + 1)* m_CharTu, m_CharTv * 8, m_CharTu*m_Direction, m_CharTv);
 		m_pDirectX->DrawTexture("CHARA_TEX", Vertex);
-		m_Fire.x += 85;
-		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF, 2 * m_CharTu, m_CharTv * 8, m_CharTu, m_CharTv);
+		m_Fire.x += 85 * m_Direction;
+		CreateSquareVertex(Vertex, m_Fire, 0xFFFFFFFF, (m_DirectionBias +2 ) * m_CharTu, m_CharTv * 8, m_CharTu*m_Direction, m_CharTv);
 		m_pDirectX->DrawTexture("CHARA_TEX", Vertex);
 
 	}

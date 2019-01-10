@@ -76,7 +76,9 @@ void GameChara::Jump()
 		m_WorldCharaCoordinate[i].y -= m_AccelerationY;
 	}
 	m_MapPositionY = static_cast<int>((m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE);
-	m_ChangeAnimation = JUMPING;
+	if (!m_isUsingArt) {
+		m_ChangeAnimation = JUMPING;
+	}
 	m_TurnAnimation = 0.f;
 	static int AnimeCount = 0;
 	++AnimeCount;
@@ -191,11 +193,11 @@ void GameChara::prevSaveMapCharaPos()
 
 void GameChara::KeyOperation(KeyDirection vec)
 {
-	static bool isFire = false;
 	//Key‘€ì‚Å‚Ìˆ—
 	switch (vec)
 	{
-		isFire = false;
+		m_isFire = false;
+		m_isUsingArt = false;
 	case JUMP:
 		CharaMoveOperation(JUMP);
 		break;
@@ -218,13 +220,14 @@ void GameChara::KeyOperation(KeyDirection vec)
 		break;
 	case THROW:
 		m_ChangeAnimation = THROWING;
-			break;
+		m_isUsingArt = true;
+		break;
 	case FIRE:
 		m_ChangeAnimation = FIREART;
-		isFire = true;
+		m_isUsingArt = true;
+		m_isFire = true;
 		break;
 	}
-
 }
 
 void GameChara::NoOperation() {
@@ -391,14 +394,14 @@ void GameChara::TurnTheAnimation(int AnimationPage)
 }
 
 void GameChara::ThrowAnime() {
-	static bool ThrowAnimeOn = false;
+	static bool AnimeOn = false;
 	static int AnimationCount = 0;
 
 	if (m_ChangeAnimation == THROWING) {
 
-		ThrowAnimeOn = true;
+		AnimeOn = true;
 	}
-	if (ThrowAnimeOn) {
+	if (AnimeOn) {
 		AnimationCount++;
 		static int AnimeCount = 0;
 		++AnimeCount;
@@ -413,10 +416,29 @@ void GameChara::ThrowAnime() {
 	}
 	else {
 		AnimationCount = 0;
-		ThrowAnimeOn = false;
+		AnimeOn = false;
 		m_ChangeAnimation = STAND;
 	}
 }
+
+void GameChara::FireArtAnime() {
+	static bool AnimeOn = false;
+
+	if (m_isFire) {
+		static int AnimeCount = 0;
+		++AnimeCount;
+		if (AnimeCount > 2) {
+			if (m_TurnAnimation > 2) {
+				static bool anime = true;
+				m_TurnAnimation += ((anime) ? 0 : -1);
+				anime = !anime;
+			}
+			else m_TurnAnimation++;
+			AnimeCount = 0;
+		}
+	}
+}
+
 bool GameChara::Update()
 {
 	ThrowAnime();
@@ -427,6 +449,8 @@ bool GameChara::Update()
 		m_MapPositionY = m_colunm - 1;
 	}
 	m_CollisionHead = TopCollisionAnything();
+	WriteLog("TOPCOLL");
+
 	MapScroolCheck();
 	AddGravity();
 	GimmickHitCheck();
@@ -491,15 +515,23 @@ bool GameChara::Update()
 			}
 		}
 	}
+	WriteLog("COLL");
+
 	if (!m_CollisionHead) {
 		Jump();
 	}
 	else if (m_isJump) {
 		InitJumpParam();
 	}
+	WriteLog("JUMP");
+
 	if (m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) > 100)
 	{
+		WriteLog("GIMMICK_COLL");
+
 		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY - 2);
+		WriteLog("Activate");
+
 	}
 	if (DownCollisionCheck(GOAL_ZONE)) {
 		return true;
@@ -659,10 +691,12 @@ bool GameChara::SetGround() {
 		}
 		return true;
 	}
-	else if (!m_isJump) {
+	else if (!m_isJump && !m_isUsingArt) {
 		m_ChangeAnimation = JUMPING;
 		m_TurnAnimation = 5.f;
 	}
-	else m_ChangeAnimation = JUMPING;
+	else  if (m_isJump && !m_isUsingArt) {
+		m_ChangeAnimation = JUMPING;
+	}
 	return false;
 }
