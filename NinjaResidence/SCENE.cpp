@@ -4,7 +4,7 @@
 * @author Kojiro Kawahara
 */
 #include "SCENE.h"
-
+bool Scene::m_SoundSetting = false;
 Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
 	m_pDirectX = pDirectX;

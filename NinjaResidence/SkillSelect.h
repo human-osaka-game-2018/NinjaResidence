@@ -6,12 +6,12 @@
 #pragma once
 #include "Object.h"
 
-enum Skill {
+enum SkillType {
 	SHURIKEN,
 	CLAWSHOT,
 	FIRE_ART,
 	HIGH_SHURIKEN_ART,
-	MAX_ITEM,
+	MAX_SKILL,
 };
 
 class SkillSelect :public Object

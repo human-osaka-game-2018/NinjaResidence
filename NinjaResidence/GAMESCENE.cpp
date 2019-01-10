@@ -5,6 +5,7 @@
 */
 #include "GAMESCENE.h"
 #include "Shuriken.h"
+#include "FireArt.h"
 
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage) :Scene(pDirectX,pSoundOperater)
@@ -19,7 +20,8 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int Chose
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
-	m_SkillSelect=new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
+	m_pFireArt = new FireArt(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_SkillSelect = new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
 	m_pPauseScene = new PauseScene(pDirectX, pSoundOperater);
 	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -37,6 +39,8 @@ GameScene::~GameScene()
 	m_pMapReverse = NULL;
 	delete m_pShuriken;
 	m_pShuriken = NULL;
+	delete m_pFireArt;
+	m_pFireArt = NULL;
 	delete m_SkillSelect;
 	m_SkillSelect = NULL;
 	delete m_pPauseScene;
@@ -91,9 +95,12 @@ void GameScene::KeyOperation() {
 	{
 		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E) || PadRelease == m_pXinputDevice->GetButton(ButtonB))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush== m_pXinputDevice->GetButton(ButtonB))
 	{
 		SkillStart();
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E) || PadRelease == m_pXinputDevice->GetButton(ButtonB)) {
+		SkillEND();
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_UP) || m_pXinputDevice->GetButton(ButtonUP))
 	{
@@ -177,10 +184,18 @@ void GameScene::NotPushedAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_D)){
 		return;
 	}
+	if (m_pDirectX->GetKeyStatus(DIK_E)) {
+		return;
+	}
 	if (m_pXinputDevice->GetButton(ButtonY))
 	{
 		return;
 	}
+	if (m_pXinputDevice->GetButton(ButtonB))
+	{
+		return;
+	}
+
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
 		return;
@@ -203,10 +218,12 @@ void GameScene::Render()
  	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
+	m_pFireArt->Render();
+
 	m_SkillSelect->Render();
 	if (m_isClear) {
 		CUSTOMVERTEX LogoVertex[4];
-		CENTRAL_STATE m_Logo = { CENTRAL_X ,200,400,150 };
+		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
 		CreateSquareVertex(LogoVertex, m_Logo);
 		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
 	}
@@ -215,19 +232,15 @@ void GameScene::Render()
 	char TestName[ArrayLong];
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
-	RECT test = { 400,0,800,500 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "X:%d,Y:%d", m_pGameChara->getMapCharaPositionX(), m_pGameChara->getMapCharaPositionY());
-	//m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_LEFT, 0xffffffff);
 #endif
-	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
-	{
-		m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
-	}
-	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2)
-	{
-		m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
-	}
+	//if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
+	//{
+	//	m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
+	//}
+	//if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2)
+	//{
+	//	m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
+	//}
 }
 
 void GameScene::LoadResouce()
@@ -236,7 +249,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
 	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
-	m_pDirectX->LoadTexture("texture/nin_s.png", "CHARA_TEX");
+	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
 	m_pDirectX->LoadTexture("texture/Scroll.png", "SCROLL_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");
@@ -258,6 +271,7 @@ void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
 	m_pShuriken->Reverse(m_pBusyMapChip);
+	m_pFireArt->Reverse(m_pBusyMapChip);
 }
 
 void GameScene::SkillsUpdate() {
@@ -269,6 +283,22 @@ void GameScene::SkillsUpdate() {
 	case CLAWSHOT:
 		break;
 	case FIRE_ART:
+		m_pFireArt->Update();
+		break;
+	case HIGH_SHURIKEN_ART:
+		break;
+	}
+}
+void GameScene::SkillsRender() {
+	m_SkillSelect->Render();
+	switch (CurrentSkill) {
+	case SHURIKEN:
+		m_pShuriken->Render();
+		break;
+	case CLAWSHOT:
+		break;
+	case FIRE_ART:
+		m_pFireArt->Render();
 		break;
 	case HIGH_SHURIKEN_ART:
 		break;
@@ -288,12 +318,34 @@ void GameScene::SkillStart() {
 	case CLAWSHOT:
 		break;
 	case FIRE_ART:
+		m_pGameChara->KeyOperation(FIRE);
+		m_pFireArt->KeyOperation(FIRE);
+		m_CanChangeSkill = false;
 		break;
 	case HIGH_SHURIKEN_ART:
 		break;
 	}
 
 }
+void GameScene::SkillEND() {
+	switch (CurrentSkill) {
+	case SHURIKEN:
+
+		break;
+	case CLAWSHOT:
+		break;
+	case FIRE_ART:
+
+		m_CanChangeSkill = true;
+		m_pFireArt->KeyOperation(END_ART);
+
+		break;
+	case HIGH_SHURIKEN_ART:
+		break;
+	}
+
+}
+
 void GameScene::SkillKeyOperation(KeyDirection vec) {
 	switch (CurrentSkill) {
 	case SHURIKEN:
@@ -302,6 +354,7 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 	case CLAWSHOT:
 		break;
 	case FIRE_ART:
+		m_pFireArt->KeyOperation(vec);
 		break;
 	case HIGH_SHURIKEN_ART:
 		break;

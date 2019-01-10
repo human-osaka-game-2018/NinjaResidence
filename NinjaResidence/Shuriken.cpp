@@ -6,10 +6,11 @@
 #include "Shuriken.h"
 using namespace PlayerAnimation;
 
-Shuriken::Shuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :Object(pDirectX, pSoundOperater)
+Shuriken::Shuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater,MapChip,GameChara)
 {
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
+	m_SkillType = SHURIKEN;
 }
 
 
@@ -140,4 +141,5 @@ void Shuriken::Render()
 
 void Shuriken::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	InitPosition();
 }

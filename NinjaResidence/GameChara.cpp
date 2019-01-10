@@ -77,12 +77,19 @@ void GameChara::Jump()
 	}
 	m_MapPositionY = static_cast<int>((m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE);
 	m_ChangeAnimation = JUMPING;
+	m_TurnAnimation = 0.f;
+	static int AnimeCount = 0;
+	++AnimeCount;
+	if (AnimeCount > 3) {
+		m_TurnAnimation = 1.f;
+	}
 	if (m_RiseFlameTime < 15) {
 		m_RiseFlameTime++;
 		AccelarationControl();
 		JumpingLateralMotion();
 		return;
 	}
+	AnimeCount = 0;
 
 	InitJumpParam();
 }
@@ -124,6 +131,8 @@ void GameChara::JumpingLateralMotion() {
 
 void GameChara::CharaMoveOperation(KeyDirection vec)
 {
+	static int AnimeCount = 0;
+
 	switch (vec)
 	{
 		//上に移動
@@ -137,24 +146,36 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 		break;
 	case MOVE_RIGHT:
 		//右に移動
-		m_ChangeAnimation = DASH;
 		m_Facing = FACING_RIGHT;
-		m_Bias = ZERO;
+		m_DirectionBias = ZERO;
 		for (int i = 0;i < 4;i++)
 		{
 			m_WorldCharaCoordinate[i].x += MOVE_SPEED;
 			m_DisplayCharaCoordinate[i].x += MOVE_SPEED;
 		}
+		if (m_ChangeAnimation == JUMPING) break;
+		m_ChangeAnimation = DASH;
+		++AnimeCount;
+		if (AnimeCount > 3) {
+			TurnTheAnimation(8);
+			AnimeCount = 0;
+		}
 		break;
 	case MOVE_LEFT:
 		//左に移動
-		m_ChangeAnimation = DASH;
 		m_Facing = FACING_LEFT;
-		m_Bias = ONE;
+		m_DirectionBias = ONE;
 		for (int i = 0;i < 4;i++)
 		{
 			m_WorldCharaCoordinate[i].x -= MOVE_SPEED;
 			m_DisplayCharaCoordinate[i].x -= MOVE_SPEED;
+		}
+		if (m_ChangeAnimation == JUMPING) break;
+		m_ChangeAnimation = DASH;
+		++AnimeCount;
+		if (AnimeCount > 3) {
+			TurnTheAnimation(8);
+			AnimeCount = 0;
 		}
 		break;
 	}
@@ -170,10 +191,11 @@ void GameChara::prevSaveMapCharaPos()
 
 void GameChara::KeyOperation(KeyDirection vec)
 {
-	static bool isThrowing = false;
+	static bool isFire = false;
 	//Key操作での処理
 	switch (vec)
 	{
+		isFire = false;
 	case JUMP:
 		CharaMoveOperation(JUMP);
 		break;
@@ -195,17 +217,26 @@ void GameChara::KeyOperation(KeyDirection vec)
 		NoOperation();
 		break;
 	case THROW:
-		//if (isThrowing) {
 		m_ChangeAnimation = THROWING;
-		//}
-		//isThrowing = !isThrowing;
+			break;
+	case FIRE:
+		m_ChangeAnimation = FIREART;
+		isFire = true;
 		break;
 	}
+
 }
 
 void GameChara::NoOperation() {
 	if (DownCollisionAnything()) {
 		m_ChangeAnimation = STAND;
+		static int AnimeCount = 0;
+		++AnimeCount;
+		if (AnimeCount > 10) {
+			TurnTheAnimation(3);
+			AnimeCount = 0;
+		}
+
 	}
 
 }
@@ -240,7 +271,7 @@ void GameChara::MapReversePointSearch(int BlockNumber)
 }
 
 
-void GameChara::CharaGimmickHitCheck()
+void GameChara::GimmickHitCheck()
 {
 	//下の方向のブロックを確かめる
 	if ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) / 100 == BT_SWITCH) ||
@@ -351,18 +382,33 @@ void GameChara::MapScroolCheck()
 
 }
 
+void GameChara::TurnTheAnimation(int AnimationPage)
+{
+	if (m_TurnAnimation < AnimationPage - 1) {
+		m_TurnAnimation += 1.f;
+	}
+	else m_TurnAnimation = 0;
+}
+
 void GameChara::ThrowAnime() {
 	static bool ThrowAnimeOn = false;
 	static int AnimationCount = 0;
 
 	if (m_ChangeAnimation == THROWING) {
+
 		ThrowAnimeOn = true;
 	}
 	if (ThrowAnimeOn) {
 		AnimationCount++;
+		static int AnimeCount = 0;
+		++AnimeCount;
+		if (AnimeCount > 2) {
+			TurnTheAnimation(6);
+			AnimeCount = 0;
+		}
 	}
 	else return;
-	if (AnimationCount < 20) {
+	if (m_TurnAnimation!=0) {
 		m_ChangeAnimation = THROWING;
 	}
 	else {
@@ -383,30 +429,9 @@ bool GameChara::Update()
 	m_CollisionHead = TopCollisionAnything();
 	MapScroolCheck();
 	AddGravity();
-	CharaGimmickHitCheck();
+	GimmickHitCheck();
 	//下の方向を確かめる
-	if (DownCollisionAnything())
-	{
-		m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 4) * CELL_SIZE);
-		m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 4) * CELL_SIZE);
-		m_WorldCharaCoordinate[2].y = ((m_MapPositionY)* CELL_SIZE);
-		m_WorldCharaCoordinate[3].y = ((m_MapPositionY)* CELL_SIZE);
-		for (int i = 0; i < 4; i++)
-		{
-			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
-		}
-		//2段ある地面にめり込んだときの復帰処理
-		if (m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition + 1) != NONE) {
-			for (int i = 0; i < 4; i++)
-			{
-				m_WorldCharaCoordinate[i].y -= CELL_SIZE;
-				m_DisplayCharaCoordinate[i].y -= m_WorldCharaCoordinate[i].y + m_MapScrollY;
-			}
-
-		}
-	}
-	else 	m_ChangeAnimation = JUMPING;
-
+	SetGround();
 	//上のブロックを確かめる
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
@@ -545,7 +570,7 @@ void GameChara::Render()
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
 	CharCentral.x -= 25.f;
 	CharCentral.scale_x = 120.f;
-	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF, m_TESTCharBias + (m_Bias * m_TESTCharTu), m_ChangeAnimation * m_TESTCharTv, m_TESTCharTu*m_Facing, m_TESTCharTv);
+	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF,( m_TurnAnimation+m_DirectionBias) * m_TESTCharTu, m_ChangeAnimation * m_TESTCharTv, m_TESTCharTu * m_Facing, m_TESTCharTv);
 	TextureRender("CHARA_TEX", TestChar);
 #ifdef _DEBUG
 
@@ -588,6 +613,8 @@ void GameChara::AddGravity() {
 		m_WorldCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 		m_DisplayCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 	}
+	SetGround();
+
 }
 
 void GameChara::DebugMove() {
@@ -632,6 +659,10 @@ bool GameChara::SetGround() {
 		}
 		return true;
 	}
-	else 	m_ChangeAnimation = JUMPING;
+	else if (!m_isJump) {
+		m_ChangeAnimation = JUMPING;
+		m_TurnAnimation = 5.f;
+	}
+	else m_ChangeAnimation = JUMPING;
 	return false;
 }

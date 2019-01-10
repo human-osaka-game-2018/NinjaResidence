@@ -68,7 +68,7 @@ protected:
 	static const int ArrayLong = 64;
 	
 	//! Œã‚Å–¼Ì•ÏX
-	bool m_SoundSetting = false;
+	static bool m_SoundSetting;
 
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);

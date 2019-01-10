@@ -35,8 +35,8 @@ private:
 	SoundOperater* m_pSoundOperater = NULL;
 	VOLUMESELECTSCENE* m_pVolumeSettingScene = NULL;
 
-	HANDLE m_threadHandle;
-	DWORD m_threadResult;
+	HANDLE m_threadHandle = NULL;
+	DWORD m_threadResult = NULL;
 
 	void LoadAction();
 	bool isRunOnce = false;

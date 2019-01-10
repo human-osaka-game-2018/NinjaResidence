@@ -127,7 +127,8 @@ LRESULT CALLBACK GAMEMANAGER::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
-	case WM_SYSKEYDOWN:     //! Alt + 特殊キーの処理に使う
+	//! Alt + 特殊キーの処理に使う
+	case WM_SYSKEYDOWN:     
 		switch (wp) {
 		//! Alt + Enterを押すと切り替え
 		case VK_RETURN:

@@ -5,12 +5,12 @@
 */
 
 #pragma once
-#include "GAMESCENE.h"
+#include "SkillBase.h"
 #include "MapChip.h"
 
-class Object;
+class SkillBase;
 
-class Shuriken :public Object
+class Shuriken :public SkillBase
 {
 public:
 	/*
@@ -18,12 +18,6 @@ public:
 	*/
 	void KeyOperation(KeyDirection vec);
 
-	/*
-	* @brief 投擲起動処理
-	* @return 投げられたらtrue
-	* @details 投擲前に角度指定フェイズを挟む
-	*/
-	bool PermitThrow();
 
 
 	bool Update();
@@ -39,19 +33,15 @@ private:
 	CENTRAL_STATE m_DirectionArrow = { 500,0,100,20 };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
-	Object* m_pMapChip = NULL;
-	GameChara * m_pGameChara = NULL;
-	bool m_isActive = false;
-	bool m_isChoseDeg = false;
 
-	int m_MapPositionX;
-	int m_MapPositionY;
-
-	float m_DirectionDeg = 0;
-	//! キャラの向きの判別の為
-	float m_Direction = PlayerAnimation::FACING_NOTHING;
 
 	const float MoveSpeed = 10.f;
 	void InitPosition();
+	/*
+	* @brief 投擲起動処理
+	* @return 投げられたらtrue
+	* @details 投擲前に角度指定フェイズを挟む
+	*/
+	bool PermitThrow();
 
 };
