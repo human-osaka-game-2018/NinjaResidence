@@ -26,10 +26,6 @@ public:
 	
 private:
 	CENTRAL_STATE m_Player = { 400,10,(CELL_SIZE * 2),(CELL_SIZE * 4) };
-	int m_SurfaceMapScrollX;
-	int m_SurfaceMapScrollY;
-	int m_ReverseMapScrollX;
-	int m_ReverseMapScrollY;
 	GameChara* m_pGameChara = NULL;
 	static bool MapDataReverseState;
 };

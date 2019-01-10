@@ -27,8 +27,8 @@ class MapChip;
 class GameChara;
 class MapReverse;
 class DescriptionBoard;
-class Shuriken;
 class SoundManager;
+class SkillBase;
 
 class GameScene : public Scene
 {
@@ -51,7 +51,10 @@ private:
 	GameChara* m_pGameChara = NULL;
 	Object* m_pBusyMapChip = NULL;//Žg—p’†‚ÌMapChip
 	Object* m_pIdleMapChip = NULL;//’âŽ~’†‚ÌMapChip
-	Shuriken* m_pShuriken = NULL;
+
+	SkillBase* m_pShuriken = NULL;
+	SkillBase* m_pFireArt = NULL;
+
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;
 	MapReverse* m_pMapReverse = NULL;
@@ -65,10 +68,12 @@ private:
 	*/
 	void Reverse();
 	void SkillsUpdate();
+	void SkillsRender();
 	void SkillStart();
+	void SkillEND();
 	void SkillKeyOperation(KeyDirection vec);
 	void ClearAnime();
-	bool m_EnableSkill[MAX_ITEM - 1] = { true,true,true };
+	bool m_EnableSkill[MAX_SKILL - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
 	bool RunPause = false;
 	bool m_isClear = false;

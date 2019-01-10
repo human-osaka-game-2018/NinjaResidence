@@ -23,6 +23,8 @@ enum KeyDirection
 	MOVE_RIGHT,
 	SPACE,
 	THROW,
+	FIRE,
+	END_ART,
 	SoundOn,
 };
 
@@ -80,19 +82,6 @@ public:
 	*/
 	virtual void Create(const char *filename, MapDataState MapState) {};
 
-	struct MAPCharPosition {
-		int X;
-		int Y;
-	};
-
-	MAPCharPosition MapCharaPosition;
-
-	int getMapCharaPositionX() {
-		return MapCharaPosition.X;
-	};
-	int getMapCharaPositionY() {
-		return MapCharaPosition.Y;
-	};
 
 	void setMapScrollX(int x) {};
 	void setMapScrollY(int y) {};

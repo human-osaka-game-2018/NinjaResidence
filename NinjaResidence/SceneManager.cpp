@@ -15,12 +15,11 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	:m_CurrentScene(SCENE_NONE),m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
-	m_pScene = new TitleScene(m_pDirectX, m_pSoundOperater);
 	m_pSoundOperater = pSoundOperater;
 	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundOperater);
 
 	//ゲームシーンへショートカットする
-	m_NextScene = GAME_SCENE;
+	//m_NextScene = GAME_SCENE;
 }
 
 SceneManager::~SceneManager()
@@ -34,6 +33,7 @@ SceneManager::~SceneManager()
 
 int SceneManager::Update()
 {
+	int ChosedStage = 0;
 	if (m_pScene->GetSoundSetting()) {
 		
 		TestTime++;
@@ -47,7 +47,6 @@ int SceneManager::Update()
 	}
 	if (m_CurrentScene != m_NextScene)
 	{
-		int ChosedStage = m_pScene->GetStageNum();
 		switch (m_NextScene)
 		{
 		case TITLE_SCENE:
@@ -68,6 +67,7 @@ int SceneManager::Update()
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
+			ChosedStage = m_pScene->GetStageNum();
 			isThreadActive = true;
 			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater, ChosedStage);
 			break;
@@ -125,6 +125,7 @@ void SceneManager::LoadAction() {
 	GetExitCodeThread(m_threadHandle, &m_threadResult);
 	if (m_threadResult != STILL_ACTIVE && LoadTime >= 20) {
 		CloseHandle(m_threadHandle);
+		m_threadHandle = NULL;
 		isRunOnce = false;
 		LoadTime = 0;
 		isThreadActive = false;

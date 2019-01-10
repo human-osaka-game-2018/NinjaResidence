@@ -6,7 +6,6 @@
 #pragma once
 
 #include <vector>
-#include "GAMESCENE.h"
 #include "Object.h"
 #include "MapChip.h"
 
@@ -18,13 +17,16 @@ class MapReverse;
 */
 namespace PlayerAnimation {
 	enum MOTION {
-		STANDBY,
-		DASH,
 		STAND,
+		DASH,
 		JUMPING,
+		THROWING,
+		WATER_ART,
+		STANDBY,
 		//! 壁掴まり
 		WALLHOLD,
-		THROWING,
+		FIREART,
+		ROPEHOLD,
 	};
 	enum DIRECTION {
 		FACING_NOTHING = 0,
@@ -93,17 +95,13 @@ private:
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
-	CUSTOMVERTEX m_ReverseDisplayCharaCoordinate[4];
-	CUSTOMVERTEX m_ReverseWorldCharaCoordinate[4];
-	CUSTOMVERTEX m_SurfaceDisplayCharaCoordinate[4];
-	CUSTOMVERTEX m_SurfaceWorldCharaCoordinate[4];
 
-	int m_PrevMapLeftDirectionPosition;//前フレームのm_MapLeftDirectionPositionの値
-	int m_PrevMapRightDirectionPosition;//前フレームのm_MapRightDirectionPositionの値
-	int m_PrevMapCharaPositionY;//前フレームのm_MapPositionYの値
-	int m_MapLeftDirectionPosition;//キャラの左側のX座標
-	int m_MapRightDirectionPosition;//キャラの右側のX座標
-	int m_MapPositionY;//キャラの上側のx座標
+	int m_PrevMapLeftDirectionPosition = 0;//前フレームのm_MapLeftDirectionPositionの値
+	int m_PrevMapRightDirectionPosition = 0;//前フレームのm_MapRightDirectionPositionの値
+	int m_PrevMapCharaPositionY = 0;//前フレームのm_MapPositionYの値
+	int m_MapLeftDirectionPosition = 0;//キャラの左側のX座標
+	int m_MapRightDirectionPosition = 0;//キャラの右側のX座標
+	int m_MapPositionY = 0;//キャラの上側のx座標
 
 	const float GRAVITY = 15.f;//毎フレームかける重力の値
 	const float MOVE_SPEED = 15.f;
@@ -127,15 +125,16 @@ private:
 
 
 	//仮統合ファイルの切り取り情報
-	float m_TESTCharTu = 233 / 2048.f;
-	float m_TESTCharTv = 215 / 2048.f;
-	float m_TESTCharBias = 64 / 2024.f;
-
+	const float CHARA_TEXTURE_WIDTH = 4096.f;
+	const float m_TESTCharTu = 320 / CHARA_TEXTURE_WIDTH;
+	const float m_TESTCharTv = 320 / CHARA_TEXTURE_WIDTH;
+	const float m_TESTCharBias = 64 / CHARA_TEXTURE_WIDTH;
+	float m_TurnAnimation = 0;
 	PlayerAnimation::MOTION m_ChangeAnimation = PlayerAnimation::STAND;
 	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;
 	//! 仮置き変数
-	PlayerAnimation::DIRECTION_BIAS m_Bias = PlayerAnimation::ZERO;
-
+	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
+	void TurnTheAnimation(int AnimationPage);
 
 	bool m_isScrollingDown = false;
 	bool m_isInTheAir = false;
