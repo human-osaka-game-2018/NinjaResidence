@@ -12,7 +12,7 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 	switch (m_GimmickInfo.GimmickType)
 	{
 	case BT_PARTITIONBOARD:
-		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX);
+		m_pBaseGimmick = new PartitionBoard(Gimmick, pDirectX, m_GimmickInfo.pMapChip);
 		break;
 	case BT_FALLROCK:
 		m_pBaseGimmick = new FallRock(Gimmick, pDirectX, m_GimmickInfo.pMapChip);
