@@ -95,6 +95,7 @@ public:
 	int getMapChipData(int height, int width) {
 		return MapData[height][width];
 	}
+	virtual float GetGimmickPosition(bool isAxisX) { return 0; };
 	virtual bool RestrictBottomScroll() { return false; };
 	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
 	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };

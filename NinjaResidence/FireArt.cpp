@@ -55,7 +55,6 @@ void FireArt::InitPosition() {
 	m_isActive = false;
 	m_Fire.x = m_pGameChara->GetPositionX() + m_Direction * (m_Fire.scale_x + 5.f);
 	m_Fire.y = m_pGameChara->GetPositionY();
-	m_DirectionDeg = 0;
 	m_Animation = 0.f;
 }
 
@@ -80,16 +79,17 @@ bool FireArt::Update()
 	m_MapPositionX = static_cast<int>((m_Fire.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Fire.y - m_MapScrollY) / CELL_SIZE);
 	if (m_Fire.x < 0 || m_Fire.x > DISPLAY_WIDTH) {
-		InitPosition();
+		//InitPosition();
 	}
 	if (m_MapPositionY == 0 || m_Fire.y < 0 || m_Fire.y > DISPLAY_HEIGHT) {
-		InitPosition();
+		//InitPosition();
 	}
 	int buf = 0;
-	if (buf = m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX) > 100)
-	{
-		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
-		InitPosition();
+	for (int i = -1; i <7; ++i) {
+		if (m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX + i * m_Direction) > 100)
+		{
+			m_pMapChip->Activate(m_MapPositionX + i * m_Direction, m_MapPositionY);
+		}
 	}
 	return true;
 }

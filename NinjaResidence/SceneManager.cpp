@@ -33,7 +33,6 @@ SceneManager::~SceneManager()
 
 int SceneManager::Update()
 {
-	int ChosedStage = 0;
 	if (m_pScene->GetSoundSetting()) {
 		
 		TestTime++;
@@ -67,9 +66,8 @@ int SceneManager::Update()
 			if (!isRunOnce) {
 				delete m_pScene;
 			}
-			ChosedStage = m_pScene->GetStageNum();
 			isThreadActive = true;
-			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater, ChosedStage);
+			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater);
 			break;
 		}
 		m_NextScene = m_pScene->GetNextScene();

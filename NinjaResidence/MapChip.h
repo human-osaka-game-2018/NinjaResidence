@@ -55,7 +55,7 @@ public:
 	}
 	int SearchBlockX(MapBlock::BLOCKTYPE Block);
 	int SearchBlockY(MapBlock::BLOCKTYPE Block);
-
+	float GetGimmickPosition(bool isAxisX);
 private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;

@@ -20,6 +20,7 @@ public:
 	virtual void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse) = 0;
 	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseTarget();
+	virtual float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse) { return m_pBaseGimmick->GetGimmickPosition(isAxisX, MapDataReverse); };
 protected:
 	BaseGimmick * m_pBaseGimmick = NULL;
 	DirectX* m_pDirectX = NULL;

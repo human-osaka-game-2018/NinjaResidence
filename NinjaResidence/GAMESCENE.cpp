@@ -8,16 +8,15 @@
 #include "FireArt.h"
 
 
-GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage) :Scene(pDirectX,pSoundOperater)
+GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	WriteLog("Constract");
-	m_StageNum = ChosedStage;
 	m_pScene = this;
-
+	StageTurning();
 	m_pBusyMapChip = new MapChip(pDirectX, pSoundOperater);
 	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
-	m_pBusyMapChip->Create("csv/Book1.csv", SURFACE);
-	m_pIdleMapChip->Create("csv/Book2.csv",REVERSE);
+	m_pBusyMapChip->Create(StageFilePath_surface, SURFACE);
+	m_pIdleMapChip->Create(StageFilePath_reverse,REVERSE);
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
@@ -265,7 +264,7 @@ void GameScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
-	m_pDirectX->LoadTexture("texture/BKG.jpg", "BACKGROUND_TEX");
+	m_pDirectX->LoadTexture("texture/BG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
@@ -285,6 +284,38 @@ void GameScene::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
 }
+void GameScene::StageTurning()
+{
+	switch (m_StageNum) {
+	case 0:
+		StageFilePath_surface = "csv/TUTORIAL_A.csv";
+		StageFilePath_reverse = "csv/TUTORIAL_B.csv";
+		break;
+	case 1:
+		StageFilePath_surface = "csv/STAGE1_A.csv";
+		StageFilePath_reverse = "csv/STAGE1_B.csv";
+		break;
+	case 2:
+		StageFilePath_surface = "csv/STAGE2_A.csv";
+		StageFilePath_reverse = "csv/STAGE2_B.csv";
+		break;
+	case 3:
+		StageFilePath_surface = "csv/STAGE3_A.csv";
+		StageFilePath_reverse = "csv/STAGE3_B.csv";
+		break;
+	case 4:
+		StageFilePath_surface = "csv/STAGE4_A.csv";
+		StageFilePath_reverse = "csv/STAGE4_B.csv";
+		break;
+	case 5:
+		StageFilePath_surface = "csv/STAGE5_A.csv";
+		StageFilePath_reverse = "csv/STAGE5_B.csv";
+		break;
+	default:
+		break;
+	}
+}
+
 void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);

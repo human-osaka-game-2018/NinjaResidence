@@ -9,8 +9,9 @@ public:
 	void Activate();
 	void Update();
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse );
+	float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse);
 	Water(BlockInfo Gimmick, DirectX* pDirectX);
 	~Water();
 private:
-
+	float TopPosition = 0;
 };

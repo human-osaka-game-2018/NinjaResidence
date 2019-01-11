@@ -34,7 +34,7 @@ class GameScene : public Scene
 {
 
 public:
-	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int ChosedStage);
+	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~GameScene();
 	SCENE_NUM Update();//ゲームシーン（でプレイヤーや敵の移動とか）の更新関数
 	void KeyOperation();
@@ -54,6 +54,8 @@ private:
 
 	SkillBase* m_pShuriken = NULL;
 	SkillBase* m_pFireArt = NULL;
+	const char* StageFilePath_surface = "csv/Book1.csv";
+	const char* StageFilePath_reverse = "csv/Book2.csv";
 
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;
@@ -62,6 +64,7 @@ private:
 	Scene* m_pScene = NULL;
 	//! 今の選択中忍術
 	int CurrentSkill;
+	void StageTurning();
 	/**
 	* @brief どんでん返し処理
 	* @author Toshiya Matsuoka

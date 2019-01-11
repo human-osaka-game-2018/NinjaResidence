@@ -240,4 +240,7 @@ private:
 	*/
 	bool LeftCollisionCheck(int block);
 
+	bool LookDownWater();
+
+	float WaterCollsionCheck();
 };

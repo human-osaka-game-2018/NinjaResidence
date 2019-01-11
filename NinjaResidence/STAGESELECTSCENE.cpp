@@ -33,6 +33,10 @@ SCENE_NUM  StageSelectScene::Update()
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
 		SetNextScene(GAME_SCENE);
 	}
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE)) {
+		m_StageNum = 7;
+	}
+
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
 		if (m_StageNum < 5) {
