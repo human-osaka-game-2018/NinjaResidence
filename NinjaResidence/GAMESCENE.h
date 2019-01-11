@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GAMESCENE.h
-* @brief GAMESCENEƒNƒ‰ƒX
+* @brief GAMESCENEã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
@@ -36,10 +36,10 @@ class GameScene : public Scene
 public:
 	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~GameScene();
-	SCENE_NUM Update();//ƒQ[ƒ€ƒV[ƒ“i‚ÅƒvƒŒƒCƒ„[‚â“G‚ÌˆÚ“®‚Æ‚©j‚ÌXVŠÖ”
+	SCENE_NUM Update();//ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ï¼ˆã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚„æ•µã®ç§»å‹•ã¨ã‹ï¼‰ã®æ›´æ–°é–¢æ•°
 	void KeyOperation();
 	void NotPushedAnyButton();
-	void Render();       //ƒQ[ƒ€ƒV[ƒ“i‚ÅƒvƒŒƒCƒ„[‚â“G‚Ì•`‰æ‚µ‚½‚è‚Æ‚©j‚Ì•`‰æŠÖ”
+	void Render();       //ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ï¼ˆã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚„æ•µã®æç”»ã—ãŸã‚Šã¨ã‹ï¼‰ã®æç”»é–¢æ•°
 	void LoadResouce();
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 	void TransePause() {
@@ -49,8 +49,8 @@ public:
 private:
 	CUSTOMVERTEX  m_GameBackground[4];
 	GameChara* m_pGameChara = NULL;
-	Object* m_pBusyMapChip = NULL;//g—p’†‚ÌMapChip
-	Object* m_pIdleMapChip = NULL;//’â~’†‚ÌMapChip
+	Object* m_pBusyMapChip = NULL;//ä½¿ç”¨ä¸­ã®MapChip
+	Object* m_pIdleMapChip = NULL;//åœæ­¢ä¸­ã®MapChip
 
 	SkillBase* m_pShuriken = NULL;
 	SkillBase* m_pFireArt = NULL;
@@ -62,11 +62,11 @@ private:
 	MapReverse* m_pMapReverse = NULL;
 	PauseScene* m_pPauseScene = NULL;
 	Scene* m_pScene = NULL;
-	//! ¡‚Ì‘I‘ğ’†”Ep
+	//! ä»Šã®é¸æŠä¸­å¿è¡“
 	int CurrentSkill;
 	void StageTurning();
 	/**
-	* @brief ‚Ç‚ñ‚Å‚ñ•Ô‚µˆ—
+	* @brief ã©ã‚“ã§ã‚“è¿”ã—å‡¦ç†
 	* @author Toshiya Matsuoka
 	*/
 	void Reverse();

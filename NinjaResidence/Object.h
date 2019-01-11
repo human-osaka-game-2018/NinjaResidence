@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file Object.h
-* @brief FX‚È•¨‘Ì‚ÌŠî’êƒNƒ‰ƒX
+* @brief è‰²ã€…ãªç‰©ä½“ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 #pragma once
@@ -32,7 +32,7 @@ class Object
 {
 public:
 	/*
-	*ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
+	*ã‚­ãƒ¼å…¥åŠ›æ™‚ã®å†…éƒ¨å‡¦ç†é–¢æ•°
 	*/
 	virtual void KeyOperation();
 	virtual void KeyOperation(KeyDirection vec) {};
@@ -44,9 +44,9 @@ public:
 	virtual void prevSaveMapCharaPos() {};
 	virtual void Activate(int X,int Y) {};
 	/*
-	* @brief ƒeƒNƒXƒ`ƒƒ‚Ì“\‚è•t‚¯
-	* @param TextureKey ƒeƒNƒXƒ`ƒƒƒL[
-	* @param TextureSize “\‚è•t‚¯À•W”z—ñ‚ÌƒAƒhƒŒƒX
+	* @brief ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è²¼ã‚Šä»˜ã‘
+	* @param TextureKey ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚­ãƒ¼
+	* @param TextureSize è²¼ã‚Šä»˜ã‘åº§æ¨™é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 	*/
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 
@@ -55,30 +55,30 @@ public:
 	virtual ~Object();
 
 	/**
-	*@brief CUSTOMVERTEX‚Éƒpƒ‰ƒ[ƒ^‚ğ“ü‚ê‚é
-	* @param Vertex ’l‚ğ“ü‚ê‚é”z—ñ
-	* @param Central ’†SÀ•Wî•ñ
-	* @param color F
-	* @param tu Ø‚èæ‚è‰æ‘œ‚Ì¶’[
-	* @param tv Ø‚èæ‚è‰æ‘œ‚Ìã’[
-	* @param scaleTu Ø‚èæ‚è‰æ‘œ‚Ì‰E’[
-	* @param scaleTv Ø‚èæ‚è‰æ‘œ‚Ì‰º’[
+	*@brief CUSTOMVERTEXã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å…¥ã‚Œã‚‹
+	* @param Vertex å€¤ã‚’å…¥ã‚Œã‚‹é…åˆ—
+	* @param Central ä¸­å¿ƒåº§æ¨™æƒ…å ±
+	* @param color è‰²
+	* @param tu åˆ‡ã‚Šå–ã‚Šç”»åƒã®å·¦ç«¯
+	* @param tv åˆ‡ã‚Šå–ã‚Šç”»åƒã®ä¸Šç«¯
+	* @param scaleTu åˆ‡ã‚Šå–ã‚Šç”»åƒã®å³ç«¯
+	* @param scaleTv åˆ‡ã‚Šå–ã‚Šç”»åƒã®ä¸‹ç«¯
 	*/
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	/**
-	*@brief CUSTOMVERTEX‚©‚çCENTRAL_STATE‚ğì¬‚·‚é
+	*@brief CUSTOMVERTEXã‹ã‚‰CENTRAL_STATEã‚’ä½œæˆã™ã‚‹
 	* @param Central [out]
 	* @param Vertex [in]
 	* @sa CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color, float tu, float tv, float scaleTu float scaleTv)
-	* @details ŠÖ˜A‚·‚éCUSTOMVERTEXì¬ŠÖ”‚Ì‹t“®ì‚ğ‚·‚é
+	* @details é–¢é€£ã™ã‚‹CUSTOMVERTEXä½œæˆé–¢æ•°ã®é€†å‹•ä½œã‚’ã™ã‚‹
 	*/
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
 
 	/**
-	*@brief CSV“Ç‚İæ‚è‚Æƒ}ƒbƒvƒf[ƒ^¶¬
-	* @param filename CSVƒtƒ@ƒCƒ‹ƒpƒX
+	*@brief CSVèª­ã¿å–ã‚Šã¨ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ç”Ÿæˆ
+	* @param filename CSVãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 	*/
 	virtual void Create(const char *filename, MapDataState MapState) {};
 
@@ -130,9 +130,9 @@ protected:
 
 	std::vector< std::vector<int> > MapData;
 	
-	//!s
+	//!è¡Œ
 	int m_row = 0;
-	//!—ñ
+	//!åˆ—
 	int m_colunm = 0;
 
 	static const int ArrayLong = 64;

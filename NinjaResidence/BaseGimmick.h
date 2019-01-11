@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "BlockInfo.h"
 #include "DirectX.h"

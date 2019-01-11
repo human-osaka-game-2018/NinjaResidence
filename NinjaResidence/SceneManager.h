@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SceneManager.h
-* @brief SceneManagerƒNƒ‰ƒX
+* @brief SceneManagerã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
@@ -26,9 +26,9 @@ public:
 private:
 	void LoadAnimation();
 
-	SCENE_NUM m_CurrentScene;	//¡‚ÌƒV[ƒ“
+	SCENE_NUM m_CurrentScene;	//ä»Šã®ã‚·ãƒ¼ãƒ³
 	
-	//! ƒƒ‚ƒŠƒŠ[ƒNŒŸ’mŠí‚Å‚ÍŒŸo‚³‚ê‚È‚¢‚Æv‚í‚ê‚éB
+	//! ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œçŸ¥å™¨ã§ã¯æ¤œå‡ºã•ã‚Œãªã„ã¨æ€ã‚ã‚Œã‚‹ã€‚
 	static Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;

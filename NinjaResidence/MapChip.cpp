@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file MapChip.cpp
-* @brief MapChipƒNƒ‰ƒX
+* @brief MapChipã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "MapChip.h"
@@ -49,7 +49,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 	FILE *fp = NULL;
 	char data[4];
 	char buf[mapMaxWidth];
-	//int c‚Í‰½‚ğ‚µ‚Ä‚¢‚é•Ï”H
+	//int cã¯ä½•ã‚’ã—ã¦ã„ã‚‹å¤‰æ•°ï¼Ÿ
 	int c, i = 0, x = 0, y = 0;
 
 	if (fopen_s(&fp, filename, "r") != 0)
@@ -181,16 +181,16 @@ void MapChip::CheckVector()
 			if (TargetVector[i].PairNumber % 100 != GimmickVector[j].PairNumber % 100) continue;
 			switch (TargetVector[i].GimmickType)
 			{
-			case BT_TARGET://“I
+			case BT_TARGET://çš„
 			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-			case BT_ROPE://ƒ[ƒv
+			case BT_ROPE://ãƒ­ãƒ¼ãƒ—
 			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-			case BT_SWITCH://ƒXƒCƒbƒ`
+			case BT_SWITCH://ã‚¹ã‚¤ãƒƒãƒ
 			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
-				case BT_TORCH://‚½‚¢‚Ü‚Â
+				case BT_TORCH://ãŸã„ã¾ã¤
 			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX);
 				break;
 			}

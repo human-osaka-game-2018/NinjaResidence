@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GameChara.cpp
-* @brief GameCharaƒNƒ‰ƒX
+* @brief GameCharaã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "GameChara.h"
@@ -10,7 +10,7 @@ using namespace PlayerAnimation;
 
 GameChara::GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip) :Object(pDirectX, pSoundOperater)
 {
-	//MapChip‚Ìî•ñ‚ğæ“¾‚·‚é‚½‚ß‚É•K—v
+	//MapChipã®æƒ…å ±ã‚’å–å¾—ã™ã‚‹ãŸã‚ã«å¿…è¦
 	m_pMapChip = MapChip;
 	m_row = m_pMapChip->getRow();
 	m_colunm = m_pMapChip->getColunm();
@@ -110,7 +110,7 @@ void GameChara::JumpingLateralMotion() {
 	}
 
 	if (m_isJumpRight) {
-		//‰E‚ÉˆÚ“®
+		//å³ã«ç§»å‹•
 		for (int i = 0; i < 4; i++)
 		{
 			m_WorldCharaCoordinate[i].x += m_AccelerationX;
@@ -120,7 +120,7 @@ void GameChara::JumpingLateralMotion() {
 
 	}
 	if (m_isJumpLeft) {
-		//¶‚ÉˆÚ“®
+		//å·¦ã«ç§»å‹•
 		for (int i = 0; i < 4; i++)
 		{
 			m_WorldCharaCoordinate[i].x -= m_AccelerationX;
@@ -137,17 +137,17 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 
 	switch (vec)
 	{
-		//ã‚ÉˆÚ“®
+		//ä¸Šã«ç§»å‹•
 	case JUMP:
 
 		m_isJump = PermitJumping();
 		break;
 	case DOWN:
-		//¡‚Ì‚Æ‚±‚ë‚È‚µ
+		//ä»Šã®ã¨ã“ã‚ãªã—
 
 		break;
 	case MOVE_RIGHT:
-		//‰E‚ÉˆÚ“®
+		//å³ã«ç§»å‹•
 		m_Facing = FACING_RIGHT;
 		m_DirectionBias = ZERO;
 		for (int i = 0;i < 4;i++)
@@ -168,7 +168,7 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 		}
 		break;
 	case MOVE_LEFT:
-		//¶‚ÉˆÚ“®
+		//å·¦ã«ç§»å‹•
 		m_Facing = FACING_LEFT;
 		m_DirectionBias = ONE;
 		for (int i = 0;i < 4;i++)
@@ -202,7 +202,7 @@ void GameChara::prevSaveMapCharaPos()
 
 void GameChara::KeyOperation(KeyDirection vec)
 {
-	//Key‘€ì‚Å‚Ìˆ—
+	//Keyæ“ä½œã§ã®å‡¦ç†
 	switch (vec)
 	{
 		m_isFire = false;
@@ -211,14 +211,14 @@ void GameChara::KeyOperation(KeyDirection vec)
 		CharaMoveOperation(JUMP);
 		break;
 	case DOWN:
-		//¡‚Ì‚Æ‚±‚ë–³‚µ
+		//ä»Šã®ã¨ã“ã‚ç„¡ã—
 		break;
 	case MOVE_RIGHT:
-		//‰E‚ÉˆÚ“®
+		//å³ã«ç§»å‹•
 		CharaMoveOperation(MOVE_RIGHT);
 		break;
 	case MOVE_LEFT:
-		//¶‚ÉˆÚ“®
+		//å·¦ã«ç§»å‹•
 		CharaMoveOperation(MOVE_LEFT);
 		break;
 	case SoundOn:
@@ -285,14 +285,14 @@ void GameChara::MapReversePointSearch(int BlockNumber)
 
 void GameChara::GimmickHitCheck()
 {
-	//‰º‚Ì•ûŒü‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+	//ä¸‹ã®æ–¹å‘ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 	if ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) / 100 == BT_SWITCH) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) / 100 == BT_SWITCH) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) / 100 == BT_SWITCH))
 	{
 		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY);
 	}
-	//¶‚Ì•ûŒü‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+	//å·¦ã®æ–¹å‘ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
@@ -301,7 +301,7 @@ void GameChara::GimmickHitCheck()
 
 	}
 
-	//‰E•ûŒü‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+	//å³æ–¹å‘ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
@@ -328,7 +328,7 @@ void GameChara::CharaInfoSave(Object* MapChip, int BlockNumber)
 
 void GameChara::MapScroolCheck()
 {
-	//ƒLƒƒƒ‰“–‚½‚è”»’è‚ª2’i‚Ì’n–Ê‚ÌŠÔ‚É‹z‚í‚ê‚Ä‚¢‚é
+	//ã‚­ãƒ£ãƒ©å½“ãŸã‚Šåˆ¤å®šãŒ2æ®µã®åœ°é¢ã®é–“ã«å¸ã‚ã‚Œã¦ã„ã‚‹
 	if (m_pMapChip->RestrictBottomScroll()) {
 		m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
 		m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
@@ -342,7 +342,7 @@ void GameChara::MapScroolCheck()
 		m_isScrollingDown = true;
 
 	}
-	//‰º‚ÉƒXƒNƒ[ƒ‹ˆÚ“®
+	//ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ç§»å‹•
 	else if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
 	{
 		m_DisplayCharaCoordinate[0].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Player.scale_y);
@@ -356,7 +356,7 @@ void GameChara::MapScroolCheck()
 	else if(LookDownWater()) {
 	}
 	else m_isScrollingDown = false;
-	//ã‚ÉƒXƒNƒ[ƒ‹ˆÚ“®
+	//ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ç§»å‹•
 	if (m_DisplayCharaCoordinate[1].y < static_cast<float>(DisplayCharMoveScopeUp))
 	{
 		if (m_WorldCharaCoordinate[0].y >= static_cast<float>(DisplayCharMoveScopeUp))
@@ -369,7 +369,7 @@ void GameChara::MapScroolCheck()
 		}
 	}
 
-	//‰E‚ÉƒXƒNƒ[ƒ‹ˆÚ“®
+	//å³ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ç§»å‹•
 	if (m_DisplayCharaCoordinate[1].x > static_cast<float>(DisplayCharMoveScopeRight))
 	{
 		if (m_WorldCharaCoordinate[1].x <= ((m_row * CELL_SIZE) - static_cast<float>(DisplayCharMoveScopeX)))
@@ -381,7 +381,7 @@ void GameChara::MapScroolCheck()
 			m_MapScrollX -= ScrollSpeed;
 		}
 	}
-	//¶‚ÉƒXƒNƒ[ƒ‹ˆÚ“®
+	//å·¦ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ç§»å‹•
 	if (m_DisplayCharaCoordinate[0].x < static_cast<float>(DisplayCharMoveScopeLeft))
 	{
 		if (m_WorldCharaCoordinate[0].x >= static_cast<float>(DisplayCharMoveScopeX))
@@ -465,9 +465,9 @@ bool GameChara::Update()
 	MapScroolCheck();
 	AddGravity();
 	GimmickHitCheck();
-	//‰º‚Ì•ûŒü‚ğŠm‚©‚ß‚é
+	//ä¸‹ã®æ–¹å‘ã‚’ç¢ºã‹ã‚ã‚‹
 	SetGround();
-	//ã‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+	//ä¸Šã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
 		if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE) ||
@@ -486,7 +486,7 @@ bool GameChara::Update()
 	}
 	if (m_PrevMapLeftDirectionPosition >= m_WorldCharaCoordinate[3].x)
 	{
-		//¶‚Ì•ûŒü‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+		//å·¦ã®æ–¹å‘ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 		if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) != NONE) ||
@@ -507,7 +507,7 @@ bool GameChara::Update()
 	}
 	if (m_PrevMapRightDirectionPosition <= m_WorldCharaCoordinate[2].x)
 	{
-		//‰E•ûŒü‚ÌƒuƒƒbƒN‚ğŠm‚©‚ß‚é
+		//å³æ–¹å‘ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç¢ºã‹ã‚ã‚‹
 		if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != NONE) ||
@@ -667,7 +667,7 @@ void GameChara::Render()
 }
 
 void GameChara::AddGravity() {
-	//d—Í‚ğ–ˆƒtƒŒ[ƒ€‚©‚¯‚é
+	//é‡åŠ›ã‚’æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‘ã‚‹
 	if (m_isScrollingDown) {
 		for (int i = 0; i < 4; i++)
 		{
@@ -724,7 +724,7 @@ bool GameChara::SetGround() {
 		{
 			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 		}
-		//2’i‚ ‚é’n–Ê‚É‚ß‚è‚ñ‚¾‚Æ‚«‚Ì•œ‹Aˆ—
+		//2æ®µã‚ã‚‹åœ°é¢ã«ã‚ã‚Šè¾¼ã‚“ã ã¨ãã®å¾©å¸°å‡¦ç†
 		if (m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition + 1) != NONE) {
 			for (int i = 0; i < 4; i++)
 			{

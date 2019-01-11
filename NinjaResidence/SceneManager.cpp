@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SceneManager.cpp
-* @brief SceneManagerƒNƒ‰ƒX
+* @brief SceneManagerã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "SceneManager.h"
@@ -18,7 +18,7 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	m_pSoundOperater = pSoundOperater;
 	m_pVolumeSettingScene = new VOLUMESELECTSCENE(m_pDirectX, m_pSoundOperater);
 
-	//ƒQ[ƒ€ƒV[ƒ“‚ÖƒVƒ‡[ƒgƒJƒbƒg‚·‚é
+	//ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã¸ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã™ã‚‹
 	//m_NextScene = GAME_SCENE;
 }
 

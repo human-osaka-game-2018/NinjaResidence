@@ -1,4 +1,4 @@
-#include "BaseTarget.h"
+﻿#include "BaseTarget.h"
 #include "TargetandGimmickType.h"
 
 BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)

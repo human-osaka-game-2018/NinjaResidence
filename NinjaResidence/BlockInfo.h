@@ -1,5 +1,5 @@
-#pragma once
-//Œp³ŠÖŒW‚Å–Ê“|‚È‚½‚ß‰¼’u‚«A‚¢‚¢’u‚«•û‚ ‚ê‚Î‹³‚¦‚Ä‚Ù‚µ‚¢
+ï»¿#pragma once
+//ç¶™æ‰¿é–¢ä¿‚ã§é¢å€’ãªãŸã‚ä»®ç½®ãã€ã„ã„ç½®ãæ–¹ã‚ã‚Œã°æ•™ãˆã¦ã»ã—ã„
 const float CELL_SIZE = 40.f;
 const float BLOCK_INTEGRATION_WIDTH = 80.0f / 512.0f;
 const float BLOCK_INTEGRATION_HEIGHT = 80.0f / 1024.0f;
@@ -8,16 +8,16 @@ class MapChip;
 
 enum MapDataState
 {
-	SURFACE,//•\
-	REVERSE,//— 
+	SURFACE,//è¡¨
+	REVERSE,//è£
 };
 
 struct BlockInfo
 {
-	int PositionX;//XÀ•W
-	int PositionY;//YÀ•W
-	int PairNumber;//‰º2Œ…
-	int GimmickType;//Target‚È‚ç1.2.3AGimmick‚È‚ç4.5.6
+	int PositionX;//Xåº§æ¨™
+	int PositionY;//Yåº§æ¨™
+	int PairNumber;//ä¸‹2æ¡
+	int GimmickType;//Targetãªã‚‰1.2.3ã€Gimmickãªã‚‰4.5.6
 	MapDataState MapDataState;
 	MapChip* pMapChip;
 };

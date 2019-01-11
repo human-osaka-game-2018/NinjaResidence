@@ -1,4 +1,4 @@
-#include "Water.h"
+ï»¿#include "Water.h"
 #include <string>
 
 
@@ -14,7 +14,7 @@ Water::~Water()
 
 void Water::Activate()
 {
-	//…‚Ì“®‚«
+	//æ°´ã®å‹•ã
 	m_isActive = true;
 }
 

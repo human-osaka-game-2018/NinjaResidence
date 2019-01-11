@@ -1,4 +1,4 @@
-#include "FallRock.h"
+ï»¿#include "FallRock.h"
 #include <string>
 #include "MapChip.h"
 
@@ -26,7 +26,7 @@ void FallRock::Update()
 {
 	if (!m_isActive) return;
 
-	//—Ž‚¿‚éŠâ‚Ì“®‚«
+	//è½ã¡ã‚‹å²©ã®å‹•ã
 	int CheckNumber = m_pMapChip->GimmickMapDataCheck((m_GimmickPosY + 80 + m_QuantityOfMovement) / 40, m_GimmickPosX / 40);
 	if (CheckNumber == 0)
 	{

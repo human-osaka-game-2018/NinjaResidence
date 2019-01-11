@@ -1,4 +1,4 @@
-#include "Target.h"
+ï»¿#include "Target.h"
 #include "DirectX.h"
 #include "TargetandGimmickType.h"
 
@@ -34,7 +34,7 @@ void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	{
 		m_TargetPosX = m_TargetInfo.PositionX;
 		m_TargetPosY = m_TargetInfo.PositionY;
-		//TODO:“I‚ÌƒIƒ“ƒIƒtØ‚è‘Ö‚¦
+		//TODO:çš„ã®ã‚ªãƒ³ã‚ªãƒ•åˆ‡ã‚Šæ›¿ãˆ
 		if (MapDataReverse == m_TargetInfo.MapDataState)
 		{
 			m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;

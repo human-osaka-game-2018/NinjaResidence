@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file MapReverse.cpp
-* @brief MapReverseƒNƒ‰ƒX
+* @brief MapReverseã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "MapReverse.h"

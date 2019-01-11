@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "BaseTarget.h"
 #include "Object.h"
