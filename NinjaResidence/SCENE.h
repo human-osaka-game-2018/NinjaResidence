@@ -63,7 +63,7 @@ protected:
 	XinputDevice* m_pXinputDevice = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
 	
-	int m_StageNum = 0;
+	static int m_StageNum;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
 	
