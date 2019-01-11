@@ -106,7 +106,32 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 		}
 	}
 	fclose(fp);
-	CheckVector();
+	if (MapState == REVERSE)
+	{
+		CheckVector();
+	}
+}
+
+void MapChip::MapDataVectorHitSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX)
+{
+	for (int j = 0;j < GimmickY;j++)
+	{
+		for (int i = 0;i < GimmickX;i++)
+		{
+			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 900;
+		}
+	}
+}
+
+void MapChip::MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX)
+{
+	for (int j = -1;j < GimmickY;j++)
+	{
+		for (int i = 0;i < GimmickX;i++)
+		{
+			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 0;
+		}
+	}
 }
 
 void MapChip::MapDataGimmickSearch()

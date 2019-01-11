@@ -1,9 +1,12 @@
 #include "PartitionBoard.h"
 #include <string>
+#include "MapChip.h"
 
-PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
+PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
+	m_pMapChip = pMapChip;
+	m_pMapChip->MapDataVectorHitSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
 }
 
 PartitionBoard::~PartitionBoard()
@@ -11,10 +14,12 @@ PartitionBoard::~PartitionBoard()
 
 }
 
+
 void PartitionBoard::Activate()
 {
 	m_isActive = true;
 }
+
 
 void PartitionBoard::Update()
 {
@@ -22,14 +27,14 @@ void PartitionBoard::Update()
 	//ŽdØ‚è”Â‚Ì“®‚«
 	while (m_WorldPosBottom >= 0.f)
 	{
-		m_WorldPosBottom -= 10.f;
+		m_WorldPosBottom -= 20.f;
 		break;
 	}
 	if (m_WorldPosBottom <= 0.f)
 	{
 		m_isActive = false;
+		m_pMapChip->MapDataVectorZeroSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
 	}
-
 }
 
 
