@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "GAMESCENE.h"
 #include "MapChip.h"

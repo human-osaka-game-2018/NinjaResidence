@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "SkillBase.h"
 #include "MapChip.h"
 
@@ -8,14 +8,14 @@ class FireArt :public SkillBase
 {
 public:
 	/*
-	* @brief ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
+	* @brief ã‚­ãƒ¼å…¥åŠ›æ™‚ã®å†…éƒ¨å‡¦ç†é–¢æ•°
 	*/
 	void KeyOperation(KeyDirection vec);
 
 	/*
-	* @brief “Š±‹N“®ˆ—
-	* @return “Š‚°‚ç‚ê‚½‚çtrue
-	* @details “Š±‘O‚ÉŠp“xw’èƒtƒFƒCƒY‚ğ‹²‚Ş
+	* @brief æŠ•æ“²èµ·å‹•å‡¦ç†
+	* @return æŠ•ã’ã‚‰ã‚ŒãŸã‚‰true
+	* @details æŠ•æ“²å‰ã«è§’åº¦æŒ‡å®šãƒ•ã‚§ã‚¤ã‚ºã‚’æŒŸã‚€
 	*/
 	bool PermitThrow();
 
@@ -41,7 +41,7 @@ private:
 	int m_MapPositionY;
 
 	float m_DirectionDeg = 0;
-	//! ƒLƒƒƒ‰‚ÌŒü‚«‚Ì”»•Ê‚Ìˆ×
+	//! ã‚­ãƒ£ãƒ©ã®å‘ãã®åˆ¤åˆ¥ã®ç‚º
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
 	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;

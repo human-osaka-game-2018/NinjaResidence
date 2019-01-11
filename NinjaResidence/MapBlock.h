@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 namespace MapBlock
 {
-	enum BLOCKTYPE//CSV‚ÌƒuƒƒbƒN‚Ì”Ô†
+	enum BLOCKTYPE//CSVã®ãƒ–ãƒ­ãƒƒã‚¯ã®ç•ªå·
 	{
 		NONE,
 		WOOD_BLOCK,

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GAMESCENE.cpp
-* @brief GAMESCENEƒNƒ‰ƒX
+* @brief GAMESCENEã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "GAMESCENE.h"
@@ -82,7 +82,7 @@ SCENE_NUM  GameScene::Update()
 	WriteLog("key");
 
 	m_isClear = m_pGameChara->Update();
-	WriteLog("ƒLƒƒƒ‰UPDATE");
+	WriteLog("ã‚­ãƒ£ãƒ©UPDATE");
 
 	if (m_isClear) {
 		ClearAnime();
@@ -139,7 +139,7 @@ void GameScene::KeyOperation() {
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		Reverse();
-		//à–¾ŠÅ”Â‚ğ“Ç‚Ş
+		//èª¬æ˜çœ‹æ¿ã‚’èª­ã‚€
 		if ((m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1) ||
 			(m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2))
 		{
@@ -156,7 +156,7 @@ void GameScene::KeyOperation() {
 		TransePause();
 	}
 
-	//ƒ}ƒbƒv“®ì
+	//ãƒãƒƒãƒ—å‹•ä½œ
 	//if (m_pDirectX->GetKeyStatus(DIK_W))
 	//{
 	//	m_pBusyMapChip->KeyOperation(UP);
@@ -173,12 +173,12 @@ void GameScene::KeyOperation() {
 	//{
 	//	m_pBusyMapChip->KeyOperation(RIGHT);
 	//}
-	//ƒeƒXƒg—pˆ—
+	//ãƒ†ã‚¹ãƒˆç”¨å‡¦ç†
 	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB)) {
 
 	}
 	
-	//‰¹º‚ÌƒeƒXƒg—pˆ—‚ğŒÄ‚Ô
+	//éŸ³å£°ã®ãƒ†ã‚¹ãƒˆç”¨å‡¦ç†ã‚’å‘¼ã¶
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		m_pGameChara->DebugMove();
@@ -220,7 +220,7 @@ void GameScene::NotPushedAnyButton() {
 		return;
 	}
 	m_pGameChara->NoOperation();
-	WriteLog("“ü—ÍI—¹");
+	WriteLog("å…¥åŠ›çµ‚äº†");
 
 }
 

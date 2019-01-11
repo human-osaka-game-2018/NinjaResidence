@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 
 enum TargetandGimmickType
 {
 	BT_NONE,
-	//“I
+	//çš„
 	BT_TARGET,
 	BT_ROPE,
 	BT_SWITCH,
 	BT_TORCH,
-	//ƒMƒ~ƒbƒN
+	//ã‚®ãƒŸãƒƒã‚¯
 	BT_PARTITIONBOARD,
 	BT_FALLROCK,
 	BT_WATER,

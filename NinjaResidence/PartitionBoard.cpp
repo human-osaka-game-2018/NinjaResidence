@@ -1,4 +1,4 @@
-#include "PartitionBoard.h"
+ï»¿#include "PartitionBoard.h"
 #include <string>
 #include "MapChip.h"
 
@@ -24,7 +24,7 @@ void PartitionBoard::Activate()
 void PartitionBoard::Update()
 {
 	if (!m_isActive) return;
-	//ŽdØ‚è”Â‚Ì“®‚«
+	//ä»•åˆ‡ã‚Šæ¿ã®å‹•ã
 	while (m_WorldPosBottom >= 0.f)
 	{
 		m_WorldPosBottom -= 20.f;

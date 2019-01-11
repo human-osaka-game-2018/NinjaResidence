@@ -1,4 +1,4 @@
-#include "FireArt.h"
+ï»¿#include "FireArt.h"
 
 
 using namespace PlayerAnimation;
@@ -21,7 +21,7 @@ FireArt::~FireArt()
 
 void FireArt::KeyOperation(KeyDirection vec)
 {
-	//Key‘€ì‚Å‚Ìˆ—
+	//Keyæ“ä½œã§ã®å‡¦ç†
 	switch (vec)
 	{
 	case FIRE:

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameChara.h"
 #include "SkillSelect.h"
 
@@ -8,7 +8,7 @@ class SkillBase :	public Object
 {
 public:
 	/*
-	* @brief ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
+	* @brief ã‚­ãƒ¼å…¥åŠ›æ™‚ã®å†…éƒ¨å‡¦ç†é–¢æ•°
 	*/
 	virtual void KeyOperation(KeyDirection vec) {};
 	virtual bool Update() { return true; };
@@ -29,7 +29,7 @@ protected:
 	int m_MapPositionY;
 
 	float m_DirectionDeg = 0;
-	//! ƒLƒƒƒ‰‚ÌŒü‚«‚Ì”»•Ê‚Ìˆ×
+	//! ã‚­ãƒ£ãƒ©ã®å‘ãã®åˆ¤åˆ¥ã®ç‚º
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
 
 	void InitPosition() {};

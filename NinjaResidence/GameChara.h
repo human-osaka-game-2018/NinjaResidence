@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file GameChara.h
-* @brief GameCharaƒNƒ‰ƒX
+* @brief GameCharaã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
@@ -22,7 +22,7 @@ namespace PlayerAnimation {
 		JUMPING,
 		THROWING,
 		WATER_ART,
-		//! •Ç’Í‚Ü‚è
+		//! å£æ´ã¾ã‚Š
 		WALLHOLD,
 		FIREART,
 		ROPEHOLD,
@@ -34,7 +34,7 @@ namespace PlayerAnimation {
 		//! param -1
 		FACING_LEFT = -1,
 	};
-	//! ƒAƒjƒ—p‚Ì‰¼—ñ‹“
+	//! ã‚¢ãƒ‹ãƒ¡ç”¨ã®ä»®åˆ—æŒ™
 	enum DIRECTION_BIAS {
 		ZERO,
 		ONE,
@@ -58,23 +58,23 @@ public:
 
 	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
 
-	void CharaGimmickHitCheck();
+	void GimmickHitCheck();
 
 	void NoOperation();
 	/**
-	* @brief Debug—pƒLƒƒƒ‰ã¸ˆ—
+	* @brief Debugç”¨ã‚­ãƒ£ãƒ©ä¸Šæ˜‡å‡¦ç†
 	* @author Toshiya Matsuoka
 	*/
 	void DebugMove();
 
 	/**
-	* @brief ƒLƒƒƒ‰‚ÌƒfƒBƒXƒvƒŒƒCã‘O’[‚Ìæ“¾
+	* @brief ã‚­ãƒ£ãƒ©ã®ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ä¸Šå‰ç«¯ã®å–å¾—
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionX();
 	bool SetGround();
 	/**
-	* @brief ƒLƒƒƒ‰‚ÌƒfƒBƒXƒvƒŒƒCã’†SYÀ•W‚Ìæ“¾
+	* @brief ã‚­ãƒ£ãƒ©ã®ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ä¸Šä¸­å¿ƒYåº§æ¨™ã®å–å¾—
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionY() {
@@ -82,7 +82,7 @@ public:
 	}
 
 	/**
-	* @brief ƒLƒƒƒ‰‚ÌŒü‚¢‚Ä‚¢‚é•ûŒü‚Ìæ“¾
+	* @brief ã‚­ãƒ£ãƒ©ã®å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®å–å¾—
 	* @sa PlayerAnimation::DIRECTION
 	* @author Toshiya Matsuoka
 	*/
@@ -96,22 +96,22 @@ private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 
-	int m_PrevMapLeftDirectionPosition = 0;//‘OƒtƒŒ[ƒ€‚Ìm_MapLeftDirectionPosition‚Ì’l
-	int m_PrevMapRightDirectionPosition = 0;//‘OƒtƒŒ[ƒ€‚Ìm_MapRightDirectionPosition‚Ì’l
-	int m_PrevMapCharaPositionY = 0;//‘OƒtƒŒ[ƒ€‚Ìm_MapPositionY‚Ì’l
-	int m_MapLeftDirectionPosition = 0;//ƒLƒƒƒ‰‚Ì¶‘¤‚ÌXÀ•W
-	int m_MapRightDirectionPosition = 0;//ƒLƒƒƒ‰‚Ì‰E‘¤‚ÌXÀ•W
-	int m_MapPositionY = 0;//ƒLƒƒƒ‰‚Ìã‘¤‚ÌxÀ•W
+	int m_PrevMapLeftDirectionPosition = 0;//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®m_MapLeftDirectionPositionã®å€¤
+	int m_PrevMapRightDirectionPosition = 0;//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®m_MapRightDirectionPositionã®å€¤
+	int m_PrevMapCharaPositionY = 0;//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®m_MapPositionYã®å€¤
+	int m_MapLeftDirectionPosition = 0;//ã‚­ãƒ£ãƒ©ã®å·¦å´ã®Xåº§æ¨™
+	int m_MapRightDirectionPosition = 0;//ã‚­ãƒ£ãƒ©ã®å³å´ã®Xåº§æ¨™
+	int m_MapPositionY = 0;//ã‚­ãƒ£ãƒ©ã®ä¸Šå´ã®xåº§æ¨™
 
-	const float GRAVITY = 15.f;//–ˆƒtƒŒ[ƒ€‚©‚¯‚éd—Í‚Ì’l
+	const float GRAVITY = 15.f;//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‘ã‚‹é‡åŠ›ã®å€¤
 	const float MOVE_SPEED = 15.f;
 	const float VERTICAL_SCROLLING_LEVEL = 12.f;
 	const int ScrollSpeed = 15;
-	const int DisplayCharMoveScopeUp = 100;//m_DisplayCharaCoordinate‚ÌYÀ•W‚ª‚±‚Ì’l‚ğ‰º‰ñ‚é‚Æã‚ÉƒXƒNƒ[ƒ‹‚·‚é
-	const int DisplayCharMoveScopeDown = 630;//m_DisplayCharaCoordinate‚ÌYÀ•W‚ª‚±‚Ì’l‚ğ’´‚¦‚é‚Æã‚ÉƒXƒNƒ[ƒ‹‚·‚é
-	const int DisplayCharMoveScopeLeft = 300;//m_DisplayCharaCoordinate‚ÌXÀ•W‚ª‚±‚Ì’l‚ğ‰º‰ñ‚é‚Æ¶‚ÉƒXƒNƒ[ƒ‹‚·‚é
-	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinate‚ÌXÀ•W‚ª‚±‚Ì’l‚ğ’´‚¦‚é‚Æ‰E‚ÉƒXƒNƒ[ƒ‹‚·‚é
-	const int DisplayCharMoveScopeX = 300;//—¼’[‚©‚ç‚ÌXÀ•W‚Ì‰Ò“­”ÍˆÍ
+	const int DisplayCharMoveScopeUp = 100;//m_DisplayCharaCoordinateã®Yåº§æ¨™ãŒã“ã®å€¤ã‚’ä¸‹å›ã‚‹ã¨ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+	const int DisplayCharMoveScopeDown = 630;//m_DisplayCharaCoordinateã®Yåº§æ¨™ãŒã“ã®å€¤ã‚’è¶…ãˆã‚‹ã¨ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+	const int DisplayCharMoveScopeLeft = 300;//m_DisplayCharaCoordinateã®Xåº§æ¨™ãŒã“ã®å€¤ã‚’ä¸‹å›ã‚‹ã¨å·¦ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinateã®Xåº§æ¨™ãŒã“ã®å€¤ã‚’è¶…ãˆã‚‹ã¨å³ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+	const int DisplayCharMoveScopeX = 300;//ä¸¡ç«¯ã‹ã‚‰ã®Xåº§æ¨™ã®ç¨¼åƒç¯„å›²
 
 
 	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
@@ -124,7 +124,7 @@ private:
 	float GravityAcceleration = 0;
 
 
-	//‰¼“‡ƒtƒ@ƒCƒ‹‚ÌØ‚èæ‚èî•ñ
+	//ä»®çµ±åˆãƒ•ã‚¡ã‚¤ãƒ«ã®åˆ‡ã‚Šå–ã‚Šæƒ…å ±
 	const float CHARA_TEXTURE_WIDTH = 4096.f;
 	const float m_TESTCharTu = 320 / CHARA_TEXTURE_WIDTH;
 	const float m_TESTCharTv = 320 / CHARA_TEXTURE_WIDTH;
@@ -132,7 +132,7 @@ private:
 	float m_TurnAnimation = 0;
 	PlayerAnimation::MOTION m_ChangeAnimation = PlayerAnimation::STAND;
 	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;
-	//! ‰¼’u‚«•Ï”
+	//! ä»®ç½®ãå¤‰æ•°
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
 	void TurnTheAnimation(int AnimationPage);
 
@@ -154,87 +154,86 @@ private:
 
 
 	void CharaMoveOperation(KeyDirection vec);
-	void ValueAllSetCUSTOMVERTEX(CUSTOMVERTEX* Receive, CUSTOMVERTEX* Give);
 
 	/**
-	* @breaf ƒWƒƒƒ“ƒv‚Ì‹N“®
-	* @return ƒWƒƒƒ“ƒv‚ª‹N“®‚·‚ê‚Îtrue
+	* @breaf ã‚¸ãƒ£ãƒ³ãƒ—ã®èµ·å‹•
+	* @return ã‚¸ãƒ£ãƒ³ãƒ—ãŒèµ·å‹•ã™ã‚Œã°true
 	* @author Toshiya Matsuoka
 	*/
 	bool PermitJumping();
 	/**
-	* @breaf ƒWƒƒƒ“ƒv‚Ì“®ì
+	* @breaf ã‚¸ãƒ£ãƒ³ãƒ—ã®å‹•ä½œ
 	* @author Toshiya Matsuoka
 	*/
 	void Jump();
 	/**
-	* @breaf •ÇƒWƒƒƒ“ƒv—p‰¡ˆÚ“®ˆ—
+	* @breaf å£ã‚¸ãƒ£ãƒ³ãƒ—ç”¨æ¨ªç§»å‹•å‡¦ç†
 	* @author Toshiya Matsuoka
 	*/
 	void JumpingLateralMotion();
 	/**
-	* @breaf ƒWƒƒƒ“ƒv‚Ì“®ì•Ï”‚Ì‰Šú‰»
+	* @breaf ã‚¸ãƒ£ãƒ³ãƒ—ã®å‹•ä½œå¤‰æ•°ã®åˆæœŸåŒ–
 	* @author Toshiya Matsuoka
 	*/
 	void InitJumpParam();
 	/**
-	* @breaf ƒWƒƒƒ“ƒv‚Ìã¸—Ê’²®
+	* @breaf ã‚¸ãƒ£ãƒ³ãƒ—ã®ä¸Šæ˜‡é‡èª¿æ•´
 	* @author Toshiya Matsuoka
 	*/
 	void AccelarationControl();
 
 	/**
-	* @breaf “Š±ƒAƒjƒˆ—
+	* @breaf æŠ•æ“²ã‚¢ãƒ‹ãƒ¡å‡¦ç†
 	* @author Toshiya Matsuoka
 	*/
 	void ThrowAnime();
 
 
 	/**
-	* @breaf ‰Ûd—Íˆ—
+	* @breaf èª²é‡åŠ›å‡¦ç†
 	* @author Toshiya Matsuoka
 	*/
 	void AddGravity();
 	/**
-	* @breaf ‰º‚É‘Î‚·‚é‰½‚©‚µ‚ç‚Ì“–‚½‚è”»’è
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf ä¸‹ã«å¯¾ã™ã‚‹ä½•ã‹ã—ã‚‰ã®å½“ãŸã‚Šåˆ¤å®š
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @author Toshiya Matsuoka
 	*/
 	bool DownCollisionAnything(void);
 	/**
-	* @breaf ã‚É‘Î‚·‚é‰½‚©‚µ‚ç‚Ì“–‚½‚è”»’è
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf ä¸Šã«å¯¾ã™ã‚‹ä½•ã‹ã—ã‚‰ã®å½“ãŸã‚Šåˆ¤å®š
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @author Toshiya Matsuoka
 	*/
 	bool TopCollisionAnything(void);
 	/**
-	* @breaf ‰º•ûŒü‚É‘Î‚·‚é“–‚½‚è”»’è
-	* @param block w’è‚ÌƒuƒƒbƒN”Ô†
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf ä¸‹æ–¹å‘ã«å¯¾ã™ã‚‹å½“ãŸã‚Šåˆ¤å®š
+	* @param block æŒ‡å®šã®ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @sa  MapBlock::BLOCKTYPE
 	* @author Toshiya Matsuoka
 	*/
 	bool DownCollisionCheck(int block);
 	/**
-	* @breaf ã•ûŒü‚É‘Î‚·‚é“–‚½‚è”»’è
-	* @param block w’è‚ÌƒuƒƒbƒN”Ô†
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf ä¸Šæ–¹å‘ã«å¯¾ã™ã‚‹å½“ãŸã‚Šåˆ¤å®š
+	* @param block æŒ‡å®šã®ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @sa  MapBlock::BLOCKTYPE
 	* @author Toshiya Matsuoka
 	*/
 	bool TopCollisionCheck(int block);
 	/**
-	* @breaf ‰E•ûŒü‚É‘Î‚·‚é“–‚½‚è”»’è
-	* @param block w’è‚ÌƒuƒƒbƒN”Ô†
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf å³æ–¹å‘ã«å¯¾ã™ã‚‹å½“ãŸã‚Šåˆ¤å®š
+	* @param block æŒ‡å®šã®ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @sa  MapBlock::BLOCKTYPE
 	* @author Toshiya Matsuoka
 	*/
 	bool RightCollisionCheck(int block);
 	/**
-	* @breaf ¶•ûŒü‚É‘Î‚·‚é“–‚½‚è”»’è
-	* @param block w’è‚ÌƒuƒƒbƒN”Ô†
-	* @return “–‚½‚Á‚Ä‚¢‚ê‚Îtrue
+	* @breaf å·¦æ–¹å‘ã«å¯¾ã™ã‚‹å½“ãŸã‚Šåˆ¤å®š
+	* @param block æŒ‡å®šã®ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+	* @return å½“ãŸã£ã¦ã„ã‚Œã°true
 	* @sa  MapBlock::BLOCKTYPE
 	* @author Toshiya Matsuoka
 	*/

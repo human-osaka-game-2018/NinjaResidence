@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file MapChip.h
-* @brief MapChipƒNƒ‰ƒX
+* @brief MapChipã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
@@ -33,8 +33,8 @@ public:
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~MapChip();
 	/**
-	* @brief ƒ}ƒbƒvƒ`ƒbƒv‚Ì¶¬
-	* @param filename CSVƒtƒ@ƒCƒ‹‚Ì‘Š‘ÎƒpƒX
+	* @brief ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ç”Ÿæˆ
+	* @param filename CSVãƒ•ã‚¡ã‚¤ãƒ«ã®ç›¸å¯¾ãƒ‘ã‚¹
 	*/
 	void Activate(int X, int Y);
 	void Create(const char *filename, MapDataState MapState);

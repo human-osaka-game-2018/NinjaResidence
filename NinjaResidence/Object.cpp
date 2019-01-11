@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file Object.cpp
-* @brief FX‚È•¨‘Ì‚ÌŠî’êƒNƒ‰ƒX
+* @brief è‰²ã€…ãªç‰©ä½“ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 #include "Object.h"
@@ -157,13 +157,13 @@ void Object::WriteLog(std::string Text)
 
 	if (!ofs)
 	{
-		std::cout << "ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B" << std::endl;
+		std::cout << "ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚" << std::endl;
 		std::cin.get();
 		return;
 	}
 
 	ofs << Text << std::endl;
-	std::cout << fileName << "‚É‘‚«‚İ‚Ü‚µ‚½B" << std::endl;
+	std::cout << fileName << "ã«æ›¸ãè¾¼ã¿ã¾ã—ãŸã€‚" << std::endl;
 
 	std::cin.get();
 }

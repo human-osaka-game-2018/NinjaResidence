@@ -39,3 +39,4 @@ Release/
 *.tmp
 html/*
 !html/*.chm
+NinjaResidence/test.txt

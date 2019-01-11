@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "BaseTarget.h"
 class Switch :
 	public BaseTarget

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file MapReverse.h
-* @brief MapReverseƒNƒ‰ƒX
+* @brief MapReverseã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
