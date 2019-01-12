@@ -20,8 +20,11 @@ public:
 	void Render();
 	void LoadResouce();
 
+	void TurnUpStageImage();
+
+	void TurnDownStageImage();
+
 private:
-	CUSTOMVERTEX  m_SerectBackground[4];
 	
 	Scene* m_pScene = NULL;
 	
@@ -29,5 +32,5 @@ private:
 	
 	CENTRAL_STATE m_StageImage[5];
 	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270,270 };
-
+	std::string m_StageImagekey[6];
 };

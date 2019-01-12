@@ -12,7 +12,7 @@ TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(
 	m_pScene = this;
 	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundOperater);
 
-	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 TitleScene::~TitleScene()
@@ -65,7 +65,7 @@ void TitleScene::Render()
 {
 	
 	
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_TitleBackground);
+	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_BackgroundVertex);
 
 	CUSTOMVERTEX LogoVertex[4];
 	CreateSquareVertex(LogoVertex, m_Logo);

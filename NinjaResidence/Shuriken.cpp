@@ -10,6 +10,9 @@ Shuriken::Shuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* Map
 {
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
+	m_row = m_pMapChip->getRow();
+	m_colunm = m_pMapChip->getColunm();
+
 	m_SkillType = SHURIKEN;
 }
 
@@ -105,10 +108,10 @@ bool Shuriken::Update()
 	m_Shuriken.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;;
 	m_MapPositionX = static_cast<int>((m_Shuriken.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Shuriken.y - m_MapScrollY) / CELL_SIZE);
-	if (m_Shuriken.x < 0 || m_Shuriken.x > DISPLAY_WIDTH) {
+	if (m_Shuriken.x < 0 || m_Shuriken.x > DISPLAY_WIDTH || m_MapPositionX >= m_row-1) {
 		InitPosition();
 	}
-	if (m_MapPositionY == 0 || m_Shuriken.y < 0 || m_Shuriken.y > DISPLAY_HEIGHT) {
+	if (m_MapPositionY == 0 || m_Shuriken.y < 0 || m_Shuriken.y > DISPLAY_HEIGHT || m_MapPositionY >= m_colunm-1) {
 		InitPosition();
 	}
 	int buf = 0;

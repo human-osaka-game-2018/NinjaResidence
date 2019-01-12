@@ -53,7 +53,7 @@ void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	}
 
 	m_GimmickVertex[0].x = m_WorldPosLeft + MapScrollX;
-	m_GimmickVertex[0].y = TopPosition = m_WorldPosTop + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[0].y = m_TopPosition = m_WorldPosTop + MapScrollY + m_QuantityOfMovement;
 	m_GimmickVertex[1].x = m_WorldPosRight + MapScrollX;
 	m_GimmickVertex[1].y = m_WorldPosTop + MapScrollY + m_QuantityOfMovement;
 	m_GimmickVertex[2].x = m_WorldPosRight + MapScrollX;
@@ -96,5 +96,5 @@ float Water::GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse)
 	if (isAxisX) {
 		return m_GimmickVertex[0].x;
 	}
-	return m_QuantityOfMovement;
+	return m_TopPosition;
 }

@@ -18,6 +18,7 @@ Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDir
 	m_pDirectX->LoadTexture("Texture/GyoushoNumber.png", "NUMBER_TEX");
 	m_pDirectX->LoadTexture("Texture/SoundVolumeMenu.png", "SV_MENU_TEX");
 	m_pDirectX->LoadTexture("Texture/SoundSelectCursor.png", "SV_CURSOR_TEX");
+	m_pDirectX->LoadTexture("texture/Setting_BG.jpg", "VOLUME_BG_TEX");
 
 	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }

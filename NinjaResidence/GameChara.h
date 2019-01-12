@@ -73,6 +73,7 @@ public:
 	*/
 	float GetPositionX();
 	bool SetGround();
+	void SideCollision();
 	/**
 	* @brief キャラのディスプレイ上中心Y座標の取得
 	* @author Toshiya Matsuoka
@@ -107,11 +108,16 @@ private:
 	const float MOVE_SPEED = 15.f;
 	const float VERTICAL_SCROLLING_LEVEL = 12.f;
 	const int ScrollSpeed = 15;
-	const int DisplayCharMoveScopeUp = 100;//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
-	const int DisplayCharMoveScopeDown = 630;//m_DisplayCharaCoordinateのY座標がこの値を超えると上にスクロールする
-	const int DisplayCharMoveScopeLeft = 300;//m_DisplayCharaCoordinateのX座標がこの値を下回ると左にスクロールする
-	const int DisplayCharMoveScopeRight = 980;//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
-	const int DisplayCharMoveScopeX = 300;//両端からのX座標の稼働範囲
+	//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
+	const int DisplayCharMoveScopeUp = 100;
+	//m_DisplayCharaCoordinateのY座標がこの値を超えると上にスクロールする
+	const int DisplayCharMoveScopeDown = 630;
+	//m_DisplayCharaCoordinateのX座標がこの値を下回ると左にスクロールする
+	const int DisplayCharMoveScopeLeft = 300;
+	//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
+	const int DisplayCharMoveScopeRight = 980;
+	//両端からのX座標の稼働範囲
+	const int DisplayCharMoveScopeX = 300;
 
 
 	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
