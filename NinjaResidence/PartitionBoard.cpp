@@ -1,4 +1,9 @@
-﻿#include "PartitionBoard.h"
+﻿/**
+* @file PartitionBoard.cpp
+* @brief PartitionBoardクラス
+* @author Kojiro Kawahara
+*/
+#include "PartitionBoard.h"
 #include <string>
 #include "MapChip.h"
 

@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file BaseTarget.h
+* @brief BaseTargetクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "BaseGimmick.h"
 

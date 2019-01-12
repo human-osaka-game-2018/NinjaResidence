@@ -1,3 +1,8 @@
+﻿/**
+* @file Torch.cpp
+* @brief Torchクラス
+* @author Kojiro Kawahara
+*/
 #include "Torch.h"
 #include "DirectX.h"
 #include "TargetandGimmickType.h"

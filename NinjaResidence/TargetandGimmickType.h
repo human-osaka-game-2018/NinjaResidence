@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file TargetandGimmickType.h
+* @brief enum TargetandGimmickTypeの宣言
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 enum TargetandGimmickType
 {

@@ -1,4 +1,9 @@
-﻿#include "SkillBase.h"
+﻿/**
+* @file SkillBase.cpp
+* @brief SkillBaseクラス
+* @author Toshiya Matsuoka
+*/
+#include "SkillBase.h"
 
 
 

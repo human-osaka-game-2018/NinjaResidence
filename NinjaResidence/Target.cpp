@@ -1,4 +1,9 @@
-﻿#include "Target.h"
+﻿/**
+* @file Target.cpp
+* @brief Targetクラス
+* @author Kojiro Kawahara
+*/
+#include "Target.h"
 #include "DirectX.h"
 #include "TargetandGimmickType.h"
 

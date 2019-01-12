@@ -1,4 +1,9 @@
-﻿#include "Rope.h"
+﻿/**
+* @file Rope.cpp
+* @brief Ropeクラス
+* @author Toshiya Matsuoka
+*/
+#include "Rope.h"
 
 
 

@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file enum_Scene.h
+* @brief enum SCENE_NUMの宣言
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 enum SCENE_NUM
 {

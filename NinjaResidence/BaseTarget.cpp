@@ -1,4 +1,9 @@
-﻿#include "BaseTarget.h"
+﻿/**
+* @file BaseTarget.cpp
+* @brief BaseTargetクラス
+* @author Kojiro Kawahara
+*/
+#include "BaseTarget.h"
 #include "TargetandGimmickType.h"
 
 BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)

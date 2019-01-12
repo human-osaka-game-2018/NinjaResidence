@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file DescriptionBoard.h
+* @brief DescriptionBoardクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "GAMESCENE.h"
 #include "MapChip.h"

@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file FallRock.h
+* @brief FallRockクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "DirectX.h"
 #include "BaseGimmick.h"

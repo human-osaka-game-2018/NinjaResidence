@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file BaseGimmick.h
+* @brief BaseGimmickクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "BlockInfo.h"
 #include "DirectX.h"

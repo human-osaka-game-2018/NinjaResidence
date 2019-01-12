@@ -1,4 +1,9 @@
-﻿#include "FallRock.h"
+﻿/**
+* @file FallRock.cpp
+* @brief FallRockクラス
+* @author Kojiro Kawahara
+*/
+#include "FallRock.h"
 #include <string>
 #include "MapChip.h"
 

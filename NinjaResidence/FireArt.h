@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file FireArt.h
+* @brief FireArtクラス
+* @author Toshiya Matsuoka
+*/
+#pragma once
 #include "SkillBase.h"
 #include "MapChip.h"
 

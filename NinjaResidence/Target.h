@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file Target.h
+* @brief Targetクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "BaseTarget.h"
 #include "Object.h"
