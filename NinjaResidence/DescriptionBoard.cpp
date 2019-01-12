@@ -1,4 +1,9 @@
-﻿#include "DescriptionBoard.h"
+﻿/**
+* @file DescriptionBoard.cpp
+* @brief DescriptionBoardクラス
+* @author Kojiro Kawahara
+*/
+#include "DescriptionBoard.h"
 
 using namespace MapBlock;
 

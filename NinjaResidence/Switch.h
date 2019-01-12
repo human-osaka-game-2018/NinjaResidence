@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file Switch.h
+* @brief Switchクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 #include "BaseTarget.h"
 class Switch :
 	public BaseTarget

@@ -1,4 +1,9 @@
-﻿#include "FireArt.h"
+﻿/**
+* @file FireArt.cpp
+* @brief FireArtクラス
+* @author Toshiya Matsuoka
+*/
+#include "FireArt.h"
 
 
 using namespace PlayerAnimation;

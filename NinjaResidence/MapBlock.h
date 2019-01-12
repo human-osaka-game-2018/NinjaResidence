@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file MapBlock.h
+* @brief enum BLOCKTYPEの宣言
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 namespace MapBlock
 {

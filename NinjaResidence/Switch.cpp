@@ -1,4 +1,9 @@
-﻿#include "Switch.h"
+﻿/**
+* @file Switch.cpp
+* @brief Switchクラス
+* @author Kojiro Kawahara
+*/
+#include "Switch.h"
 
 
 

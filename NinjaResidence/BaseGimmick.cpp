@@ -1,4 +1,9 @@
-﻿#include "BaseGimmick.h"
+﻿/**
+* @file BaseGimmick.cpp
+* @brief BaseGimmickクラス
+* @author Kojiro Kawahara
+*/
+#include "BaseGimmick.h"
 
 
 BaseGimmick::BaseGimmick(BlockInfo Gimmick, DirectX* pDirectX) :m_GimmickInfo(Gimmick)

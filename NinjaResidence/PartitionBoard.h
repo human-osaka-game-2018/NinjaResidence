@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file PartitionBoard.h
+* @brief PartitionBoardクラス
+* @author Kojiro Kawahara
+*/
+#pragma once
 
 #include "DirectX.h"
 #include "BaseGimmick.h"

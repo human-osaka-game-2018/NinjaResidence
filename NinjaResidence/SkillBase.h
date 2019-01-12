@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file SkillBase.h
+* @brief SkillBaseクラス
+* @author Toshiya Matsuoka
+*/
+#pragma once
 #include "GameChara.h"
 #include "SkillSelect.h"
 

@@ -1,4 +1,9 @@
-﻿#include "Water.h"
+﻿/**
+* @file Water.cpp
+* @brief Waterクラス
+* @author Toshiya Matsuoka
+*/
+#include "Water.h"
 #include <string>
 
 

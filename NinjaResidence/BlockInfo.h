@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿/**
+* @file BlockInfo.h
+* @brief enum BlockInfo及びMapDataStateの宣言とブロックに関する定数
+* @author Kojiro Kawahara
+*/
+
+#pragma once
 //継承関係で面倒なため仮置き、いい置き方あれば教えてほしい
 const float CELL_SIZE = 40.f;
 const float BLOCK_INTEGRATION_WIDTH = 80.0f / 512.0f;

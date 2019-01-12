@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/**
+* @file Water.h
+* @brief Waterクラス
+* @author Toshiya Matsuoka
+*/
+#pragma once
 
 #include "DirectX.h"
 #include "BaseGimmick.h"

@@ -1,3 +1,8 @@
+﻿/**
+* @file Torch.h
+* @brief Torchクラス
+* @author Kojiro Kawahara
+*/
 #pragma once
 
 #include "BaseTarget.h"
