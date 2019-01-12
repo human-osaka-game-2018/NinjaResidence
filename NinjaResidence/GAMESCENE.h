@@ -47,7 +47,6 @@ public:
 	}
 	
 private:
-	CUSTOMVERTEX  m_GameBackground[4];
 	GameChara* m_pGameChara = NULL;
 	Object* m_pBusyMapChip = NULL;//使用中のMapChip
 	Object* m_pIdleMapChip = NULL;//停止中のMapChip

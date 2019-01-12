@@ -21,7 +21,6 @@ public:
 	void LoadResouce();
 
 private:
-	CUSTOMVERTEX  m_TitleBackground[4];
 	Scene* m_pScene = NULL;
 	
 	CENTRAL_STATE m_Logo={ CENTRAL_X ,200,400,150 };

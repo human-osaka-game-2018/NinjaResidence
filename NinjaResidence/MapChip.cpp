@@ -458,7 +458,7 @@ float MapChip::GetGimmickPosition(bool isAxisX)
 	for (auto ite : pBaseTarget)
 	{
 		Buf = ite->GetGimmickPosition(isAxisX, m_MapDataState);
-		if (Buf > 0) break;
+		if (Buf != 0) break;
 	}
 	return Buf;
 }

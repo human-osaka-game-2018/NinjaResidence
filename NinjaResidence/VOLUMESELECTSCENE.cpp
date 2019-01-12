@@ -83,6 +83,10 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 
 void VOLUMESELECTSCENE::Render() {
 	CUSTOMVERTEX SetVolumeVertex[4];
+	m_pDirectX->DrawTexture("VOLUME_BG_TEX", m_BackgroundVertex);
+
+	CreateSquareVertex(SetVolumeVertex, m_Menu, WHITE, 0, 0, 1, MenuHight);
+	m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
 
 	CreateSquareVertex(SetVolumeVertex, m_Menu, WHITE, 0, 0, 1, MenuHight);
 	m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);

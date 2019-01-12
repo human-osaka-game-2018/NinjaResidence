@@ -47,6 +47,7 @@ SCENE_NUM PauseScene::Update() {
 
 void PauseScene::Render() {
 	CUSTOMVERTEX PauseMenuVertex[4];
+	m_pDirectX->DrawTexture("PAUSE_BG_TEX", m_BackgroundVertex);
 
 	CreateSquareVertex(PauseMenuVertex, m_Menu);
 	m_pDirectX->DrawTexture("PAUSEMENU_TEX", PauseMenuVertex);

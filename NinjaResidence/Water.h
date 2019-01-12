@@ -18,5 +18,6 @@ public:
 	Water(BlockInfo Gimmick, DirectX* pDirectX);
 	~Water();
 private:
-	float TopPosition = 0;
+	float m_TopPosition = 0;
+	float m_PrevMovement = 0;
 };

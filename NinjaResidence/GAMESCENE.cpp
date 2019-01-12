@@ -10,7 +10,6 @@
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
-	WriteLog("Constract");
 	m_pScene = this;
 	StageTurning();
 	m_pBusyMapChip = new MapChip(pDirectX, pSoundOperater);
@@ -24,7 +23,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	m_SkillSelect = new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
 	m_pPauseScene = new PauseScene(pDirectX, pSoundOperater);
-	CreateSquareVertex(m_GameBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 }
 
@@ -55,7 +54,6 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
-	WriteLog("update");
 	if (m_pPauseScene->GetSoundSetting()) {
 		m_SoundSetting = true;
 		m_pPauseScene->InactiveSoundSetting();
@@ -71,15 +69,11 @@ SCENE_NUM  GameScene::Update()
 		return m_pPauseScene->GetNextScene();
 	}
 	CurrentSkill = m_SkillSelect->GetSkillNum();
-	WriteLog("ninjutu");
 	m_pXinputDevice->DeviceUpdate();
-	WriteLog("XINPUT");
 
 	NotPushedAnyButton();
-	WriteLog("NONE");
 
 	KeyOperation();
-	WriteLog("key");
 
 	m_isClear = m_pGameChara->Update();
 	WriteLog("キャラUPDATE");
@@ -231,7 +225,7 @@ void GameScene::Render()
 		return;
 	}
 
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_GameBackground);
+	m_pDirectX->DrawTexture("GAME_BG_TEX", m_BackgroundVertex);
  	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	m_pShuriken->Render();
@@ -262,9 +256,10 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
+	m_pDirectX->LoadTexture("texture/BG.jpg", "GAME_BG_TEX");
+	m_pDirectX->LoadTexture("texture/Pause_BG.jpg", "PAUSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
-	m_pDirectX->LoadTexture("texture/BG.jpg", "BACKGROUND_TEX");
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
