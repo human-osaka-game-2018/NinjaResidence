@@ -30,7 +30,7 @@ void FireArt::KeyOperation(KeyDirection vec)
 	switch (vec)
 	{
 	case FIRE:
-		m_isActive = PermitThrow();
+		m_isActive = PermitActive();
 		break;
 	case END_ART:
 		InitPosition();
@@ -39,7 +39,7 @@ void FireArt::KeyOperation(KeyDirection vec)
 }
 
 
-bool FireArt::PermitThrow() {
+bool FireArt::PermitActive() {
 	if (!m_isActive) {
 		m_Direction = static_cast<float>(m_pGameChara->GetFacing());
 		m_Fire.x = m_pGameChara->GetPositionX() + (m_Direction * m_Fire.scale_x);

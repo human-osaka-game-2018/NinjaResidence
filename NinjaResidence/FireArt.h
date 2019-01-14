@@ -17,12 +17,6 @@ public:
 	*/
 	void KeyOperation(KeyDirection vec);
 
-	/*
-	* @brief 投擲起動処理
-	* @return 投げられたらtrue
-	* @details 投擲前に角度指定フェイズを挟む
-	*/
-	bool PermitThrow();
 
 
 	bool Update();
@@ -34,6 +28,14 @@ public:
 	~FireArt();
 	bool GetActive() { return m_isActive; };
 private:
+	
+	/*
+	* @brief 起動処理
+	* @return 起動したらtrue
+	*/
+	bool PermitActive();
+
+	
 	CENTRAL_STATE m_Fire = { 500,0,80,80 };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];

@@ -44,6 +44,6 @@ private:
 	* @return 投げられたらtrue
 	* @details 投擲前に角度指定フェイズを挟む
 	*/
-	bool PermitThrow();
+	bool PermitActive();
 
 };

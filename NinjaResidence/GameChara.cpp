@@ -16,18 +16,18 @@ GameChara::GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* M
 	m_colunm = m_pMapChip->getColunm();
 	m_Player.x = static_cast<float>(m_pMapChip->SearchBlockX(START_ZONE))*CELL_SIZE;
 	m_Player.y = static_cast<float>(m_pMapChip->SearchBlockY(START_ZONE))*CELL_SIZE;
-	CreateSquareVertex(m_Player, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
-	CreateSquareVertex(m_Player, m_DisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
+	CreateSquareVertex(m_Player, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
+	CreateSquareVertex(m_Player, m_DisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
 	for (int i = 0; i < 4; i++)
 	{
 		m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
 		m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 	}
 
-	//CreateSquareVertex(m_Player, m_ReverseDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
-	//CreateSquareVertex(m_Player, m_ReverseWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
-	//CreateSquareVertex(m_Player, m_SurfaceDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
-	//CreateSquareVertex(m_Player, m_SurfaceWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, CharTu, CharTv);
+	//CreateSquareVertex(m_Player, m_ReverseDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
+	//CreateSquareVertex(m_Player, m_ReverseWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
+	//CreateSquareVertex(m_Player, m_SurfaceDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
+	//CreateSquareVertex(m_Player, m_SurfaceWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
 	//do {
 	//	MapScroolCheck();
 	//	AddGravity();
@@ -332,7 +332,6 @@ void GameChara::CharaInfoSave(Object* MapChip, int BlockNumber)
 
 void GameChara::MapScroolCheck()
 {
-	//キャラ当たり判定が2段の地面の間に吸われている
 	if (m_pMapChip->RestrictBottomScroll()) {
 		m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
 		m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
@@ -625,7 +624,7 @@ void GameChara::Render()
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
 	CharCentral.x -= 25.f;
 	CharCentral.scale_x = 120.f;
-	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF,( m_TurnAnimation+m_DirectionBias) * m_TESTCharTu, m_ChangeAnimation * m_TESTCharTv, m_TESTCharTu * m_Facing, m_TESTCharTv);
+	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF,( m_TurnAnimation+m_DirectionBias) * m_CharTu, m_ChangeAnimation * m_CharTv, m_CharTu * m_Facing, m_CharTv);
 	TextureRender("CHARA_TEX", TestChar);
 #ifdef _DEBUG
 

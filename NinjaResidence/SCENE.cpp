@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SCENE.cpp
-* @brief SCENEƒNƒ‰ƒX
+* @brief SCENEã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #include "SCENE.h"
@@ -110,13 +110,13 @@ void Scene::WriteLog(std::string Text)
 
 	if (!ofs)
 	{
-		std::cout << "ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B" << std::endl;
+		std::cout << "ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚" << std::endl;
 		std::cin.get();
 		return ;
 	}
 
 	ofs << Text << std::endl;
-	std::cout << fileName << "‚É‘‚«ž‚Ý‚Ü‚µ‚½B" << std::endl;
+	std::cout << fileName << "ã«æ›¸ãè¾¼ã¿ã¾ã—ãŸã€‚" << std::endl;
 
 	std::cin.get();
 }

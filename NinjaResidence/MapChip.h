@@ -35,9 +35,11 @@ public:
 	/**
 	* @brief マップチップの生成
 	* @param filename CSVファイルの相対パス
+	* @param MapState 表か裏かの指定
+	* @sa enum MapDataState
 	*/
-	void Activate(int X, int Y);
 	void Create(const char *filename, MapDataState MapState);
+	void Activate(int X, int Y);
 	void MapDataVectorSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	void MapDataVectorSet0();
 	void MapDataGimmickSearch();

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file SCENE.h
-* @brief SCENEƒNƒ‰ƒX
+* @brief SCENEã‚¯ãƒ©ã‚¹
 * @author Kojiro Kawahara
 */
 #pragma once
@@ -68,7 +68,7 @@ protected:
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
 	
-	//! Œã‚Å–¼Ì•ÏX
+	//! å¾Œã§åç§°å¤‰æ›´
 	static bool m_SoundSetting;
 
 	float DegToRad(float deg) {
@@ -77,7 +77,7 @@ protected:
 	
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
-	SCENE_NUM m_NextScene;	//Ÿ‚ÌƒV[ƒ“
+	SCENE_NUM m_NextScene;	//æ¬¡ã®ã‚·ãƒ¼ãƒ³
 	void WriteLog(std::string Text);
 private:
 	};

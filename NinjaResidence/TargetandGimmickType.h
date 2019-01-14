@@ -5,6 +5,10 @@
 */
 #pragma once
 
+/**
+* @enum TargetandGimmickType
+* ターゲット、ギミックの判別
+*/
 enum TargetandGimmickType
 {
 	BT_NONE,

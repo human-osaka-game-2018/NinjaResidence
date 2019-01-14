@@ -42,6 +42,9 @@ public:
 	void Render();       //ゲームシーン（でプレイヤーや敵の描画したりとか）の描画関数
 	void LoadResouce();
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
+	/**
+	* @brief ポーズシーンへの切り替え
+	*/
 	void TransePause() {
 		RunPause = true;
 	}
