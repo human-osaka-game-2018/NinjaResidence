@@ -76,7 +76,6 @@ SCENE_NUM  GameScene::Update()
 	KeyOperation();
 
 	m_isClear = m_pGameChara->Update();
-	WriteLog("キャラUPDATE");
 
 	if (m_isClear) {
 		ClearAnime();
@@ -214,7 +213,6 @@ void GameScene::NotPushedAnyButton() {
 		return;
 	}
 	m_pGameChara->NoOperation();
-	WriteLog("入力終了");
 
 }
 

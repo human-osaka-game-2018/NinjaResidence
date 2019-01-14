@@ -95,7 +95,7 @@ public:
 	int getMapChipData(int height, int width) {
 		return MapData[height][width];
 	}
-	virtual float GetGimmickPosition(bool isAxisX) { return 0; };
+	virtual float GetGimmickPosition(bool isAxisX,int MapYPos,int MapXPos) { return 0; };
 	virtual bool RestrictBottomScroll() { return false; };
 	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
 	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
@@ -109,7 +109,7 @@ public:
 	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 0;}
 
 	void GameCharaInfo(int CharaX, int CharaY);
-
+	virtual bool GetGimmickActive() { return false; };
 	int getm_CharaX()
 	{
 		return m_CharaX;

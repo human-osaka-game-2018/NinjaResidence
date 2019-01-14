@@ -25,7 +25,7 @@ class MapChip :public Object
 {
 public:
 
-	static std::vector<BaseTarget* > pBaseTarget;
+	static std::vector<BaseTarget*> pBaseTarget;
 	static std::vector<BlockInfo> GimmickVector;
 	static std::vector<BlockInfo> TargetVector;
 	
@@ -55,7 +55,8 @@ public:
 	}
 	int SearchBlockX(MapBlock::BLOCKTYPE Block);
 	int SearchBlockY(MapBlock::BLOCKTYPE Block);
-	float GetGimmickPosition(bool isAxisX);
+	float GetGimmickPosition(bool isAxisX, int MapYPos,int MapXPos);
+	bool GetGimmckActive(int MapXPos);
 private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;

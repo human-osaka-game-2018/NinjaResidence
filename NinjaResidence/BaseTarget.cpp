@@ -37,6 +37,13 @@ BaseTarget::~BaseTarget()
 	m_pBaseGimmick = NULL;
 }
 
+bool BaseTarget::GetGimmickActive(int PosX)
+{
+	if (PosX != m_GimmickInfo.PositionX) {
+		return false;
+	}
+	return m_pBaseGimmick->GetActive();
+}
 void BaseTarget::Activate()
 {
 	ActivateTarget();
