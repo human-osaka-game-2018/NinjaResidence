@@ -90,21 +90,28 @@ public:
 	PlayerAnimation::DIRECTION GetFacing() {
 		return m_Facing;
 	}
+	/**
+	* @brief 火遁アニメーション動作
+	*/
 	void FireArtAnime();
 
 private:
 	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
-
-	int m_PrevMapLeftDirectionPosition = 0;//前フレームのm_MapLeftDirectionPositionの値
-	int m_PrevMapRightDirectionPosition = 0;//前フレームのm_MapRightDirectionPositionの値
-	int m_PrevMapCharaPositionY = 0;//前フレームのm_MapPositionYの値
-	int m_MapLeftDirectionPosition = 0;//キャラの左側のX座標
-	int m_MapRightDirectionPosition = 0;//キャラの右側のX座標
+	//前フレームのm_MapLeftDirectionPositionの値
+	int m_PrevMapLeftDirectionPosition = 0;
+	//前フレームのm_MapRightDirectionPositionの値
+	int m_PrevMapRightDirectionPosition = 0;
+	//前フレームのm_MapPositionYの値
+	int m_PrevMapCharaPositionY = 0;
+	//キャラの左側のX座標
+	int m_MapLeftDirectionPosition = 0;
+	//キャラの右側のX座標
+	int m_MapRightDirectionPosition = 0;
 	int m_MapPositionY = 0;//キャラの上側のx座標
-
-	const float GRAVITY = 15.f;//毎フレームかける重力の値
+	//毎フレームかける重力の値
+	const float GRAVITY = 15.f;
 	const float MOVE_SPEED = 15.f;
 	const float VERTICAL_SCROLLING_LEVEL = 12.f;
 	const int ScrollSpeed = 15;
@@ -123,8 +130,10 @@ private:
 	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber);
 	void MapScroolCheck();
-	float CharTu = 80 / 512.f;
-	float CharTv = 160 / 512.f;
+	//! 当たり判定描画用
+	float m_CollisionTu = 80 / 512.f;
+	//! 当たり判定描画用
+	float m_CollisionTv = 160 / 512.f;
 	MapReverse* m_pMapReverse = NULL;
 	Object* m_pMapChip = NULL;
 	float GravityAcceleration = 0;
@@ -132,13 +141,16 @@ private:
 
 	//仮統合ファイルの切り取り情報
 	const float CHARA_TEXTURE_WIDTH = 4096.f;
-	const float m_TESTCharTu = 320 / CHARA_TEXTURE_WIDTH;
-	const float m_TESTCharTv = 320 / CHARA_TEXTURE_WIDTH;
-	const float m_TESTCharBias = 64 / CHARA_TEXTURE_WIDTH;
+	//! キャラ統合画像に対する1枚の幅
+	const float m_CharTu = 320 / CHARA_TEXTURE_WIDTH;
+	//! キャラ統合画像に対する1枚の高さ
+	const float m_CharTv = 320 / CHARA_TEXTURE_WIDTH;
 	float m_TurnAnimation = 0;
+	//! キャラのTvを変更するための値
 	PlayerAnimation::MOTION m_ChangeAnimation = PlayerAnimation::STAND;
+	//! キャラの向き
 	PlayerAnimation::DIRECTION m_Facing = PlayerAnimation::FACING_RIGHT;
-	//! 仮置き変数
+	//! キャラの向きに応じてTuの値を変える為の値
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
 	void TurnTheAnimation(int AnimationPage);
 
@@ -244,8 +256,17 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool LeftCollisionCheck(int block);
-
+	
+	/**
+	* @breaf 下方向に水ギミックブロックがあるか確認
+	* @return 下にあればtrue
+	* @author Toshiya Matsuoka
+	*/
 	bool LookDownWater();
-
+	
+	/**
+	* @breaf 水面のY座標取得
+	* @author Toshiya Matsuoka
+	*/
 	float WaterCollsionCheck();
 };

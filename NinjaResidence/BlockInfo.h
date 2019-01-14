@@ -12,12 +12,20 @@ const float BLOCK_INTEGRATION_HEIGHT = 80.0f / 1024.0f;
 
 class MapChip;
 
+/**
+* @enum MapDataState
+* 表か裏か判別
+*/
 enum MapDataState
 {
 	SURFACE,//表
 	REVERSE,//裏
 };
 
+/**
+* @struct BlockInfo
+* ギミックのブロック情報
+*/
 struct BlockInfo
 {
 	int PositionX;//X座標

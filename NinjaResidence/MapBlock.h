@@ -7,6 +7,10 @@
 
 namespace MapBlock
 {
+	/**
+	* @enum BLOCKTYPE
+	* ブロック種別
+	*/
 	enum BLOCKTYPE//CSVのブロックの番号
 	{
 		NONE,

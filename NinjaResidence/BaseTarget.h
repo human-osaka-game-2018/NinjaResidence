@@ -17,18 +17,38 @@
 class BaseTarget
 {
 public:
+	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
+	virtual ~BaseTarget();
+
 	BlockInfo* GetTargetInfo() { return &m_TargetInfo; }
 	void Activate();
 	virtual void ActivateTarget() = 0;
 	virtual void Update() = 0;
+	/**
+	* @brief ギミックの起動
+	* @author Toshiya Matsuoka
+	*/
 	void ActivateGimmick();
 	virtual void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse) = 0;
-	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
-	virtual ~BaseTarget();
 	virtual float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse) { return m_pBaseGimmick->GetGimmickPosition(isAxisX, MapDataReverse); };
+	/**
+	* @brief ギミックのマップ上のY座標取得
+	* @author Toshiya Matsuoka
+	*/
 	int GetGimmickYPos() { return m_GimmickInfo.PositionY; };
+	
+	/**
+	* @brief ギミックのマップ上のX座標取得
+	* @author Toshiya Matsuoka
+	*/
 	int GetGimmickXPos() { return m_GimmickInfo.PositionX; };
-	bool GetGimmickActive(int PosX); 
+	
+	/**
+	* @brief ギミックが起動しているか取得
+	* @return 起動していればtrue
+	* @author Toshiya Matsuoka
+	*/
+	bool GetGimmickActive(int PosX);
 protected:
 	BaseGimmick * m_pBaseGimmick = NULL;
 	DirectX* m_pDirectX = NULL;

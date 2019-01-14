@@ -1,5 +1,5 @@
 ﻿/**
-* @file SoundOperater.h
+* @file SoundOperater.cpp
 * @brief サウンドキーの管理
 * @author Toshiya Matsuoka
 */

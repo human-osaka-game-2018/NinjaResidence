@@ -31,7 +31,7 @@ void Shuriken::KeyOperation(KeyDirection vec)
 	switch (vec)
 	{
 	case THROW:
-		m_isActive = PermitThrow();
+		m_isActive = PermitActive();
 		break;
 	case UP:
 		if (m_isActive || !m_isChoseDeg) {
@@ -61,7 +61,7 @@ void Shuriken::KeyOperation(KeyDirection vec)
 }
 
 
-bool Shuriken::PermitThrow() {
+bool Shuriken::PermitActive() {
 	if (!m_isChoseDeg && !m_isActive) {
 		m_isChoseDeg = true;
 		m_Direction = static_cast<float>(m_pGameChara->GetFacing());

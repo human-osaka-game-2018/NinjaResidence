@@ -5,6 +5,10 @@
 */
 #pragma once
 
+/**
+* @enum SCENE_NUM
+* シーンの列挙
+*/
 enum SCENE_NUM
 {
 	SCENE_NONE,

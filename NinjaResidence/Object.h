@@ -79,6 +79,8 @@ public:
 	/**
 	*@brief CSV読み取りとマップデータ生成
 	* @param filename CSVファイルパス
+	* @param MapState 表か裏かの指定
+	* @sa enum MapDataState
 	*/
 	virtual void Create(const char *filename, MapDataState MapState) {};
 
