@@ -89,7 +89,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 					TargetVector.push_back(block);
 					m_TargetCount++;
 				}
-				if (blocktype > BT_SWITCH)
+				if (blocktype > BT_TORCH)
 				{
 					int Amari = MapData[y][x] % 10;
 					block = { x,y,Amari,blocktype,MapState,this};
@@ -205,12 +205,9 @@ void MapChip::Activate(int X, int Y)
 {
 	for (auto& ite : pBaseTarget)
 	{
-		WriteLog("ACTIVATE_ROOP");
 
 		if (X == ite->GetTargetInfo()->PositionX && Y == ite->GetTargetInfo()->PositionY)
 		{
-			WriteLog("TARGET");
-
 			ite->ActivateTarget();
 		}
 	}
@@ -452,14 +449,28 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 	return 2;
 }
 
-float MapChip::GetGimmickPosition(bool isAxisX)
+float MapChip::GetGimmickPosition(bool isAxisX, int MapYPos, int MapXPos)
 {
 	float Buf = 0;
 	for (auto ite : pBaseTarget)
 	{
+		//if (ite->GetGimmickXPos() != MapXPos) {
+		//	continue;
+		//}
+		if (/*(ite->GetGimmickYPos()) < MapYPos||*/!ite->GetGimmickActive(MapXPos)) {
+			continue;
+		}
 		Buf = ite->GetGimmickPosition(isAxisX, m_MapDataState);
 		if (Buf != 0) break;
 	}
 	return Buf;
 }
 
+bool MapChip::GetGimmckActive(int MapXPos)
+{
+	for (auto ite : pBaseTarget)
+	{
+		return ite->GetGimmickActive(MapXPos);
+	}
+	return false;
+};

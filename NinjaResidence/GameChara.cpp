@@ -52,7 +52,7 @@ void GameChara::AccelarationControl() {
 
 }
 bool GameChara::PermitJumping() {
-	m_isInTheAir = !DownCollisionAnything();
+	m_isInTheAir = !SetGround();
 	m_HeldOntoWallLeft = LeftCollisionCheck(ROCK_BLOCK);
 	m_HeldOntoWallRight = RightCollisionCheck(ROCK_BLOCK);
 
@@ -157,6 +157,7 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 			m_WorldCharaCoordinate[i].x += MOVE_SPEED;
 			m_DisplayCharaCoordinate[i].x += MOVE_SPEED;
 		}
+		SideCollision();
 		if (m_isInTheAir) break;
 		if (m_ChangeAnimation == WATER_ART) {
 			m_TurnAnimation = 3.f;
@@ -178,6 +179,7 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 			m_WorldCharaCoordinate[i].x -= MOVE_SPEED;
 			m_DisplayCharaCoordinate[i].x -= MOVE_SPEED;
 		}
+		SideCollision();
 		if (m_isInTheAir) break;
 		if (m_ChangeAnimation == WATER_ART) {
 			m_TurnAnimation = 3.f;
@@ -461,7 +463,6 @@ bool GameChara::Update()
 		m_MapPositionY = m_colunm - 1;
 	}
 	m_CollisionHead = TopCollisionAnything();
-	WriteLog("TOPCOLL");
 
 	MapScroolCheck();
 	AddGravity();
@@ -486,7 +487,6 @@ bool GameChara::Update()
 		}
 	}
 	SideCollision();
-	WriteLog("COLL");
 
 	if (!m_CollisionHead) {
 		Jump();
@@ -495,14 +495,11 @@ bool GameChara::Update()
 	else if (m_isJump) {
 		InitJumpParam();
 	}
-	WriteLog("JUMP");
 
 	if (m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) > 100)
 	{
-		WriteLog("GIMMICK_COLL");
 
 		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY - 2);
-		WriteLog("Activate");
 
 	}
 	if (DownCollisionCheck(GOAL_ZONE)) {
@@ -531,6 +528,16 @@ bool GameChara::DownCollisionAnything(void) {
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) > 0));
 	if (BlockMax && BlockMin) {
 		return true;
+	}
+	bool TorchMax = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 500) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 500) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 500));
+	bool TorchMin = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) >= 400) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) >= 400) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 400));
+	if (TorchMax && TorchMin) {
+		m_ChangeAnimation = WATER_ART;
+		return false;
 	}
 
 	bool WaterMax = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 800) ||
@@ -594,10 +601,11 @@ bool GameChara::LookDownWater() {
 }
 float GameChara::WaterCollsionCheck()
 {
-	if (LookDownWater()) {
-		return m_pMapChip->GetGimmickPosition(false);
+	float PosY = 0;
+	if (PosY = m_pMapChip->GetGimmickPosition(false, m_MapPositionY, m_MapLeftDirectionPosition)) {
+		return PosY;
 	}
-	return 0;
+	else return m_WorldCharaCoordinate[2].y;
 }
 bool GameChara::RightCollisionCheck(int block) {
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition + 1) != NONE) ||
@@ -646,6 +654,7 @@ void GameChara::AddGravity() {
 			m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
 			m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
 		}
+		SideCollision();
 		SetGround();
 		return;
 	}
@@ -660,8 +669,8 @@ void GameChara::AddGravity() {
 		m_WorldCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 		m_DisplayCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 	}
+	SideCollision();
 	SetGround();
-
 }
 
 void GameChara::DebugMove() {
@@ -691,7 +700,6 @@ bool GameChara::SetGround() {
 		m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 4) * CELL_SIZE);
 		m_WorldCharaCoordinate[2].y = ((m_MapPositionY)* CELL_SIZE);
 		m_WorldCharaCoordinate[3].y = ((m_MapPositionY)* CELL_SIZE);
-		m_isInTheAir = false;
 		for (int i = 0; i < 4; i++)
 		{
 			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
@@ -710,6 +718,9 @@ bool GameChara::SetGround() {
 	else if (LookDownWater()) {
 		if (!m_isJump) {
 			float WaterUpperLevel = WaterCollsionCheck();
+			if (m_DisplayCharaCoordinate[2].y < WaterUpperLevel) {
+				return false;
+			}
 			m_WorldCharaCoordinate[2].y = WaterUpperLevel - m_MapScrollY;
 			m_WorldCharaCoordinate[3].y = WaterUpperLevel - m_MapScrollY;
 			m_WorldCharaCoordinate[0].y = WaterUpperLevel - m_MapScrollY - m_Player.scale_y;
@@ -719,15 +730,14 @@ bool GameChara::SetGround() {
 				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 			}
 		}
-		m_isInTheAir = false;
-		//m_ChangeAnimation = WATER_ART;
+		m_ChangeAnimation = WATER_ART;
 		static int AnimeCount = 0;
 		++AnimeCount;
 		if (AnimeCount > 10) {
 			TurnTheAnimation(3);
 			AnimeCount = 0;
 		}
-
+		return true;
 	}
 	else if (!m_isJump && !m_isUsingArt) {
 		m_ChangeAnimation = JUMPING;

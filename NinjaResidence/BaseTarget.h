@@ -26,6 +26,9 @@ public:
 	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~BaseTarget();
 	virtual float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse) { return m_pBaseGimmick->GetGimmickPosition(isAxisX, MapDataReverse); };
+	int GetGimmickYPos() { return m_GimmickInfo.PositionY; };
+	int GetGimmickXPos() { return m_GimmickInfo.PositionX; };
+	bool GetGimmickActive(int PosX); 
 protected:
 	BaseGimmick * m_pBaseGimmick = NULL;
 	DirectX* m_pDirectX = NULL;
