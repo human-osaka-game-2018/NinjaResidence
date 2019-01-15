@@ -31,6 +31,7 @@ public:
 	void ActivateGimmick();
 	virtual void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse) = 0;
 	virtual float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse) { return m_pBaseGimmick->GetGimmickPosition(isAxisX, MapDataReverse); };
+	virtual CUSTOMVERTEX* GetTargetPosition() { return m_TargetVertex; };
 	/**
 	* @brief ギミックのマップ上のY座標取得
 	* @author Toshiya Matsuoka
@@ -55,7 +56,7 @@ protected:
 	BlockInfo m_TargetInfo;
 	BlockInfo m_GimmickInfo;
 	CUSTOMVERTEX m_TargetVertex[4];
-
+	bool m_isActive = false;
 	int m_TargetPosX;
 	int m_TargetPosY;
 	bool m_isSwitchedOn = false;

@@ -39,6 +39,15 @@ void Object::GameCharaInfo(int CharaX, int CharaY)
 	m_CharaY = CharaY;
 }
 
+bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
+{
+	if ((m_Central.x <= object->x + object->scale_x) && (object->x <= m_Central.x + m_Central.scale_x)
+		&& (m_Central.y <= object->y + object->scale_y) && (object->y <= m_Central.y + m_Central.scale_y)) {
+		return true;
+	}
+	return false;
+}
+
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
@@ -74,6 +83,12 @@ void Object::TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex
 	Central->y = Vertex[0].y;
 	Central->scale_x = Vertex[1].x - Vertex[0].x;
 	Central->scale_y = Vertex[3].y - Vertex[0].y;
+}
+void Object::TranslateCentral_State(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central) {
+	Central->scale_x = (Vertex[1].x - Vertex[0].x)*0.5f;
+	Central->scale_y = (Vertex[3].y - Vertex[0].y)*0.5f;
+	Central->x = Vertex[0].x + Central->scale_x;
+	Central->y = Vertex[0].y + Central->scale_y;
 }
 
 void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
