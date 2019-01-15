@@ -7,7 +7,7 @@
 #include "Shuriken.h"
 #include "HighShuriken.h"
 #include "FireArt.h"
-
+#include "ClawShot.h"
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
@@ -19,9 +19,13 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	m_pIdleMapChip->Create(StageFilePath_reverse,REVERSE);
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
+
+
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_pFireArt = new FireArt(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_pClawShot =new ClawShot(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+
 	m_SkillSelect = new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
 	m_pPauseScene = new PauseScene(pDirectX, pSoundOperater);
@@ -39,12 +43,16 @@ GameScene::~GameScene()
 	m_pGameChara = NULL;
 	delete m_pMapReverse;
 	m_pMapReverse = NULL;
+
 	delete m_pHighShuriken;
 	m_pHighShuriken = NULL;
 	delete m_pShuriken;
 	m_pShuriken = NULL;
 	delete m_pFireArt;
 	m_pFireArt = NULL;
+	delete m_pClawShot;
+	m_pClawShot = NULL;
+
 	delete m_SkillSelect;
 	m_SkillSelect = NULL;
 	delete m_pPauseScene;
@@ -331,6 +339,7 @@ void GameScene::Reverse()
 	m_pHighShuriken->Reverse(m_pBusyMapChip);
 	m_pShuriken->Reverse(m_pBusyMapChip);
 	m_pFireArt->Reverse(m_pBusyMapChip);
+	m_pClawShot->Reverse(m_pBusyMapChip);
 }
 
 void GameScene::SkillsUpdate() {
@@ -341,6 +350,7 @@ void GameScene::SkillsUpdate() {
 		m_pShuriken->Update();
 		break;
 	case CLAWSHOT:
+		m_pClawShot->Update();
 		break;
 	case FIRE_ART:
 		m_pFireArt->Update();
@@ -357,6 +367,7 @@ void GameScene::SkillsRender() {
 		m_pShuriken->Render();
 		break;
 	case CLAWSHOT:
+		m_pClawShot->Render();
 		break;
 	case FIRE_ART:
 		m_pFireArt->Render();
@@ -378,6 +389,12 @@ void GameScene::SkillStart() {
 		}
 		break;
 	case CLAWSHOT:
+		m_pClawShot->KeyOperation(THROW);
+		m_CanChangeSkill = false;
+		if (m_pClawShot->GetActive()) {
+			m_CanChangeSkill = true;
+			m_pGameChara->KeyOperation(THROW);
+		}
 		break;
 	case FIRE_ART:
 		m_pGameChara->KeyOperation(FIRE);
@@ -415,6 +432,7 @@ void GameScene::SkillErase() {
 	case SHURIKEN:
 		m_pFireArt->KeyOperation(END_ART);
 		m_pHighShuriken->KeyOperation(END_ART);
+		m_pClawShot->KeyOperation(END_ART);
 		break;
 	case CLAWSHOT:
 		m_pHighShuriken->KeyOperation(END_ART);
@@ -424,10 +442,12 @@ void GameScene::SkillErase() {
 	case FIRE_ART:
 		m_pHighShuriken->KeyOperation(END_ART);
 		m_pShuriken->KeyOperation(END_ART);
+		m_pClawShot->KeyOperation(END_ART);
 		break;
 	case HIGH_SHURIKEN_ART:
 		m_pFireArt->KeyOperation(END_ART);
 		m_pShuriken->KeyOperation(END_ART);
+		m_pClawShot->KeyOperation(END_ART);
 		break;
 	}
 
@@ -439,6 +459,7 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 		m_pShuriken->KeyOperation(vec);
 		break;
 	case CLAWSHOT:
+		m_pClawShot->KeyOperation(vec);
 		break;
 	case FIRE_ART:
 		m_pFireArt->KeyOperation(vec);
