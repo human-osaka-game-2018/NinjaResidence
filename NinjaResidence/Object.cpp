@@ -85,6 +85,9 @@ void Object::TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex
 	Central->scale_y = Vertex[3].y - Vertex[0].y;
 }
 void Object::TranslateCentral_State(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central) {
+	if (!Vertex) {
+		return;
+	}
 	Central->scale_x = (Vertex[1].x - Vertex[0].x)*0.5f;
 	Central->scale_y = (Vertex[3].y - Vertex[0].y)*0.5f;
 	Central->x = Vertex[0].x + Central->scale_x;

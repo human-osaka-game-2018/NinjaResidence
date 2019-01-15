@@ -54,6 +54,7 @@ private:
 	Object* m_pBusyMapChip = NULL;//使用中のMapChip
 	Object* m_pIdleMapChip = NULL;//停止中のMapChip
 
+	SkillBase* m_pClawShot = NULL;
 	SkillBase* m_pHighShuriken = NULL;
 	SkillBase* m_pShuriken = NULL;
 	SkillBase* m_pFireArt = NULL;
