@@ -33,8 +33,6 @@ void XinputDevice::BottonCheck() {
 	CheckButtonState(XINPUT_GAMEPAD_DPAD_DOWN, ButtonDOWN);
 	CheckButtonState(XINPUT_GAMEPAD_DPAD_LEFT, ButtonLEFT);
 	CheckButtonState(XINPUT_GAMEPAD_DPAD_RIGHT, ButtonRIGHT);
-	CheckButtonState(XINPUT_GAMEPAD_START, ButtonStart);
-	CheckButtonState(XINPUT_GAMEPAD_BACK, ButtonBack);
 	CheckButtonState(XINPUT_GAMEPAD_LEFT_THUMB, ButtonLeftThumb);
 	CheckButtonState(XINPUT_GAMEPAD_RIGHT_THUMB, ButtonRightThumb);
 

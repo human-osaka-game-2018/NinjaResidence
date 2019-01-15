@@ -21,6 +21,7 @@ Torch::~Torch()
 void Torch::ActivateTarget()
 {
 	m_pBaseGimmick->Activate();
+	m_isActive = true;
 }
 
 void Torch::Update()
@@ -49,7 +50,6 @@ void Torch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	}
 	m_TargetPosX = m_TargetInfo.PositionX;
 	m_TargetPosY = m_TargetInfo.PositionY;
-
 	m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
 	m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + MapScrollY;
 	m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
@@ -70,5 +70,30 @@ void Torch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_TargetVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
+	if (m_isActive) {
+		float HarfCellSize = CELL_SIZE * 0.5;
+		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
+		m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + MapScrollY - HarfCellSize;
+		m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
+		m_TargetVertex[1].y = (CELL_SIZE * m_TargetPosY) + MapScrollY - HarfCellSize;
+		m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
+		m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + HarfCellSize;
+		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
+		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + HarfCellSize;
+
+		m_TargetVertex[0].tu = 0;
+		m_TargetVertex[1].tu = 1;
+		m_TargetVertex[2].tu = 1;
+		m_TargetVertex[3].tu = 0;
+
+		m_TargetVertex[0].tv = 0;
+		m_TargetVertex[1].tv = 0;
+		m_TargetVertex[2].tv = 1;
+		m_TargetVertex[3].tv = 1;
+		for (int i = 0; i < 4; ++i) {
+			m_TargetVertex[i].color = 0xCCFFFFFF;
+		}
+		m_pDirectX->DrawTexture("FIRE_TEX", m_TargetVertex);
+	}
 
 }

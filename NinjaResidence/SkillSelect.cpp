@@ -27,8 +27,8 @@ bool SkillSelect::Update() {
 		m_Color = 0xFFFFFF << 8;
 		break;
 	case FIRE_ART:
-		m_SkillTexKey = "SCROLL_TEX";
-		m_Color = 0xFFFF << 16;
+		m_SkillTexKey = "FIRE_UI_TEX";
+		m_Color = 0xFFFFFFFF;
 		break;
 	case HIGH_SHURIKEN_ART:
 		m_SkillTexKey = "SCROLL_TEX";
@@ -40,6 +40,7 @@ bool SkillSelect::Update() {
 void SkillSelect::Render()
 {
 	CUSTOMVERTEX UIVertex[4];
+	//TODO:TUTV定数に変える
 	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0.f, 480.f / 1024.f ,120.f/512.f, 120.f / 1024.f);
 	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
