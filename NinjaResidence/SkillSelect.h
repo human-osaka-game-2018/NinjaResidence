@@ -28,6 +28,7 @@ public:
 private:
 	CENTRAL_STATE m_SelectUI = { 100,50,75,30 };
 	CENTRAL_STATE m_SkillUI = { 100,50,30,30 };
+	CUSTOMVERTEX m_SkillVertex[4];
 
 	std::string m_SkillTexKey = "CROSS_TEX";
 	int m_SkillNum = SHURIKEN;
