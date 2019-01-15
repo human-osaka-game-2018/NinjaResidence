@@ -28,6 +28,7 @@
     <ClCompile Include="GAMEMANAGER.cpp" />
     <ClCompile Include="GAMESCENE.cpp" />
     <ClCompile Include="GameChara.cpp" />
+    <ClCompile Include="HighShuriken.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="MapReverse.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="GAMEMANAGER.h" />
     <ClInclude Include="GAMESCENE.h" />
     <ClInclude Include="GameChara.h" />
+    <ClInclude Include="HighShuriken.h" />
     <ClInclude Include="MapBlock.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PauseScene.h" />

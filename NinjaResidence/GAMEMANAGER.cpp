@@ -62,7 +62,7 @@ GAMEMANAGER::GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
 	pDirectX->InitPresentParameters(hWnd);
-	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/ninja.png");
 	pSoundOperater->Initialize();
 
 
@@ -92,7 +92,7 @@ void GAMEMANAGER::ChangeDisplayMode(void)
 	hr = pDirectX->ResetDevice(isWindowMode, &WinRect,hWnd);
 
 	pDirectX->ReleaseDx();
-	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/ninja.png");
 	pSoundOperater->Initialize();
 	pSceneManager->LoadResouce();
 
@@ -190,7 +190,7 @@ int GAMEMANAGER::MessageLoop()
 				hr = pDirectX->ResetDevice(isWindowMode, &WinRect, hWnd);
 				pDirectX->ReleaseDx();
 
-				pDirectX->RecoverDevice(hWnd, isWindowMode, "texture/Block_Integration.png");
+				pDirectX->RecoverDevice(hWnd, isWindowMode, "texture/ninja.png");
 				pSoundOperater->Initialize();
 				pSceneManager->LoadResouce();
 
