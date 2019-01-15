@@ -39,10 +39,10 @@ void Shuriken::KeyOperation(KeyDirection vec)
 			return;
 		}
 		m_DirectionDeg += m_Direction;
-		if (m_DirectionDeg>45) {
+		if (m_DirectionDeg > 45) {
 			m_DirectionDeg = 45;
 		}
-		if (m_DirectionDeg<-45) {
+		if (m_DirectionDeg < -45) {
 			m_DirectionDeg = -45;
 		}
 		break;
@@ -51,10 +51,10 @@ void Shuriken::KeyOperation(KeyDirection vec)
 			return;
 		}
 		m_DirectionDeg -= m_Direction;
-		if (m_DirectionDeg>45) {
+		if (m_DirectionDeg > 45) {
 			m_DirectionDeg = 45;
 		}
-		if (m_DirectionDeg<-45) {
+		if (m_DirectionDeg < -45) {
 			m_DirectionDeg = -45;
 		}
 		break;
@@ -120,7 +120,7 @@ bool Shuriken::Update()
 	PrevMapScrollX -= m_MapScrollX;
 	PrevMapScrollY -= m_MapScrollY;
 	m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
-	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;;
+	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
 	m_MapPositionX = static_cast<int>((m_Central.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Central.y - m_MapScrollY) / CELL_SIZE);
 	if (m_Central.x < 0 || m_Central.x > DISPLAY_WIDTH || m_MapPositionX >= m_row-1) {

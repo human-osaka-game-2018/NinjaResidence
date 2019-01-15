@@ -19,19 +19,21 @@ SkillSelect::~SkillSelect()
 bool SkillSelect::Update() {
 	switch (m_SkillNum) {
 	case SHURIKEN:
-		m_SkillTexKey = "CROSS_TEX";
-		m_Color = 0xFFFFFFFF;
+		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0, BLOCK_INTEGRATION_HEIGHT * 3, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case CLAWSHOT:
-		m_SkillTexKey = "SCROLL_TEX";
-		m_Color = 0xFFFFFF << 8;
+		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color,0, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case FIRE_ART:
 		m_SkillTexKey = "FIRE_UI_TEX";
-		m_Color = 0xFFFFFFFF;
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color);
 		break;
 	case HIGH_SHURIKEN_ART:
 		m_SkillTexKey = "HIGH_SHURIKEN_UI_TEX";
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color);
+
 		break;
 	}
 	return true;
@@ -43,9 +45,7 @@ void SkillSelect::Render()
 	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0.f, 480.f / 1024.f ,120.f/512.f, 120.f / 1024.f);
 	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
-	CUSTOMVERTEX SkillVertex[4];
-	CreateSquareVertex(SkillVertex,m_SkillUI,m_Color);
-	TextureRender(m_SkillTexKey, SkillVertex);
+	TextureRender(m_SkillTexKey, m_SkillVertex);
 	
 }
 

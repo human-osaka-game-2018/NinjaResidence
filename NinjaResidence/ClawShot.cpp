@@ -8,7 +8,7 @@ using namespace PlayerAnimation;
 
 ClawShot::ClawShot(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
 {
-	m_Central = { 500,0,20,20 };
+	m_Central = { 500,0,25,25 };
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
 	m_row = m_pMapChip->getRow();
@@ -28,6 +28,9 @@ ClawShot::~ClawShot()
 
 void ClawShot::KeyOperation(KeyDirection vec)
 {
+	if (m_DirectionDeg < 0) {
+		m_DirectionDeg *= -1;
+	}
 	//Key‘€ì‚Å‚Ìˆ—
 	switch (vec)
 	{
@@ -38,30 +41,31 @@ void ClawShot::KeyOperation(KeyDirection vec)
 		if (m_isActive || !m_isChoseDeg) {
 			return;
 		}
-		m_DirectionDeg += m_Direction;
-		if (m_DirectionDeg>45) {
-			m_DirectionDeg = 45;
+		m_DirectionDeg += 1.0f;
+		if (m_DirectionDeg > 90) {
+			m_DirectionDeg = 90;
 		}
-		if (m_DirectionDeg<-45) {
-			m_DirectionDeg = -45;
+		if (m_DirectionDeg < 0) {
+			m_DirectionDeg = 0;
 		}
 		break;
 	case DOWN:
 		if (m_isActive || !m_isChoseDeg) {
 			return;
 		}
-		m_DirectionDeg -= m_Direction;
-		if (m_DirectionDeg>45) {
-			m_DirectionDeg = 45;
+		m_DirectionDeg -= 1.0f;
+		if (m_DirectionDeg > 90) {
+			m_DirectionDeg = 90;
 		}
-		if (m_DirectionDeg<-45) {
-			m_DirectionDeg = -45;
+		if (m_DirectionDeg < 0) {
+			m_DirectionDeg = 0;
 		}
 		break;
 	case END_ART:
 		InitPosition();
 		break;
 	}
+	m_DirectionDeg *= m_Direction;
 }
 
 
@@ -119,10 +123,14 @@ bool ClawShot::Update()
 	}
 	PrevMapScrollX -= m_MapScrollX;
 	PrevMapScrollY -= m_MapScrollY;
-	m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
-	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;;
+	m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg));
+	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg));
 	m_MapPositionX = static_cast<int>((m_Central.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Central.y - m_MapScrollY) / CELL_SIZE);
+	if (m_Direction == FACING_RIGHT) {
+		m_DirectionBias = ZERO;
+	}
+	else m_DirectionBias = ONE;
 	if (m_Central.x < 0 || m_Central.x > DISPLAY_WIDTH || m_MapPositionX >= m_row - 1) {
 		InitPosition();
 	}
@@ -149,7 +157,6 @@ bool ClawShot::Update()
 
 void ClawShot::Render()
 {
-	static int rad = 0;
 	if (!m_isChoseDeg && !m_isActive) {
 		return;
 	}
@@ -157,13 +164,13 @@ void ClawShot::Render()
 		CUSTOMVERTEX DirectionArrowVertex[4];
 		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0, 0, m_Direction);
 		TextureRender("ARROW_TEX", DirectionArrowVertex);
-		rad = 0;
 		return;
 	}
 	if (m_isActive) {
 		CUSTOMVERTEX ClawVertex[4];
-		RevolveZ(ClawVertex, m_DirectionDeg, m_Central, 0xFFFFFFFF, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		RevolveZ(ClawVertex, DegToRad(m_DirectionDeg), m_Central,0xFFFFFFFF, (m_DirectionBias + 1) * BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH * m_Direction, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ClawVertex);
+
 	}
 }
 
