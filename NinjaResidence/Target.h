@@ -19,5 +19,5 @@ public:
 	Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	virtual ~Target();
 private:
-
+	int m_MotionBias = 0;
 };

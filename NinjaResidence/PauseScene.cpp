@@ -19,6 +19,7 @@ PauseScene::~PauseScene()
 
 SCENE_NUM PauseScene::Update() {
 	CursorMove();
+	m_pXinputDevice->DeviceUpdate();
 	static int CursorAnimeInterval = 0;
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;

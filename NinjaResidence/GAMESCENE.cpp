@@ -267,6 +267,8 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Pause.png", "PAUSETITLE_TEX");
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
+	m_pDirectX->LoadTexture("texture/Fire.png", "FIRE_TEX");
+	m_pDirectX->LoadTexture("texture/FireUi.png", "FIRE_UI_TEX");
 
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
