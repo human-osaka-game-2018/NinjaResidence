@@ -76,8 +76,8 @@ bool ClawShot::PermitActive() {
 		return false;
 	}
 	if (m_isChoseDeg && !m_isActive) {
-		m_Central.x = m_pGameChara->GetPositionX() + (m_Direction * m_Central.scale_x);
-		m_Central.y = m_pGameChara->GetPositionY();
+		RopeBatteryPosX = m_Central.x = m_pGameChara->GetPositionX() + (m_Direction * m_Central.scale_x);
+		RopeBatteryPosY = m_Central.y = m_pGameChara->GetPositionY();
 		PrevMapScrollX = m_MapScrollX;
 		PrevMapScrollY = m_MapScrollY;
 
@@ -106,8 +106,8 @@ bool ClawShot::PermitActive() {
 //
 void ClawShot::InitPosition() {
 	m_isActive = false;
-	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
-	m_Central.y = m_pGameChara->GetPositionY();
+	RopeBatteryPosX = m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
+	RopeBatteryPosY = m_Central.y = m_pGameChara->GetPositionY();
 	m_DirectionDeg = 0;
 }
 
@@ -167,6 +167,20 @@ void ClawShot::Render()
 		return;
 	}
 	if (m_isActive) {
+		CUSTOMVERTEX RopeVertex[4];
+		CENTRAL_STATE m_RopeCentral;
+		float Xpos = m_Central.x - RopeBatteryPosX ;
+		float Ypos = RopeBatteryPosY - m_Central.y;
+		float BehindLength = std::sqrt(Xpos*Xpos + Ypos * Ypos);
+		m_RopeCentral.x = (BehindLength * 0.5f * m_Direction + RopeBatteryPosX );
+		m_RopeCentral.y = RopeBatteryPosY;
+		m_RopeCentral.scale_x = BehindLength * 0.5f;
+		m_RopeCentral.scale_y = 5.f;
+		RevolveZEX(RopeVertex, DegToRad(m_DirectionDeg), m_RopeCentral, RopeBatteryPosX, RopeBatteryPosY, 0xFFFFFFFF, BLOCK_INTEGRATION_WIDTH * 6, 0, 20.f/512.f);
+		RevolveVertex(RopeVertex, 1);
+
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", RopeVertex);
+
 		CUSTOMVERTEX ClawVertex[4];
 		RevolveZ(ClawVertex, DegToRad(m_DirectionDeg), m_Central,0xFFFFFFFF, (m_DirectionBias + 1) * BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH * m_Direction, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ClawVertex);
