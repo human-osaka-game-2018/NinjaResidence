@@ -12,8 +12,10 @@ public:
 	void ActivateTarget();
 	void Update();
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
-
 	Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
 	~Rope();
+private:
+	float m_Movement = 0;
+	float m_CellSize = CELL_SIZE;
 };
 

@@ -57,6 +57,7 @@ public:
 	}
 	int SearchBlockX(MapBlock::BLOCKTYPE Block);
 	int SearchBlockY(MapBlock::BLOCKTYPE Block);
+	CUSTOMVERTEX* GetTargetPosition(int targetType);
 	float GetGimmickPosition(bool isAxisX, int MapYPos,int MapXPos);
 	bool GetGimmckActive(int MapXPos);
 private:

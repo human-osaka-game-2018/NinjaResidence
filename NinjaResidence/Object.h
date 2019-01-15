@@ -76,6 +76,8 @@ public:
 	*/
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
 
+	void TranslateCentral_State(CUSTOMVERTEX * Vertex, CENTRAL_STATE * Central);
+
 	/**
 	*@brief CSV読み取りとマップデータ生成
 	* @param filename CSVファイルパス
@@ -112,6 +114,8 @@ public:
 
 	void GameCharaInfo(int CharaX, int CharaY);
 	virtual bool GetGimmickActive() { return false; };
+	virtual CUSTOMVERTEX* GetTargetPosition(int targetType) { return m_WorldCoordinate; };
+	bool ContactSpecifyObject(CENTRAL_STATE* object);
 	int getm_CharaX()
 	{
 		return m_CharaX;
@@ -126,7 +130,7 @@ public:
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
-
+	CENTRAL_STATE m_Central;
 	static int m_MapScrollX;
 	static int m_MapScrollY;
 

@@ -96,7 +96,6 @@ public:
 	void FireArtAnime();
 
 private:
-	CENTRAL_STATE m_Player = { 400,200,(CELL_SIZE * 2),(CELL_SIZE * 4) };
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	//前フレームのm_MapLeftDirectionPositionの値

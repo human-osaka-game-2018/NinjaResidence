@@ -449,15 +449,26 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 	return 2;
 }
 
+CUSTOMVERTEX* MapChip::GetTargetPosition(int targetType)
+{
+	CUSTOMVERTEX* Buf = NULL;
+	for (auto ite : pBaseTarget)
+	{
+		BlockInfo* InfoBuf = ite->GetTargetInfo();
+		if (InfoBuf->GimmickType!= targetType) {
+			continue;
+		}
+		Buf = ite->GetTargetPosition();
+	}
+	return Buf;
+}
+
 float MapChip::GetGimmickPosition(bool isAxisX, int MapYPos, int MapXPos)
 {
 	float Buf = 0;
 	for (auto ite : pBaseTarget)
 	{
-		//if (ite->GetGimmickXPos() != MapXPos) {
-		//	continue;
-		//}
-		if (/*(ite->GetGimmickYPos()) < MapYPos||*/!ite->GetGimmickActive(MapXPos)) {
+		if (!ite->GetGimmickActive(MapXPos)) {
 			continue;
 		}
 		Buf = ite->GetGimmickPosition(isAxisX, m_MapDataState);
