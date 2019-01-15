@@ -150,6 +150,8 @@ protected:
 
 	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
+	void RevolveVertex(CUSTOMVERTEX * Vertex, int Rad);
+
 	void WriteLog(std::string Text);
 
 private:

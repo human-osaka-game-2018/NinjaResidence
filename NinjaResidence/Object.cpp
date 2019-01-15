@@ -109,18 +109,18 @@ void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DW
 	CharVertexY[2] = Central.y + Central.scale_y;
 	CharVertexY[3] = Central.y + Central.scale_y;
 
-	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
+	for (int i = 0; i < 4; i++) {
 
-		CharVertexX[RoteCnt] -= Central.x;
-		CharVertexY[RoteCnt] -= Central.y;
+		CharVertexX[i] -= Central.x;
+		CharVertexY[i] -= Central.y;
 
-		float KEEPER = CharVertexX[RoteCnt];
+		float KEEPER = CharVertexX[i];
 
-		CharVertexX[RoteCnt] = (CharVertexX[RoteCnt] * cos(-Rad)) - (CharVertexY[RoteCnt] * sin(-Rad));
-		CharVertexY[RoteCnt] = (CharVertexY[RoteCnt] * cos(-Rad)) + (KEEPER * sin(-Rad));
+		CharVertexX[i] = (CharVertexX[i] * cos(-Rad)) - (CharVertexY[i] * sin(-Rad));
+		CharVertexY[i] = (CharVertexY[i] * cos(-Rad)) + (KEEPER * sin(-Rad));
 
-		CharVertexX[RoteCnt] += Central.x;
-		CharVertexY[RoteCnt] += Central.y;
+		CharVertexX[i] += Central.x;
+		CharVertexY[i] += Central.y;
 
 	}
 
@@ -146,18 +146,18 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 	CharVertexY[2] = Central.y + Central.scale_y;
 	CharVertexY[3] = Central.y + Central.scale_y;
 
-	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
+	for (int i = 0; i < 4; i++) {
 
-		CharVertexX[RoteCnt] -= RevolvingShaftX;
-		CharVertexY[RoteCnt] -= RevolvingShaftY;
+		CharVertexX[i] -= RevolvingShaftX;
+		CharVertexY[i] -= RevolvingShaftY;
 
-		float KEEPER = CharVertexX[RoteCnt];
+		float KEEPER = CharVertexX[i];
 
-		CharVertexX[RoteCnt] = (CharVertexX[RoteCnt] * cos(-Rad)) - (CharVertexY[RoteCnt] * sin(-Rad));
-		CharVertexY[RoteCnt] = (CharVertexY[RoteCnt] * cos(-Rad)) + (KEEPER * sin(-Rad));
+		CharVertexX[i] = (CharVertexX[i] * cos(-Rad)) - (CharVertexY[i] * sin(-Rad));
+		CharVertexY[i] = (CharVertexY[i] * cos(-Rad)) + (KEEPER * sin(-Rad));
 
-		CharVertexX[RoteCnt] += RevolvingShaftX;
-		CharVertexY[RoteCnt] += RevolvingShaftY;
+		CharVertexX[i] += RevolvingShaftX;
+		CharVertexY[i] += RevolvingShaftY;
 
 	}
 
@@ -167,6 +167,26 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, color, tu, tv + scaleTv };
 
 }
+
+void Object::RevolveVertex(CUSTOMVERTEX* Vertex, int Rad) {
+
+	float VertexX;
+	float VertexY;
+	//TUTV入れ替えて画像だけ回す
+	for (int i = 0; i < Rad; ++i) {
+		VertexX = Vertex[0].tu;
+		Vertex[0].tu = Vertex[1].tu;
+		Vertex[1].tu = Vertex[2].tu;
+		Vertex[2].tu = Vertex[3].tu;
+		Vertex[3].tu = VertexX;
+		VertexY = Vertex[0].tv;
+		Vertex[0].tv = Vertex[1].tv;
+		Vertex[1].tv = Vertex[2].tv;
+		Vertex[2].tv = Vertex[3].tv;
+		Vertex[3].tv = VertexY;
+	}
+}
+
 
 void Object::WriteLog(std::string Text)
 {
