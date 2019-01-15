@@ -31,8 +31,7 @@ bool SkillSelect::Update() {
 		m_Color = 0xFFFFFFFF;
 		break;
 	case HIGH_SHURIKEN_ART:
-		m_SkillTexKey = "SCROLL_TEX";
-		m_Color = 0xFF00FFFF;
+		m_SkillTexKey = "HIGH_SHURIKEN_UI_TEX";
 		break;
 	}
 	return true;

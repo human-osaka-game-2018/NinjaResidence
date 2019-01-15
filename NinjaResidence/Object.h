@@ -25,6 +25,10 @@ enum KeyDirection
 	THROW,
 	FIRE,
 	END_ART,
+	BIT_UP,
+	BIT_DOWN,
+	BIT_RIGHT,
+	BIT_LEFT,
 	SoundOn,
 };
 

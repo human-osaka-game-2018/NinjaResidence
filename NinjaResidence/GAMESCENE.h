@@ -54,6 +54,7 @@ private:
 	Object* m_pBusyMapChip = NULL;//使用中のMapChip
 	Object* m_pIdleMapChip = NULL;//停止中のMapChip
 
+	SkillBase* m_pHighShuriken = NULL;
 	SkillBase* m_pShuriken = NULL;
 	SkillBase* m_pFireArt = NULL;
 	const char* StageFilePath_surface = "csv/Book1.csv";
@@ -76,6 +77,7 @@ private:
 	void SkillsRender();
 	void SkillStart();
 	void SkillEND();
+	void SkillErase();
 	void SkillKeyOperation(KeyDirection vec);
 	void ClearAnime();
 	bool m_EnableSkill[MAX_SKILL - 1] = { true,true,true };

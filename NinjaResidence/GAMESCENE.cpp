@@ -5,6 +5,7 @@
 */
 #include "GAMESCENE.h"
 #include "Shuriken.h"
+#include "HighShuriken.h"
 #include "FireArt.h"
 
 
@@ -19,6 +20,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_pFireArt = new FireArt(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_SkillSelect = new SkillSelect(pDirectX, pSoundOperater, m_EnableSkill);
 	m_pDescriptionBoard = new DescriptionBoard(pDirectX, pSoundOperater, m_pGameChara, m_pBusyMapChip);
@@ -37,6 +39,8 @@ GameScene::~GameScene()
 	m_pGameChara = NULL;
 	delete m_pMapReverse;
 	m_pMapReverse = NULL;
+	delete m_pHighShuriken;
+	m_pHighShuriken = NULL;
 	delete m_pShuriken;
 	m_pShuriken = NULL;
 	delete m_pFireArt;
@@ -148,6 +152,22 @@ void GameScene::KeyOperation() {
 	{
 		TransePause();
 	}
+	if (m_pDirectX->GetKeyStatus(DIK_J) || m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
+	{
+		SkillKeyOperation(BIT_LEFT);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_L) || m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
+	{
+		SkillKeyOperation(BIT_RIGHT);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_I) || m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	{
+		SkillKeyOperation(BIT_UP);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_K) || m_pXinputDevice->GetAnalogRState(ANALOGDOWN))
+	{
+		SkillKeyOperation(BIT_DOWN);
+	}
 
 	//マップ動作
 	//if (m_pDirectX->GetKeyStatus(DIK_W))
@@ -175,10 +195,6 @@ void GameScene::KeyOperation() {
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
 	{
 		m_pGameChara->DebugMove();
-	}
-	if (m_pDirectX->GetKeyStatus(DIK_L) || PadRelease == m_pXinputDevice->GetButton(ButtonBack))
-	{
-		//m_pGameChara->KeyOperation(SoundOn);
 	}
 
 }
@@ -226,9 +242,7 @@ void GameScene::Render()
 	m_pDirectX->DrawTexture("GAME_BG_TEX", m_BackgroundVertex);
  	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
-	m_pShuriken->Render();
-	m_pFireArt->Render();
-
+	SkillsRender();
 	m_SkillSelect->Render();
 	if (m_isClear) {
 		CUSTOMVERTEX LogoVertex[4];
@@ -269,7 +283,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
 	m_pDirectX->LoadTexture("texture/Fire.png", "FIRE_TEX");
 	m_pDirectX->LoadTexture("texture/FireUi.png", "FIRE_UI_TEX");
-
+	m_pDirectX->LoadTexture("texture/HighShurikenUi.png", "HIGH_SHURIKEN_UI_TEX");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
@@ -314,12 +328,14 @@ void GameScene::StageTurning()
 void GameScene::Reverse()
 {
 	m_pMapReverse->GoMapReverse(&m_pBusyMapChip, &m_pIdleMapChip);
+	m_pHighShuriken->Reverse(m_pBusyMapChip);
 	m_pShuriken->Reverse(m_pBusyMapChip);
 	m_pFireArt->Reverse(m_pBusyMapChip);
 }
 
 void GameScene::SkillsUpdate() {
 	m_SkillSelect->Update();
+	SkillErase();
 	switch (CurrentSkill) {
 	case SHURIKEN:
 		m_pShuriken->Update();
@@ -330,6 +346,7 @@ void GameScene::SkillsUpdate() {
 		m_pFireArt->Update();
 		break;
 	case HIGH_SHURIKEN_ART:
+		m_pHighShuriken->Update();
 		break;
 	}
 }
@@ -345,6 +362,7 @@ void GameScene::SkillsRender() {
 		m_pFireArt->Render();
 		break;
 	case HIGH_SHURIKEN_ART:
+		m_pHighShuriken->Render();
 		break;
 	}
 }
@@ -367,6 +385,12 @@ void GameScene::SkillStart() {
 		m_CanChangeSkill = false;
 		break;
 	case HIGH_SHURIKEN_ART:
+		m_pHighShuriken->KeyOperation(THROW);
+		m_CanChangeSkill = false;
+		if (m_pHighShuriken->GetActive()) {
+			m_CanChangeSkill = true;
+			m_pGameChara->KeyOperation(THROW);
+		}
 		break;
 	}
 
@@ -374,7 +398,6 @@ void GameScene::SkillStart() {
 void GameScene::SkillEND() {
 	switch (CurrentSkill) {
 	case SHURIKEN:
-
 		break;
 	case CLAWSHOT:
 		break;
@@ -383,6 +406,28 @@ void GameScene::SkillEND() {
 		m_pFireArt->KeyOperation(END_ART);
 		break;
 	case HIGH_SHURIKEN_ART:
+		break;
+	}
+
+}
+void GameScene::SkillErase() {
+	switch (CurrentSkill) {
+	case SHURIKEN:
+		m_pFireArt->KeyOperation(END_ART);
+		m_pHighShuriken->KeyOperation(END_ART);
+		break;
+	case CLAWSHOT:
+		m_pHighShuriken->KeyOperation(END_ART);
+		m_pShuriken->KeyOperation(END_ART);
+		m_pFireArt->KeyOperation(END_ART);
+		break;
+	case FIRE_ART:
+		m_pHighShuriken->KeyOperation(END_ART);
+		m_pShuriken->KeyOperation(END_ART);
+		break;
+	case HIGH_SHURIKEN_ART:
+		m_pFireArt->KeyOperation(END_ART);
+		m_pShuriken->KeyOperation(END_ART);
 		break;
 	}
 
@@ -399,6 +444,7 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 		m_pFireArt->KeyOperation(vec);
 		break;
 	case HIGH_SHURIKEN_ART:
+		m_pHighShuriken->KeyOperation(vec);
 		break;
 	}
 }
