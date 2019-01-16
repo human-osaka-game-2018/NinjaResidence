@@ -20,6 +20,7 @@ enum MapDataState
 {
 	SURFACE,//表
 	REVERSE,//裏
+	STATE_FALSE,
 };
 
 /**

@@ -25,10 +25,6 @@ class MapChip :public Object
 {
 public:
 
-	static std::vector<BaseTarget*> pBaseTarget;
-	static std::vector<BlockInfo> GimmickVector;
-	static std::vector<BlockInfo> TargetVector;
-	
 	//static std::vector< std::vector<int> > MapData;
 	MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~MapChip();
@@ -60,6 +56,7 @@ public:
 	CUSTOMVERTEX* GetTargetPosition(int targetType);
 	float GetGimmickPosition(bool isAxisX, int MapYPos,int MapXPos);
 	bool GetGimmckActive(int MapXPos);
+
 private:
 	int m_MapSelected;
 	int m_MapSelectedWIDTH;
@@ -68,5 +65,11 @@ private:
 	void CellInit();
 	static int m_TargetCount;
 	static int m_GimmickCount;
+
+
+	static std::vector<BaseTarget*> pBaseTarget;
+	static std::vector<BlockInfo> GimmickVector;
+	static std::vector<BlockInfo> TargetVector;
+
 	MapDataState m_MapDataState;
 };

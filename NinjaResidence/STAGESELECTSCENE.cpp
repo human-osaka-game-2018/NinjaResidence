@@ -7,6 +7,7 @@
 
 StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
+	m_StageNum = 0;
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	m_StageImage[0] = {CENTRAL_X,CENTRAL_Y,250,250 };
