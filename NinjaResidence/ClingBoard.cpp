@@ -1,4 +1,4 @@
-#include "ClingBoard.h"
+﻿#include "ClingBoard.h"
 #include <string>
 #include "MapChip.h"
 
@@ -24,7 +24,7 @@ void ClingBoard::Activate()
 void ClingBoard::Update()
 {
 	if (!m_isActive) return;
-	//�߂܂�̓���
+	//捕まり板の動き
 	
 }
 

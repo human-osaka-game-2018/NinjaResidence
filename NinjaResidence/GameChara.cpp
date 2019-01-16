@@ -324,7 +324,7 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 void GameChara::GimmickHitCheck()
 {
 	static bool prevDisplayandprevWorld = true;
-	//下の方向のブロックを確かめる
+	//下の方向の感圧板を確かめる
 	if ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) / 100 == BT_SWITCH) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) / 100 == BT_SWITCH) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) / 100 == BT_SWITCH))
@@ -332,7 +332,7 @@ void GameChara::GimmickHitCheck()
 		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY);
 	}
 
-	//左と右の方向のブロックを確かめる
+	//左と右の方向の捕まり板を確かめる
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) == 1000) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) == 1000) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) == 1000) ||
@@ -671,6 +671,10 @@ void GameChara::Render()
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
 	CharCentral.x -= 25.f;
 	CharCentral.scale_x = 120.f;
+		if (ClingBoardmode)
+	{
+		m_TurnAnimation = WALLHOLD;
+	}
 	CreateSquareVertex(CharCentral, TestChar, 0xFFFFFFFF,( m_TurnAnimation+m_DirectionBias) * m_CharTu, m_ChangeAnimation * m_CharTv, m_CharTu * m_Facing, m_CharTv);
 	TextureRender("CHARA_TEX", TestChar);
 #ifdef _DEBUG
