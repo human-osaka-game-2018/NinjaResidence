@@ -122,6 +122,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 	}
 	fclose(fp);
 	if (MapState == REVERSE)
+
 	{
 		CheckVector();
 		m_ReverseBuffer.resize(m_ReverseCount);
@@ -135,6 +136,17 @@ void MapChip::MapDataVectorHitSet(int MapDataVectorSetY, int MapDataVectorSetX, 
 		for (int i = 0;i < GimmickX;i++)
 		{
 			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 900;
+		}
+	}
+}
+
+void MapChip::MapDataVectorClingSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX)
+{
+	for (int j = 0;j < GimmickY;j++)
+	{
+		for (int i = 0;i < GimmickX;i++)
+		{
+			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 1000;
 		}
 	}
 }

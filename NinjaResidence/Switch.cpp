@@ -59,15 +59,19 @@ void Switch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		}
 	}
 
-	if (m_GimmickInfo.GimmickType == BT_WATER)
-	{
-		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
-	}
 	if (m_GimmickInfo.GimmickType == BT_PARTITIONBOARD)
 	{
 		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
 	}
 	if (m_GimmickInfo.GimmickType == BT_FALLROCK)
+	{
+		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
+	}
+	if (m_GimmickInfo.GimmickType == BT_WATER)
+	{
+		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
+	}
+	if (m_GimmickInfo.GimmickType == BT_CLINGBOARD)
 	{
 		m_pBaseGimmick->Render(MapScrollY, MapScrollX, MapDataReverse);
 	}

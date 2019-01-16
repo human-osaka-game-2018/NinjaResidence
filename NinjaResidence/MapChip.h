@@ -40,6 +40,7 @@ public:
 	void MapDataVectorSet0();
 	void MapDataGimmickSearch();
 	void MapDataVectorHitSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
+	void MapDataVectorClingSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	void MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	int GimmickMapDataCheck(int y, int x);
 	void CheckVector();

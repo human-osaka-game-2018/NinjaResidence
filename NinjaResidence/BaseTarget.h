@@ -10,6 +10,7 @@
 #include "PartitionBoard.h"
 #include "Water.h"
 #include "FallRock.h"
+#include "ClingBoard.h"
 
 #include "DirectX.h"
 

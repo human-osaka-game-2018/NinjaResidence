@@ -25,8 +25,8 @@ BaseTarget::BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX)
 	case BT_WATER:
 		m_pBaseGimmick = new Water(Gimmick, pDirectX);
 		break;
-	case BT_ADHEREBOARD:
-		//m_pBaseGimmick = new AdhereBoard(Gimmick, pDirectX);
+	case BT_CLINGBOARD:
+		m_pBaseGimmick = new ClingBoard(Gimmick, pDirectX, m_GimmickInfo.pMapChip);
 		break;
 	}
 }

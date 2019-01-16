@@ -1,50 +1,35 @@
-﻿/**
-* @file PartitionBoard.cpp
-* @brief PartitionBoardクラス
-* @author Kojiro Kawahara
-*/
-#include "PartitionBoard.h"
+#include "ClingBoard.h"
 #include <string>
 #include "MapChip.h"
 
-PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) :BaseGimmick(Gimmick, pDirectX)
+ClingBoard::ClingBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) :BaseGimmick(Gimmick, pDirectX)
 {
 	m_pDirectX = pDirectX;
 	m_pMapChip = pMapChip;
-	m_pMapChip->MapDataVectorHitSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
+	m_pMapChip->MapDataVectorClingSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
 }
 
-
-PartitionBoard::~PartitionBoard()
+ClingBoard::~ClingBoard()
 {
 
 }
 
 
-void PartitionBoard::Activate()
+void ClingBoard::Activate()
 {
 	m_isActive = true;
 }
 
 
-void PartitionBoard::Update()
+void ClingBoard::Update()
 {
 	if (!m_isActive) return;
-	//仕切り板の動き
-	while (m_WorldPosBottom >= 0.f)
-	{
-		m_WorldPosBottom -= 20.f;
-		break;
-	}
-	if (m_WorldPosBottom <= 0.f)
-	{
-		m_isActive = false;
-		m_pMapChip->MapDataVectorZeroSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
-	}
+	//�߂܂�̓���
+	
 }
 
 
-void PartitionBoard::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
+void ClingBoard::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 {
 	if (MapDataReverse != m_GimmickInfo.MapDataState)
 	{
@@ -83,5 +68,4 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, MapDataState MapData
 
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_GimmickVertex);
 	}
-
 }

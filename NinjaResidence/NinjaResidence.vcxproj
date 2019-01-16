@@ -22,6 +22,7 @@
     <ClCompile Include="BaseGimmick.cpp" />
     <ClCompile Include="BaseTarget.cpp" />
     <ClCompile Include="ClawShot.cpp" />
+    <ClCompile Include="ClingBoard.cpp" />
     <ClCompile Include="DescriptionBoard.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="FallRock.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="BaseTarget.h" />
     <ClInclude Include="BlockInfo.h" />
     <ClInclude Include="ClawShot.h" />
+        <ClInclude Include="ClingBoard.h" />
     <ClInclude Include="DescriptionBoard.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="enum_Scene.h" />
