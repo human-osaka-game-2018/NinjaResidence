@@ -6,7 +6,7 @@ ClingBoard::ClingBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) 
 {
 	m_pDirectX = pDirectX;
 	m_pMapChip = pMapChip;
-	m_pMapChip->MapDataVectorClingSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
+	m_pMapChip->MapDataVectorClingSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 9, 2);
 }
 
 ClingBoard::~ClingBoard()
@@ -41,8 +41,8 @@ void ClingBoard::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReve
 	{
 		m_WorldPosLeft = (CELL_SIZE * m_GimmickPosX);
 		m_WorldPosTop = (CELL_SIZE * m_GimmickPosY);
-		m_WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 3));
-		m_WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 15));
+		m_WorldPosRight = (CELL_SIZE * (m_GimmickPosX + 2));
+		m_WorldPosBottom = (CELL_SIZE * (m_GimmickPosY + 9));
 		m_isFirstTime = true;
 	}
 	if (MapDataReverse == m_GimmickInfo.MapDataState)

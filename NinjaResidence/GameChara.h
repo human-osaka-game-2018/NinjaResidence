@@ -98,6 +98,8 @@ public:
 private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
 	CUSTOMVERTEX m_WorldCharaCoordinate[4];
+	CUSTOMVERTEX m_prevDisplayCharaCoordinate[4];
+	CUSTOMVERTEX m_prevWorldCharaCoordinate[4];
 	//前フレームのm_MapLeftDirectionPositionの値
 	int m_PrevMapLeftDirectionPosition = 0;
 	//前フレームのm_MapRightDirectionPositionの値
@@ -110,8 +112,6 @@ private:
 	int m_MapRightDirectionPosition = 0;
 	//キャラの上側のx座標
 	int m_MapPositionY = 0;
-	//捕まり板に捕まっていたらtrue,捕まっていなければfalse
-	bool ClingBoardmode = false;
 	//毎フレームかける重力の値
 	const float GRAVITY = 15.f;
 	const float MOVE_SPEED = 15.f;
@@ -156,6 +156,8 @@ private:
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
 	void TurnTheAnimation(int AnimationPage);
 
+	//捕まり板に捕まっていたらtrue,捕まっていなければfalse
+	bool ClingBoardmode = false;
 	bool m_isScrollingDown = false;
 	bool m_isInTheAir = false;
 	bool m_isJump = false;

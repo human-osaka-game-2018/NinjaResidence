@@ -105,7 +105,6 @@ void GameChara::JumpingLateralMotion() {
 	if (!m_isInTheAir) {
 		return;
 	}
-
 	if (m_HeldOntoWallLeft) {
 		m_isJumpRight = true;
 	}
@@ -120,8 +119,6 @@ void GameChara::JumpingLateralMotion() {
 			m_WorldCharaCoordinate[i].x += m_AccelerationX;
 			m_DisplayCharaCoordinate[i].x += m_AccelerationX;
 		}
-
-
 	}
 	if (m_isJumpLeft) {
 		//左に移動
@@ -143,29 +140,13 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 	{
 		//上に移動
 	case JUMP:
-		if (ClingBoardmode)
-		{
-			for (int i = 0;i < 4;i++)
-			{
-				m_WorldCharaCoordinate[i].y -= MOVE_SPEED;
-				m_DisplayCharaCoordinate[i].y -= MOVE_SPEED;
-			}
-		}
-		else
+		if (!ClingBoardmode)
 		{
 			m_isJump = PermitJumping();
 		}
 		break;
 	case DOWN:
 		//今のところなし
-		if (ClingBoardmode)
-		{
-			for (int i = 0;i < 4;i++)
-			{
-				m_WorldCharaCoordinate[i].x += MOVE_SPEED;
-				m_DisplayCharaCoordinate[i].x += MOVE_SPEED;
-			}
-		}
 		break;
 	case MOVE_RIGHT:
 		//右に移動
@@ -178,18 +159,18 @@ void GameChara::CharaMoveOperation(KeyDirection vec)
 		}
 		if (!ClingBoardmode)
 		{
-		SideCollision();
-		if (m_isInTheAir) break;
-		if (m_ChangeAnimation == WATER_ART) {
-			m_TurnAnimation = 3.f;
-			break;
-		}
-		m_ChangeAnimation = DASH;
-		++AnimeCount;
-		if (AnimeCount > 2) {
-			TurnTheAnimation(8);
-			AnimeCount = 0;
-		}
+			SideCollision();
+			if (m_isInTheAir) break;
+			if (m_ChangeAnimation == WATER_ART) {
+				m_TurnAnimation = 3.f;
+				break;
+			}
+			m_ChangeAnimation = DASH;
+			++AnimeCount;
+			if (AnimeCount > 2) {
+				TurnTheAnimation(8);
+				AnimeCount = 0;
+			}
 		}
 		break;
 	case MOVE_LEFT:
@@ -333,14 +314,14 @@ void GameChara::GimmickHitCheck()
 	}
 
 	//左と右の方向の捕まり板を確かめる
-	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) == 1000) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) == 1000))
+	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) == 15))
 	{
 		if (prevDisplayandprevWorld)
 		{
@@ -349,6 +330,7 @@ void GameChara::GimmickHitCheck()
 				m_prevDisplayCharaCoordinate[i].y = m_DisplayCharaCoordinate[i].y;
 				m_prevWorldCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y;
 				prevDisplayandprevWorld = false;
+				ClingBoardmode = true;
 			}
 		}
 		for (int i = 0; i < 4; i++)
@@ -356,17 +338,18 @@ void GameChara::GimmickHitCheck()
 			m_DisplayCharaCoordinate[i].y = m_prevDisplayCharaCoordinate[i].y;
 			m_WorldCharaCoordinate[i].y = m_prevWorldCharaCoordinate[i].y;
 		}
-		if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) == 1000) &
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) == 1000))
-		{
-			prevDisplayandprevWorld = true;
-		}
+	}
+	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != 15) &
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) != 15))
+	{
+		prevDisplayandprevWorld = true;
+		ClingBoardmode = false;
 	}
 }
 
@@ -390,7 +373,6 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[2].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
 		m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
 		m_isScrollingDown = true;
-
 	}
 	//下にスクロール移動
 	else if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
@@ -518,17 +500,22 @@ bool GameChara::Update()
 	//上のブロックを確かめる
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
-		if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != NONE))
+		if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != 15))
 		{
-			m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 3) * CELL_SIZE);
-			m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 3) * CELL_SIZE);
-			m_WorldCharaCoordinate[2].y = ((m_MapPositionY + 1) * CELL_SIZE);
-			m_WorldCharaCoordinate[3].y = ((m_MapPositionY + 1) * CELL_SIZE);
-			for (int i = 0; i < 4; i++)
+			if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != NONE))
 			{
-				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+				m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 3) * CELL_SIZE);
+				m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 3) * CELL_SIZE);
+				m_WorldCharaCoordinate[2].y = ((m_MapPositionY + 1) * CELL_SIZE);
+				m_WorldCharaCoordinate[3].y = ((m_MapPositionY + 1) * CELL_SIZE);
+				for (int i = 0; i < 4; i++)
+				{
+					m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+				}
 			}
 		}
 	}
@@ -567,13 +554,20 @@ bool GameChara::DownCollisionAnything(void) {
 	//	}
 	//}
 	bool BlockMax = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 100) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 100) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 100));
+					 (m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 100) ||
+					 (m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 100));
+
 	bool BlockMin = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) > 0) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) > 0) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) > 0));
-	if (BlockMax && BlockMin) {
-		return true;
+					 (m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) > 0) ||
+					 (m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) > 0));
+	if (BlockMax && BlockMin) 
+	{
+		if ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) != 15) &&
+			(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) != 15) &&
+			(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) != 15))
+		{
+			return true;
+		}
 	}
 	bool TorchMax = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 500) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 500) ||
@@ -581,11 +575,11 @@ bool GameChara::DownCollisionAnything(void) {
 	bool TorchMin = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) >= 400) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) >= 400) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 400));
-	if (TorchMax && TorchMin) {
+	if (TorchMax && TorchMin) 
+	{
 		m_ChangeAnimation = WATER_ART;
 		return false;
 	}
-
 	bool WaterMax = ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 800) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 800) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 800));
@@ -599,14 +593,20 @@ bool GameChara::DownCollisionAnything(void) {
 	if (DownCollisionCheck(NONE)) {
 		return false;
 	}
-
 	return true;
 }
-bool GameChara::TopCollisionAnything(void) {
+bool GameChara::TopCollisionAnything(void) 
+{
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != NONE) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != NONE)) {
-		return true;
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != NONE))
+	{
+		if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != 15) &&
+			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != 15) &&
+			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != 15))
+		{
+			return true;
+		}
 	}
 	return false;
 }
@@ -671,7 +671,7 @@ void GameChara::Render()
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
 	CharCentral.x -= 25.f;
 	CharCentral.scale_x = 120.f;
-		if (ClingBoardmode)
+	if (ClingBoardmode)
 	{
 		m_TurnAnimation = WALLHOLD;
 	}
@@ -700,7 +700,6 @@ void GameChara::AddGravity() {
 	if (m_isScrollingDown) {
 		for (int i = 0; i < 4; i++)
 		{
-
 			m_WorldCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
 			m_DisplayCharaCoordinate[i].y += VERTICAL_SCROLLING_LEVEL;
 		}
@@ -801,10 +800,18 @@ bool GameChara::SetGround() {
 }
 
 void GameChara::SideCollision() {
+	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) != NONE) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE))
+	{
+		ClingBoardmode = true;
+	}
 	if (m_PrevMapLeftDirectionPosition >= m_WorldCharaCoordinate[3].x)
 	{
 		//左の方向のブロックを確かめる
-		if ((m_pMapChip->getMapChipData(m_MapPositionY-1, m_MapLeftDirectionPosition) != NONE) || 
+		if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != NONE) || 
 			(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) != NONE) ||
 			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) != NONE) ||
@@ -812,35 +819,57 @@ void GameChara::SideCollision() {
 		{
 			if (m_PrevMapLeftDirectionPosition != m_WorldCharaCoordinate[3].x)
 			{
-				m_WorldCharaCoordinate[0].x = ((m_MapLeftDirectionPosition + 1) * CELL_SIZE);
-				m_WorldCharaCoordinate[1].x = ((m_MapLeftDirectionPosition + 3) * CELL_SIZE);
-				m_WorldCharaCoordinate[2].x = ((m_MapLeftDirectionPosition + 3) * CELL_SIZE);
-				m_WorldCharaCoordinate[3].x = ((m_MapLeftDirectionPosition + 1) * CELL_SIZE);
-				for (int i = 0; i < 4; i++)
+				if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != 15) ||
+					(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) != 15) ||
+					(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) != 15) ||
+					(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) != 15) ||
+					(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != 15))
 				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
+					m_WorldCharaCoordinate[0].x = ((m_MapLeftDirectionPosition + 1) * CELL_SIZE);
+					m_WorldCharaCoordinate[1].x = ((m_MapLeftDirectionPosition + 3) * CELL_SIZE);
+					m_WorldCharaCoordinate[2].x = ((m_MapLeftDirectionPosition + 3) * CELL_SIZE);
+					m_WorldCharaCoordinate[3].x = ((m_MapLeftDirectionPosition + 1) * CELL_SIZE);
+					for (int i = 0; i < 4; i++)
+					{
+						m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
+					}
 				}
 			}
 		}
 	}
+	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) == 15) ||
+		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) == 15))
+	{
+		ClingBoardmode = true;
+	}
 	if (m_PrevMapRightDirectionPosition <= m_WorldCharaCoordinate[2].x)
 	{
 		//右方向のブロックを確かめる
-		if ((m_pMapChip->getMapChipData(m_MapPositionY-1, m_MapRightDirectionPosition) != NONE) || 
-			(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) != NONE))
+		if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != 15) ||
+			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) != 15))
 		{
-			if (m_PrevMapRightDirectionPosition != m_WorldCharaCoordinate[2].x)
+			if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != NONE) ||
+				(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) != NONE))
 			{
-				m_WorldCharaCoordinate[0].x = ((m_MapRightDirectionPosition - 2) * CELL_SIZE) - 1;
-				m_WorldCharaCoordinate[1].x = ((m_MapRightDirectionPosition)* CELL_SIZE) - 1;
-				m_WorldCharaCoordinate[2].x = ((m_MapRightDirectionPosition)* CELL_SIZE) - 1;
-				m_WorldCharaCoordinate[3].x = ((m_MapRightDirectionPosition - 2) * CELL_SIZE) - 1;
-				for (int i = 0; i < 4; i++)
+				if (m_PrevMapRightDirectionPosition != m_WorldCharaCoordinate[2].x)
 				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX - 1;
+					m_WorldCharaCoordinate[0].x = ((m_MapRightDirectionPosition - 2) * CELL_SIZE) - 1;
+					m_WorldCharaCoordinate[1].x = ((m_MapRightDirectionPosition)* CELL_SIZE) - 1;
+					m_WorldCharaCoordinate[2].x = ((m_MapRightDirectionPosition)* CELL_SIZE) - 1;
+					m_WorldCharaCoordinate[3].x = ((m_MapRightDirectionPosition - 2) * CELL_SIZE) - 1;
+					for (int i = 0; i < 4; i++)
+					{
+						m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX - 1;
+					}
 				}
 			}
 		}

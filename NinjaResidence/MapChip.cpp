@@ -146,7 +146,7 @@ void MapChip::MapDataVectorClingSet(int MapDataVectorSetY, int MapDataVectorSetX
 	{
 		for (int i = 0;i < GimmickX;i++)
 		{
-			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 1000;
+			MapData[MapDataVectorSetY + j][MapDataVectorSetX + i] = 15;
 		}
 	}
 }
