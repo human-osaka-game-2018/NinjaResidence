@@ -168,12 +168,12 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 
 }
 
-void Object::RevolveVertex(CUSTOMVERTEX* Vertex, int Rad) {
+void Object::RevolveTexture(CUSTOMVERTEX* Vertex, int Deg) {
 
 	float VertexX;
 	float VertexY;
-	//TUTV入れ替えて画像だけ回す
-	for (int i = 0; i < Rad; ++i) {
+	//TUTV入れ替えて画像だけ指定回数回す
+	for (int i = 0; i < Deg; ++i) {
 		VertexX = Vertex[0].tu;
 		Vertex[0].tu = Vertex[1].tu;
 		Vertex[1].tu = Vertex[2].tu;
