@@ -259,32 +259,30 @@ void GameChara::NoOperation() {
 
 }
 
-void GameChara::MapReversePointSearch(int BlockNumber)
+void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 {
-	for (int i = 0;i < m_colunm;i++)
-	{
-		for (int j = 0;j < m_row;j++)
-		{
-			if (m_pMapChip->getMapChipData(i, j) == BlockNumber)
-			{
-				m_WorldCharaCoordinate[0].x = (j * CELL_SIZE);
-				m_WorldCharaCoordinate[1].x = (j * CELL_SIZE) + m_Central.scale_x;
-				m_WorldCharaCoordinate[2].x = (j * CELL_SIZE) + m_Central.scale_x;
-				m_WorldCharaCoordinate[3].x = (j * CELL_SIZE);
-				m_WorldCharaCoordinate[0].y = (i * CELL_SIZE) - m_Central.scale_y;
-				m_WorldCharaCoordinate[1].y = (i * CELL_SIZE) - m_Central.scale_y;
-				m_WorldCharaCoordinate[2].y = (i * CELL_SIZE);
-				m_WorldCharaCoordinate[3].y = (i * CELL_SIZE);
-				for (int i = 0;i < 4;i++)
-				{
-					m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
-				}
-				for (int i = 0;i < 4;i++)
-				{
-					m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
-				}
-			}
+	int BlockY = 0;
+	int BlockX = 0;
+	for (int i = 0; i < ReversePointVector.size(); ++i) {
+		bool isSameMapState = ReversePointVector[i].MapDataState == MapState;
+		bool isSamePair = PairNumber == ReversePointVector[i].PairNumber;
+		if (isSameMapState && isSamePair) {
+			BlockY = ReversePointVector[i].PositionY;
+			BlockX = ReversePointVector[i].PositionX;
 		}
+	}
+	m_WorldCharaCoordinate[0].x = (BlockX * CELL_SIZE);
+	m_WorldCharaCoordinate[1].x = (BlockX * CELL_SIZE) + m_Central.scale_x;
+	m_WorldCharaCoordinate[2].x = (BlockX * CELL_SIZE) + m_Central.scale_x;
+	m_WorldCharaCoordinate[3].x = (BlockX * CELL_SIZE);
+	m_WorldCharaCoordinate[0].y = (BlockY * CELL_SIZE) - m_Central.scale_y;
+	m_WorldCharaCoordinate[1].y = (BlockY * CELL_SIZE) - m_Central.scale_y;
+	m_WorldCharaCoordinate[2].y = (BlockY * CELL_SIZE);
+	m_WorldCharaCoordinate[3].y = (BlockY * CELL_SIZE);
+	for (int i = 0; i < 4; i++)
+	{
+		m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+		m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
 	}
 }
 
@@ -318,18 +316,10 @@ void GameChara::GimmickHitCheck()
 }
 
 
-void GameChara::CharaInfoSave(Object* MapChip, int BlockNumber)
+void GameChara::CharaInfoSave(Object* MapChip, int PairNumber)
 {
 	m_pMapChip = MapChip;
-	switch (BlockNumber)
-	{
-	case WOOD_REVERSE_ZONE:
-		MapReversePointSearch(BlockNumber);
-		break;
-	case ROCK_REVERSE_ZONE:
-		MapReversePointSearch(BlockNumber);
-		break;
-	}
+	MapReversePointSearch(PairNumber,m_pMapChip->GetMapDataState());
 }
 
 void GameChara::MapScroolCheck()

@@ -20,54 +20,38 @@ MapReverse::~MapReverse()
 
 }
 
+bool MapReverse::collisonReversePoint(int x, int y) {
+	for (int i = 0; i < m_ReverseCount; ++i) {
+		if (ReversePointVector[i].PositionX == x && ReversePointVector[i].PositionY == y) {
+			m_ReversePair = ReversePointVector[i].PairNumber;
+			return true;
+		}
+	}
+}
 
 void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 {
 
 	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
 	int MapPosiinonY = m_pGameChara->GetMapPositionY();
-	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == WOOD_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == WOOD_REVERSE_ZONE)
-	{
 
+	bool CollLeft = collisonReversePoint(MapPosiinonX, MapPosiinonY);
+	bool CollRight = collisonReversePoint(MapPosiinonX + 2, MapPosiinonY);
+	bool CollCenter = collisonReversePoint(MapPosiinonX + 1, MapPosiinonY);
+	if ((CollLeft|| CollCenter|| CollRight)&& m_ReversePair)
+	{
+		int Bufx = MapScrollXBuf;
+		int Bufy = MapScrollYBuf;
+		MapScrollXBuf = m_MapScrollX;
+		MapScrollYBuf = m_MapScrollY;
+		MapScrollXBuf = Bufx;
+		MapScrollYBuf = Bufy;
 
 		Object* Mapbuf;
 		Mapbuf = (*pBusyMapChip);
 		*pBusyMapChip = *pIdleMapChip;
 		*pIdleMapChip = Mapbuf;
-		if (MapDataReverseState == true)
-		{
-			MapDataReverseState = false;
-		}
-		else
-		{
-			MapDataReverseState = true;
-		}
- 
-		m_pGameChara->CharaInfoSave(*pBusyMapChip, WOOD_REVERSE_ZONE);
-	}
-	if ((*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX - 1)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 1)) == ROCK_REVERSE_ZONE ||
-		(*pBusyMapChip)->getMapChipData((MapPosiinonY), (MapPosiinonX + 2)) == ROCK_REVERSE_ZONE)
-	{
-		Object* Mapbuf;
-		Mapbuf = (*pBusyMapChip);
-		*pBusyMapChip = *pIdleMapChip;
-		*pIdleMapChip = Mapbuf;
-		if (MapDataReverseState == true)
-		{
-			MapDataReverseState = false;
-		}
-		else
-		{
-			MapDataReverseState = true;
-		}
 
-
-
-		m_pGameChara->CharaInfoSave(*pBusyMapChip, ROCK_REVERSE_ZONE);
+		m_pGameChara->CharaInfoSave(*pBusyMapChip, m_ReversePair);
 	}
 }

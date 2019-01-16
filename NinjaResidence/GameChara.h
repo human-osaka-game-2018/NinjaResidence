@@ -127,7 +127,7 @@ private:
 
 
 	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
-	void MapReversePointSearch(int BlockNumber);
+	void MapReversePointSearch(int BlockNumber, MapDataState MapState);
 	void MapScroolCheck();
 	//! 当たり判定描画用
 	float m_CollisionTu = 80 / 512.f;

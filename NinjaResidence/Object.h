@@ -131,6 +131,11 @@ public:
 
 	int m_CharaX;
 	int m_CharaY;
+	virtual MapDataState GetMapDataState() {
+		MapDataState State = STATE_FALSE;
+		return State;
+	}
+
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
@@ -158,6 +163,9 @@ protected:
 	void RevolveTexture(CUSTOMVERTEX * Vertex, int Deg);
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
+
+	static std::vector<BlockInfo> ReversePointVector;
+	static int m_ReverseCount;
 
 private:
 	CUSTOMVERTEX m_DisplayCoordinate[4];

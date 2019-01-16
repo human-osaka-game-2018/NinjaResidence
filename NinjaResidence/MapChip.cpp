@@ -11,7 +11,6 @@ using namespace MapBlock;
 
 int MapChip::m_TargetCount = 0;
 int MapChip::m_GimmickCount = 0;
-
 vector<BaseTarget*> MapChip::pBaseTarget;
 vector<BlockInfo> MapChip::GimmickVector;
 vector<BlockInfo> MapChip::TargetVector;
@@ -47,7 +46,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 	m_MapDataState = MapState;
 	const int mapMaxWidth = 256;
 	FILE *fp = NULL;
-	char data[4];
+	char data[8];
 	char buf[mapMaxWidth];
 	//int cは何をしている変数？
 	int c, i = 0, x = 0, y = 0;
@@ -82,20 +81,36 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 			int blocktype = MapData[y][x] / 100;
 			if (blocktype)
 			{
+				int PairNum = 0;
 				if (blocktype < BT_PARTITIONBOARD)
 				{
-					int Amari = MapData[y][x] % 10;
-					block = { x,y,Amari,blocktype,MapState,this};
+					PairNum = MapData[y][x] % 100;
+					block = { x,y,PairNum,blocktype,MapState,this};
 					TargetVector.push_back(block);
 					m_TargetCount++;
 				}
-				if (blocktype > BT_TORCH)
+				else if (blocktype > BT_TORCH && blocktype < WOOD_REVERSE_ZONE)
 				{
-					int Amari = MapData[y][x] % 10;
-					block = { x,y,Amari,blocktype,MapState,this};
+					PairNum = MapData[y][x] % 100;
+					block = { x,y,PairNum,blocktype,MapState,this};
 					GimmickVector.push_back(block);
 					m_GimmickCount++;
 				}
+				else  if (blocktype == WOOD_REVERSE_ZONE)
+				{
+					PairNum = MapData[y][x] % 100;
+					block = { x,y,PairNum,blocktype,MapState,this };
+					ReversePointVector.push_back(block);
+					m_ReverseCount++;
+				}
+				else if (blocktype == ROCK_REVERSE_ZONE)
+				{
+					PairNum = MapData[y][x] % 100;
+					block = { x,y,PairNum,blocktype,MapState,this };
+					ReversePointVector.push_back(block);
+					m_ReverseCount++;
+				}
+
 			}
 			x++;
 			i = 0;
@@ -293,26 +308,6 @@ void MapChip::Render()
 					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
-				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
-					break;
-				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
-					break;
 				case DESCRIPTION_BOARD:
 					CELL[0].tu = 0.f;
 					CELL[3].tu = 0.f;
@@ -344,8 +339,35 @@ void MapChip::Render()
 				default:
 					continue;
 				}
-				TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 			}
+			else {
+				switch (m_MapSelected/100)
+				{
+				case WOOD_REVERSE_ZONE:
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (5 - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (5 - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[0].tv = 0.f;
+					CELL[1].tv = 0.f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					break;
+				case ROCK_REVERSE_ZONE:
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (6 - 1);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (6 - 1);
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
+					CELL[0].tv = 0.f;
+					CELL[1].tv = 0.f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					break;
+				default:
+					continue;
+				}
+			}
+			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
 		}
 	}
 	for (BaseTarget* pi : pBaseTarget)
