@@ -19,7 +19,7 @@ public:
 	void GoMapReverse(Object** m_pBusyMapChip, Object** m_pIdleMapChip);
 	MapReverse(DirectX* pDirectX, SoundOperater* pSoundOperater, GameChara * GameChara);
 	~MapReverse();
-	bool collisonReversePoint(int x, int y);
+	bool collisonReversePoint(int x, int y, Object* pBusyMapChip);
 	bool getMapDataReverseState()
 	{
 		return MapDataReverseState;
@@ -32,5 +32,5 @@ private:
 	int m_ReversePair = 0;
 	int MapScrollXBuf = 0;
 	int MapScrollYBuf = 0;
-
+	int m_ActiveReversePointNum = -1;
 };

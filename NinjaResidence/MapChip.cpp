@@ -124,6 +124,7 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 	if (MapState == REVERSE)
 	{
 		CheckVector();
+		m_ReverseBuffer.resize(m_ReverseCount);
 	}
 }
 

@@ -8,6 +8,7 @@
 int Object::m_MapScrollX = 0;
 int Object::m_MapScrollY = 0;
 std::vector<BlockInfo> Object::ReversePointVector;
+std::vector<MapScrollBuffer> Object::m_ReverseBuffer;
 int Object::m_ReverseCount = 0;
 
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
