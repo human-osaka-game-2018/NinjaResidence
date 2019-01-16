@@ -31,6 +31,10 @@ enum KeyDirection
 	BIT_LEFT,
 	SoundOn,
 };
+struct MapScrollBuffer {
+	int ScrollX = 0;
+	int ScrollY = 0;
+};
 
 class Object
 {
@@ -165,8 +169,8 @@ protected:
 	void WriteLog(std::string Text);
 
 	static std::vector<BlockInfo> ReversePointVector;
+	static std::vector<MapScrollBuffer> m_ReverseBuffer;
 	static int m_ReverseCount;
-
 private:
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];

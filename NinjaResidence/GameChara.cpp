@@ -263,27 +263,39 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 {
 	int BlockY = 0;
 	int BlockX = 0;
+	int ScrollXBuf = 0;
+	int ScrollYBuf = 0;
+
 	for (int i = 0; i < ReversePointVector.size(); ++i) {
 		bool isSameMapState = ReversePointVector[i].MapDataState == MapState;
 		bool isSamePair = PairNumber == ReversePointVector[i].PairNumber;
 		if (isSameMapState && isSamePair) {
 			BlockY = ReversePointVector[i].PositionY;
 			BlockX = ReversePointVector[i].PositionX;
+			break;
 		}
 	}
+
 	m_WorldCharaCoordinate[0].x = (BlockX * CELL_SIZE);
 	m_WorldCharaCoordinate[1].x = (BlockX * CELL_SIZE) + m_Central.scale_x;
 	m_WorldCharaCoordinate[2].x = (BlockX * CELL_SIZE) + m_Central.scale_x;
 	m_WorldCharaCoordinate[3].x = (BlockX * CELL_SIZE);
+
 	m_WorldCharaCoordinate[0].y = (BlockY * CELL_SIZE) - m_Central.scale_y;
 	m_WorldCharaCoordinate[1].y = (BlockY * CELL_SIZE) - m_Central.scale_y;
 	m_WorldCharaCoordinate[2].y = (BlockY * CELL_SIZE);
 	m_WorldCharaCoordinate[3].y = (BlockY * CELL_SIZE);
-	for (int i = 0; i < 4; i++)
-	{
-		m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
-		m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
-	}
+	do {
+		for (int i = 0; i < 4; i++)
+		{
+			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+			m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
+		}
+		ScrollXBuf = m_MapScrollX;
+		ScrollYBuf = m_MapScrollY;
+
+		MapScroolCheck();
+	} while ((m_MapScrollX - ScrollXBuf) || (m_MapScrollY - ScrollYBuf));
 }
 
 
@@ -366,7 +378,7 @@ void GameChara::MapScroolCheck()
 	//右にスクロール移動
 	if (m_DisplayCharaCoordinate[1].x > static_cast<float>(DisplayCharMoveScopeRight))
 	{
-		if (m_WorldCharaCoordinate[1].x <= ((m_row * CELL_SIZE) - static_cast<float>(DisplayCharMoveScopeX)))
+		if (m_WorldCharaCoordinate[1].x <= (((m_row-1) * CELL_SIZE) - static_cast<float>(DisplayCharMoveScopeX)))
 		{
 			m_DisplayCharaCoordinate[0].x = (static_cast<float>(DisplayCharMoveScopeRight) - m_Central.scale_x);
 			m_DisplayCharaCoordinate[1].x = (static_cast<float>(DisplayCharMoveScopeRight));
