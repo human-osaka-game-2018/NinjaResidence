@@ -35,7 +35,7 @@ public:
 	virtual SCENE_NUM Update() = 0;
 	virtual void LoadResouce() = 0;
 	virtual void Render() = 0;
-	void EndGame(){
+	void EndGame() {
 		m_GameState = WM_QUIT;
 	}
 
@@ -67,17 +67,19 @@ protected:
 	static int m_StageNum;
 	int m_GameState = WM_NULL;
 	static const int ArrayLong = 64;
-	
+
 	//! 後で名称変更
 	static bool m_SoundSetting;
 
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
-	
-	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
-	SCENE_NUM m_NextScene;	//次のシーン
+	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	//次のシーン
+	SCENE_NUM m_NextScene;
+	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 private:
-	};
+
+};

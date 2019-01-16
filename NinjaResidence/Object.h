@@ -146,16 +146,20 @@ protected:
 	int m_colunm = 0;
 
 	static const int ArrayLong = 64;
+	//! Z軸回転
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-
+	//! 回転する中心を指定してZ軸回転
 	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-
-	void RevolveVertex(CUSTOMVERTEX * Vertex, int Rad);
-
+	/**
+	* @brief 貼り付ける画像の回転
+	* @param Vertex 回転させる頂点情報
+	* @param Deg 90度右に何回転させるか
+	*/
+	void RevolveTexture(CUSTOMVERTEX * Vertex, int Deg);
+	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 
 private:
-	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
 	int MapChara[5];

@@ -1,6 +1,6 @@
-/**
+﻿/**
 * @file ClawShot.cpp
-* @brief �藠���N���X
+* @brief 鉤爪ロープクラス
 * @author Toshiya Matsuoka
 */
 #include "ClawShot.h"
@@ -31,7 +31,7 @@ void ClawShot::KeyOperation(KeyDirection vec)
 	if (m_DirectionDeg < 0) {
 		m_DirectionDeg *= -1;
 	}
-	//Key����ł̏���
+	//Key操作での処理
 	switch (vec)
 	{
 	case THROW:
@@ -87,9 +87,6 @@ bool ClawShot::PermitActive() {
 	if (m_isActive) {
 		return true;
 	}
-	//else return false;
-
-
 	return false;
 }
 
@@ -167,18 +164,22 @@ void ClawShot::Render()
 		return;
 	}
 	if (m_isActive) {
+		///////////////////////////////////////////////
+		//ロープの描画計算
 		CUSTOMVERTEX RopeVertex[4];
 		CENTRAL_STATE m_RopeCentral;
 		float Xpos = m_Central.x - RopeBatteryPosX ;
 		float Ypos = RopeBatteryPosY - m_Central.y;
+		//キャラから爪までの斜辺の長さを算出
 		float BehindLength = std::sqrt(Xpos*Xpos + Ypos * Ypos);
+		//長さから画像の中心を割り出す
 		m_RopeCentral.x = (BehindLength * 0.5f * m_Direction + RopeBatteryPosX );
 		m_RopeCentral.y = RopeBatteryPosY;
 		m_RopeCentral.scale_x = BehindLength * 0.5f;
 		m_RopeCentral.scale_y = 5.f;
 		RevolveZEX(RopeVertex, DegToRad(m_DirectionDeg), m_RopeCentral, RopeBatteryPosX, RopeBatteryPosY, 0xFFFFFFFF, BLOCK_INTEGRATION_WIDTH * 6, 0, 20.f/512.f);
-		RevolveVertex(RopeVertex, 1);
-
+		RevolveTexture(RopeVertex, 1);
+		///////////////////////////////////////////////
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", RopeVertex);
 
 		CUSTOMVERTEX ClawVertex[4];

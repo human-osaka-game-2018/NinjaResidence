@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file HighShuriken.cpp
-* @brief è— Œ•ƒNƒ‰ƒX
+* @brief é«˜ç­‰æ‰‹è£å‰£ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 #include "HighShuriken.h"
@@ -31,7 +31,7 @@ HighShuriken::~HighShuriken()
 
 void HighShuriken::KeyOperation(KeyDirection vec)
 {
-	//Key‘€ì‚Å‚Ìˆ—
+	//Keyæ“ä½œã§ã®å‡¦ç†
 	switch (vec)
 	{
 	case THROW:

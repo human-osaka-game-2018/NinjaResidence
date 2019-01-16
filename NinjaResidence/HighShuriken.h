@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file HighShuriken.h
-* @brief è— Œ•ƒNƒ‰ƒX
+* @brief é«˜ç­‰æ‰‹è£å‰£ã‚¯ãƒ©ã‚¹
 * @author Toshiya Matsuoka
 */
 
@@ -14,7 +14,7 @@ class HighShuriken :public SkillBase
 {
 public:
 	/*
-	* @brief ƒL[“ü—Í‚Ì“à•”ˆ—ŠÖ”
+	* @brief ã‚­ãƒ¼å…¥åŠ›æ™‚ã®å†…éƒ¨å‡¦ç†é–¢æ•°
 	*/
 	void KeyOperation(KeyDirection vec);
 
@@ -39,9 +39,9 @@ private:
 	const float MoveSpeed = 10.f;
 	void InitPosition();
 	/*
-	* @brief “Š±‹N“®ˆ—
-	* @return “Š‚°‚ç‚ê‚½‚çtrue
-	* @details “Š±‘O‚ÉŠp“xw’èƒtƒFƒCƒY‚ğ‹²‚Ş
+	* @brief æŠ•æ“²èµ·å‹•å‡¦ç†
+	* @return æŠ•ã’ã‚‰ã‚ŒãŸã‚‰true
+	* @details æŠ•æ“²å‰ã«è§’åº¦æŒ‡å®šãƒ•ã‚§ã‚¤ã‚ºã‚’æŒŸã‚€
 	*/
 	bool PermitActive();
 	int m_ropeX;
