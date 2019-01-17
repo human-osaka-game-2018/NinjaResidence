@@ -35,6 +35,8 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 
 GameScene::~GameScene()
 {
+	m_pSoundOperater->Stop(m_BGMSoundKey);
+
 	delete m_pBusyMapChip;
 	m_pBusyMapChip = NULL;
 	delete m_pIdleMapChip;
@@ -66,6 +68,10 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus(m_BGMSoundKey)) {
+		bool buff = m_pSoundOperater->Start(m_BGMSoundKey, true);
+	}
+
 	if (m_isGameFailure) {
 		GameFailureAnime();
 		return GetNextScene();
@@ -104,7 +110,7 @@ SCENE_NUM  GameScene::Update()
 }
 
 void GameScene::KeyOperation() {
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_W) || PadRelease == m_pXinputDevice->GetButton(ButtonY))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonY))
 	{
 		m_pGameChara->KeyOperation(JUMP);
 	}
@@ -122,7 +128,6 @@ void GameScene::KeyOperation() {
 	}
 	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_E) || PadOn == m_pXinputDevice->GetButton(ButtonB)) {
 		m_pGameChara->FireArtAnime();
-
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_E) || PadRelease == m_pXinputDevice->GetButton(ButtonB)) {
 		SkillEND();
@@ -134,19 +139,19 @@ void GameScene::KeyOperation() {
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pXinputDevice->GetButton(ButtonDOWN)) {
 		SkillKeyOperation(DOWN);
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadPush == m_pXinputDevice->GetButton(ButtonLEFT))
 	{
 		if (m_CanChangeSkill) {
 			m_SkillSelect->KeyOperation(LEFT);
 		}
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadPush == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
 		if (m_CanChangeSkill) {
 			m_SkillSelect->KeyOperation(RIGHT);
 		}
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyPush == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadPush == m_pXinputDevice->GetButton(ButtonA))
 	{
 		Reverse();
 		//説明看板を読む
@@ -161,7 +166,7 @@ void GameScene::KeyOperation() {
 		}
 
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_TAB) || PadRelease == m_pXinputDevice->GetButton(ButtonStart))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_TAB) || PadPush == m_pXinputDevice->GetButton(ButtonStart))
 	{
 		TransePause();
 	}
@@ -205,10 +210,10 @@ void GameScene::KeyOperation() {
 	}
 	
 	//音声のテスト用処理を呼ぶ
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
-	{
-		m_pGameChara->DebugMove();
-	}
+	//if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	//{
+	//	m_pGameChara->DebugMove();
+	//}
 
 }
 void GameScene::NotPushedAnyButton() {
@@ -319,26 +324,32 @@ void GameScene::StageTurning()
 	case 0:
 		StageFilePath_surface = "csv/TUTORIAL_A.csv";
 		StageFilePath_reverse = "csv/TUTORIAL_B.csv";
+		m_BGMSoundKey = "TUTORIAL";
 		break;
 	case 1:
 		StageFilePath_surface = "csv/STAGE1_A.csv";
 		StageFilePath_reverse = "csv/STAGE1_B.csv";
+		m_BGMSoundKey = "STAGE_1";
 		break;
 	case 2:
 		StageFilePath_surface = "csv/STAGE2_A.csv";
 		StageFilePath_reverse = "csv/STAGE2_B.csv";
+		m_BGMSoundKey = "STAGE_2";
 		break;
 	case 3:
 		StageFilePath_surface = "csv/STAGE3_A.csv";
 		StageFilePath_reverse = "csv/STAGE3_B.csv";
+		m_BGMSoundKey = "STAGE_3";
 		break;
 	case 4:
 		StageFilePath_surface = "csv/STAGE4_A.csv";
 		StageFilePath_reverse = "csv/STAGE4_B.csv";
+		m_BGMSoundKey = "STAGE_4";
 		break;
 	case 5:
 		StageFilePath_surface = "csv/STAGE5_A.csv";
 		StageFilePath_reverse = "csv/STAGE5_B.csv";
+		m_BGMSoundKey = "STAGE_5";
 		break;
 	default:
 		break;

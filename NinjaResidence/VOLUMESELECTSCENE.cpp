@@ -32,8 +32,8 @@ VOLUMESELECTSCENE::~VOLUMESELECTSCENE()
 
 SCENE_NUM VOLUMESELECTSCENE::Update() {
 	CursorMove();
-	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TEST")) {
-		bool buff = m_pSoundOperater->Start("TEST", true);
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TITLE")) {
+		bool buff = m_pSoundOperater->Start("TITLE", true);
 	}
 	static int CursorAnimeInterval = 0;
 	++CursorAnimeInterval;
@@ -129,7 +129,7 @@ void VOLUMESELECTSCENE::IncreaseVolume() {
 			m_BGMvolume = 100;
 		}
 		SoundSuccess = m_pSoundOperater->BGMSetVolume(m_BGMvolume);
-		m_pSoundOperater->Start("TEST", true);
+		m_pSoundOperater->Start("TITLE", true);
 		break;
 	case Target_SE:
 		++m_SEvolume;
@@ -137,7 +137,7 @@ void VOLUMESELECTSCENE::IncreaseVolume() {
 			m_SEvolume = 100;
 		}
 		SoundSuccess = m_pSoundOperater->SESetVolume(m_SEvolume);
-		m_pSoundOperater->Start("TEST2");
+		m_pSoundOperater->Start("SET_DOWN_WATER");
 		break;
 	case Target_ALL:
 		++m_ALLvolume;
@@ -147,7 +147,7 @@ void VOLUMESELECTSCENE::IncreaseVolume() {
 		m_BGMvolume = m_ALLvolume;
 		m_SEvolume = m_ALLvolume;
 		SoundSuccess = m_pSoundOperater->AllSetVolume(m_ALLvolume);
-		m_pSoundOperater->Start("TEST2");
+		m_pSoundOperater->Start("SET_DOWN_WATER");
 		break;
 	}
 }
@@ -160,7 +160,7 @@ void VOLUMESELECTSCENE::DecreaseVolume() {
 			m_BGMvolume = 0;
 		}
 		SoundSuccess = m_pSoundOperater->BGMSetVolume(m_BGMvolume);
-		m_pSoundOperater->Start("TEST", true);
+		m_pSoundOperater->Start("TITLE", true);
 		break;
 	case Target_SE:
 		--m_SEvolume;
@@ -168,7 +168,7 @@ void VOLUMESELECTSCENE::DecreaseVolume() {
 			m_SEvolume = 0;
 		}
 		SoundSuccess = m_pSoundOperater->SESetVolume(m_SEvolume);
-		m_pSoundOperater->Start("TEST2");
+		m_pSoundOperater->Start("SET_DOWN_WATER");
 		break;
 	case Target_ALL:
 		--m_ALLvolume;
@@ -178,7 +178,7 @@ void VOLUMESELECTSCENE::DecreaseVolume() {
 		m_BGMvolume = m_ALLvolume;
 		m_SEvolume = m_ALLvolume;
 		SoundSuccess = m_pSoundOperater->AllSetVolume(m_ALLvolume);
-		m_pSoundOperater->Start("TEST2");
+		m_pSoundOperater->Start("TITLE");
 		break;
 	}
 }

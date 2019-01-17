@@ -61,9 +61,11 @@ bool GameChara::PermitJumping() {
 
 
 	if (!m_isInTheAir) {
+		m_pSoundOperater->Start("JUMP", false);
 		return true;
 	}
 	else if (m_HeldOntoWallLeft || m_HeldOntoWallRight) {
+		m_pSoundOperater->Start("JUMP", false);
 		return true;
 	}
 	return false;
@@ -137,7 +139,6 @@ void GameChara::JumpingLateralMotion() {
 void GameChara::MoveOperation(KeyDirection vec)
 {
 	static int AnimeCount = 0;
-	m_isInTheAir = !SetGround();
 	switch (vec)
 	{
 		//上に移動
@@ -164,6 +165,7 @@ void GameChara::MoveOperation(KeyDirection vec)
 			m_TurnAnimation = 3.f;
 			break;
 		}
+		m_pSoundOperater->Start("DASH", false);
 		m_ChangeAnimation = DASH;
 		++AnimeCount;
 		if (AnimeCount > 2) {
@@ -186,7 +188,7 @@ void GameChara::MoveOperation(KeyDirection vec)
 			m_TurnAnimation = 3.f;
 			break;
 		}
-
+		m_pSoundOperater->Start("DASH", false);
 		m_ChangeAnimation = DASH;
 		++AnimeCount;
 		if (AnimeCount > 2) {
@@ -428,6 +430,7 @@ void GameChara::ThrowAnime() {
 		m_ChangeAnimation = THROWING;
 	}
 	else {
+		m_pSoundOperater->Start("SHURIKEN", false);
 		AnimationCount = 0;
 		AnimeOn = false;
 		m_ChangeAnimation = STAND;
@@ -467,7 +470,7 @@ bool GameChara::Update()
 	AddGravity();
 	GimmickHitCheck();
 	//下の方向を確かめる
-	SetGround();
+	m_isInTheAir = !SetGround();
 	//上のブロックを確かめる
 	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
 	{
@@ -551,6 +554,9 @@ bool GameChara::DownCollisionAnything(void) {
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 700));
 	if (WaterMax && WaterMin) {
 		m_ChangeAnimation = WATER_ART;
+		if (m_isInTheAir) {
+			m_pSoundOperater->Start("SET_DOWN_WATER", false);
+		}
 		return true;
 	}
 	if (DownCollisionCheck(NONE)) {
@@ -638,7 +644,9 @@ bool GameChara::FailureGame()
 
 void GameChara::Render()
 {
+#ifdef _DEBUG
 	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCharaCoordinate);
+#endif
 	CUSTOMVERTEX TestChar[4];
 	CENTRAL_STATE CharCentral = { 0 };
 	TranslateCentral_State(&CharCentral, m_DisplayCharaCoordinate);
@@ -723,6 +731,9 @@ bool GameChara::SetGround() {
 		{
 			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 		}
+		if (m_isInTheAir) {
+			m_pSoundOperater->Start("SET_DOWN", false);
+		}
 		return true;
 	}
 	else if (LookDownWater()) {
@@ -739,6 +750,9 @@ bool GameChara::SetGround() {
 			{
 				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 			}
+		}
+		if (m_isInTheAir) {
+			m_pSoundOperater->Start("SET_DOWN_WATER", false);
 		}
 		m_ChangeAnimation = WATER_ART;
 		static int AnimeCount = 0;

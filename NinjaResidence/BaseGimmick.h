@@ -6,13 +6,13 @@
 #pragma once
 
 #include "BlockInfo.h"
-#include "DirectX.h"
+#include "Object.h"
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 
-class BaseGimmick
+class BaseGimmick 
 {
 public:
 	BlockInfo m_GimmickInfo;

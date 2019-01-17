@@ -30,15 +30,15 @@ SCENE_NUM PauseScene::Update() {
 		CursorColorOn = !CursorColorOn;
 		CursorAnimeInterval = 0;
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadPush == m_pXinputDevice->GetButton(ButtonA))
 	{
 		TransrateScene();
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP) || PadRelease == m_pXinputDevice->GetButton(ButtonUP) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP) || PadPush == m_pXinputDevice->GetButton(ButtonUP) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 	{
 		MoveUp();
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_DOWN) || PadRelease == m_pXinputDevice->GetButton(ButtonDOWN) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN) || PadPush == m_pXinputDevice->GetButton(ButtonDOWN) || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
 	{
 		MoveDown();
 	}
