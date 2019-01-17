@@ -10,18 +10,23 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_StageNum = 0;
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+
+	m_SelectCursol[0] = {200,100,150,50};
+
 	m_StageImage[0] = {200,100,150,50};
 	m_StageImage[1] = {800,100,150,50};
 	m_StageImage[2] = {200,300,150,50};
 	m_StageImage[3] = {800,300,150,50};
 	m_StageImage[4] = {200,500,150,50};
 	m_StageImage[5] = {800,500,150,50};
+
 	m_StageImagekey[0] = "StageImageT_TEX";
 	m_StageImagekey[1] = "StageImage1_TEX";
 	m_StageImagekey[2] = "StageImage2_TEX";
 	m_StageImagekey[3] = "StageImage3_TEX";
 	m_StageImagekey[4] = "StageImage4_TEX";
 	m_StageImagekey[5] = "StageImage5_TEX";
+	m_StageImagekey[6] = "Kunai_TEX";
 }
 
 StageSelectScene::~StageSelectScene()
@@ -43,14 +48,15 @@ SCENE_NUM  StageSelectScene::Update()
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE)) {
 		m_StageNum = 7;
 	}
+	
 
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
 		//TurnUpStageImage();
-		if (m_StageNum < 5) {
-			m_StageNum++;
-		}
-		else m_StageNum = 0;
+		//if (m_StageNum < 5) {
+		//	m_StageNum++;
+		//}
+		//else m_StageNum = 0;
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
 	{
@@ -99,8 +105,11 @@ void StageSelectScene::Render()
 	
 	m_pDirectX->DrawTexture("SELECT_BG_TEX", m_BackgroundVertex);
 
+	m_pDirectX->DrawTexture(m_StageImagekey[6], StageImage);
+
 	CUSTOMVERTEX StageImage[4];
-	if (m_StageNum != 7) {
+	if (m_StageNum != 7) 
+	{
 		CreateSquareVertex(StageImage, m_StageImage[0]);
 		m_pDirectX->DrawTexture(m_StageImagekey[0], StageImage);
 
@@ -138,6 +147,7 @@ void StageSelectScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/StageImage3.jpg", "StageImage3_TEX");
 	m_pDirectX->LoadTexture("texture/StageImage4.jpg", "StageImage4_TEX");
 	m_pDirectX->LoadTexture("texture/StageImage5.jpg", "StageImage5_TEX");
+	m_pDirectX->LoadTexture("texture/Kunai.png", "Kunai_TEX");
 	m_pDirectX->LoadTexture("texture/StageImageD.jpg", "StageImageD_TEX");
 
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");

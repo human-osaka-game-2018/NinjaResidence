@@ -30,6 +30,7 @@ private:
 	
 	int m_timecount = 0;
 	
+	CENTRAL_STATE m_SelectCursol[1];
 	CENTRAL_STATE m_StageImage[5];
 	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270,270 };
 	std::string m_StageImagekey[6];
