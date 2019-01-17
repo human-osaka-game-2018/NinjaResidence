@@ -66,6 +66,14 @@ GameScene::~GameScene()
 
 SCENE_NUM  GameScene::Update()
 {
+	if (m_isGameFailure) {
+		GameFailureAnime();
+		return GetNextScene();
+	}
+	if (m_isClear) {
+		ClearAnime();
+		return GetNextScene();
+	}
 	if (m_pPauseScene->GetSoundSetting()) {
 		m_SoundSetting = true;
 		m_pPauseScene->InactiveSoundSetting();
@@ -88,10 +96,7 @@ SCENE_NUM  GameScene::Update()
 	KeyOperation();
 
 	m_isClear = m_pGameChara->Update();
-
-	if (m_isClear) {
-		ClearAnime();
-	}
+	m_isGameFailure = m_pGameChara->GetGameFailure();
 	m_pGameChara->prevSaveMapCharaPos();
 	m_pBusyMapChip->Update();
 	SkillsUpdate();
@@ -258,6 +263,12 @@ void GameScene::Render()
 		CreateSquareVertex(LogoVertex, m_Logo);
 		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
 	}
+	if (m_isGameFailure) {
+		CUSTOMVERTEX LogoVertex[4];
+		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
+		CreateSquareVertex(LogoVertex, m_Logo);
+		m_pDirectX->DrawTexture("FAILURE_TEX", LogoVertex);
+	}
 #ifdef _DEBUG
 	RECT testName = { 0, 100, 1250, 720 };
 	char TestName[ArrayLong];
@@ -289,6 +300,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Pause.png", "PAUSETITLE_TEX");
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
+	m_pDirectX->LoadTexture("texture/StageFailure.png", "FAILURE_TEX");
 	m_pDirectX->LoadTexture("texture/Fire.png", "FIRE_TEX");
 	m_pDirectX->LoadTexture("texture/FireUi.png", "FIRE_UI_TEX");
 	m_pDirectX->LoadTexture("texture/HighShurikenUi.png", "HIGH_SHURIKEN_UI_TEX");
@@ -469,6 +481,17 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 		break;
 	}
 }
+
+void GameScene::GameFailureAnime()
+{
+	static int StandbyTime = 0;
+	++StandbyTime;
+	if (StandbyTime > 120) {
+		SetNextScene(STAGESELECT_SCENE);
+		StandbyTime = 0;
+	}
+}
+
 
 void GameScene::ClearAnime()
 {
