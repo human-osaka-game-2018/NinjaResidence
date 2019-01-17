@@ -54,7 +54,6 @@ void GameChara::AccelarationControl() {
 
 }
 bool GameChara::PermitJumping() {
-	m_isInTheAir = !SetGround();
 	m_MapLeftDirectionPosition -= 1;
 	m_MapRightDirectionPosition += 1;
 	m_HeldOntoWallLeft = !LeftCollisionCheck(NONE) && (LeftCollisionCheck(START_ZONE) || !LeftCollisionCheck(START_ZONE));
@@ -138,7 +137,7 @@ void GameChara::JumpingLateralMotion() {
 void GameChara::MoveOperation(KeyDirection vec)
 {
 	static int AnimeCount = 0;
-
+	m_isInTheAir = !SetGround();
 	switch (vec)
 	{
 		//上に移動
@@ -630,6 +629,10 @@ bool GameChara::FailureGame()
 	if (LeftCollisionCheck(SPEAR)|| TopCollisionCheck(SPEAR) || DownCollisionCheck(SPEAR) || RightCollisionCheck(SPEAR)) {
 		return true;
 	}
+	if (LeftCollisionCheck(STAGE_DROP_ZONE) || TopCollisionCheck(STAGE_DROP_ZONE) || DownCollisionCheck(STAGE_DROP_ZONE) || RightCollisionCheck(STAGE_DROP_ZONE)) {
+		return true;
+	}
+
 	return false;
 }
 

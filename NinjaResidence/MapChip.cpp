@@ -240,6 +240,7 @@ int MapChip::GimmickMapDataCheck(int y, int x)
 	{
 		return 3;
 	}
+	return 1;
 }
 
 void MapChip::Render()
@@ -273,8 +274,8 @@ void MapChip::Render()
 				case ROCK_BLOCK:
 				case WOOD_TRACT:
 				case ROCK_TRACT:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
 					CELL[0].tv = 0.f;
@@ -282,15 +283,26 @@ void MapChip::Render()
 					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
+				case GOAL_ZONE:
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+					RevolveTexture(CELL, 1);
+					break;
 				case SPEAR:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 2;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 3;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 3;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
 					break;
 				case DESCRIPTION_BOARD:
 				case DESCRIPTION_BOARD2:
@@ -315,20 +327,20 @@ void MapChip::Render()
 				switch (m_MapSelected/100)
 				{
 				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 4;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 4;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
 					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
 					CELL[0].tv = 0.f;
 					CELL[1].tv = 0.f;
 					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
