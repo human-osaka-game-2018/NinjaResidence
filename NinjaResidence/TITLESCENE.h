@@ -23,8 +23,8 @@ public:
 private:
 	Scene* m_pScene = NULL;
 	
-	CENTRAL_STATE m_Logo={ CENTRAL_X ,200,400,150 };
-	CENTRAL_STATE m_Menu = { CENTRAL_X ,500,100,100 };
+	CENTRAL_STATE m_Logo={ 350,200,250,100 };
+	CENTRAL_STATE m_Menu = { 350 ,500,80,150 };
 	
 	int m_timecount = 0;
 	
