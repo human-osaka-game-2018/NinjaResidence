@@ -72,8 +72,6 @@ public:
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionX();
-	bool SetGround();
-	void SideCollision();
 	/**
 	* @brief キャラのディスプレイ上中心Y座標の取得
 	* @author Toshiya Matsuoka
@@ -129,7 +127,7 @@ private:
 	const int DisplayCharMoveScopeX = 300;
 
 
-	//void CharaMoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
+	//void MoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber, MapDataState MapState);
 	void MapScroolCheck();
 	//! 当たり判定描画用
@@ -174,7 +172,7 @@ private:
 
 	bool m_GameFailure = false;
 
-	void CharaMoveOperation(KeyDirection vec);
+	void MoveOperation(KeyDirection vec);
 
 	/**
 	* @breaf ジャンプの起動
@@ -259,6 +257,12 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool LeftCollisionCheck(int block);
+
+	bool SetGround();
+	bool LeftCollision();
+	bool RightCollision();
+	void SideCollision();
+
 	
 	/**
 	* @breaf 下方向に水ギミックブロックがあるか確認
