@@ -59,7 +59,7 @@ public:
 	*/
 	void MoveDown();
 	void ReturnScene() {
-		m_pSoundOperater->Stop("TEST");
+		m_pSoundOperater->Stop("TITLE");
 		m_ExitScene = true;
 	};
 	bool GetExitScene() {

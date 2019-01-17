@@ -90,8 +90,28 @@ void TitleScene::LoadResouce()
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(75, 40, "MENU_FONT");
 
-	m_pSoundOperater->AddFile("Sound/saihate.mp3","TEST",BGM);
-	m_pSoundOperater->AddFile("Sound/nc162748.wav", "TEST2", SE);
+	m_pSoundOperater->AddFile("Sound/bgm/title_bgm.mp3", "TITLE", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/tutorial_BGM.mp3", "TUTORIAL", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_1.mp3", "STAGE_1", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_2.mp3", "STAGE_2", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_3.mp3", "STAGE_3", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_4.mp3", "STAGE_4", BGM);
+	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_5.mp3", "STAGE_5", BGM);
+
+	m_pSoundOperater->AddFile("Sound/se/burning.mp3", "BURNING", SE);
+	m_pSoundOperater->AddFile("Sound/se/dash.mp3", "DASH", SE);
+	m_pSoundOperater->AddFile("Sound/se/door.mp3", "DOOR", SE);
+	m_pSoundOperater->AddFile("Sound/se/drainage.mp3", "DRAINAGE", SE);
+	m_pSoundOperater->AddFile("Sound/se/fire.mp3", "FIRE", SE);
+	m_pSoundOperater->AddFile("Sound/se/itemget.mp3", "GET_ITEM", SE);
+	m_pSoundOperater->AddFile("Sound/se/jump.wav", "JUMP", SE);
+	m_pSoundOperater->AddFile("Sound/se/knifes.mp3", "SHURIKEN", SE);
+	m_pSoundOperater->AddFile("Sound/se/landingon.mp3", "SET_DOWN", SE);
+	m_pSoundOperater->AddFile("Sound/se/metal.mp3", "CLAWSHOT", SE);
+	m_pSoundOperater->AddFile("Sound/se/reverse.mp3", "REVERSE", SE);
+	m_pSoundOperater->AddFile("Sound/se/slash.mp3", "CUT_OFF", SE);
+	m_pSoundOperater->AddFile("Sound/se/switch.mp3", "TARGET_ACTIVE", SE);
+	m_pSoundOperater->AddFile("Sound/se/watershoes.mp3", "SET_DOWN_WATER", SE);
 
 }
 void TitleScene::ChoseMenu() {

@@ -138,6 +138,7 @@ bool ClawShot::Update()
 	if (buf = m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX) > 100)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
+		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
 	//if (CollisionRope()) {

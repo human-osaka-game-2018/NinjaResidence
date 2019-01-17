@@ -87,4 +87,5 @@ private:
 	bool RunPause = false;
 	bool m_isClear = false;
 	bool m_isGameFailure = false;
+	const char* m_BGMSoundKey = "TUTORIAL";
 };

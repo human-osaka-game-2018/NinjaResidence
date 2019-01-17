@@ -290,12 +290,22 @@ void DirectX::DrawTexture(string TextureKey, const CUSTOMVERTEX* TextureSize) {
 	m_pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, TextureSize, sizeof(CUSTOMVERTEX));
 }
 void DirectX::eraseTexture(string TexKey) {
+	if (!m_pTexture[TexKey]) {
+		return;
+	}
+	m_pTexture[TexKey]->Release();
 	m_pTexture.erase(TexKey);
 }
 void DirectX::ClearTexture() {
+	if (!m_pTexture.size()) {
+		return;
+	}
+	for (auto i : m_pTexture) {
+		if (!i.second)continue;
+		(i.second)->Release();
+	}
 	m_pTexture.clear();
 	map<string, LPDIRECT3DTEXTURE9>().swap(m_pTexture);
-
 }
 /*
 *DxFont
@@ -327,9 +337,20 @@ void DirectX::SetFont(int height, int width, string FontKey, LPCSTR FontType, in
 		&m_pFont[FontKey]);
 }
 void DirectX::eraseFont(string FontKey) {
+	if (!m_pFont[FontKey]) {
+		return;
+	}
+	m_pFont[FontKey]->Release();
 	m_pFont.erase(FontKey);
 }
 void DirectX::ClearFont() {
+	if (!m_pFont.size()) {
+		return;
+	}
+	for (auto i : m_pFont) {
+		if (!i.second)continue;
+		(i.second)->Release();
+	}
 	m_pFont.clear();
 	map<string, LPD3DXFONT>().swap(m_pFont);
 

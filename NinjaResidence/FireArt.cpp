@@ -31,9 +31,13 @@ void FireArt::KeyOperation(KeyDirection vec)
 	{
 	case FIRE:
 		m_isActive = PermitActive();
+		m_pSoundOperater->Start("BURNING", false);
 		break;
 	case END_ART:
 		InitPosition();
+		if (SoundLib::Playing == m_pSoundOperater->GetStatus("BURNING")) {
+			m_pSoundOperater->Stop("BURNING");
+		}
 		break;
 	}
 }
