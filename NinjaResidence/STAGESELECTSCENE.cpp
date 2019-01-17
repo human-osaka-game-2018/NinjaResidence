@@ -11,14 +11,18 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
-	m_SelectCursol[0] = {200,100,150,50};
+	m_SelectCursolPosX = 480;
+	m_SelectCursolPosY = 150;
+	m_SelectCursol[0] = { m_SelectCursolPosX,m_SelectCursolPosY,180,150};
+	m_CursolImagekey[0] = "Kunai_TEX";
 
-	m_StageImage[0] = {200,100,150,50};
-	m_StageImage[1] = {800,100,150,50};
-	m_StageImage[2] = {200,300,150,50};
-	m_StageImage[3] = {800,300,150,50};
-	m_StageImage[4] = {200,500,150,50};
-	m_StageImage[5] = {800,500,150,50};
+	m_StageImage[0] = {300,200,150,50};
+	m_StageImage[1] = {960,200,150,50};
+	m_StageImage[2] = {300,400,150,50};
+
+	m_StageImage[3] = {960,400,150,50};
+	m_StageImage[4] = {300,600,150,50};
+	m_StageImage[5] = {960,600,150,50};
 
 	m_StageImagekey[0] = "StageImageT_TEX";
 	m_StageImagekey[1] = "StageImage1_TEX";
@@ -26,7 +30,6 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_StageImagekey[3] = "StageImage3_TEX";
 	m_StageImagekey[4] = "StageImage4_TEX";
 	m_StageImagekey[5] = "StageImage5_TEX";
-	m_StageImagekey[6] = "Kunai_TEX";
 }
 
 StageSelectScene::~StageSelectScene()
@@ -34,6 +37,7 @@ StageSelectScene::~StageSelectScene()
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
+
 
 SCENE_NUM  StageSelectScene::Update()
 {
@@ -52,15 +56,24 @@ SCENE_NUM  StageSelectScene::Update()
 
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
 	{
-		//TurnUpStageImage();
-		//if (m_StageNum < 5) {
-		//	m_StageNum++;
-		//}
-		//else m_StageNum = 0;
+		if (m_StageNum == 0)
+		{
+			m_StageNum = 1;
+			m_SelectCursolPosX = 960;
+		}
+		if (m_StageNum == 2)
+		{
+			m_StageNum = 3;
+			m_SelectCursolPosX = 960;
+		}
+		if (m_StageNum == 4)
+		{
+			m_StageNum = 5;
+			m_SelectCursolPosX = 960;
+		}
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
 	{
-		//TurnDownStageImage();
 		if (m_StageNum > 0) {
 			m_StageNum--;
 		}
@@ -68,7 +81,6 @@ SCENE_NUM  StageSelectScene::Update()
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
 	{
-		//TurnUpStageImage();
 		if (m_StageNum < 5) {
 			m_StageNum++;
 		}
@@ -76,7 +88,6 @@ SCENE_NUM  StageSelectScene::Update()
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
-		//TurnDownStageImage();
 		if (m_StageNum > 0) {
 			m_StageNum--;
 		}
@@ -84,32 +95,92 @@ SCENE_NUM  StageSelectScene::Update()
 	}
 
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT)) {
-		//TurnDownStageImage();
-		if (m_StageNum < 5) {
-			m_StageNum++;
+		if (m_StageNum == 0)
+		{
+			m_StageNum = 1;
+			m_SelectCursol[0].x += 660;
 		}
-		else m_StageNum = 0;
+		if (m_StageNum == 2)
+		{
+			m_StageNum = 3;
+			m_SelectCursol[0].x += 660;
+		}
+		if (m_StageNum == 4)
+		{
+			m_StageNum = 5;
+			m_SelectCursol[0].x += 660;
+		}
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT)) {
-		//TurnDownStageImage();
-		if (m_StageNum > 0) {
-			m_StageNum--;
+		if (m_StageNum == 1)
+		{
+			m_StageNum = 0;
+			m_SelectCursol[0].x -= 660;
 		}
-		else m_StageNum = 5;
+		if (m_StageNum == 3)
+		{
+			m_StageNum = 2;
+			m_SelectCursol[0].x -= 660;
+		}
+		if (m_StageNum == 5)
+		{
+			m_StageNum = 4;
+			m_SelectCursol[0].x -= 660;
+		}
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP)) {
+		if (m_StageNum == 2)
+		{
+			m_StageNum = 0;
+			m_SelectCursol[0].y -= 200;
+		}
+		if (m_StageNum == 3)
+		{
+			m_StageNum = 1;
+			m_SelectCursol[0].y -= 200;
+		}
+		if (m_StageNum == 4)
+		{
+			m_StageNum = 2;
+			m_SelectCursol[0].y -= 200;
+		}
+		if (m_StageNum == 5)
+		{
+			m_StageNum = 3;
+			m_SelectCursol[0].y -= 200;
+		}
+	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_DOWN)) {
+		if (m_StageNum == 3)
+		{
+			m_StageNum = 5;
+			m_SelectCursol[0].y += 200;
+		}
+		if (m_StageNum == 2)
+		{
+			m_StageNum = 4;
+			m_SelectCursol[0].y += 200;
+		}
+		if (m_StageNum == 0)
+		{
+			m_StageNum = 2;
+			m_SelectCursol[0].y += 200;
+		}
+		if (m_StageNum == 1)
+		{
+			m_StageNum = 3;
+			m_SelectCursol[0].y += 200;
+		}
 	}
 	return GetNextScene();
 }
 
 void StageSelectScene::Render()
 {
-	
 	m_pDirectX->DrawTexture("SELECT_BG_TEX", m_BackgroundVertex);
 
-	m_pDirectX->DrawTexture(m_StageImagekey[6], StageImage);
-
 	CUSTOMVERTEX StageImage[4];
-	if (m_StageNum != 7) 
-	{
+	if (m_StageNum != 7) 	{
 		CreateSquareVertex(StageImage, m_StageImage[0]);
 		m_pDirectX->DrawTexture(m_StageImagekey[0], StageImage);
 
@@ -135,6 +206,10 @@ void StageSelectScene::Render()
 		CreateSquareVertex(StageImage, m_StageImage[0]);
 		m_pDirectX->DrawTexture("StageImageD_TEX", StageImage);
 	}
+
+	CUSTOMVERTEX CursolImage[4];
+	CreateSquareVertex(CursolImage, m_SelectCursol[0]);
+	m_pDirectX->DrawTexture(m_CursolImagekey[0], CursolImage);
 }
 
 void StageSelectScene::LoadResouce()

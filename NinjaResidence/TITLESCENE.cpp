@@ -81,7 +81,6 @@ void TitleScene::Render()
 
 void TitleScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/Kunai.png", "CURSOL_TEX");
 	m_pDirectX->LoadTexture("texture/TitleLogo.png", "LOGO_TEX");
 	m_pDirectX->LoadTexture("texture/Titlemenu.png", "MENU_TEX");
 
