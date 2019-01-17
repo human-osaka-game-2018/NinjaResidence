@@ -80,9 +80,11 @@ private:
 	void SkillEND();
 	void SkillErase();
 	void SkillKeyOperation(KeyDirection vec);
+	void GameFailureAnime();
 	void ClearAnime();
 	bool m_EnableSkill[MAX_SKILL - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
 	bool RunPause = false;
 	bool m_isClear = false;
+	bool m_isGameFailure = false;
 };

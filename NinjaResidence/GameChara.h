@@ -94,6 +94,9 @@ public:
 	* @brief 火遁アニメーション動作
 	*/
 	void FireArtAnime();
+	bool GetGameFailure() {
+		return m_GameFailure;
+	}
 
 private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
@@ -169,6 +172,7 @@ private:
 	float m_AccelerationY = InitialAcceleration;
 	float m_AccelerationX = MOVE_SPEED * 1.5f;
 
+	bool m_GameFailure = false;
 
 	void CharaMoveOperation(KeyDirection vec);
 
@@ -268,4 +272,10 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	float WaterCollsionCheck();
+
+	/**
+	* @breaf ゲーム失敗判定
+	* @author Toshiya Matsuoka
+	*/
+	bool FailureGame();
 };

@@ -270,35 +270,8 @@ void MapChip::Render()
 				switch (m_MapSelected)
 				{
 				case WOOD_BLOCK:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
-					break;
 				case ROCK_BLOCK:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
-					break;
 				case WOOD_TRACT:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
-					break;
 				case ROCK_TRACT:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
 					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1);
@@ -309,20 +282,17 @@ void MapChip::Render()
 					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
-				case DESCRIPTION_BOARD:
-					CELL[0].tu = 0.f;
-					CELL[3].tu = 0.f;
-					CELL[1].tu = 0.24f;
-					CELL[2].tu = 0.24f;
-					CELL[0].tv = 0.16f;
-					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
-					CELL[1].x += 120.f;
-					CELL[2].x += 120.f;
-					CELL[3].y += 80.f;
-					CELL[2].y += 80.f;
+				case SPEAR:
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 2;
+					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 3;
+					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 3;
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
 					break;
+				case DESCRIPTION_BOARD:
 				case DESCRIPTION_BOARD2:
 					CELL[0].tu = 0.f;
 					CELL[3].tu = 0.f;
@@ -345,8 +315,8 @@ void MapChip::Render()
 				switch (m_MapSelected/100)
 				{
 				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (5 - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (5 - 1);
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 4;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 4;
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5;
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5;
 					CELL[0].tv = 0.f;
@@ -355,8 +325,8 @@ void MapChip::Render()
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (6 - 1);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (6 - 1);
+					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5;
+					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5;
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
 					CELL[0].tv = 0.f;
