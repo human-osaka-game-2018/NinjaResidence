@@ -12,7 +12,7 @@ public:
 	void ActivateTarget();
 	void Update();
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
-	Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
+	Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Rope();
 private:
 	float m_Movement = 0;

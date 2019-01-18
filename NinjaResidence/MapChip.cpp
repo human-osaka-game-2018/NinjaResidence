@@ -198,16 +198,16 @@ void MapChip::CheckVector()
 			switch (TargetVector[i].GimmickType)
 			{
 			case BT_TARGET://的
-			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX);
+			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX,m_pSoundOperater);
 				break;
 			case BT_ROPE://ロープ
-			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX);
+			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			case BT_SWITCH://スイッチ
-			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX);
+			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 				case BT_TORCH://たいまつ
-			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX);
+			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			}
 			pBaseTarget.push_back(pBuf);

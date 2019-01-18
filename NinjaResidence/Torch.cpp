@@ -7,7 +7,7 @@
 #include "DirectX.h"
 #include "TargetandGimmickType.h"
 
-Torch::Torch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX) :BaseTarget(Target, Gimmick, pDirectX)
+Torch::Torch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater) :BaseTarget(Target, Gimmick, pDirectX,pSoundOperater)
 {
 
 }
@@ -22,11 +22,18 @@ void Torch::ActivateTarget()
 {
 	m_pBaseGimmick->Activate();
 	m_isActive = true;
+	m_pSoundOperater->Start("FIRE", true);
+
 }
 
 void Torch::Update()
 {
 	m_pBaseGimmick->Update();
+	if (!m_isActive) {
+		if (SoundLib::Playing == m_pSoundOperater->GetStatus("FIRE")) {
+			m_pSoundOperater->Stop("FIRE");
+		}
+	}
 }
 
 

@@ -19,12 +19,14 @@ public:
 	virtual void Activate() = 0;
 	virtual void Update() = 0;
 	virtual void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse) = 0;
-	BaseGimmick(BlockInfo Gimmick, DirectX* pDirectX);
+	BaseGimmick(BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse) { return 0; };
 	bool GetActive() { return m_isActive; };
 	virtual ~BaseGimmick();
 protected:
 	DirectX* m_pDirectX = NULL;
+	SoundOperater* m_pSoundOperater = NULL;
+
 	float m_QuantityOfMovement = 0.f;
 
 	int m_GimmickPosX;

@@ -7,7 +7,7 @@
 #include "DirectX.h"
 #include "TargetandGimmickType.h"
 
-Target::Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX) :BaseTarget(Target, Gimmick, pDirectX)
+Target::Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater) :BaseTarget(Target, Gimmick, pDirectX,pSoundOperater)
 {
 
 }
@@ -22,6 +22,7 @@ Target::~Target()
 void Target::ActivateTarget()
 {
 	m_pBaseGimmick->Activate();
+	m_pSoundOperater->Start("TARGET_ACTIVE");
 	m_isActive = true;
 
 }

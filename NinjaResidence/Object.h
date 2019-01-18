@@ -33,7 +33,7 @@ enum KeyDirection
 };
 struct MapScrollBuffer {
 	int ScrollX = 0;
-	int ScrollY = 0;
+	int ScrollY = -1000;
 };
 
 class Object

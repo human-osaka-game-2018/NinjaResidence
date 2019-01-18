@@ -119,6 +119,8 @@ bool HighShuriken::CollisionRope()
 
 void HighShuriken::InitPosition() {
 	m_isActive = false;
+	isOperation = false;
+
 	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
 	m_Central.y = m_pGameChara->GetPositionY();
 	m_DirectionDeg = 0;

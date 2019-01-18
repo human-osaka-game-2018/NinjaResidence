@@ -7,7 +7,7 @@
 #include <string>
 
 
-Water::Water(BlockInfo Gimmick, DirectX* pDirectX) :BaseGimmick(Gimmick, pDirectX)
+Water::Water(BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater) :BaseGimmick(Gimmick, pDirectX,pSoundOperater)
 {
 	m_pDirectX = pDirectX;
 }
@@ -28,9 +28,14 @@ void Water::Update()
 	if (!m_isActive) return;
 	if (m_QuantityOfMovement > -(80.f*4.f)) {
 		m_QuantityOfMovement -= 5.f;
-
+		if (SoundLib::Playing != m_pSoundOperater->GetStatus("DRAINAGE")) {
+			m_pSoundOperater->Start("DRAINAGE", false);
+		}
+		return;
 	}
-
+	if (SoundLib::Playing == m_pSoundOperater->GetStatus("DRAINAGE")) {
+		m_pSoundOperater->Stop("DRAINAGE");
+	}
 }
 
 void Water::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
