@@ -321,7 +321,7 @@ void GameChara::GimmickHitCheck()
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) / 100 == BT_SWITCH) ||
 		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) / 100 == BT_SWITCH))
 	{
-		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY);
+		//m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY);
 	}
 	//左の方向のブロックを確かめる
 	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
@@ -517,10 +517,10 @@ bool GameChara::Update()
 	if (m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) > 100)
 	{
 
-		m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY - 2);
+		//m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY - 2);
 
 	}
-	if (DownCollisionCheck(GOAL_ZONE)) {
+	if (LeftCollisionCheck(GOAL_ZONE) || TopCollisionCheck(GOAL_ZONE) || DownCollisionCheck(GOAL_ZONE) || RightCollisionCheck(GOAL_ZONE)) {
 		return true;
 	}
 	if (FailureGame()) {

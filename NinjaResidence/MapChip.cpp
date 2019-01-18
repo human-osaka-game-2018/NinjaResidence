@@ -288,11 +288,10 @@ void MapChip::Render()
 					CELL[3].tu = BLOCK_INTEGRATION_WIDTH;
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
 					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
-					RevolveTexture(CELL, 1);
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
 					break;
 				case SPEAR:
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
@@ -310,10 +309,10 @@ void MapChip::Render()
 					CELL[3].tu = 0.f;
 					CELL[1].tu = 0.24f;
 					CELL[2].tu = 0.24f;
-					CELL[0].tv = 0.16f;
-					CELL[1].tv = 0.16f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT + 0.16f;
+					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT;
+					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
+					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
 					CELL[1].x += 120.f;
 					CELL[2].x += 120.f;
 					CELL[3].y += 80.f;

@@ -170,11 +170,11 @@ void GameScene::KeyOperation() {
 	{
 		TransePause();
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_J) || m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
+	if (m_pDirectX->GetKeyStatus(DIK_J) || m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
 	{
 		SkillKeyOperation(BIT_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_L) || m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
+	if (m_pDirectX->GetKeyStatus(DIK_L) || m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
 	{
 		SkillKeyOperation(BIT_RIGHT);
 	}
@@ -280,14 +280,14 @@ void GameScene::Render()
 	sprintf_s(TestName, ArrayLong, "STAGE_%d", m_StageNum);
 	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 #endif
-	//if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
-	//{
-	//	m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
-	//}
-	//if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2)
-	//{
-	//	m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
-	//}
+	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number1)
+	{
+		m_pDirectX->DrawTexture("KANBAN_TEX", m_pDescriptionBoard->DescriptionBoardSIZE);
+	}
+	if (m_pDescriptionBoard->DescriptionNumberdecision == m_pDescriptionBoard->Number2)
+	{
+		m_pDirectX->DrawTexture("KANBAN_TEX2", m_pDescriptionBoard->DescriptionBoardSIZE);
+	}
 }
 
 void GameScene::LoadResouce()
@@ -299,16 +299,12 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
-	m_pDirectX->LoadTexture("texture/Scroll.png", "SCROLL_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban2.png", "KANBAN_TEX2");
 	m_pDirectX->LoadTexture("texture/Pause.png", "PAUSETITLE_TEX");
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
 	m_pDirectX->LoadTexture("texture/StageFailure.png", "FAILURE_TEX");
-	m_pDirectX->LoadTexture("texture/Fire.png", "FIRE_TEX");
-	m_pDirectX->LoadTexture("texture/FireUi.png", "FIRE_UI_TEX");
-	m_pDirectX->LoadTexture("texture/HighShurikenUi.png", "HIGH_SHURIKEN_UI_TEX");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);

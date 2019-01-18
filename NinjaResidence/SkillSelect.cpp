@@ -20,19 +20,19 @@ bool SkillSelect::Update() {
 	switch (m_SkillNum) {
 	case SHURIKEN:
 		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0, BLOCK_INTEGRATION_HEIGHT * 3, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case CLAWSHOT:
 		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color,0, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 5.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case FIRE_ART:
-		m_SkillTexKey = "FIRE_UI_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color);
+		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case HIGH_SHURIKEN_ART:
-		m_SkillTexKey = "HIGH_SHURIKEN_UI_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color);
+		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, BLOCK_INTEGRATION_WIDTH*2.f, BLOCK_INTEGRATION_HEIGHT * 5.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 
 		break;
 	}

@@ -72,15 +72,15 @@ void PartitionBoard::Render(int MapScrollY, int MapScrollX, MapDataState MapData
 		m_GimmickVertex[3].x = m_WorldPosLeft + MapScrollX;
 		m_GimmickVertex[3].y = m_WorldPosBottom + MapScrollY;
 
-		m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3;
-		m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 5;
-		m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 5;
-		m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3;
+		m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
+		m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
+		m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
+		m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
 
-		m_GimmickVertex[0].tv = 0;
-		m_GimmickVertex[1].tv = 0;
-		m_GimmickVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 5;
-		m_GimmickVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 5;
+		m_GimmickVertex[0].tv = 0.f;
+		m_GimmickVertex[1].tv = 0.f;
+		m_GimmickVertex[2].tv = BLOCK_INTEGRATION_WIDTH * 5.f;
+		m_GimmickVertex[3].tv = BLOCK_INTEGRATION_WIDTH * 5.f;
 
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_GimmickVertex);
 	}

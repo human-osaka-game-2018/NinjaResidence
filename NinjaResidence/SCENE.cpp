@@ -4,6 +4,8 @@
 * @author Kojiro Kawahara
 */
 #include "SCENE.h"
+#include "BlockInfo.h"
+
 int Scene::m_StageNum = 7;
 bool Scene::m_SoundSetting = false;
 Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
@@ -12,7 +14,7 @@ Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDir
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundOperater = pSoundOperater;
 	
-	m_pDirectX->LoadTexture("texture/Shuriken.png", "CROSS_TEX");
+	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Load_BG.jpg", "LOAD_BG_TEX");
 
 	m_pDirectX->LoadTexture("Texture/GyoushoNumber.png", "NUMBER_TEX");
@@ -60,8 +62,8 @@ void Scene::LoadAnimation() {
 	rad += static_cast<int>(D3DX_PI) * 3;
 	CUSTOMVERTEX cross[4];
 	CENTRAL_STATE CROSS = { 1200,630,50,50 };
-	RevolveZ(cross, static_cast<float>(rad), CROSS);
-	m_pDirectX->DrawTexture("CROSS_TEX", cross);
+	RevolveZ(cross, static_cast<float>(rad), CROSS,0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", cross);
 }
 
 

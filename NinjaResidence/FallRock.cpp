@@ -55,22 +55,22 @@ void FallRock::Render(int MapScrollY, int MapScrollX, MapDataState MapDataRevers
 
 	m_GimmickVertex[0].x = m_GimmickPosX + MapScrollX;
 	m_GimmickVertex[0].y = m_GimmickPosY + MapScrollY + m_QuantityOfMovement;
-	m_GimmickVertex[1].x = m_GimmickPosX + (CELL_SIZE * 2) + MapScrollX;
+	m_GimmickVertex[1].x = m_GimmickPosX + (CELL_SIZE * 2.f) + MapScrollX;
 	m_GimmickVertex[1].y = m_GimmickPosY + MapScrollY + m_QuantityOfMovement;
-	m_GimmickVertex[2].x = m_GimmickPosX + (CELL_SIZE * 2) + MapScrollX;
-	m_GimmickVertex[2].y = m_GimmickPosY + (CELL_SIZE * 2) + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[2].x = m_GimmickPosX + (CELL_SIZE * 2.f) + MapScrollX;
+	m_GimmickVertex[2].y = m_GimmickPosY + (CELL_SIZE * 2.f) + MapScrollY + m_QuantityOfMovement;
 	m_GimmickVertex[3].x = m_GimmickPosX + MapScrollX;
-	m_GimmickVertex[3].y = m_GimmickPosY + (CELL_SIZE * 2) + MapScrollY + m_QuantityOfMovement;
+	m_GimmickVertex[3].y = m_GimmickPosY + (CELL_SIZE * 2.f) + MapScrollY + m_QuantityOfMovement;
 
-	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 4;
-	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 6;
-	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 6;
-	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 4;
+	m_GimmickVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
+	m_GimmickVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+	m_GimmickVertex[2].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+	m_GimmickVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
 
-	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_HEIGHT * 3;
-	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_HEIGHT * 3;
-	m_GimmickVertex[2].tv = BLOCK_INTEGRATION_HEIGHT * 5;
-	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 5;
+	m_GimmickVertex[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+	m_GimmickVertex[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
+	m_GimmickVertex[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+	m_GimmickVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_GimmickVertex);
 }

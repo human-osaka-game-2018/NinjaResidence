@@ -184,7 +184,7 @@ void ClawShot::Render()
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", RopeVertex);
 
 		CUSTOMVERTEX ClawVertex[4];
-		RevolveZ(ClawVertex, DegToRad(m_DirectionDeg), m_Central,0xFFFFFFFF, (m_DirectionBias + 1) * BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH * m_Direction, BLOCK_INTEGRATION_HEIGHT);
+		RevolveZ(ClawVertex, DegToRad(m_DirectionDeg), m_Central,0xFFFFFFFF, (m_DirectionBias + 3) * BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 5, BLOCK_INTEGRATION_WIDTH * m_Direction, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ClawVertex);
 
 	}
