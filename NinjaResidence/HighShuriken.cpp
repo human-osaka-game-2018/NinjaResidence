@@ -96,7 +96,7 @@ bool HighShuriken::PermitActive() {
 		m_Central.y = m_pGameChara->GetPositionY();
 		PrevMapScrollX = m_MapScrollX;
 		PrevMapScrollY = m_MapScrollY;
-
+		isOperation = false;
 		m_isChoseDeg = false;
 		return true;
 	}
@@ -119,7 +119,7 @@ bool HighShuriken::CollisionRope()
 
 void HighShuriken::InitPosition() {
 	m_isActive = false;
-	isOperation = false;
+	
 
 	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
 	m_Central.y = m_pGameChara->GetPositionY();
@@ -186,8 +186,8 @@ void HighShuriken::Render()
 		CUSTOMVERTEX ShurikenVertex[4];
 		static float rad = 0.f;
 		rad += 10.f;
-		RevolveZ(ShurikenVertex, rad, m_Central);
-		m_pDirectX->DrawTexture("CROSS_TEX", ShurikenVertex);
+		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ShurikenVertex);
 	}
 }
 
