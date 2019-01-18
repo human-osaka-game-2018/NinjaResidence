@@ -33,4 +33,8 @@ private:
 	int MapScrollXBuf = 0;
 	int MapScrollYBuf = 0;
 	int m_ActiveReversePointNum = -1;
+
+	bool CollLeft = false;
+	bool CollRight = false;
+	bool CollCenter = false;
 };

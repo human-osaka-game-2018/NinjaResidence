@@ -92,7 +92,7 @@ public:
 	* @param MapState 表か裏かの指定
 	* @sa enum MapDataState
 	*/
-	virtual void Create(const char *filename, MapDataState MapState) {};
+	virtual void Create(std::string filename, MapDataState MapState) {};
 
 
 	void setMapScrollX(int x) {};

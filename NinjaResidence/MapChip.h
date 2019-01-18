@@ -34,7 +34,7 @@ public:
 	* @param MapState 表か裏かの指定
 	* @sa enum MapDataState
 	*/
-	void Create(const char *filename, MapDataState MapState);
+	void Create(std::string filename, MapDataState MapState);
 	void Activate(int X, int Y);
 	void MapDataVectorSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	void MapDataVectorSet0();
