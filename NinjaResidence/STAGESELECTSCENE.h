@@ -38,11 +38,11 @@ private:
 	float m_SelectCursolPosY;
 	
 	//ステージ選択時のクナイ（カーソル）の移動量
-	const float KUNAIMOVEMENTX = 650;
-	const float KUNAI_MOVEMENT_Y = 200;
+	const float KUNAIMOVEMENTX = 650.f;
+	const float KUNAI_MOVEMENT_Y = 200.f;
 	//戻るボタンに行き来するクナイの移動量
-	const float MOVEMENT_X_TO_BACK = 140;
-	const float MOVEMENTYTOBACK = 120;
+	const float MOVEMENT_X_TO_BACK = 140.f;
+	const float MOVEMENTYTOBACK = 120.f;
 
 
 	enum m_StageNumber
@@ -60,7 +60,7 @@ private:
 	CENTRAL_STATE m_StageSelectBack;
 	CENTRAL_STATE m_StageImage[6];
 	CENTRAL_STATE m_StageSelectNumber[6];
-	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270,270 };
+	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270.f,270.f };
 	std::string m_CursolImagekey;
 	std::string m_BackImagekey;
 	std::string m_StageImagekey[6];

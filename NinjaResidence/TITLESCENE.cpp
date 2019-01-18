@@ -77,34 +77,34 @@ void TitleScene::Render()
 	switch (m_pCursol->m_CursolPos)
 	{
 	case START:
-		m_StartSize.scale_x = 130;
-		m_StartSize.scale_y = 80;
+		m_StartSize.scale_x = 130.f
+		m_StartSize.scale_y = 80.f;
 
-		m_SettingSize.scale_x = 100;
-		m_SettingSize.scale_y = 50;
+		m_SettingSize.scale_x = 100.f;
+		m_SettingSize.scale_y = 50.f;
 
-		m_EndSize.scale_x = 100;
-		m_EndSize.scale_y = 50;
+		m_EndSize.scale_x = 100.f;
+		m_EndSize.scale_y = 50.f;
 		break;
 	case OPTION:
-		m_SettingSize.scale_x = 130;
-		m_SettingSize.scale_y = 80;
+		m_SettingSize.scale_x = 130.f;
+		m_SettingSize.scale_y = 80.f;
 
-		m_StartSize.scale_x = 100;
-		m_StartSize.scale_y = 50;
+		m_StartSize.scale_x = 100.f;
+		m_StartSize.scale_y = 50.f;
 
-		m_EndSize.scale_x = 100;
-		m_EndSize.scale_y = 50;
+		m_EndSize.scale_x = 100.f;
+		m_EndSize.scale_y = 50.f;
 		break;
 	case END:
-		m_EndSize.scale_x = 130;
-		m_EndSize.scale_y = 80;
+		m_EndSize.scale_x = 130.f;
+		m_EndSize.scale_y = 80.f;
 
-		m_StartSize.scale_x = 100;
-		m_StartSize.scale_y = 50;
+		m_StartSize.scale_x = 100.f;
+		m_StartSize.scale_y = 50.f;
 
-		m_SettingSize.scale_x = 100;
-		m_SettingSize.scale_y = 50;
+		m_SettingSize.scale_x = 100.f;
+		m_SettingSize.scale_y = 50.f;
 		break;
 	}
 	CUSTOMVERTEX StartVertex[4];

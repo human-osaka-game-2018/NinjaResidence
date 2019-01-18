@@ -11,12 +11,12 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
-	m_SelectCursolPosX = 450;
-	m_SelectCursolPosY = 210;
+	m_SelectCursolPosX = 450.f;
+	m_SelectCursolPosY = 210.f;
 	m_SelectCursol = { m_SelectCursolPosX,m_SelectCursolPosY,140,100};
 	m_CursolImagekey = "Kunai_TEX";
 
-	m_StageSelectBack =  {120,70,80,50};
+	m_StageSelectBack =  {120.f,70.f,80.f,50.f};
 	m_BackImagekey = "StagexSelectBack_TEX";
 
 	//初期値を決まる関数
@@ -36,18 +36,18 @@ void StageSelectScene::InitPosStageImage()
 {
 	for (int i = 0;i < 6;i++)
 	{
-		const float STAGEIMAGE_SCALE_X = 180;
-		const float STAGEIMAGE_SCALE_Y = 80;
+		const float STAGEIMAGE_SCALE_X = 180.f;
+		const float STAGEIMAGE_SCALE_Y = 80.f;
 		m_StageImage[i].scale_x = STAGEIMAGE_SCALE_X;
 		m_StageImage[i].scale_y = STAGEIMAGE_SCALE_Y;
 		m_StageImage[i].y = ((i / 2) + 1) * 200;
 		if (i % 2)
 		{
-			m_StageImage[i].x = 840;
+			m_StageImage[i].x = 840.f;
 		}
 		else
 		{
-			m_StageImage[i].x = 200;
+			m_StageImage[i].x = 200.f;
 		}
 	}
 }
@@ -56,18 +56,18 @@ void StageSelectScene::InitPosStageSelectNumber()
 {
 	for (int i = 0;i < 6;i++)
 	{
-		const float STAGESELECTNUMBER_SCALE_X = 150;
-		const float STAGESELECTNUMBER_SCALE_Y = 50;
+		const float STAGESELECTNUMBER_SCALE_X = 150.f;
+		const float STAGESELECTNUMBER_SCALE_Y = 50.f;
 		m_StageSelectNumber[i].scale_x = STAGESELECTNUMBER_SCALE_X;
 		m_StageSelectNumber[i].scale_y = STAGESELECTNUMBER_SCALE_Y;
 		m_StageSelectNumber[i].y = (((i / 2) + 1) * 200) + 5;
 		if (i % 2)
 		{
-			m_StageSelectNumber[i].x = 840;
+			m_StageSelectNumber[i].x = 840.f;
 		}
 		else
 		{
-			m_StageSelectNumber[i].x = 200;
+			m_StageSelectNumber[i].x = 200.f;
 		}
 	}
 }
