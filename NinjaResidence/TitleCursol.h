@@ -24,9 +24,9 @@ public:
 	Cursol::CursolPosition getCursolPosition();
 	TitleCursol(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~TitleCursol();
+	Cursol::CursolPosition m_CursolPos = Cursol::START;
 private:
 	CENTRAL_STATE m_Cursol = { 200,0,40,30 };
-	Cursol::CursolPosition m_CursolPos = Cursol::START;
 	void MoveUp();
 	void MoveDown();
 };

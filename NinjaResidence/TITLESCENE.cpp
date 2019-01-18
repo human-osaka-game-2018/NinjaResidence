@@ -7,6 +7,8 @@
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 
+using namespace Cursol;
+
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	m_pScene = this;
@@ -50,7 +52,6 @@ SCENE_NUM  TitleScene::Update()
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
-
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
 		ChoseMenu();
 	}
@@ -73,16 +74,58 @@ void TitleScene::Render()
 
 	m_pCursol->Render();
 
-	CUSTOMVERTEX MenuVertex[4];
-	CreateSquareVertex(MenuVertex, m_Menu);
-	m_pDirectX->DrawTexture("MENU_TEX", MenuVertex);
+	switch (m_pCursol->m_CursolPos)
+	{
+	case START:
+		m_StartSize.scale_x = 130;
+		m_StartSize.scale_y = 80;
 
+		m_SettingSize.scale_x = 100;
+		m_SettingSize.scale_y = 50;
+
+		m_EndSize.scale_x = 100;
+		m_EndSize.scale_y = 50;
+		break;
+	case OPTION:
+		m_SettingSize.scale_x = 130;
+		m_SettingSize.scale_y = 80;
+
+		m_StartSize.scale_x = 100;
+		m_StartSize.scale_y = 50;
+
+		m_EndSize.scale_x = 100;
+		m_EndSize.scale_y = 50;
+		break;
+	case END:
+		m_EndSize.scale_x = 130;
+		m_EndSize.scale_y = 80;
+
+		m_StartSize.scale_x = 100;
+		m_StartSize.scale_y = 50;
+
+		m_SettingSize.scale_x = 100;
+		m_SettingSize.scale_y = 50;
+		break;
+	}
+	CUSTOMVERTEX StartVertex[4];
+	CreateSquareVertex(StartVertex, m_StartSize);
+	m_pDirectX->DrawTexture("TITLE_MENU_START_TEX", StartVertex);
+
+	CUSTOMVERTEX SettingVertex[4];
+	CreateSquareVertex(SettingVertex, m_SettingSize);
+	m_pDirectX->DrawTexture("TITLE_MENU_SETTING_TEX", SettingVertex);
+
+	CUSTOMVERTEX EndVertex[4];
+	CreateSquareVertex(EndVertex, m_EndSize);
+	m_pDirectX->DrawTexture("TITLE_MENU_END_TEX", EndVertex);
 }
 
 void TitleScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture("texture/TitleLogo.png", "LOGO_TEX");
-	m_pDirectX->LoadTexture("texture/Titlemenu.png", "MENU_TEX");
+	m_pDirectX->LoadTexture("texture/Title_Start.png", "TITLE_MENU_START_TEX");
+	m_pDirectX->LoadTexture("texture/Title_Setting.png", "TITLE_MENU_SETTING_TEX");
+	m_pDirectX->LoadTexture("texture/Title_End.png", "TITLE_MENU_END_TEX");
 
 	m_pDirectX->LoadTexture("texture/Title_BG.jpg", "BACKGROUND_TEX");
 
