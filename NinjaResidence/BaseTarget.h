@@ -17,7 +17,7 @@
 class BaseTarget
 {
 public:
-	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
+	BaseTarget(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~BaseTarget();
 
 	BlockInfo* GetTargetInfo() { return &m_TargetInfo; }
@@ -53,6 +53,8 @@ public:
 protected:
 	BaseGimmick * m_pBaseGimmick = NULL;
 	DirectX* m_pDirectX = NULL;
+	SoundOperater* m_pSoundOperater = NULL;
+
 	BlockInfo m_TargetInfo;
 	BlockInfo m_GimmickInfo;
 	CUSTOMVERTEX m_TargetVertex[4];

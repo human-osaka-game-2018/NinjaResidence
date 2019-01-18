@@ -7,7 +7,7 @@
 
 
 
-Rope::Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX) :BaseTarget(Target, Gimmick, pDirectX)
+Rope::Rope(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater) :BaseTarget(Target, Gimmick, pDirectX,pSoundOperater)
 {
 }
 
@@ -19,6 +19,8 @@ Rope::~Rope()
 void Rope::ActivateTarget()
 {
 	m_pBaseGimmick->Activate();
+	m_pSoundOperater->Start("CUT_OFF", false);
+
 	m_isActive = true;
 }
 
@@ -26,7 +28,7 @@ void Rope::Update()
 {
 	m_pBaseGimmick->Update();
 	if (m_isActive) {
-		m_Movement += 3.5f;
+		m_Movement += 1.5f;
 		m_CellSize = CELL_SIZE *0.5f;
 	}
 }
@@ -69,8 +71,8 @@ void Rope::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 
 	m_TargetVertex[0].tv = 0;
 	m_TargetVertex[1].tv = 0;
-	m_TargetVertex[2].tv = 1;
-	m_TargetVertex[3].tv = 1;
+	m_TargetVertex[2].tv = 0.5;
+	m_TargetVertex[3].tv = 0.5;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_TargetVertex);
 	if (m_isActive) {
@@ -91,10 +93,10 @@ void Rope::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 
 		DivededRope[0].tv = 0;
 		DivededRope[1].tv = 0;
-		DivededRope[2].tv = 1;
-		DivededRope[3].tv = 1;
+		DivededRope[2].tv = 0.5;
+		DivededRope[3].tv = 0.5;
 
-		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_TargetVertex);
+		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", DivededRope);
 	}
 }
 

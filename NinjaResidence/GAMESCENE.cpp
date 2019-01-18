@@ -352,6 +352,7 @@ void GameScene::StageTurning()
 		m_BGMSoundKey = "STAGE_5";
 		break;
 	default:
+		m_pSoundOperater->BGMSetVolume(0);
 		break;
 	}
 }

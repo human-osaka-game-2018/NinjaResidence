@@ -9,7 +9,7 @@ class Switch :
 	public BaseTarget
 {
 public:
-	Switch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
+	Switch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Switch();
 	void ActivateTarget();
 	void Update();

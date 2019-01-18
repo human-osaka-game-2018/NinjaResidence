@@ -15,7 +15,7 @@ public:
 	void Update();
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse );
 	float GetGimmickPosition(bool isAxisX, MapDataState MapDataReverse);
-	Water(BlockInfo Gimmick, DirectX* pDirectX);
+	Water(BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Water();
 private:
 	float m_TopPosition = 0;

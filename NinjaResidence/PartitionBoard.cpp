@@ -7,7 +7,7 @@
 #include <string>
 #include "MapChip.h"
 
-PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) :BaseGimmick(Gimmick, pDirectX)
+PartitionBoard::PartitionBoard(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip, SoundOperater* pSoundOperater) :BaseGimmick(Gimmick, pDirectX,pSoundOperater)
 {
 	m_pDirectX = pDirectX;
 	m_pMapChip = pMapChip;
@@ -23,6 +23,7 @@ PartitionBoard::~PartitionBoard()
 void PartitionBoard::Activate()
 {
 	m_isActive = true;
+	m_pSoundOperater->Start("DOOR",false);
 }
 
 
@@ -38,6 +39,7 @@ void PartitionBoard::Update()
 	if (m_WorldPosBottom <= 0.f)
 	{
 		m_isActive = false;
+		m_pSoundOperater->Stop("DOOR");
 		m_pMapChip->MapDataVectorZeroSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
 	}
 }

@@ -8,7 +8,7 @@
 #include "MapChip.h"
 
 
-FallRock::FallRock(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip) :BaseGimmick(Gimmick, pDirectX)
+FallRock::FallRock(BlockInfo Gimmick, DirectX* pDirectX, MapChip* pMapChip, SoundOperater* pSoundOperater) :BaseGimmick(Gimmick, pDirectX,pSoundOperater)
 {
 	m_pDirectX = pDirectX;
 	m_pMapChip = pMapChip;

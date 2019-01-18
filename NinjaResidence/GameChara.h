@@ -113,7 +113,7 @@ private:
 	//毎フレームかける重力の値
 	const float GRAVITY = 15.f;
 	const float MOVE_SPEED = 15.f;
-	const float VERTICAL_SCROLLING_LEVEL = 12.f;
+	const float VERTICAL_SCROLLING_LEVEL = 20.f;
 	const int ScrollSpeed = 15;
 	//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
 	const int DisplayCharMoveScopeUp = 100;

@@ -165,7 +165,9 @@ void GameChara::MoveOperation(KeyDirection vec)
 			m_TurnAnimation = 3.f;
 			break;
 		}
-		m_pSoundOperater->Start("DASH", false);
+		if (SoundLib::Playing != m_pSoundOperater->GetStatus("DASH")) {
+			m_pSoundOperater->Start("DASH");
+		}
 		m_ChangeAnimation = DASH;
 		++AnimeCount;
 		if (AnimeCount > 2) {
@@ -188,7 +190,9 @@ void GameChara::MoveOperation(KeyDirection vec)
 			m_TurnAnimation = 3.f;
 			break;
 		}
-		m_pSoundOperater->Start("DASH", false);
+		if (SoundLib::Playing != m_pSoundOperater->GetStatus("DASH")) {
+			m_pSoundOperater->Start("DASH");
+		}
 		m_ChangeAnimation = DASH;
 		++AnimeCount;
 		if (AnimeCount > 2) {
@@ -265,7 +269,8 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	int BlockX = 0;
 	int ScrollXBuf = 0;
 	int ScrollYBuf = 0;
-
+	int ScrollBehindX = 0;
+	int ScrollBehindY = 0;
 	for (int i = 0; i < ReversePointVector.size(); ++i) {
 		bool isSameMapState = ReversePointVector[i].MapDataState == MapState;
 		bool isSamePair = PairNumber == ReversePointVector[i].PairNumber;
@@ -295,7 +300,10 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 		ScrollYBuf = m_MapScrollY;
 
 		MapScroolCheck();
-	} while ((m_MapScrollX - ScrollXBuf) || (m_MapScrollY - ScrollYBuf));
+		ScrollBehindX = (m_MapScrollX - ScrollXBuf);
+		ScrollBehindY = (m_MapScrollY - ScrollYBuf);
+
+	} while (0 != ScrollBehindX || 0 != ScrollBehindY);
 }
 
 void GameChara::GimmickHitCheck()
@@ -334,21 +342,21 @@ void GameChara::CharaInfoSave(Object* MapChip, int PairNumber)
 
 void GameChara::MapScroolCheck()
 {
-	if (m_pMapChip->RestrictBottomScroll()) {
-		m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
-		m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-		m_WorldCharaCoordinate[1].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-		m_WorldCharaCoordinate[2].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-		m_WorldCharaCoordinate[3].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-		m_DisplayCharaCoordinate[0].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-		m_DisplayCharaCoordinate[1].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-		m_DisplayCharaCoordinate[2].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-		m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-		m_isScrollingDown = true;
-
-	}
+	//if (m_pMapChip->RestrictBottomScroll()) {
+	//	m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
+	//	m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
+	//	m_WorldCharaCoordinate[1].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
+	//	m_WorldCharaCoordinate[2].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
+	//	m_WorldCharaCoordinate[3].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
+	//	m_DisplayCharaCoordinate[0].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
+	//	m_DisplayCharaCoordinate[1].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
+	//	m_DisplayCharaCoordinate[2].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
+	//	m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
+	//	m_isScrollingDown = true;
+	//	SetGround();
+	//}
 	//下にスクロール移動
-	else if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
+	if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
 	{
 		m_DisplayCharaCoordinate[0].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Central.scale_y);
 		m_DisplayCharaCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeDown) - m_Central.scale_y);
@@ -356,7 +364,6 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_MapScrollY -= VERTICAL_SCROLLING_LEVEL;
 		SetGround();
-
 		m_isScrollingDown = true;
 	}
 	else m_isScrollingDown = false;
@@ -369,7 +376,7 @@ void GameChara::MapScroolCheck()
 			m_DisplayCharaCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeUp));
 			m_DisplayCharaCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Central.scale_y);
 			m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Central.scale_y);
-			m_MapScrollY += ScrollSpeed;
+			m_MapScrollY += VERTICAL_SCROLLING_LEVEL;
 		}
 	}
 
@@ -750,9 +757,9 @@ bool GameChara::SetGround() {
 			{
 				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
 			}
-		}
-		if (m_isInTheAir) {
-			m_pSoundOperater->Start("SET_DOWN_WATER", false);
+			if (m_isInTheAir) {
+				m_pSoundOperater->Start("SET_DOWN_WATER", false);
+			}
 		}
 		m_ChangeAnimation = WATER_ART;
 		static int AnimeCount = 0;

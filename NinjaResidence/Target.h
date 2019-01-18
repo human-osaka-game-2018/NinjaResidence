@@ -16,7 +16,7 @@ public:
 	void ActivateTarget();
 	void Update();
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
-	Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX);
+	Target(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~Target();
 private:
 	int m_MotionBias = 0;
