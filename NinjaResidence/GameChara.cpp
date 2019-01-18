@@ -80,6 +80,14 @@ void GameChara::Jump()
 		m_DisplayCharaCoordinate[i].y -= m_AccelerationY;
 		m_WorldCharaCoordinate[i].y -= m_AccelerationY;
 	}
+	if (m_DisplayCharaCoordinate[0].y < 0) {
+		m_WorldCharaCoordinate[0].y = 0.1f;
+		m_WorldCharaCoordinate[1].y = 0.1f;
+		m_WorldCharaCoordinate[2].y = m_Central.scale_y + 0.1f;
+		m_WorldCharaCoordinate[3].y = m_Central.scale_y + 0.1f;
+		InitJumpParam();
+		return;
+	}
 	m_MapPositionY = static_cast<int>((m_WorldCharaCoordinate[3].y + 10) / CELL_SIZE);
 	if (!m_isUsingArt) {
 		m_ChangeAnimation = JUMPING;
