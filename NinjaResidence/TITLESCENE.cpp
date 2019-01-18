@@ -77,7 +77,7 @@ void TitleScene::Render()
 	switch (m_pCursol->m_CursolPos)
 	{
 	case START:
-		m_StartSize.scale_x = 130.f
+		m_StartSize.scale_x = 130.f;
 		m_StartSize.scale_y = 80.f;
 
 		m_SettingSize.scale_x = 100.f;

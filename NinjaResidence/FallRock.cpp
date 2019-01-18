@@ -32,13 +32,12 @@ void FallRock::Update()
 	if (!m_isActive) return;
 
 	//落ちる岩の動き
-	int CheckNumber = m_pMapChip->GimmickMapDataCheck((m_GimmickPosY + 80 + m_QuantityOfMovement) / 40, m_GimmickPosX / 40);
+	int CheckNumber = m_pMapChip->GimmickMapDataCheck((m_GimmickPosY + 80.f + m_QuantityOfMovement) / 40.f, m_GimmickPosX / 40.f);
 	if (CheckNumber == 0)
 	{
-		m_pMapChip->MapDataVectorZeroSet((m_GimmickPosY + m_QuantityOfMovement) / 40, m_GimmickInfo.PositionX, 2, 2);
+		m_pMapChip->MapDataVectorZeroSet((m_GimmickPosY + m_QuantityOfMovement) / 40, m_GimmickInfo.PositionX, 2.f, 2.f);
 		m_QuantityOfMovement += 5.f;
-		int a = (m_GimmickPosY + m_QuantityOfMovement) / 40;
-		m_pMapChip->MapDataVectorHitSet(a, m_GimmickInfo.PositionX, 2, 2);
+		m_pMapChip->MapDataVectorHitSet((m_GimmickPosY + m_QuantityOfMovement) / 40, m_GimmickInfo.PositionX, 2.f, 2.f);
 	}
 	if (CheckNumber / 100 == 3)
 	{

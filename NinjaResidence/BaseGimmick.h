@@ -29,8 +29,8 @@ protected:
 
 	float m_QuantityOfMovement = 0.f;
 
-	int m_GimmickPosX;
-	int m_GimmickPosY;
+	float m_GimmickPosX;
+	float m_GimmickPosY;
 
 	float m_WorldPosLeft;
 	float m_WorldPosRight;
