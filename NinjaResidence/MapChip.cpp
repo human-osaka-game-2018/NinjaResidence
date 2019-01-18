@@ -41,23 +41,19 @@ MapChip::~MapChip()
 	pBaseTarget.clear();
 }
 
-void MapChip::Create(const char *filename, MapDataState MapState)
+void MapChip::Create(std::string filename, MapDataState MapState)
 {
 	m_MapDataState = MapState;
-	const int mapMaxWidth = 256;
-	FILE *fp = NULL;
-	char data[8];
-	char buf[mapMaxWidth];
-	//int cは何をしている変数？
-	int c, i = 0, x = 0, y = 0;
+	int y = 0;
 
-	if (fopen_s(&fp, filename, "r") != 0)
-	{
-		exit(1);
-	}
+	std::ifstream ifs(filename);
+	std::string str;
 
-	fgets(buf, mapMaxWidth, fp);
-	sscanf_s(buf, "%d, %d", &m_row, &m_colunm);
+	getline(ifs, str);
+	replace(str.begin(), str.end(), ',', ' ');
+	std::stringstream MapSizeStream(str);
+	MapSizeStream >> m_row >> m_colunm;
+
 
 	MapData.resize(m_colunm);
 
@@ -66,18 +62,13 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 		MapData[j].resize(m_row);
 	}
 
-	while ((c = getc(fp)) != EOF || y < m_colunm)
+	while (getline(ifs, str))
 	{
-		BlockInfo block;
-		if (isdigit(c))
-		{
-			data[i] = (char)c;
-			i++;
-		}
-		else
-		{
-			data[i] = NULL;
-			MapData[y][x] = atoi(data);
+		replace(str.begin(), str.end(), ',', ' ');
+		std::stringstream MapNumsStream(str);
+		for (int x = 0; x < MapData[y].size();++x) {
+			MapNumsStream >> MapData[y][x];
+			BlockInfo block;
 			int blocktype = MapData[y][x] / 100;
 			if (blocktype)
 			{
@@ -85,14 +76,14 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 				if (blocktype < BT_PARTITIONBOARD)
 				{
 					PairNum = MapData[y][x] % 100;
-					block = { x,y,PairNum,blocktype,MapState,this};
+					block = { x,y,PairNum,blocktype,MapState,this };
 					TargetVector.push_back(block);
 					m_TargetCount++;
 				}
 				else if (blocktype > BT_TORCH && blocktype < WOOD_REVERSE_ZONE)
 				{
 					PairNum = MapData[y][x] % 100;
-					block = { x,y,PairNum,blocktype,MapState,this};
+					block = { x,y,PairNum,blocktype,MapState,this };
 					GimmickVector.push_back(block);
 					m_GimmickCount++;
 				}
@@ -112,15 +103,13 @@ void MapChip::Create(const char *filename, MapDataState MapState)
 				}
 
 			}
-			x++;
-			i = 0;
-			if (x == m_row) {
-				y++;
-				x = 0;
-			}
 		}
+		y++;
+
+
+		if (y > MapData.size()) break;
 	}
-	fclose(fp);
+
 	if (MapState == REVERSE)
 	{
 		CheckVector();

@@ -58,8 +58,8 @@ private:
 	SkillBase* m_pHighShuriken = NULL;
 	SkillBase* m_pShuriken = NULL;
 	SkillBase* m_pFireArt = NULL;
-	const char* StageFilePath_surface = "csv/Book1.csv";
-	const char* StageFilePath_reverse = "csv/Book2.csv";
+	std::string StageFilePath_surface = "csv/Book1.csv";
+	std::string StageFilePath_reverse = "csv/Book2.csv";
 
 	SkillSelect* m_SkillSelect = NULL;
 	DescriptionBoard* m_pDescriptionBoard = NULL;

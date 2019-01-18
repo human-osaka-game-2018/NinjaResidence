@@ -21,11 +21,11 @@ MapReverse::~MapReverse()
 }
 
 bool MapReverse::collisonReversePoint(int x, int y, Object* pBusyMapChip) {
+	MapDataState Buff = STATE_FALSE;
 	for (int i = 0; i < m_ReverseCount; ++i) {
-
 		if (ReversePointVector[i].PositionX == x &&
 			ReversePointVector[i].PositionY == y &&
-			ReversePointVector[i].MapDataState == (*pBusyMapChip).GetMapDataState()) {
+			ReversePointVector[i].MapDataState == (Buff = (*pBusyMapChip).GetMapDataState())) {
 
 			m_ReversePair = ReversePointVector[i].PairNumber;
 			//m_ReverseBuffer[i].ScrollX = m_MapScrollX;
@@ -40,12 +40,12 @@ bool MapReverse::collisonReversePoint(int x, int y, Object* pBusyMapChip) {
 void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 {
 
-	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition();
+	int MapPosiinonX = m_pGameChara->GetMapLeftDirectionPosition() + 1;
 	int MapPosiinonY = m_pGameChara->GetMapPositionY();
 
-	bool CollLeft = collisonReversePoint(MapPosiinonX-1, MapPosiinonY, *pBusyMapChip);
-	bool CollRight = collisonReversePoint(MapPosiinonX + 1, MapPosiinonY, *pBusyMapChip);
-	bool CollCenter = collisonReversePoint(MapPosiinonX + 0, MapPosiinonY, *pBusyMapChip);
+	CollLeft = collisonReversePoint(MapPosiinonX-1, MapPosiinonY, *pBusyMapChip);
+	CollRight = collisonReversePoint(MapPosiinonX + 1, MapPosiinonY, *pBusyMapChip);
+	CollCenter = collisonReversePoint(MapPosiinonX + 0, MapPosiinonY, *pBusyMapChip);
 	if ((CollLeft|| CollCenter|| CollRight)&& m_ReversePair)
 	{
 		m_pSoundOperater->Start("REVERSE",false);
