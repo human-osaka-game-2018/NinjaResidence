@@ -95,6 +95,7 @@ public:
 	bool GetGameFailure() {
 		return m_GameFailure;
 	}
+	void MapScroolCheck();
 
 private:
 	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
@@ -129,7 +130,6 @@ private:
 
 	//void MoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber, MapDataState MapState);
-	void MapScroolCheck();
 	//! 当たり判定描画用
 	float m_CollisionTu = 80 / 512.f;
 	//! 当たり判定描画用
@@ -259,6 +259,7 @@ private:
 	bool LeftCollisionCheck(int block);
 
 	bool SetGround();
+	bool TopCollision();
 	bool LeftCollision();
 	bool RightCollision();
 	void SideCollision();

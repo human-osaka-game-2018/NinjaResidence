@@ -20,21 +20,26 @@ GameChara::GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* M
 	m_Central.y = static_cast<float>(m_pMapChip->SearchBlockY(START_ZONE))*CELL_SIZE;
 	CreateSquareVertex(m_Central, m_WorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
 	CreateSquareVertex(m_Central, m_DisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
-	for (int i = 0; i < 4; i++)
-	{
-		m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
-		m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
-	}
+	int ScrollXBuf = 0;
+	int ScrollYBuf = 0;
+	int ScrollBehindX = 0;
+	int ScrollBehindY = 0;
+	do {
+		for (int i = 0; i < 4; i++)
+		{
+			m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+			m_DisplayCharaCoordinate[i].x = m_WorldCharaCoordinate[i].x + m_MapScrollX;
+		}
 
-	//CreateSquareVertex(m_Central, m_ReverseDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
-	//CreateSquareVertex(m_Central, m_ReverseWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
-	//CreateSquareVertex(m_Central, m_SurfaceDisplayCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
-	//CreateSquareVertex(m_Central, m_SurfaceWorldCharaCoordinate, 0xFFFFFFFF, 0, 0, m_CollisionTu, m_CollisionTv);
-	//do {
-	//	MapScroolCheck();
-	//	AddGravity();
-	//	
-	//} while (SetGround());
+		ScrollXBuf = m_MapScrollX;
+		ScrollYBuf = m_MapScrollY;
+
+		MapScroolCheck();
+		ScrollBehindX = (m_MapScrollX - ScrollXBuf);
+		ScrollBehindY = (m_MapScrollY - ScrollYBuf);
+
+	} while (0 != ScrollBehindX || 0 != ScrollBehindY);
+
 }
 
 GameChara::~GameChara()
@@ -80,6 +85,8 @@ void GameChara::Jump()
 		m_DisplayCharaCoordinate[i].y -= m_AccelerationY;
 		m_WorldCharaCoordinate[i].y -= m_AccelerationY;
 	}
+	TopCollision();
+
 	if (m_DisplayCharaCoordinate[0].y < 0) {
 		m_WorldCharaCoordinate[0].y = 0.1f;
 		m_WorldCharaCoordinate[1].y = 0.1f;
@@ -350,19 +357,6 @@ void GameChara::CharaInfoSave(Object* MapChip, int PairNumber)
 
 void GameChara::MapScroolCheck()
 {
-	//if (m_pMapChip->RestrictBottomScroll()) {
-	//	m_MapScrollY += VERTICAL_SCROLLING_LEVEL - GravityAcceleration;
-	//	m_WorldCharaCoordinate[0].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-	//	m_WorldCharaCoordinate[1].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-	//	m_WorldCharaCoordinate[2].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-	//	m_WorldCharaCoordinate[3].y = m_pMapChip->GetBottomWorldPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-	//	m_DisplayCharaCoordinate[0].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-	//	m_DisplayCharaCoordinate[1].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition);
-	//	m_DisplayCharaCoordinate[2].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-	//	m_DisplayCharaCoordinate[3].y = m_pMapChip->GetBottomPoint(m_MapLeftDirectionPosition, m_MapRightDirectionPosition) + m_Central.scale_y;
-	//	m_isScrollingDown = true;
-	//	SetGround();
-	//}
 	//下にスクロール移動
 	if (m_DisplayCharaCoordinate[3].y > static_cast<float>(DisplayCharMoveScopeDown))
 	{
@@ -371,7 +365,7 @@ void GameChara::MapScroolCheck()
 		m_DisplayCharaCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_DisplayCharaCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_MapScrollY -= VERTICAL_SCROLLING_LEVEL;
-		SetGround();
+		//SetGround();
 		m_isScrollingDown = true;
 	}
 	else m_isScrollingDown = false;
@@ -479,34 +473,20 @@ bool GameChara::Update()
 	if (m_MapPositionY >= m_colunm) {
 		m_MapPositionY = m_colunm - 1;
 	}
-	m_CollisionHead = TopCollisionAnything();
+	//m_CollisionHead = TopCollisionAnything();
 
 	MapScroolCheck();
 	AddGravity();
-	GimmickHitCheck();
+	//GimmickHitCheck();
 	//下の方向を確かめる
 	m_isInTheAir = !SetGround();
 	//上のブロックを確かめる
-	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
-	{
-		if ((m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) != NONE) ||
-			(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) != NONE))
-		{
-			m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 3) * CELL_SIZE);
-			m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 3) * CELL_SIZE);
-			m_WorldCharaCoordinate[2].y = ((m_MapPositionY + 1) * CELL_SIZE);
-			m_WorldCharaCoordinate[3].y = ((m_MapPositionY + 1) * CELL_SIZE);
-			for (int i = 0; i < 4; i++)
-			{
-				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
-			}
-		}
-	}
+	TopCollision();
 	SideCollision();
 
 	if (!m_CollisionHead) {
 		Jump();
+		TopCollision();
 		SideCollision();
 		SetGround();
 	}
@@ -581,7 +561,7 @@ bool GameChara::DownCollisionAnything(void) {
 	return true;
 }
 bool GameChara::TopCollisionAnything(void) {
-	if (!TopCollisionCheck(NONE)&&
+	if (!TopCollisionCheck(NONE)||
 		TopCollisionCheck(START_ZONE)) {
 		return true;
 	}
@@ -711,8 +691,6 @@ void GameChara::AddGravity() {
 		m_WorldCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 		m_DisplayCharaCoordinate[i].y += GRAVITY + GravityAcceleration;
 	}
-	SideCollision();
-	SetGround();
 }
 
 void GameChara::DebugMove() {
@@ -786,6 +764,29 @@ bool GameChara::SetGround() {
 		m_ChangeAnimation = JUMPING;
 	}
 
+	return false;
+}
+
+bool GameChara::TopCollision() {
+	if (m_PrevMapCharaPositionY > m_WorldCharaCoordinate[3].y + 10)
+	{
+		m_MapPositionY = static_cast<int>((m_WorldCharaCoordinate[3].y) / CELL_SIZE);
+
+		if (TopCollisionAnything())
+		{
+			m_WorldCharaCoordinate[0].y = ((m_MapPositionY - 3) * CELL_SIZE);
+			m_WorldCharaCoordinate[1].y = ((m_MapPositionY - 3) * CELL_SIZE);
+			m_WorldCharaCoordinate[2].y = ((m_MapPositionY + 1) * CELL_SIZE);
+			m_WorldCharaCoordinate[3].y = ((m_MapPositionY + 1) * CELL_SIZE);
+			for (int i = 0; i < 4; i++)
+			{
+				m_DisplayCharaCoordinate[i].y = m_WorldCharaCoordinate[i].y + m_MapScrollY;
+			}
+			m_CollisionHead = true;
+			return true;
+		}
+	}
+	m_CollisionHead = false;
 	return false;
 }
 
