@@ -95,8 +95,8 @@ public:
 	virtual void Create(std::string filename, MapDataState MapState) {};
 
 
-	void setMapScrollX(int x) {};
-	void setMapScrollY(int y) {};
+	int GetMapScrollX() { return m_MapScrollX; };
+	int GetMapScrollY() { return m_MapScrollY; };
 
 	int getRow() {
 		return m_row;
@@ -117,8 +117,8 @@ public:
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
-	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 0;}
-	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 0;}
+	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 3;}
+	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 3;}
 
 	void GameCharaInfo(int CharaX, int CharaY);
 	virtual bool GetGimmickActive() { return false; };

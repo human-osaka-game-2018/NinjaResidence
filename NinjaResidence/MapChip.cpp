@@ -245,6 +245,13 @@ void MapChip::Render()
 			CellInit();
 			float top = FIELD_TOP + (CELL_SIZE * j) + static_cast<float>(m_MapScrollY);
 			float left = FIELD_LEFT + (CELL_SIZE * i) + static_cast<float>(m_MapScrollX);
+			if (top<-CELL_SIZE || top>DISPLAY_HEIGHT) {
+				continue;
+			}
+			if (left<-CELL_SIZE || left>DISPLAY_WIDTH) {
+				continue;
+			}
+
 			CELL[0].x = left;
 			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
@@ -439,7 +446,7 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 			}
 		}
 	}
-	return 2;
+	return 5;
 }
 
 CUSTOMVERTEX* MapChip::GetTargetPosition(int targetType)
