@@ -260,14 +260,7 @@ void MapChip::Render()
 				case ROCK_BLOCK:
 				case WOOD_TRACT:
 				case ROCK_TRACT:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f), 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case GOAL_ZONE:
 					CELL[0].x -= CELL_SIZE * 0.5f;
@@ -276,40 +269,18 @@ void MapChip::Render()
 					CELL[1].y -= CELL_SIZE * 0.5f;
 					CELL[2].x += CELL_SIZE * 0.5f;
 					CELL[3].x -= CELL_SIZE * 0.5f;
-
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case SPEAR:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 2.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 2.f);
 					break;
 				case DESCRIPTION_BOARD:
 				case DESCRIPTION_BOARD2:
-					CELL[0].tu = 0.f;
-					CELL[3].tu = 0.f;
-					CELL[1].tu = 0.24f;
-					CELL[2].tu = 0.24f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
-					CELL[1].x += 120.f;
-					CELL[2].x += 120.f;
-					CELL[3].y += 80.f;
-					CELL[2].y += 80.f;
+					SetVertexUV(CELL, 0, BLOCK_INTEGRATION_HEIGHT, 0.24f, BLOCK_INTEGRATION_HEIGHT);
+					CELL[1].x += CELL_SIZE * 3.f;
+					CELL[2].x += CELL_SIZE * 3.f;
+					CELL[3].y += CELL_SIZE * 2.f;
+					CELL[2].y += CELL_SIZE * 2.f;
 					break;
 				default:
 					continue;
@@ -319,24 +290,10 @@ void MapChip::Render()
 				switch (m_MapSelected/100)
 				{
 				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 4.f, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 5.f, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				default:
 					continue;

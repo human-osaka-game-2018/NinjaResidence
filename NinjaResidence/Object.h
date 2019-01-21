@@ -110,6 +110,8 @@ public:
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
 	void TranslateCentral_State(CUSTOMVERTEX * Vertex, CENTRAL_STATE * Central);
 
+	void SetVertexUV(CUSTOMVERTEX* Vertex, float Tu, float Tv, float scaleTu, float scaleTv);
+
 	/**
 	* @brief CSV読み取りとマップデータ生成
 	* @param filename CSVファイルパス
@@ -134,7 +136,6 @@ public:
 	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 3;}
 	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 3;}
 
-	void GameCharaInfo(int CharaX, int CharaY);
 	virtual bool GetGimmickActive() { return false; };
 	virtual CUSTOMVERTEX* GetTargetPosition(int targetType) { return m_WorldCoordinate; };
 	bool ContactSpecifyObject(CENTRAL_STATE* object);
@@ -181,6 +182,7 @@ protected:
 	* @param Deg 90度右に何回転させるか
 	*/
 	void RevolveTexture(CUSTOMVERTEX * Vertex, int Deg);
+
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 

@@ -85,7 +85,20 @@ void Object::TranslateCentral_State(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central
 	Central->x = Vertex[0].x + Central->scale_x;
 	Central->y = Vertex[0].y + Central->scale_y;
 }
+void Object::SetVertexUV(CUSTOMVERTEX* Vertex, float Tu, float Tv, float scaleTu, float scaleTv) {
+	Vertex[0].tu = Tu;
+	Vertex[0].tv = Tv;
 
+	Vertex[1].tu = Tu + scaleTu;
+	Vertex[1].tv = Tv;
+
+	Vertex[2].tu = Tu + scaleTu;
+	Vertex[2].tv = Tv + scaleTv;
+
+	Vertex[3].tu = Tu;
+	Vertex[3].tv = Tv + scaleTv;
+
+}
 void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 
 	float CharVertexX[4];
