@@ -160,7 +160,7 @@ void ClawShot::Render()
 	}
 	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0, 0, m_Direction);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_Central.x, m_Central.y, 0xFFFFFFFF, 0, 0, m_Direction);
 		TextureRender("ARROW_TEX", DirectionArrowVertex);
 		return;
 	}
