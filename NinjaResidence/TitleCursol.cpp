@@ -37,6 +37,7 @@ void TitleCursol::Render()
 {
 	CUSTOMVERTEX CursolVertex[4];
 	RevolveZ(CursolVertex, DegToRad(180),m_Cursol);
+	TextureRender("CURSOL_TEX", CursolVertex);
 }
 
 void TitleCursol::KeyOperation(KeyDirection vec) {
@@ -77,6 +78,6 @@ void TitleCursol::MoveDown() {
 		break;
 	}
 }
-CursolPosition TitleCursol::getCursolPosition() {
+CursolPosition TitleCursol::GetCursolPosition() {
 	return m_CursolPos;
 }

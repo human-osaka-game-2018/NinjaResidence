@@ -66,7 +66,7 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 	{
 		replace(str.begin(), str.end(), ',', ' ');
 		std::stringstream MapNumsStream(str);
-		for (int x = 0; x < MapData[y].size();++x) {
+		for (int x = 0; x < static_cast<int>(MapData[y].size());++x) {
 			MapNumsStream >> MapData[y][x];
 			BlockInfo block;
 			int blocktype = MapData[y][x] / 100;
@@ -107,7 +107,7 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 		y++;
 
 
-		if (y > MapData.size()) break;
+		if (y > static_cast<int>(MapData.size())) break;
 	}
 
 	if (MapState == REVERSE)

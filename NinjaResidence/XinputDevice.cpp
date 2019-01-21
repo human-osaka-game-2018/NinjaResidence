@@ -89,8 +89,8 @@ int XinputDevice::GetAnalogTrigger(AnalogTrigger Trigger)
 		return m_Xinput.Gamepad.bLeftTrigger;
 	case RIGHT_TRIGGER:
 		return m_Xinput.Gamepad.bRightTrigger;
-
 	}
+	return 0;
 }
 
 bool XinputDevice::GetAnalogL(Analog AnalogState)

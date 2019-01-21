@@ -56,8 +56,8 @@ void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		m_MotionBias = 1;
 	}
 	else m_MotionBias = 0;
-	m_TargetPosX = m_TargetInfo.PositionX;
-	m_TargetPosY = m_TargetInfo.PositionY;
+	m_TargetPosX = static_cast<float>(m_TargetInfo.PositionX);
+	m_TargetPosY = static_cast<float>(m_TargetInfo.PositionY);
 	if (MapDataReverse == m_TargetInfo.MapDataState)
 	{
 		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;

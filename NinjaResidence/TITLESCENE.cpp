@@ -7,7 +7,6 @@
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 
-using namespace Cursol;
 
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
@@ -20,104 +19,52 @@ TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(
 TitleScene::~TitleScene()
 {
 	delete m_pCursol;
+	m_pCursol = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
 
 SCENE_NUM  TitleScene::Update()
 {
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TITLE")) {
+		bool buff = m_pSoundOperater->Start("TITLE", true);
+	}
 	m_pXinputDevice->DeviceUpdate();
 
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonUP)|| PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 	{
 		m_pCursol->KeyOperation(UP);
+		CursorAnimeInterval = 0;
 	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_S) || PadPush == m_pXinputDevice->GetButton(ButtonDOWN)|| PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
 	{
 		m_pCursol->KeyOperation(DOWN);
+		CursorAnimeInterval = 0;
 	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonUP))
-	{
-		m_pCursol->KeyOperation(UP);
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonDOWN))
-	{
-		m_pCursol->KeyOperation(DOWN);
-	}
-	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
-	{
-		m_pCursol->KeyOperation(UP);
-	}
-	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
-	{
-		m_pCursol->KeyOperation(DOWN);
-	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
-		ChoseMenu();
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)|| PadPush == m_pXinputDevice->GetButton(ButtonA)) {
 		ChoseMenu();
 	}
 	m_pCursol->Update();
+	CursorResize();
 	return GetNextScene();
 }
 
 void TitleScene::Render()
-{
-	
-	
+{	
 	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_BackgroundVertex);
 
-	CUSTOMVERTEX LogoVertex[4];
-	CreateSquareVertex(LogoVertex, m_Logo);
-	m_pDirectX->DrawTexture("LOGO_TEX", LogoVertex);
+	CUSTOMVERTEX Vertex[4];
+	CreateSquareVertex(Vertex, m_Logo);
+	m_pDirectX->DrawTexture("LOGO_TEX", Vertex);
 
-	m_pCursol->Render();
+	CreateSquareVertex(Vertex, m_StartSize, m_CursorAlfa[0]);
+	m_pDirectX->DrawTexture("TITLE_MENU_START_TEX", Vertex);
 
-	switch (m_pCursol->m_CursolPos)
-	{
-	case START:
-		m_StartSize.scale_x = 130.f;
-		m_StartSize.scale_y = 80.f;
+	CreateSquareVertex(Vertex, m_SettingSize, m_CursorAlfa[1]);
+	m_pDirectX->DrawTexture("TITLE_MENU_SETTING_TEX", Vertex);
 
-		m_SettingSize.scale_x = 100.f;
-		m_SettingSize.scale_y = 50.f;
-
-		m_EndSize.scale_x = 100.f;
-		m_EndSize.scale_y = 50.f;
-		break;
-	case OPTION:
-		m_SettingSize.scale_x = 130.f;
-		m_SettingSize.scale_y = 80.f;
-
-		m_StartSize.scale_x = 100.f;
-		m_StartSize.scale_y = 50.f;
-
-		m_EndSize.scale_x = 100.f;
-		m_EndSize.scale_y = 50.f;
-		break;
-	case END:
-		m_EndSize.scale_x = 130.f;
-		m_EndSize.scale_y = 80.f;
-
-		m_StartSize.scale_x = 100.f;
-		m_StartSize.scale_y = 50.f;
-
-		m_SettingSize.scale_x = 100.f;
-		m_SettingSize.scale_y = 50.f;
-		break;
-	}
-	CUSTOMVERTEX StartVertex[4];
-	CreateSquareVertex(StartVertex, m_StartSize);
-	m_pDirectX->DrawTexture("TITLE_MENU_START_TEX", StartVertex);
-
-	CUSTOMVERTEX SettingVertex[4];
-	CreateSquareVertex(SettingVertex, m_SettingSize);
-	m_pDirectX->DrawTexture("TITLE_MENU_SETTING_TEX", SettingVertex);
-
-	CUSTOMVERTEX EndVertex[4];
-	CreateSquareVertex(EndVertex, m_EndSize);
-	m_pDirectX->DrawTexture("TITLE_MENU_END_TEX", EndVertex);
+	CreateSquareVertex(Vertex, m_EndSize, m_CursorAlfa[2]);
+	m_pDirectX->DrawTexture("TITLE_MENU_END_TEX", Vertex);
 }
 
 void TitleScene::LoadResouce()
@@ -131,7 +78,7 @@ void TitleScene::LoadResouce()
 
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(100, 40, "MENU_FONT");
-	
+
 	m_pSoundOperater->AddFile("Sound/bgm/title_bgm.mp3", "TITLE", BGM);
 	m_pSoundOperater->AddFile("Sound/bgm/tutorial_BGM.mp3", "TUTORIAL", BGM);
 	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_1.mp3", "STAGE_1", BGM);
@@ -154,9 +101,60 @@ void TitleScene::LoadResouce()
 	m_pSoundOperater->AddFile("Sound/se/slash.mp3", "CUT_OFF", SE);
 	m_pSoundOperater->AddFile("Sound/se/switch.mp3", "TARGET_ACTIVE", SE);
 	m_pSoundOperater->AddFile("Sound/se/watershoes.mp3", "SET_DOWN_WATER", SE);
+}
+
+void TitleScene::CursorResize() {
+	static int SelectingCursor = 0;
+	switch (SelectingCursor = m_pCursol->GetCursolPosition())
+	{
+	case Cursol::START:
+		m_StartSize.scale_x = SelectingXScale;
+		m_StartSize.scale_y = SelectingYScale;
+
+		m_SettingSize.scale_x = InitXScale;
+		m_SettingSize.scale_y = InitYScale;
+
+		m_EndSize.scale_x = InitXScale;
+		m_EndSize.scale_y = InitYScale;
+		m_CursorAlfa[1] = InitColor;
+		m_CursorAlfa[2] = InitColor;
+		break;
+	case Cursol::OPTION:
+		m_SettingSize.scale_x = SelectingXScale;
+		m_SettingSize.scale_y = SelectingYScale;
+
+		m_StartSize.scale_x = InitXScale;
+		m_StartSize.scale_y = InitYScale;
+
+		m_EndSize.scale_x = InitXScale;
+		m_EndSize.scale_y = InitYScale;
+		m_CursorAlfa[0] = InitColor;
+		m_CursorAlfa[2] = InitColor;
+		break;
+	case Cursol::END:
+		m_EndSize.scale_x = SelectingXScale;
+		m_EndSize.scale_y = SelectingYScale;
+
+		m_StartSize.scale_x = InitXScale;
+		m_StartSize.scale_y = InitYScale;
+
+		m_SettingSize.scale_x = InitXScale;
+		m_SettingSize.scale_y = InitYScale;
+		m_CursorAlfa[0] = InitColor;
+		m_CursorAlfa[1] = InitColor;
+		break;
+	}
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 20) {
+		m_CursorAlfa[SelectingCursor] += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
+	}
+}
 
 void TitleScene::ChoseMenu() {
-	switch (m_pCursol->getCursolPosition()) {
+	switch (m_pCursol->GetCursolPosition()) {
 	case Cursol::START:
 		SetNextScene(STAGESELECT_SCENE);
 		break;

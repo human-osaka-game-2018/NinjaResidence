@@ -20,6 +20,7 @@ struct CUSTOMVERTEX
 	DWORD	color;
 	FLOAT	tu, tv;
 };
+
 enum KEYSTATE
 {
 	//! 押されていない

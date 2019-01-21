@@ -95,9 +95,9 @@ bool FireArt::Update()
 	}
 	int buf = 0;
 	for (int i = -1; i <7; ++i) {
-		if (m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX + i * m_Direction) > 100)
+		if (m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX + i * static_cast<int>(m_Direction)) > 100)
 		{
-			m_pMapChip->Activate(m_MapPositionX + i * m_Direction, m_MapPositionY);
+			m_pMapChip->Activate(m_MapPositionX + i * static_cast<int>(m_Direction), m_MapPositionY);
 		}
 	}
 	return true;

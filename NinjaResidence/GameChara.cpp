@@ -279,7 +279,7 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	int ScrollYBuf = 0;
 	int ScrollBehindX = 0;
 	int ScrollBehindY = 0;
-	for (int i = 0; i < ReversePointVector.size(); ++i) {
+	for (unsigned int i = 0; i < ReversePointVector.size(); ++i) {
 		bool isSameMapState = ReversePointVector[i].MapDataState == MapState;
 		bool isSamePair = PairNumber == ReversePointVector[i].PairNumber;
 		if (isSameMapState && isSamePair) {

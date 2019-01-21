@@ -34,8 +34,6 @@ private:
 	CUSTOMVERTEX m_WorldCoordinate[4];
 
 	bool CollisionRope();
-	float PrevMapScrollX = 0;
-	float PrevMapScrollY = 0;
 	const float MoveSpeed = 10.f;
 	void InitPosition();
 	/*

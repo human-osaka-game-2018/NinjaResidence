@@ -31,8 +31,8 @@ void Switch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 {
 	if (MapDataReverse == m_TargetInfo.MapDataState)
 	{
-		m_TargetPosX = m_TargetInfo.PositionX;
-		m_TargetPosY = m_TargetInfo.PositionY;
+		m_TargetPosX = static_cast<float>(m_TargetInfo.PositionX);
+		m_TargetPosY = static_cast<float>(m_TargetInfo.PositionY);
 		//TODO:的のオンオフ切り替え
 		if (MapDataReverse == m_TargetInfo.MapDataState)
 		{

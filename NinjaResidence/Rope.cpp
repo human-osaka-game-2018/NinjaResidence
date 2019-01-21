@@ -53,48 +53,51 @@ void Rope::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	{
 		return;
 	}
-	m_TargetPosX = m_TargetInfo.PositionX;
-	m_TargetPosY = m_TargetInfo.PositionY;
-	m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-	m_TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-	m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5 + CELL_SIZE;
-	m_TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY;
-	m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5 + CELL_SIZE;
-	m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + m_CellSize;
-	m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-	m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + m_CellSize;
+	float ScrollY = static_cast<float>(MapScrollY);
+	float ScrollX = static_cast<float>(MapScrollX);
 
-	m_TargetVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 6;
-	m_TargetVertex[1].tu = 1;
-	m_TargetVertex[2].tu = 1;
-	m_TargetVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 6;
+	m_TargetPosX = static_cast<float>(m_TargetInfo.PositionX);
+	m_TargetPosY = static_cast<float>(m_TargetInfo.PositionY);
+	m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f;
+	m_TargetVertex[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + ScrollY;
+	m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f + CELL_SIZE;
+	m_TargetVertex[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + ScrollY;
+	m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f + CELL_SIZE;
+	m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + ScrollY + m_CellSize;
+	m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f;
+	m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + ScrollY + m_CellSize;
 
-	m_TargetVertex[0].tv = 0;
-	m_TargetVertex[1].tv = 0;
-	m_TargetVertex[2].tv = 0.5;
-	m_TargetVertex[3].tv = 0.5;
+	m_TargetVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+	m_TargetVertex[1].tu = 1.f;
+	m_TargetVertex[2].tu = 1.f;
+	m_TargetVertex[3].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+
+	m_TargetVertex[0].tv = 0.f;
+	m_TargetVertex[1].tv = 0.f;
+	m_TargetVertex[2].tv = 0.5f;
+	m_TargetVertex[3].tv = 0.5f;
 
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", m_TargetVertex);
 	if (m_isActive) {
 		CUSTOMVERTEX DivededRope[4];
-		DivededRope[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		DivededRope[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY + m_Movement;
-		DivededRope[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		DivededRope[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + MapScrollY + m_Movement;
-		DivededRope[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE + 5;
-		DivededRope[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + m_CellSize + m_Movement;
-		DivededRope[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + 5;
-		DivededRope[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + m_CellSize + m_Movement;
+		DivededRope[0].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f;
+		DivededRope[0].y = (CELL_SIZE * (m_TargetPosY - 1)) + ScrollY + m_Movement;
+		DivededRope[1].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE + 5.f;
+		DivededRope[1].y = (CELL_SIZE * (m_TargetPosY - 1)) + ScrollY + m_Movement;
+		DivededRope[2].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE + 5.f;
+		DivededRope[2].y = (CELL_SIZE * m_TargetPosY) + ScrollY + m_CellSize + m_Movement;
+		DivededRope[3].x = (CELL_SIZE * m_TargetPosX) + ScrollX + 5.f;
+		DivededRope[3].y = (CELL_SIZE * m_TargetPosY) + ScrollY + m_CellSize + m_Movement;
 
-		DivededRope[0].tu = BLOCK_INTEGRATION_WIDTH * 6;
-		DivededRope[1].tu = 1;
-		DivededRope[2].tu = 1;
-		DivededRope[3].tu = BLOCK_INTEGRATION_WIDTH * 6;
+		DivededRope[0].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
+		DivededRope[1].tu = 1.f;
+		DivededRope[2].tu = 1.f;
+		DivededRope[3].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
 
-		DivededRope[0].tv = 0;
-		DivededRope[1].tv = 0;
-		DivededRope[2].tv = 0.5;
-		DivededRope[3].tv = 0.5;
+		DivededRope[0].tv = 0.f;
+		DivededRope[1].tv = 0.f;
+		DivededRope[2].tv = 0.5f;
+		DivededRope[3].tv = 0.5f;
 
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", DivededRope);
 	}

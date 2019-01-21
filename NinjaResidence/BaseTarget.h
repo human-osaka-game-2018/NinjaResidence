@@ -59,8 +59,8 @@ protected:
 	BlockInfo m_GimmickInfo;
 	CUSTOMVERTEX m_TargetVertex[4];
 	bool m_isActive = false;
-	int m_TargetPosX;
-	int m_TargetPosY;
+	float m_TargetPosX;
+	float m_TargetPosY;
 	bool m_isSwitchedOn = false;
 
 };

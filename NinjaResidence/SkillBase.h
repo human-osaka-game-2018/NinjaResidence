@@ -32,6 +32,8 @@ protected:
 
 	int m_MapPositionX;
 	int m_MapPositionY;
+	int PrevMapScrollX = 0;
+	int PrevMapScrollY = 0;
 
 	float m_DirectionDeg = 0;
 	//! キャラの向きの判別の為
