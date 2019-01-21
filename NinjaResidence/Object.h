@@ -121,7 +121,7 @@ public:
 	/**
 	* @brief ギミックの座標取得
 	* @param isAxisX 欲しい軸はX座標であるか
-	* @param MapYpos マップY座標
+	* @param MapYPos マップY座標
 	* @param MapXPos マップX座標
 	*/
 	virtual float GetGimmickPosition(bool isAxisX,int MapYPos,int MapXPos) { return 0; };
@@ -141,26 +141,16 @@ public:
 	int GetMapScrollX() { return m_MapScrollX; };
 	int GetMapScrollY() { return m_MapScrollY; };
 
-	int getm_CharaX()
-	{
-		return m_CharaX;
-	}
-	int getm_CharaY()
-	{
-		return m_CharaY;
-	}
-	int getRow() {
+	int GetRow() {
 		return m_row;
 	}
-	int getColunm() {
+	int GetColunm() {
 		return m_colunm;
 	}
-	int getMapChipData(int height, int width) {
+	int GetMapChipData(int height, int width) {
 		return MapData[height][width];
 	}
 
-	int m_CharaX;
-	int m_CharaY;
 	virtual MapDataState GetMapDataState() {
 		MapDataState State = STATE_FALSE;
 		return State;
@@ -180,7 +170,7 @@ protected:
 	//!列
 	int m_colunm = 0;
 
-	static const int ArrayLong = 64;
+	static const int ARRAY_LONG = 64;
 	//! Z軸回転
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	//! 回転する中心を指定してZ軸回転
@@ -194,12 +184,13 @@ protected:
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 
-	static std::vector<BlockInfo> ReversePointVector;
+	static std::vector<BlockInfo> m_ReversePointVector;
 	static std::vector<MapScrollBuffer> m_ReverseBuffer;
 	static int m_ReverseCount;
-private:
+	//! ディスプレイ上のキャラの矩形
 	CUSTOMVERTEX m_DisplayCoordinate[4];
+	//! 全体的なキャラの矩形
 	CUSTOMVERTEX m_WorldCoordinate[4];
-	int MapChara[5];
+private:
 
 };
