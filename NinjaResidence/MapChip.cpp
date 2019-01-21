@@ -164,16 +164,6 @@ void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int G
 	}
 }
 
-void MapChip::MapDataVectorSet0()
-{
-	for (int i = 0;i < 3;i++)
-	{
-		for (int j = 1;j < 15;j++)
-		{
-			MapData[3 + j][15 + i] = 0;
-		}
-	}
-}
 
 void MapChip::CheckVector()
 {
