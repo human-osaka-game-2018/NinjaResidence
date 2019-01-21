@@ -218,7 +218,7 @@ void GameChara::MoveOperation(KeyDirection vec)
 	}
 }
 
-void GameChara::prevSaveMapCharaPos()
+void GameChara::PrevSaveMapPos()
 {
 	m_PrevMapLeftDirectionPosition = (int)m_WorldCharaCoordinate[3].x;
 	m_PrevMapRightDirectionPosition = (int)m_WorldCharaCoordinate[2].x;
@@ -321,33 +321,6 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	} while (0 != ScrollBehindX || 0 != ScrollBehindY);
 }
 
-void GameChara::GimmickHitCheck()
-{
-	//下の方向のブロックを確かめる
-	if ((m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) / 100 == BT_SWITCH) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) / 100 == BT_SWITCH) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) / 100 == BT_SWITCH))
-	{
-		//m_pMapChip->Activate(m_MapRightDirectionPosition, m_MapPositionY);
-	}
-	//左の方向のブロックを確かめる
-	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) / 100 != BT_PARTITIONBOARD))
-	{
-
-	}
-
-	//右方向のブロックを確かめる
-	if ((m_pMapChip->getMapChipData(m_MapPositionY - 1, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 2, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 3, m_MapRightDirectionPosition) != BT_PARTITIONBOARD) ||
-		(m_pMapChip->getMapChipData(m_MapPositionY - 4, m_MapRightDirectionPosition) != BT_PARTITIONBOARD))
-	{
-
-	}
-}
 
 void GameChara::CharaInfoSave(Object* MapChip, int PairNumber)
 {
@@ -473,11 +446,8 @@ bool GameChara::Update()
 	if (m_MapPositionY >= m_colunm) {
 		m_MapPositionY = m_colunm - 1;
 	}
-	//m_CollisionHead = TopCollisionAnything();
-
 	MapScroolCheck();
 	AddGravity();
-	//GimmickHitCheck();
 	//下の方向を確かめる
 	m_isInTheAir = !SetGround();
 	//上のブロックを確かめる

@@ -103,7 +103,7 @@ SCENE_NUM  GameScene::Update()
 
 	m_isClear = m_pGameChara->Update();
 	m_isGameFailure = m_pGameChara->GetGameFailure();
-	m_pGameChara->prevSaveMapCharaPos();
+	m_pGameChara->PrevSaveMapPos();
 	m_pBusyMapChip->Update();
 	SkillsUpdate();
 	return GetNextScene();
@@ -256,8 +256,11 @@ void GameScene::Render()
 		m_pPauseScene->Render();
 		return;
 	}
+	if (m_pBusyMapChip->GetMapDataState() == SURFACE) {
+		m_pDirectX->DrawTexture("GAME_SURFACE_BG_TEX", m_BackgroundVertex);
+	}
+	else m_pDirectX->DrawTexture("GAME_REVERSE_BG_TEX", m_BackgroundVertex);
 
-	m_pDirectX->DrawTexture("GAME_BG_TEX", m_BackgroundVertex);
  	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	SkillsRender();
@@ -292,7 +295,8 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/BG.jpg", "GAME_BG_TEX");
+	m_pDirectX->LoadTexture("texture/BG_A.jpg", "GAME_SURFACE_BG_TEX");
+	m_pDirectX->LoadTexture("texture/BG_B.jpg", "GAME_REVERSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/Pause_BG.jpg", "PAUSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");

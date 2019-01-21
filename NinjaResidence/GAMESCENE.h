@@ -51,8 +51,10 @@ public:
 	
 private:
 	GameChara* m_pGameChara = NULL;
-	Object* m_pBusyMapChip = NULL;//使用中のMapChip
-	Object* m_pIdleMapChip = NULL;//停止中のMapChip
+	//使用中のMapChip
+	Object* m_pBusyMapChip = NULL;
+	//停止中のMapChip
+	Object* m_pIdleMapChip = NULL;
 
 	SkillBase* m_pClawShot = NULL;
 	SkillBase* m_pHighShuriken = NULL;
@@ -68,20 +70,57 @@ private:
 	Scene* m_pScene = NULL;
 	//! 今の選択中忍術
 	int CurrentSkill;
+	/**
+	* @brief 読み取りステージの振り分け処理
+	* @author Toshiya Matsuoka
+	*/
 	void StageTurning();
 	/**
 	* @brief どんでん返し処理
 	* @author Toshiya Matsuoka
 	*/
 	void Reverse();
+	/**
+	* @brief 忍術更新処理
+	* @author Toshiya Matsuoka
+	*/
 	void SkillsUpdate();
+	/**
+	* @brief 忍術描画処理
+	* @author Toshiya Matsuoka
+	*/
 	void SkillsRender();
+	/**
+	* @brief 忍術開始処理
+	* @author Toshiya Matsuoka
+	*/
 	void SkillStart();
+	/**
+	* @brief 忍術停止処理
+	* @author Toshiya Matsuoka
+	*/
 	void SkillEND();
+	/**
+	* @brief 忍術消去処理
+	* @author Toshiya Matsuoka
+	*/
 	void SkillErase();
+	/**
+	* @brief 忍術操作受付
+	* @author Toshiya Matsuoka
+	*/
 	void SkillKeyOperation(KeyDirection vec);
+	/**
+	* @brief ゲーム失敗時処理
+	* @author Toshiya Matsuoka
+	*/
 	void GameFailureAnime();
+	/**
+	* @brief ゲームクリア処理
+	* @author Toshiya Matsuoka
+	*/
 	void ClearAnime();
+
 	bool m_EnableSkill[MAX_SKILL - 1] = { true,true,true };
 	bool m_CanChangeSkill = true;
 	bool RunPause = false;

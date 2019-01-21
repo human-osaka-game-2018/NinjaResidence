@@ -49,7 +49,13 @@ public:
 
 	virtual void Render() {};
 	virtual void Render(bool MapDataReverse);
-	virtual void prevSaveMapCharaPos() {};
+	virtual void PrevSaveMapPos() {};
+	
+	/*
+	* @brief マップ内ブロックの起動処理
+	* @param X 起動するブロックのマップ内X座標
+	* @param Y 起動するブロックのマップ内Y座標
+	*/
 	virtual void Activate(int X,int Y) {};
 	/*
 	* @brief テクスチャの貼り付け
@@ -95,18 +101,6 @@ public:
 	virtual void Create(std::string filename, MapDataState MapState) {};
 
 
-	int GetMapScrollX() { return m_MapScrollX; };
-	int GetMapScrollY() { return m_MapScrollY; };
-
-	int getRow() {
-		return m_row;
-	}
-	int getColunm() {
-		return m_colunm;
-	}
-	int getMapChipData(int height, int width) {
-		return MapData[height][width];
-	}
 	virtual float GetGimmickPosition(bool isAxisX,int MapYPos,int MapXPos) { return 0; };
 	virtual bool RestrictBottomScroll() { return false; };
 	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
@@ -124,6 +118,9 @@ public:
 	virtual bool GetGimmickActive() { return false; };
 	virtual CUSTOMVERTEX* GetTargetPosition(int targetType) { return m_WorldCoordinate; };
 	bool ContactSpecifyObject(CENTRAL_STATE* object);
+	int GetMapScrollX() { return m_MapScrollX; };
+	int GetMapScrollY() { return m_MapScrollY; };
+
 	int getm_CharaX()
 	{
 		return m_CharaX;
@@ -131,6 +128,15 @@ public:
 	int getm_CharaY()
 	{
 		return m_CharaY;
+	}
+	int getRow() {
+		return m_row;
+	}
+	int getColunm() {
+		return m_colunm;
+	}
+	int getMapChipData(int height, int width) {
+		return MapData[height][width];
 	}
 
 	int m_CharaX;

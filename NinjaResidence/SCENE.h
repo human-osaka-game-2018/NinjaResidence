@@ -41,7 +41,28 @@ public:
 
 
 	void LoadAnimation();
+	/**
+	*@brief CUSTOMVERTEXにパラメータを入れる
+	* @param Vertex 値を入れる配列
+	* @param Central 中心座標情報
+	* @param color 色
+	* @param tu 切り取り画像の左端
+	* @param tv 切り取り画像の上端
+	* @param scaleTu 切り取り画像の右端
+	* @param scaleTv 切り取り画像の下端
+	*/
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	/**
+	*@brief CUSTOMVERTEXにパラメータを入れる
+	* @param Vertex 値を入れる配列
+	* @param x 原点からのX軸距離
+	* @param y 原点からのY軸距離
+	* @param color 色
+	* @param tu 切り取り画像の左端
+	* @param tv 切り取り画像の上端
+	* @param scaleTu 切り取り画像の右端
+	* @param scaleTv 切り取り画像の下端
+	*/
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void GoToOptionScene();
 	void RunOptionScene(int m_BGMvolume, int m_SEvolume);

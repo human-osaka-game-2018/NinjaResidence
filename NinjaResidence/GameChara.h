@@ -45,7 +45,7 @@ class GameChara :public Object
 {
 public:
 	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCharaCoordinate[4]; }
-	void prevSaveMapCharaPos();
+	void PrevSaveMapPos();
 	void KeyOperation(KeyDirection vec);
 	void CharaInfoSave(Object* MapChip, int BlockNumber);
 	bool Update();
@@ -55,10 +55,6 @@ public:
 
 	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
 	int GetMapPositionY() { return m_MapPositionY; }
-
-	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
-
-	void GimmickHitCheck();
 
 	void NoOperation();
 	/**
