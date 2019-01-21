@@ -363,41 +363,6 @@ bool MapChip::Update() {
 	return true;
 }
 
-bool MapChip::RestrictBottomScroll() {
-	float MapBottom = FIELD_TOP + (CELL_SIZE * (m_colunm + 1) )+ m_MapScrollY;
-	if (MapBottom < DISPLAY_HEIGHT-20) {
-		return true;
-	}
-	return false;
-}
-
-float MapChip::GetBottomPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-	}
-	return  0;
-}
-float MapChip::GetBottomWorldPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-	}
-	return  0;
-}
-
 void MapChip::CellInit() {
 	for (int i = 0; i < 4; i++) {
 		CELL[i].z = 1.0f;

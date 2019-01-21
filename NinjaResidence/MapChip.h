@@ -44,9 +44,6 @@ public:
 	void CheckVector();
 	void Render();
 	bool Update();
-	bool RestrictBottomScroll();
-	float GetBottomPoint(int charaLeft, int charRight);
-	float GetBottomWorldPoint(int charaLeft, int charRight);
 	MapDataState GetMapDataState() {
 		return m_MapDataState;
 	}
