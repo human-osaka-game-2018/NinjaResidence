@@ -76,7 +76,7 @@ void TitleScene::Render()
 
 	m_pCursol->Render();
 
-	switch (m_pCursol->m_CursolPos)
+	switch (m_pCursol->GetCursolPos())
 	{
 	case Cursol::START:
 		m_Start.scale_x = m_SelectedObjectScale_x;
