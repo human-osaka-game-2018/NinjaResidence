@@ -91,14 +91,14 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePointVector.push_back(block);
 					m_ReverseCount++;
 				}
 				else if (blocktype == ROCK_REVERSE_ZONE)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePointVector.push_back(block);
 					m_ReverseCount++;
 				}
 
@@ -346,8 +346,8 @@ void MapChip::Render()
 #ifdef _DEBUG
 
 	RECT test = { 0,500,1250,700 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
+	char TestText[ARRAY_LONG];
+	sprintf_s(TestText, ARRAY_LONG, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 #endif
 }
