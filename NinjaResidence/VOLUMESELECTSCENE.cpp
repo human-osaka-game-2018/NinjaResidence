@@ -19,8 +19,8 @@ VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX, SoundOperater* pSoundOpe
 		m_SEVolumeNum[i].x = VolumeNumNeutral.x - (i * DigitWidth);
 		m_ALLVolumeNum[i].x = VolumeNumNeutral.x - (i * DigitWidth);
 
-		m_LeftCursol[i].y = LeftCursolNeutral.y + 10 + (i * TriangleCursolHeght);
-		m_RightCursol[i].y = RightCursolNeutral.y + (i * TriangleCursolHeght);
+		m_LeftCursol[i].y = LeftCursolNeutral.y + (i * TriangleCursolHeght);
+		m_RightCursol[i].y = RightCursolNeutral.y + 10 + (i * TriangleCursolHeght);
 	}
 }
 
@@ -93,13 +93,8 @@ void VOLUMESELECTSCENE::Render() {
 
 	CreateSquareVertex(SetVolumeVertex, m_Cursor, m_CursorColor);
 	m_pDirectX->DrawTexture("SV_CURSOR_TEX", SetVolumeVertex);
-
+	VolumeCursorRender();
 	for (int i = 0; i < VolumeMaxNum; ++i) {
-		RevolveZ(SetVolumeVertex, DegToRad(180), m_RightCursol[i], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
-		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
-
-		CreateSquareVertex(SetVolumeVertex, m_LeftCursol[i], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
-		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
 
 		int DigitBuff = DigitCalc(m_BGMvolume, i);
 		CreateSquareVertex(SetVolumeVertex, m_BGMVolumeNum[i], WHITE, NumTu * DigitBuff, 0, NumTu, NumTv);
@@ -115,10 +110,34 @@ void VOLUMESELECTSCENE::Render() {
 	}
 }
 
-void VOLUMESELECTSCENE::LoadResouce() {
+void VOLUMESELECTSCENE::VolumeCursorRender() {
+	CUSTOMVERTEX SetVolumeVertex[4];
+	if (m_BGMvolume <100) {
+		CreateSquareVertex(SetVolumeVertex, m_RightCursol[0], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
+	if (m_BGMvolume > 0) {
+		RevolveZ(SetVolumeVertex, DegToRad(180), m_LeftCursol[0], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
+	if (m_SEvolume <100) {
+		CreateSquareVertex(SetVolumeVertex, m_RightCursol[1], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
+	if (m_SEvolume > 0) {
+		RevolveZ(SetVolumeVertex, DegToRad(180), m_LeftCursol[1], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
+	if (m_ALLvolume <100) {
+		CreateSquareVertex(SetVolumeVertex, m_RightCursol[2], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
+	if (m_ALLvolume > 0) {
+		RevolveZ(SetVolumeVertex, DegToRad(180), m_LeftCursol[2], WHITE, TriangleWidth, MenuHight, TriangleWidth, 1 - MenuHight);
+		m_pDirectX->DrawTexture("SV_MENU_TEX", SetVolumeVertex);
+	}
 
 }
-
 
 void VOLUMESELECTSCENE::IncreaseVolume() {
 	bool SoundSuccess = false;

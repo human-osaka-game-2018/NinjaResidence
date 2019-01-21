@@ -48,7 +48,6 @@ public:
 	virtual bool Update();
 
 	virtual void Render() {};
-	virtual void Render(bool MapDataReverse);
 	virtual void PrevSaveMapPos() {};
 	
 	/*
