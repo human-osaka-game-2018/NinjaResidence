@@ -32,16 +32,16 @@ void FallRock::Update()
 	if (!m_isActive) return;
 
 	//落ちる岩の動き
-	int CheckNumber = m_pMapChip->GimmickMapDataCheck((m_GimmickPosY + 80.f + m_QuantityOfMovement) / 40.f, m_GimmickPosX / 40.f);
-	if (CheckNumber == 0)
+	int CheckNumber = m_pMapChip->GimmickMapDataCheck((m_GimmickPosY + (CELL_SIZE * 2) + m_QuantityOfMovement) / CELL_SIZE, m_GimmickPosX / CELL_SIZE);
+	if (CheckNumber == MapBlock::NONE)
 	{
-		m_pMapChip->MapDataVectorZeroSet((m_GimmickPosY + m_QuantityOfMovement) / 40, m_GimmickInfo.PositionX, 2.f, 2.f);
+		m_pMapChip->MapDataVectorZeroSet((m_GimmickPosY + m_QuantityOfMovement) / CELL_SIZE, m_GimmickInfo.PositionX, 2, 2);
 		m_QuantityOfMovement += 5.f;
-		m_pMapChip->MapDataVectorHitSet((m_GimmickPosY + m_QuantityOfMovement) / 40, m_GimmickInfo.PositionX, 2.f, 2.f);
+		m_pMapChip->MapDataVectorHitSet((m_GimmickPosY + m_QuantityOfMovement) / CELL_SIZE, m_GimmickInfo.PositionX, 2, 2);
 	}
-	if (CheckNumber / 100 == 3)
+	if (CheckNumber / 100 == BT_SWITCH)
 	{
-		m_pMapChip->Activate((m_GimmickPosX / 40), (m_GimmickPosY + 80 + m_QuantityOfMovement) / 40);
+		m_pMapChip->Activate((m_GimmickPosX / CELL_SIZE), (m_GimmickPosY + (CELL_SIZE * 2) + m_QuantityOfMovement) / CELL_SIZE);
 	}
 }
 
