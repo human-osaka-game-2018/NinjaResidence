@@ -7,7 +7,6 @@
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 
-using namespace Cursol;
 
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
@@ -79,35 +78,35 @@ void TitleScene::Render()
 
 	switch (m_pCursol->m_CursolPos)
 	{
-	case START:
-		m_StartSize.scale_x = 130.f;
-		m_StartSize.scale_y = 80.f;
+	case Cursol::START:
+		m_StartSize.scale_x = m_SelectedObjectScale_x;
+		m_StartSize.scale_y = m_SelectedObjectScale_y;
 
-		m_SettingSize.scale_x = 100.f;
-		m_SettingSize.scale_y = 50.f;
+		m_SettingSize.scale_x = m_NotSelectedObjectScale_x;
+		m_SettingSize.scale_y = m_NotSelectedObjectScale_y;
 
-		m_EndSize.scale_x = 100.f;
-		m_EndSize.scale_y = 50.f;
+		m_EndSize.scale_x = m_NotSelectedObjectScale_x;
+		m_EndSize.scale_y = m_NotSelectedObjectScale_y;
 		break;
-	case OPTION:
-		m_SettingSize.scale_x = 130.f;
-		m_SettingSize.scale_y = 80.f;
+	case Cursol::OPTION:
+		m_SettingSize.scale_x = m_SelectedObjectScale_x;
+		m_SettingSize.scale_y = m_SelectedObjectScale_y;
 
-		m_StartSize.scale_x = 100.f;
+		m_StartSize.scale_x = m_NotSelectedObjectScale_x;
+		m_StartSize.scale_y = m_NotSelectedObjectScale_y;
+
+		m_EndSize.scale_x = m_NotSelectedObjectScale_x;
+		m_EndSize.scale_y = m_NotSelectedObjectScale_y;
+		break;
+	case Cursol::END:
+		m_EndSize.scale_x = m_SelectedObjectScale_x;
+		m_EndSize.scale_y = m_SelectedObjectScale_y;
+
+		m_StartSize.scale_x = m_NotSelectedObjectScale_x;
 		m_StartSize.scale_y = 50.f;
 
-		m_EndSize.scale_x = 100.f;
-		m_EndSize.scale_y = 50.f;
-		break;
-	case END:
-		m_EndSize.scale_x = 130.f;
-		m_EndSize.scale_y = 80.f;
-
-		m_StartSize.scale_x = 100.f;
-		m_StartSize.scale_y = 50.f;
-
-		m_SettingSize.scale_x = 100.f;
-		m_SettingSize.scale_y = 50.f;
+		m_SettingSize.scale_x = m_NotSelectedObjectScale_x;
+		m_SettingSize.scale_y = m_NotSelectedObjectScale_y;
 		break;
 	}
 	CUSTOMVERTEX StartVertex[4];
