@@ -29,6 +29,7 @@ private:
 	void InitPosStageSelectNumber();
 	void InitStageImagekey();
 	void InitStageSelectNumberkey();
+	void ReceiveKeym_StageNumSet(int KeyState);
 
 	Scene* m_pScene = NULL;
 	
