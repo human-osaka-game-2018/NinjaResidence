@@ -29,9 +29,9 @@ private:
 	float m_NotSelectedObjectScale_y = 50.f;
 
 	CENTRAL_STATE m_Logo = {350,200,250,100};
-	CENTRAL_STATE m_StartSize   = {350,400,90,50};
-	CENTRAL_STATE m_SettingSize = {350,500,90,50};
-	CENTRAL_STATE m_EndSize     = {350,600,90,50};
+	CENTRAL_STATE m_Start   = {350,400,90,50};
+	CENTRAL_STATE m_Setting = {350,500,90,50};
+	CENTRAL_STATE m_End     = {350,600,90,50};
 	
 	int m_timecount = 0;
 	

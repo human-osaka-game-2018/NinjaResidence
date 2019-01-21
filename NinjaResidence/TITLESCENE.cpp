@@ -79,46 +79,46 @@ void TitleScene::Render()
 	switch (m_pCursol->m_CursolPos)
 	{
 	case Cursol::START:
-		m_StartSize.scale_x = m_SelectedObjectScale_x;
-		m_StartSize.scale_y = m_SelectedObjectScale_y;
+		m_Start.scale_x = m_SelectedObjectScale_x;
+		m_Start.scale_y = m_SelectedObjectScale_y;
 
-		m_SettingSize.scale_x = m_NotSelectedObjectScale_x;
-		m_SettingSize.scale_y = m_NotSelectedObjectScale_y;
+		m_Setting.scale_x = m_NotSelectedObjectScale_x;
+		m_Setting.scale_y = m_NotSelectedObjectScale_y;
 
-		m_EndSize.scale_x = m_NotSelectedObjectScale_x;
-		m_EndSize.scale_y = m_NotSelectedObjectScale_y;
+		m_End.scale_x = m_NotSelectedObjectScale_x;
+		m_End.scale_y = m_NotSelectedObjectScale_y;
 		break;
 	case Cursol::OPTION:
-		m_SettingSize.scale_x = m_SelectedObjectScale_x;
-		m_SettingSize.scale_y = m_SelectedObjectScale_y;
+		m_Setting.scale_x = m_SelectedObjectScale_x;
+		m_Setting.scale_y = m_SelectedObjectScale_y;
 
-		m_StartSize.scale_x = m_NotSelectedObjectScale_x;
-		m_StartSize.scale_y = m_NotSelectedObjectScale_y;
+		m_Start.scale_x = m_NotSelectedObjectScale_x;
+		m_Start.scale_y = m_NotSelectedObjectScale_y;
 
-		m_EndSize.scale_x = m_NotSelectedObjectScale_x;
-		m_EndSize.scale_y = m_NotSelectedObjectScale_y;
+		m_End.scale_x = m_NotSelectedObjectScale_x;
+		m_End.scale_y = m_NotSelectedObjectScale_y;
 		break;
 	case Cursol::END:
-		m_EndSize.scale_x = m_SelectedObjectScale_x;
-		m_EndSize.scale_y = m_SelectedObjectScale_y;
+		m_End.scale_x = m_SelectedObjectScale_x;
+		m_End.scale_y = m_SelectedObjectScale_y;
 
-		m_StartSize.scale_x = m_NotSelectedObjectScale_x;
-		m_StartSize.scale_y = 50.f;
+		m_Start.scale_x = m_NotSelectedObjectScale_x;
+		m_Start.scale_y = 50.f;
 
-		m_SettingSize.scale_x = m_NotSelectedObjectScale_x;
-		m_SettingSize.scale_y = m_NotSelectedObjectScale_y;
+		m_Setting.scale_x = m_NotSelectedObjectScale_x;
+		m_Setting.scale_y = m_NotSelectedObjectScale_y;
 		break;
 	}
 	CUSTOMVERTEX StartVertex[4];
-	CreateSquareVertex(StartVertex, m_StartSize);
+	CreateSquareVertex(StartVertex, m_Start);
 	m_pDirectX->DrawTexture("TITLE_MENU_START_TEX", StartVertex);
 
 	CUSTOMVERTEX SettingVertex[4];
-	CreateSquareVertex(SettingVertex, m_SettingSize);
+	CreateSquareVertex(SettingVertex, m_Setting);
 	m_pDirectX->DrawTexture("TITLE_MENU_SETTING_TEX", SettingVertex);
 
 	CUSTOMVERTEX EndVertex[4];
-	CreateSquareVertex(EndVertex, m_EndSize);
+	CreateSquareVertex(EndVertex, m_End);
 	m_pDirectX->DrawTexture("TITLE_MENU_END_TEX", EndVertex);
 }
 
