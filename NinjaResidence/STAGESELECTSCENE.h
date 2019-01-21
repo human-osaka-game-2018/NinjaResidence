@@ -58,8 +58,6 @@ private:
 	CENTRAL_STATE m_StageImage[6];
 	CENTRAL_STATE m_StageSelectNumber[6];
 	CENTRAL_STATE m_StageFrame = { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 2,270.f,270.f };
-	std::string m_CursolImagekey;
-	std::string m_BackImagekey;
 	std::string m_StageImagekey[6];
 	std::string m_StageSelectNumberkey[6];
 };

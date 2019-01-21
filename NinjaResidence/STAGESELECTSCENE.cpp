@@ -12,10 +12,8 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 	m_SelectCursol = { 450.f,210.f,140.f,100.f};
-	m_CursolImagekey = "Kunai_TEX";
 
 	m_StageSelectBack =  {120.f,70.f,80.f,50.f};
-	m_BackImagekey = "StagexSelectBack_TEX";
 
 	//初期値を決まる関数
 	InitPosStageImage();
@@ -347,11 +345,11 @@ void StageSelectScene::Render()
 
 	CUSTOMVERTEX BackImage[4];
 	CreateSquareVertex(BackImage, m_StageSelectBack);
-	m_pDirectX->DrawTexture(m_BackImagekey, BackImage);
+	m_pDirectX->DrawTexture("StagexSelectBack_TEX", BackImage);
 
 	CUSTOMVERTEX CursolImage[4];
 	CreateSquareVertex(CursolImage, m_SelectCursol);
-	m_pDirectX->DrawTexture(m_CursolImagekey, CursolImage);
+	m_pDirectX->DrawTexture("Kunai_TEX", CursolImage);
 
 }
 
