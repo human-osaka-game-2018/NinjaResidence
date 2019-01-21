@@ -34,9 +34,6 @@ private:
 	
 	int m_timecount = 0;
 	
-	float m_SelectCursolPosX;
-	float m_SelectCursolPosY;
-	
 	//ステージ選択時のクナイ（カーソル）の移動量
 	const float KUNAI_MOVEMENT_X = 650.f;
 	const float KUNAI_MOVEMENT_Y = 200.f;

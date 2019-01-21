@@ -11,9 +11,7 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
-	m_SelectCursolPosX = 450.f;
-	m_SelectCursolPosY = 210.f;
-	m_SelectCursol = { m_SelectCursolPosX,m_SelectCursolPosY,140,100};
+	m_SelectCursol = { 450.f,210.f,140.f,100.f};
 	m_CursolImagekey = "Kunai_TEX";
 
 	m_StageSelectBack =  {120.f,70.f,80.f,50.f};
