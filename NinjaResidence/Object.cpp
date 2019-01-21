@@ -57,11 +57,6 @@ void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 }
 
 
-void Object::Render(bool MapDataReverse)
-{
-}
-
-
 void Object::CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { Central.x - Central.scale_x, Central.y - Central.scale_y, 1.f, 1.f, color, tu, tv };
 	Vertex[1] = { Central.x + Central.scale_x, Central.y - Central.scale_y, 1.f, 1.f, color, tu + scaleTu, tv };

@@ -75,7 +75,6 @@ int SceneManager::Update()
 	}
 	if (!isThreadActive) {
 		m_NextScene = m_pScene->Update();
-		//m_NextScene = m_pScene->GetNextScene();
 	}
 	else LoadAction();
 
