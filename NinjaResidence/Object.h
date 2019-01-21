@@ -184,7 +184,7 @@ protected:
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 
-	static std::vector<BlockInfo> m_ReversePointVector;
+	static std::vector<BlockInfo> m_ReversePoint;
 	static std::vector<MapScrollBuffer> m_ReverseBuffer;
 	static int m_ReverseCount;
 	//! ディスプレイ上のキャラの矩形

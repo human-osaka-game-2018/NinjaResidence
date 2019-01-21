@@ -91,14 +91,14 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					m_ReversePointVector.push_back(block);
+					m_ReversePoint.push_back(block);
 					m_ReverseCount++;
 				}
 				else if (blocktype == ROCK_REVERSE_ZONE)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					m_ReversePointVector.push_back(block);
+					m_ReversePoint.push_back(block);
 					m_ReverseCount++;
 				}
 
@@ -270,6 +270,13 @@ void MapChip::Render()
 					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
 					break;
 				case GOAL_ZONE:
+					CELL[0].x -= CELL_SIZE * 0.5f;
+					CELL[0].y -= CELL_SIZE * 0.5f;
+					CELL[1].x += CELL_SIZE * 0.5f;
+					CELL[1].y -= CELL_SIZE * 0.5f;
+					CELL[2].x += CELL_SIZE * 0.5f;
+					CELL[3].x -= CELL_SIZE * 0.5f;
+
 					CELL[0].tu = BLOCK_INTEGRATION_WIDTH;
 					CELL[3].tu = BLOCK_INTEGRATION_WIDTH;
 					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 2.f;

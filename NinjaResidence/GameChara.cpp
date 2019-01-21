@@ -286,12 +286,12 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	int ScrollYBuf = 0;
 	int ScrollBehindX = 0;
 	int ScrollBehindY = 0;
-	for (unsigned int i = 0; i < m_ReversePointVector.size(); ++i) {
-		bool isSameMapState = m_ReversePointVector[i].MapDataState == MapState;
-		bool isSamePair = PairNumber == m_ReversePointVector[i].PairNumber;
+	for (unsigned int i = 0; i < m_ReversePoint.size(); ++i) {
+		bool isSameMapState = m_ReversePoint[i].MapDataState == MapState;
+		bool isSamePair = PairNumber == m_ReversePoint[i].PairNumber;
 		if (isSameMapState && isSamePair) {
-			BlockY = m_ReversePointVector[i].PositionY;
-			BlockX = m_ReversePointVector[i].PositionX;
+			BlockY = m_ReversePoint[i].PositionY;
+			BlockX = m_ReversePoint[i].PositionX;
 			break;
 		}
 	}
@@ -442,7 +442,7 @@ bool GameChara::Update()
 	ThrowAnime();
 	m_MapLeftDirectionPosition = static_cast<int>(m_WorldCoordinate[3].x / CELL_SIZE);
 	m_MapRightDirectionPosition = static_cast<int>((m_WorldCoordinate[2].x) / CELL_SIZE);
-	m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y + 10) / CELL_SIZE);
+	m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y + 10.f) / CELL_SIZE);
 	if (m_MapPositionY >= m_colunm) {
 		m_MapPositionY = m_colunm - 1;
 	}
@@ -450,10 +450,10 @@ bool GameChara::Update()
 	AddGravity();
 	SideCollision();
 	if (!(m_isInTheAir = !SetGround()) && TopCollision()) {
-		m_WorldCoordinate[0].y = m_PrevMapCharaPositionY + 10 - m_Central.y;
-		m_WorldCoordinate[1].y = m_PrevMapCharaPositionY + 10 - m_Central.y;
-		m_WorldCoordinate[2].y = m_PrevMapCharaPositionY + 10;
-		m_WorldCoordinate[3].y = m_PrevMapCharaPositionY + 10;
+		m_WorldCoordinate[0].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f - m_Central.y;
+		m_WorldCoordinate[1].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f - m_Central.y;
+		m_WorldCoordinate[2].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f;
+		m_WorldCoordinate[3].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f;
 		SideCollision();
 	}
 
