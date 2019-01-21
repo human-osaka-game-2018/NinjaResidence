@@ -128,17 +128,17 @@ SCENE_NUM  StageSelectScene::Update()
 		if (m_StageNum == Stage0)
 		{
 			m_StageNum = Stage1;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage2)
 		{
 			m_StageNum = Stage3;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage4)
 		{
 			m_StageNum = Stage5;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 	}
 	if (PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
@@ -146,17 +146,17 @@ SCENE_NUM  StageSelectScene::Update()
 		if (m_StageNum == Stage1)
 		{
 			m_StageNum = Stage0;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage3)
 		{
 			m_StageNum = Stage2;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage5)
 		{
 			m_StageNum = Stage4;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
@@ -164,17 +164,17 @@ SCENE_NUM  StageSelectScene::Update()
 		if (m_StageNum == Stage0)
 		{
 			m_StageNum = Stage1;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage2)
 		{
 			m_StageNum = Stage3;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage4)
 		{
 			m_StageNum = Stage5;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 	}
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
@@ -182,17 +182,17 @@ SCENE_NUM  StageSelectScene::Update()
 		if (m_StageNum == Stage1)
 		{
 			m_StageNum = Stage0;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage3)
 		{
 			m_StageNum = Stage2;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage5)
 		{
 			m_StageNum = Stage4;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 	}
 
@@ -200,34 +200,34 @@ SCENE_NUM  StageSelectScene::Update()
 		if (m_StageNum == Stage0)
 		{
 			m_StageNum = Stage1;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage2)
 		{
 			m_StageNum = Stage3;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage4)
 		{
 			m_StageNum = Stage5;
-			m_SelectCursol.x += KUNAIMOVEMENTX;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT)) {
 		if (m_StageNum == Stage1)
 		{
 			m_StageNum = Stage0;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage3)
 		{
 			m_StageNum = Stage2;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 		if (m_StageNum == Stage5)
 		{
 			m_StageNum = Stage4;
-			m_SelectCursol.x -= KUNAIMOVEMENTX;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
 		}
 	}
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_UP)) {
@@ -235,7 +235,7 @@ SCENE_NUM  StageSelectScene::Update()
 		{
 			m_StageNum = StageTitle;
 			m_SelectCursol.y -= MOVEMENT_X_TO_BACK;
-			m_SelectCursol.x -= MOVEMENTYTOBACK;
+			m_SelectCursol.x -= MOVEMENT_Y_TO_BACK;
 		}
 		if (m_StageNum == Stage1)
 		{
@@ -291,7 +291,7 @@ SCENE_NUM  StageSelectScene::Update()
 		{
 			m_StageNum = Stage0;
 			m_SelectCursol.y += MOVEMENT_X_TO_BACK;
-			m_SelectCursol.x += MOVEMENTYTOBACK;
+			m_SelectCursol.x += MOVEMENT_Y_TO_BACK;
 		}
 	}
 	return GetNextScene();

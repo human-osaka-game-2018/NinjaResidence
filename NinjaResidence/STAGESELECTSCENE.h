@@ -38,11 +38,11 @@ private:
 	float m_SelectCursolPosY;
 	
 	//ステージ選択時のクナイ（カーソル）の移動量
-	const float KUNAIMOVEMENTX = 650.f;
+	const float KUNAI_MOVEMENT_X = 650.f;
 	const float KUNAI_MOVEMENT_Y = 200.f;
 	//戻るボタンに行き来するクナイの移動量
 	const float MOVEMENT_X_TO_BACK = 140.f;
-	const float MOVEMENTYTOBACK = 120.f;
+	const float MOVEMENT_Y_TO_BACK = 120.f;
 
 
 	enum m_StageNumber

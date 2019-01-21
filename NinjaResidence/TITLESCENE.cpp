@@ -26,6 +26,9 @@ TitleScene::~TitleScene()
 
 SCENE_NUM  TitleScene::Update()
 {
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TITLE")) {
+		bool buff = m_pSoundOperater->Start("TITLE", true);
+	}
 	m_pXinputDevice->DeviceUpdate();
 
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP))
@@ -131,7 +134,7 @@ void TitleScene::LoadResouce()
 
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
 	m_pDirectX->SetFont(100, 40, "MENU_FONT");
-	
+
 	m_pSoundOperater->AddFile("Sound/bgm/title_bgm.mp3", "TITLE", BGM);
 	m_pSoundOperater->AddFile("Sound/bgm/tutorial_BGM.mp3", "TUTORIAL", BGM);
 	m_pSoundOperater->AddFile("Sound/bgm/stage_bgm_1.mp3", "STAGE_1", BGM);
@@ -154,10 +157,12 @@ void TitleScene::LoadResouce()
 	m_pSoundOperater->AddFile("Sound/se/slash.mp3", "CUT_OFF", SE);
 	m_pSoundOperater->AddFile("Sound/se/switch.mp3", "TARGET_ACTIVE", SE);
 	m_pSoundOperater->AddFile("Sound/se/watershoes.mp3", "SET_DOWN_WATER", SE);
+}
 
 void TitleScene::ChoseMenu() {
 	switch (m_pCursol->getCursolPosition()) {
 	case Cursol::START:
+		m_pSoundOperater->Stop("TITLE");
 		SetNextScene(STAGESELECT_SCENE);
 		break;
 	case Cursol::OPTION:
@@ -166,7 +171,5 @@ void TitleScene::ChoseMenu() {
 	case Cursol::END:
 		EndGame();
 		break;
-
 	}
 }
-
