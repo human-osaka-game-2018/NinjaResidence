@@ -152,37 +152,19 @@ void StageSelectScene::Render()
 {
 	m_pDirectX->DrawTexture("SELECT_BG_TEX", m_BackgroundVertex);
 
-	CUSTOMVERTEX StageImage[4];
-
 	if (m_StageNum != 8) 	
 	{
-		for (int i = 0;i <= Stage5;i++)
-		{
-			CreateSquareVertex(StageImage, m_StageImage[i]);
-			m_pDirectX->DrawTexture(m_StageImagekey[i], StageImage);
-		}
-		
-	
-		for (int i = 0;i <= Stage5;i++)
-		{
-			CreateSquareVertex(StageImage, m_StageSelectNumber[i]);
-			m_pDirectX->DrawTexture(m_StageSelectNumberkey[i], StageImage);
-		}
-		//CreateSquareVertex(StageImage, m_StageFrame, 0xffffaa00);
-		//m_pDirectX->DrawTexture("TEX", StageImage);
+		RenderAllStage(m_StageImage, m_StageImagekey);
+		RenderAllStage(m_StageSelectNumber, m_StageSelectNumberkey);
 	}
 	else {
-		CreateSquareVertex(StageImage, m_StageImage[0]);
-		m_pDirectX->DrawTexture("StageImageD_TEX", StageImage);
+		r(*m_StageImage, "StageImageD_TEX");
 	}
 
-	CUSTOMVERTEX BackImage[4];
-	CreateSquareVertex(BackImage, m_StageSelectBack);
-	m_pDirectX->DrawTexture("StagexSelectBack_TEX", BackImage);
+	r(m_StageSelectBack, "StagexSelectBack_TEX");
 
-	CUSTOMVERTEX CursolImage[4];
-	CreateSquareVertex(CursolImage, m_SelectCursol);
-	m_pDirectX->DrawTexture("Kunai_TEX", CursolImage);
+	r(m_SelectCursol, "Kunai_TEX");
+	
 
 }
 
@@ -228,6 +210,29 @@ void StageSelectScene::TurnDownStageImage() {
 	//m_StageImagekey[1] = m_StageImagekey[0];
 	//m_StageImagekey[0] = Buf;
 }
+
+
+
+
+void StageSelectScene::RenderAllStage(CENTRAL_STATE CentralState[6], std::string TextureKey[6])
+{
+	for (int i = 0;i <= Stage5;i++)
+	{
+		r(CentralState[i], TextureKey[i]);
+	}
+}
+
+
+void StageSelectScene::r(const CENTRAL_STATE& CentralState, std::string TextureKey)//ポインタか参照で引数をもらう様にする
+{
+	CUSTOMVERTEX StageImage[4];
+	CreateSquareVertex(StageImage, CentralState);
+	m_pDirectX->DrawTexture(TextureKey, StageImage);
+}
+
+
+
+
 
 void StageSelectScene::ReceiveKeym_StageNumSet(int KeyState)
 {
@@ -326,4 +331,3 @@ void StageSelectScene::ReceiveKeym_StageNumSet(int KeyState)
 		break;
 	}
 }
-

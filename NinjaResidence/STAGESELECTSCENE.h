@@ -29,6 +29,8 @@ private:
 	void InitPosStageSelectNumber();
 	void InitStageImagekey();
 	void InitStageSelectNumberkey();
+	void RenderAllStage(CENTRAL_STATE CentralState[6], std::string TextureKey[6]);
+	void r(const CENTRAL_STATE& CentralState, std::string TextureKey);
 	void ReceiveKeym_StageNumSet(int KeyState);
 
 	Scene* m_pScene = NULL;
