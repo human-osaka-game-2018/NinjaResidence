@@ -208,13 +208,6 @@ void GameScene::KeyOperation() {
 	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB)) {
 
 	}
-	
-	//音声のテスト用処理を呼ぶ
-	//if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
-	//{
-	//	m_pGameChara->DebugMove();
-	//}
-
 }
 void GameScene::NotPushedAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_W)) {
@@ -237,7 +230,6 @@ void GameScene::NotPushedAnyButton() {
 	{
 		return;
 	}
-
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
 		return;
@@ -295,12 +287,14 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
+#ifdef _DEBUG
+	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
+#endif
 	m_pDirectX->LoadTexture("texture/BG_A.jpg", "GAME_SURFACE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/BG_B.jpg", "GAME_REVERSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/Pause_BG.jpg", "PAUSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
-	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");

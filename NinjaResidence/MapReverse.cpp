@@ -28,8 +28,6 @@ bool MapReverse::collisonReversePoint(int x, int y, Object* pBusyMapChip) {
 			m_ReversePoint[i].MapDataState == (Buff = (*pBusyMapChip).GetMapDataState())) {
 
 			m_ReversePair = m_ReversePoint[i].PairNumber;
-			//m_ReverseBuffer[i].ScrollX = m_MapScrollX;
-			//m_ReverseBuffer[i].ScrollY = m_MapScrollY;
 			m_ActiveReversePointNum = i;
 			return true;
 		}
@@ -65,13 +63,6 @@ void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 				m_MapScrollY = m_ReverseBuffer[i].ScrollY;
 			}
 		}
-
-		//int Bufx = m_MapScrollX;
-		//int Bufy = m_MapScrollY;
-		//m_MapScrollX = MapScrollXBuf;
-		//m_MapScrollY = MapScrollYBuf;
-		//MapScrollXBuf = Bufx;
-		//MapScrollYBuf = Bufy;
 
 		Object* Mapbuf;
 		Mapbuf = (*pBusyMapChip);

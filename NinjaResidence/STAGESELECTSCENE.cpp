@@ -110,7 +110,7 @@ SCENE_NUM  StageSelectScene::Update()
 	}
 	
 
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RIGHT)||PadPush == m_pXinputDevice->GetButton(ButtonRIGHT)|| m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RIGHT)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_D) || PadPush == m_pXinputDevice->GetButton(ButtonRIGHT)|| m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
 	{
 		if (m_StageNum == Stage0)
 		{
@@ -128,7 +128,7 @@ SCENE_NUM  StageSelectScene::Update()
 			m_SelectCursol.x += KUNAI_MOVEMENT_X;
 		}
 	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_LEFT)||PadPush == m_pXinputDevice->GetButton(ButtonLEFT)|| m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_LEFT)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_A) || PadPush == m_pXinputDevice->GetButton(ButtonLEFT)|| m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
 		if (m_StageNum == Stage1)
 		{
@@ -147,7 +147,7 @@ SCENE_NUM  StageSelectScene::Update()
 		}
 	}
 
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP) || PadPush == m_pXinputDevice->GetButton(ButtonUP) || m_pXinputDevice->GetAnalogL(ANALOGUP)) {
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP) || KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonUP) || m_pXinputDevice->GetAnalogL(ANALOGUP)) {
 		if (m_StageNum == Stage0)
 		{
 			m_StageNum = StageTitle;
@@ -181,9 +181,8 @@ SCENE_NUM  StageSelectScene::Update()
 			m_StageNum = Stage3;
 			m_SelectCursol.y -= KUNAI_MOVEMENT_Y;
 		}
-
 	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN) || PadPush == m_pXinputDevice->GetButton(ButtonDOWN) || m_pXinputDevice->GetAnalogL(ANALOGDOWN)) {
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN) || KeyPush == m_pDirectX->GetKeyStatus(DIK_S) || PadPush == m_pXinputDevice->GetButton(ButtonDOWN) || m_pXinputDevice->GetAnalogL(ANALOGDOWN)) {
 		if (m_StageNum == Stage3)
 		{
 			m_StageNum = Stage5;
