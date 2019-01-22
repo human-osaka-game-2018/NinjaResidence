@@ -6,7 +6,7 @@
 #include "SCENE.h"
 #include "BlockInfo.h"
 
-int Scene::m_StageNum = 7;
+int Scene::m_StageNum = 8;
 bool Scene::m_SoundSetting = false;
 Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {

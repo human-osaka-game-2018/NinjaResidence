@@ -7,6 +7,7 @@
 #include "TITLESCENE.h"
 #include "TitleCursol.h"
 
+
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX,pSoundOperater)
 {
 	m_pScene = this;
@@ -24,6 +25,9 @@ TitleScene::~TitleScene()
 
 SCENE_NUM  TitleScene::Update()
 {
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TITLE")) {
+		bool buff = m_pSoundOperater->Start("TITLE", true);
+	}
 	m_pXinputDevice->DeviceUpdate();
 
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP))
@@ -50,7 +54,6 @@ SCENE_NUM  TitleScene::Update()
 	{
 		m_pCursol->KeyOperation(DOWN);
 	}
-
 	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
 		ChoseMenu();
 	}
@@ -73,22 +76,63 @@ void TitleScene::Render()
 
 	m_pCursol->Render();
 
-	CUSTOMVERTEX MenuVertex[4];
-	CreateSquareVertex(MenuVertex, m_Menu);
-	m_pDirectX->DrawTexture("MENU_TEX", MenuVertex);
+	switch (m_pCursol->GetCursolPos())
+	{
+	case Cursol::START:
+		m_Start.scale_x = m_SelectedObjectScale_x;
+		m_Start.scale_y = m_SelectedObjectScale_y;
 
+		m_Setting.scale_x = m_NotSelectedObjectScale_x;
+		m_Setting.scale_y = m_NotSelectedObjectScale_y;
+
+		m_End.scale_x = m_NotSelectedObjectScale_x;
+		m_End.scale_y = m_NotSelectedObjectScale_y;
+		break;
+	case Cursol::OPTION:
+		m_Setting.scale_x = m_SelectedObjectScale_x;
+		m_Setting.scale_y = m_SelectedObjectScale_y;
+
+		m_Start.scale_x = m_NotSelectedObjectScale_x;
+		m_Start.scale_y = m_NotSelectedObjectScale_y;
+
+		m_End.scale_x = m_NotSelectedObjectScale_x;
+		m_End.scale_y = m_NotSelectedObjectScale_y;
+		break;
+	case Cursol::END:
+		m_End.scale_x = m_SelectedObjectScale_x;
+		m_End.scale_y = m_SelectedObjectScale_y;
+
+		m_Start.scale_x = m_NotSelectedObjectScale_x;
+		m_Start.scale_y = 50.f;
+
+		m_Setting.scale_x = m_NotSelectedObjectScale_x;
+		m_Setting.scale_y = m_NotSelectedObjectScale_y;
+		break;
+	}
+	CUSTOMVERTEX StartVertex[4];
+	CreateSquareVertex(StartVertex, m_Start);
+	m_pDirectX->DrawTexture("TITLE_MENU_START_TEX", StartVertex);
+
+	CUSTOMVERTEX SettingVertex[4];
+	CreateSquareVertex(SettingVertex, m_Setting);
+	m_pDirectX->DrawTexture("TITLE_MENU_SETTING_TEX", SettingVertex);
+
+	CUSTOMVERTEX EndVertex[4];
+	CreateSquareVertex(EndVertex, m_End);
+	m_pDirectX->DrawTexture("TITLE_MENU_END_TEX", EndVertex);
 }
 
 void TitleScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/Kunai.png", "CURSOL_TEX");
 	m_pDirectX->LoadTexture("texture/TitleLogo.png", "LOGO_TEX");
-	m_pDirectX->LoadTexture("texture/Titlemenu.png", "MENU_TEX");
+	m_pDirectX->LoadTexture("texture/Title_Start.png", "TITLE_MENU_START_TEX");
+	m_pDirectX->LoadTexture("texture/Title_Setting.png", "TITLE_MENU_SETTING_TEX");
+	m_pDirectX->LoadTexture("texture/Title_End.png", "TITLE_MENU_END_TEX");
 
 	m_pDirectX->LoadTexture("texture/Title_BG.jpg", "BACKGROUND_TEX");
 
 	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
-	m_pDirectX->SetFont(75, 40, "MENU_FONT");
+	m_pDirectX->SetFont(100, 40, "MENU_FONT");
 
 	m_pSoundOperater->AddFile("Sound/bgm/title_bgm.mp3", "TITLE", BGM);
 	m_pSoundOperater->AddFile("Sound/bgm/tutorial_BGM.mp3", "TUTORIAL", BGM);
@@ -112,11 +156,12 @@ void TitleScene::LoadResouce()
 	m_pSoundOperater->AddFile("Sound/se/slash.mp3", "CUT_OFF", SE);
 	m_pSoundOperater->AddFile("Sound/se/switch.mp3", "TARGET_ACTIVE", SE);
 	m_pSoundOperater->AddFile("Sound/se/watershoes.mp3", "SET_DOWN_WATER", SE);
-
 }
+
 void TitleScene::ChoseMenu() {
 	switch (m_pCursol->getCursolPosition()) {
 	case Cursol::START:
+		m_pSoundOperater->Stop("TITLE");
 		SetNextScene(STAGESELECT_SCENE);
 		break;
 	case Cursol::OPTION:
@@ -125,7 +170,5 @@ void TitleScene::ChoseMenu() {
 	case Cursol::END:
 		EndGame();
 		break;
-
 	}
 }
-

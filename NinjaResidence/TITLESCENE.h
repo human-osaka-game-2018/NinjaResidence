@@ -23,8 +23,15 @@ public:
 private:
 	Scene* m_pScene = NULL;
 	
-	CENTRAL_STATE m_Logo={ CENTRAL_X ,200,400,150 };
-	CENTRAL_STATE m_Menu = { CENTRAL_X ,500,100,100 };
+	float m_SelectedObjectScale_x = 130.f;
+	float m_SelectedObjectScale_y = 80.f;
+	float m_NotSelectedObjectScale_x = 100.f;
+	float m_NotSelectedObjectScale_y = 50.f;
+
+	CENTRAL_STATE m_Logo = {350,200,250,100};
+	CENTRAL_STATE m_Start   = {350,400,90,50};
+	CENTRAL_STATE m_Setting = {350,500,90,50};
+	CENTRAL_STATE m_End     = {350,600,90,50};
 	
 	int m_timecount = 0;
 	

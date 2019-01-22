@@ -144,8 +144,8 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
 	CENTRAL_STATE m_Central;
-	static int m_MapScrollX;
-	static int m_MapScrollY;
+	static float m_MapScrollX;
+	static float m_MapScrollY;
 
 	std::vector< std::vector<int> > MapData;
 	
