@@ -113,6 +113,8 @@ bool ClawShot::Update()
 	if (m_isChoseDeg) {
 		m_DirectionArrow.x = m_pGameChara->GetPositionX() + m_Direction * CELL_SIZE * 2;
 		m_DirectionArrow.y = m_pGameChara->GetPositionY();
+		RopeBatteryPosX = m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
+		RopeBatteryPosY = m_Central.y = m_pGameChara->GetPositionY();
 	}
 
 	if (!m_isActive) {
@@ -134,13 +136,19 @@ bool ClawShot::Update()
 	if (m_MapPositionY == 0 || m_Central.y < 0 || m_Central.y > DISPLAY_HEIGHT || m_MapPositionY >= m_colunm - 1) {
 		InitPosition();
 	}
-	int buf = 0;
-	if (buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
+	if (buf > 100)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE)
+	{
+		m_pSoundOperater->Start("CLAWSHOT", false);
+		InitPosition();
+	}
+
 	//if (CollisionRope()) {
 	//	m_pMapChip->Activate(m_ropeX, m_ropeY);
 
