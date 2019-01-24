@@ -224,9 +224,20 @@ int MapChip::GimmickMapDataCheck(int y, int x)
 
 void MapChip::Render()
 {
-	for (int j = 0; j < m_colunm;j++)
+	int TopCellPos = (m_MapScrollY * -1)/CELL_SIZE;
+	int LeftCellPos = (m_MapScrollX * -1) / CELL_SIZE;
+	int BottomCellPos = ((m_MapScrollY * -1) + DISPLAY_HEIGHT) / CELL_SIZE + 1;
+	int RightCellPos = ((m_MapScrollX * -1) + DISPLAY_WIDTH) / CELL_SIZE + 1;
+	if (BottomCellPos > m_colunm) {
+		BottomCellPos = m_colunm;
+	}
+	if (RightCellPos > m_row) {
+		RightCellPos = m_row;
+	}
+
+	for (int j = TopCellPos; j < BottomCellPos;j++)
 	{
-		for (int i = 0;i < m_row;i++)
+		for (int i = LeftCellPos;i < RightCellPos;i++)
 		{
 			if (MapData[j][i] == 0)
 			{
@@ -235,12 +246,6 @@ void MapChip::Render()
 			CellInit();
 			float top = FIELD_TOP + (CELL_SIZE * j) + static_cast<float>(m_MapScrollY);
 			float left = FIELD_LEFT + (CELL_SIZE * i) + static_cast<float>(m_MapScrollX);
-			if (top<-CELL_SIZE || top>DISPLAY_HEIGHT) {
-				continue;
-			}
-			if (left<-CELL_SIZE || left>DISPLAY_WIDTH) {
-				continue;
-			}
 
 			CELL[0].x = left;
 			CELL[0].y = top;
