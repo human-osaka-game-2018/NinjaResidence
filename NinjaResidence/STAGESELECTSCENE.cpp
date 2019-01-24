@@ -24,7 +24,6 @@ StageSelectScene::~StageSelectScene()
 void StageSelectScene::Initialize() {
 	InitPosStageImage();
 	InitPosStageSelectNumber();
-	InitStageImagekey();
 	InitStageSelectNumberkey();
 
 }
@@ -66,16 +65,6 @@ void StageSelectScene::InitPosStageSelectNumber()
 			m_StageSelectNumber[i].x = EvenNumPosX;
 		}
 	}
-}
-
-void StageSelectScene::InitStageImagekey()
-{
-	m_StageImagekey[0] = "STAGEIMAGET_TEX";
-	m_StageImagekey[1] = "STAGEIMAGE1_TEX";
-	m_StageImagekey[2] = "STAGEIMAGE2_TEX";
-	m_StageImagekey[3] = "STAGEIMAGE3_TEX";
-	m_StageImagekey[4] = "STAGEIMAGE4_TEX";
-	m_StageImagekey[5] = "STAGEIMAGE5_TEX";
 }
 
 
@@ -232,7 +221,7 @@ void StageSelectScene::Render()
 	if (m_StageNum != 8) 	{
 		for (int i = 0; i < 6; ++i) {
 			CreateSquareVertex(StageImage, m_StageImage[i]);
-			m_pDirectX->DrawTexture(m_StageImagekey[i], StageImage);
+			m_pDirectX->DrawTexture("STAGEIMAGE_TEX", StageImage);
 
 			CreateSquareVertex(StageImage, m_StageSelectNumber[i]);
 			m_pDirectX->DrawTexture(m_StageSelectNumberkey[i], StageImage);
@@ -254,12 +243,7 @@ void StageSelectScene::Render()
 void StageSelectScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture("texture/SelectBG.png", "SELECT_BG_TEX");
-	m_pDirectX->LoadTexture("texture/StageImageT.png", "STAGEIMAGET_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage1.png", "STAGEIMAGE1_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage2.png", "STAGEIMAGE2_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage3.png", "STAGEIMAGE3_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage4.png", "STAGEIMAGE4_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage5.png", "STAGEIMAGE5_TEX");
+	m_pDirectX->LoadTexture("texture/StageImage.png", "STAGEIMAGE_TEX");
 	m_pDirectX->LoadTexture("texture/StageSelectNumberT.png", "STAGESELECTNUMBERT_TEX");
 	m_pDirectX->LoadTexture("texture/StageSelectNumber1.png", "STAGESELECTNUMBER1_TEX");
 	m_pDirectX->LoadTexture("texture/StageSelectNumber2.png", "STAGESELECTNUMBER2_TEX");

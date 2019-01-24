@@ -24,7 +24,6 @@ public:
 private:
 	void InitPosStageImage();
 	void InitPosStageSelectNumber();
-	void InitStageImagekey();
 	void InitStageSelectNumberkey();
 
 	Scene* m_pScene = NULL;
