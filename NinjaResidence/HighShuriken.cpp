@@ -4,19 +4,20 @@
 * @author Toshiya Matsuoka
 */
 #include "HighShuriken.h"
+#include "XinputDevice.h"
 
 
 
 using namespace PlayerAnimation;
 
-HighShuriken::HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
+HighShuriken::HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara, XinputDevice* pXinputDevice) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
 {
 	m_Central = { 500,0,20,20 };
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
 	m_row = m_pMapChip->GetRow();
 	m_colunm = m_pMapChip->GetColunm();
-
+	m_pXinputDevice = pXinputDevice;
 	m_SkillType = HIGH_SHURIKEN_ART;
 }
 
@@ -62,21 +63,29 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 		}
 		break;
 
-	case BIT_UP:
-		isOperation = true;
-		m_Central.y -= MoveSpeed;
+	case BIT_X_UP:
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_DOWN:
-		isOperation = true;
-		m_Central.y += MoveSpeed;
+	case BIT_X_DOWN:
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_LEFT:
-		isOperation = true;
-		m_Central.x -= MoveSpeed;
+	case BIT_X_LEFT:
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_RIGHT:
-		isOperation = true;
-		m_Central.x += MoveSpeed;
+	case BIT_X_RIGHT:
+		m_DirectionDeg = InputRightStickDeg();
+		break;
+	case BIT_D_UP:
+		m_DirectionDeg = 90.f;
+		break;
+	case BIT_D_DOWN:
+		m_DirectionDeg = 270.f;
+		break;
+	case BIT_D_LEFT:
+		m_DirectionDeg = 180.f;
+		break;
+	case BIT_D_RIGHT:
+		m_DirectionDeg = 0.f;
 		break;
 	case END_ART:
 		InitPosition();
@@ -138,10 +147,8 @@ bool HighShuriken::Update()
 	}
 	PrevMapScrollX -= m_MapScrollX;
 	PrevMapScrollY -= m_MapScrollY;
-	if (!isOperation) {
 		m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
 		m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
-	}
 	m_MapPositionX = static_cast<int>((m_Central.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Central.y - m_MapScrollY) / CELL_SIZE);
 
@@ -171,6 +178,13 @@ bool HighShuriken::Update()
 
 void HighShuriken::Render()
 {
+#ifdef _DEBUG
+	RECT testName = { 0, 100, 1250, 720 };
+	char TestName[ARRAY_LONG];
+	sprintf_s(TestName, ARRAY_LONG, "\nDirectionDeg::%.2f", m_DirectionDeg);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
+#endif
+
 	static int rad = 0;
 	if (!m_isChoseDeg && !m_isActive) {
 		return;
@@ -189,9 +203,21 @@ void HighShuriken::Render()
 		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ShurikenVertex);
 	}
+
 }
 
 void HighShuriken::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
 	InitPosition();
+}
+
+float HighShuriken::InputRightStickDeg() {
+	int XaxisValue = m_pXinputDevice->GetAnalogRValue(ANALOG_X);
+	int YaxisValue = m_pXinputDevice->GetAnalogRValue(ANALOG_Y);
+	if (XaxisValue == 0 && YaxisValue == 0) { 
+		return 0.f;
+	}
+	float Rad = static_cast<float>(std::atan2(YaxisValue, XaxisValue));
+	static float Deg = 0;
+	return Deg = RadToDeg(Rad);
 }

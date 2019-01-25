@@ -25,10 +25,14 @@ enum KeyDirection
 	THROW,
 	FIRE,
 	END_ART,
-	BIT_UP,
-	BIT_DOWN,
-	BIT_RIGHT,
-	BIT_LEFT,
+	BIT_X_UP,
+	BIT_X_DOWN,
+	BIT_X_RIGHT,
+	BIT_X_LEFT,
+	BIT_D_UP,
+	BIT_D_DOWN,
+	BIT_D_RIGHT,
+	BIT_D_LEFT,
 	SoundOn,
 };
 struct MapScrollBuffer {
@@ -133,6 +137,10 @@ public:
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
+	float RadToDeg(float rad) {
+		return rad * ( 180/ D3DX_PI);
+	}
+
 	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 3;}
 	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 3;}
 

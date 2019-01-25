@@ -22,7 +22,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 
 
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
-	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara, m_pXinputDevice);
 	m_pFireArt = new FireArt(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_pClawShot =new ClawShot(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 
@@ -170,21 +170,37 @@ void GameScene::KeyOperation() {
 	{
 		TransePause();
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_J) || m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
 	{
-		SkillKeyOperation(BIT_LEFT);
+		SkillKeyOperation(BIT_X_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_L) || m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
+	else if (m_pDirectX->GetKeyStatus(DIK_J))
 	{
-		SkillKeyOperation(BIT_RIGHT);
+		SkillKeyOperation(BIT_D_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_I) || m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGLEFT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
 	{
-		SkillKeyOperation(BIT_UP);
+		SkillKeyOperation(BIT_X_RIGHT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_K) || m_pXinputDevice->GetAnalogRState(ANALOGDOWN))
+	else if (m_pDirectX->GetKeyStatus(DIK_L))
 	{
-		SkillKeyOperation(BIT_DOWN);
+		SkillKeyOperation(BIT_D_RIGHT);
+	}
+	if ( PadPush == m_pXinputDevice->GetAnalogRState(ANALOGUP) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	{
+		SkillKeyOperation(BIT_X_UP);
+	}
+	else if (m_pDirectX->GetKeyStatus(DIK_I))
+	{
+		SkillKeyOperation(BIT_D_UP);
+	}
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGDOWN) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGDOWN))
+	{
+		SkillKeyOperation(BIT_X_DOWN);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_K))
+	{
+		SkillKeyOperation(BIT_D_DOWN);
 	}
 
 	//マップ動作
