@@ -34,6 +34,8 @@ enum KeyDirection
 	BIT_D_DOWN,
 	BIT_D_RIGHT,
 	BIT_D_LEFT,
+	MAP_RIGHT,
+	MAP_LEFT,
 	SoundOn,
 };
 struct MapScrollBuffer {

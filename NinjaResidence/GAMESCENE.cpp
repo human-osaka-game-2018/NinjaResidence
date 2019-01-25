@@ -17,6 +17,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
 	m_pBusyMapChip->Create(StageFilePath_surface, SURFACE);
 	m_pIdleMapChip->Create(StageFilePath_reverse,REVERSE);
+	
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 
@@ -221,23 +222,6 @@ void GameScene::KeyOperation() {
 		m_pGameChara->KeyOperation(MAP_RIGHT);
 	}
 
-	//マップ動作
-	//if (m_pDirectX->GetKeyStatus(DIK_W))
-	//{
-	//	m_pBusyMapChip->KeyOperation(UP);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_S))
-	//{
-	//	m_pBusyMapChip->KeyOperation(DOWN);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_A))
-	//{
-	//	m_pBusyMapChip->KeyOperation(LEFT);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_D))
-	//{
-	//	m_pBusyMapChip->KeyOperation(RIGHT);
-	//}
 	//テスト用処理
 	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRightThumb)) {
 

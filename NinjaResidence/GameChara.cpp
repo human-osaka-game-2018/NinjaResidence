@@ -253,6 +253,7 @@ void GameChara::KeyOperation(KeyDirection vec)
 		m_ChangeAnimation = FIREART;
 		m_isUsingArt = true;
 		m_isFire = true;
+		break;
 	case INERTIA:
 		m_isInertiaMoving = true;
 		break;
