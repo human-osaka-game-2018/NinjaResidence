@@ -35,7 +35,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 
 GameScene::~GameScene()
 {
-	m_pSoundOperater->Stop(m_BGMSoundKey);
+	m_pSoundOperater->AllStop();
 
 	delete m_pBusyMapChip;
 	m_pBusyMapChip = NULL;
@@ -114,15 +114,25 @@ void GameScene::KeyOperation() {
 	{
 		m_pGameChara->KeyOperation(JUMP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_A) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
+
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_A) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
 	{
 		m_pGameChara->KeyOperation(MOVE_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_D) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
+	else if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_A) || PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
+	{
+		m_pGameChara->KeyOperation(INERTIA);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_D) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
 	{
 		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush== m_pXinputDevice->GetButton(ButtonB))
+	else if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_D) || PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
+	{
+		m_pGameChara->KeyOperation(INERTIA);
+	}
+
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush == m_pXinputDevice->GetButton(ButtonB))
 	{
 		SkillStart();
 	}
@@ -186,7 +196,7 @@ void GameScene::KeyOperation() {
 	{
 		SkillKeyOperation(BIT_D_RIGHT);
 	}
-	if ( PadPush == m_pXinputDevice->GetAnalogRState(ANALOGUP) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGUP) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGUP))
 	{
 		SkillKeyOperation(BIT_X_UP);
 	}
@@ -201,6 +211,14 @@ void GameScene::KeyOperation() {
 	if (m_pDirectX->GetKeyStatus(DIK_K))
 	{
 		SkillKeyOperation(BIT_D_DOWN);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_Z) || PadOn == m_pXinputDevice->GetButton(ButtonLB))
+	{
+		m_pGameChara->KeyOperation(MAP_LEFT);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_C) || PadOn == m_pXinputDevice->GetButton(ButtonRB))
+	{
+		m_pGameChara->KeyOperation(MAP_RIGHT);
 	}
 
 	//マップ動作
@@ -221,7 +239,7 @@ void GameScene::KeyOperation() {
 	//	m_pBusyMapChip->KeyOperation(RIGHT);
 	//}
 	//テスト用処理
-	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB)) {
+	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRightThumb)) {
 
 	}
 }

@@ -25,6 +25,7 @@ enum KeyDirection
 	THROW,
 	FIRE,
 	END_ART,
+	INERTIA,
 	BIT_X_UP,
 	BIT_X_DOWN,
 	BIT_X_RIGHT,

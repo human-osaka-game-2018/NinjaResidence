@@ -59,6 +59,7 @@ void GameChara::AccelarationControl() {
 
 }
 bool GameChara::PermitJumping() {
+	//壁ジャンプ判定の為
 	m_MapLeftDirectionPosition -= 1;
 	m_MapRightDirectionPosition += 1;
 	m_HeldOntoWallLeft = !LeftCollisionCheck(NONE) && (LeftCollisionCheck(START_ZONE) || !LeftCollisionCheck(START_ZONE));
@@ -85,8 +86,8 @@ void GameChara::Jump()
 		m_DisplayCoordinate[i].y -= m_AccelerationY;
 		m_WorldCoordinate[i].y -= m_AccelerationY;
 	}
-	TopCollision();
 	SideCollision();
+	TopCollision();
 
 	if (m_DisplayCoordinate[0].y < 0) {
 		m_WorldCoordinate[0].y = 0.1f;
@@ -96,7 +97,7 @@ void GameChara::Jump()
 		InitJumpParam();
 		return;
 	}
-	m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y + 10) / CELL_SIZE);
+	UpdateMapPos();
 	if (!m_isUsingArt) {
 		m_ChangeAnimation = JUMPING;
 	}
@@ -107,9 +108,9 @@ void GameChara::Jump()
 		m_TurnAnimation = 1.f;
 	}
 	if (m_RiseFlameTime < 15) {
+		JumpingLateralMotion();
 		m_RiseFlameTime++;
 		AccelarationControl();
-		JumpingLateralMotion();
 		return;
 	}
 	AnimeCount = 0;
@@ -120,6 +121,7 @@ void GameChara::Jump()
 void GameChara::JumpingLateralMotion() {
 
 	if (!m_isInTheAir) {
+		m_HeldOntoWallLeft = m_HeldOntoWallRight = false;
 		return;
 	}
 
@@ -153,7 +155,6 @@ void GameChara::JumpingLateralMotion() {
 
 void GameChara::MoveOperation(KeyDirection vec)
 {
-	static int AnimeCount = 0;
 	switch (vec)
 	{
 		//上に移動
@@ -169,60 +170,52 @@ void GameChara::MoveOperation(KeyDirection vec)
 		//右に移動
 		m_Facing = FACING_RIGHT;
 		m_DirectionBias = ZERO;
-		for (int i = 0;i < 4;i++)
-		{
-			m_WorldCoordinate[i].x += MOVE_SPEED;
-			m_DisplayCoordinate[i].x += MOVE_SPEED;
-		}
-		SideCollision();
-		if (m_isInTheAir) break;
-		if (m_ChangeAnimation == WATER_ART) {
-			m_TurnAnimation = 3.f;
-			break;
-		}
-		if (SoundLib::Playing != m_pSoundOperater->GetStatus("DASH")) {
-			m_pSoundOperater->Start("DASH");
-		}
-		m_ChangeAnimation = DASH;
-		++AnimeCount;
-		if (AnimeCount > 2) {
-			TurnTheAnimation(8);
-			AnimeCount = 0;
-		}
+		Dash();
 		break;
 	case MOVE_LEFT:
 		//左に移動
 		m_Facing = FACING_LEFT;
 		m_DirectionBias = ONE;
-		for (int i = 0;i < 4;i++)
-		{
-			m_WorldCoordinate[i].x -= MOVE_SPEED;
-			m_DisplayCoordinate[i].x -= MOVE_SPEED;
-		}
-		SideCollision();
-		if (m_isInTheAir) break;
-		if (m_ChangeAnimation == WATER_ART) {
-			m_TurnAnimation = 3.f;
-			break;
-		}
-		if (SoundLib::Playing != m_pSoundOperater->GetStatus("DASH")) {
-			m_pSoundOperater->Start("DASH");
-		}
-		m_ChangeAnimation = DASH;
-		++AnimeCount;
-		if (AnimeCount > 2) {
-			TurnTheAnimation(8);
-			AnimeCount = 0;
-		}
+		Dash();
+		break;
+	case INERTIA:
+		m_isInertiaMoving = true;
 		break;
 	}
 }
 
+void GameChara::Dash()
+{
+	static int AnimeCount = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		m_WorldCoordinate[i].x += MOVE_SPEED * static_cast<float>(m_Facing);
+		m_DisplayCoordinate[i].x += MOVE_SPEED * static_cast<float>(m_Facing);
+	}
+	SideCollision();
+	if (m_isInTheAir) return;
+	if (m_ChangeAnimation == WATER_ART) {
+		m_TurnAnimation = 3.f;
+		return;
+	}
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("DASH")) {
+		m_pSoundOperater->Start("DASH");
+	}
+	m_ChangeAnimation = DASH;
+	++AnimeCount;
+	if (AnimeCount > 2) {
+		TurnTheAnimation(8);
+		AnimeCount = 0;
+	}
+
+}
+
 void GameChara::PrevSaveMapPos()
 {
-	m_PrevMapLeftDirectionPosition = (int)m_WorldCoordinate[3].x;
-	m_PrevMapRightDirectionPosition = (int)m_WorldCoordinate[2].x;
-	m_PrevMapCharaPositionY = (int)m_WorldCoordinate[3].y + 10;
+	m_PrevMapLeftDirectionPosition = static_cast<int>(m_WorldCoordinate[3].x);
+	m_PrevMapRightDirectionPosition = static_cast<int>(m_WorldCoordinate[2].x);
+	m_PrevMapCharaPositionY = static_cast<int>(m_WorldCoordinate[3].y) + 10;
 }
 
 void GameChara::KeyOperation(KeyDirection vec)
@@ -260,6 +253,24 @@ void GameChara::KeyOperation(KeyDirection vec)
 		m_ChangeAnimation = FIREART;
 		m_isUsingArt = true;
 		m_isFire = true;
+	case INERTIA:
+		m_isInertiaMoving = true;
+		break;
+	case MAP_RIGHT:
+		//右にスクロール移動
+		//if (m_DisplayCoordinate[1].x < static_cast<float>(DisplayCharMoveScopeRight))
+		//{
+		//	m_MapScrollX -= 5;
+		//}
+		break;
+	case MAP_LEFT:
+		//if (m_DisplayCoordinate[0].x > static_cast<float>(DisplayCharMoveScopeLeft))
+		//{
+		//	m_MapScrollX += 5;
+		//	if (m_MapScrollX > 0) {
+		//		m_MapScrollX = 0;
+		//	}
+		//}
 		break;
 	}
 }
@@ -333,6 +344,7 @@ void GameChara::PositionSave(Object* MapChip, int PairNumber)
 	MapReversePointSearch(PairNumber,m_pMapChip->GetMapDataState());
 }
 
+
 void GameChara::UpdateMapPos()
 {
 	m_MapLeftDirectionPosition = static_cast<int>(m_WorldCoordinate[3].x / CELL_SIZE);
@@ -384,7 +396,7 @@ void GameChara::MapScrool()
 	//左にスクロール移動
 	if (m_DisplayCoordinate[0].x < static_cast<float>(DisplayCharMoveScopeLeft))
 	{
-		if (m_WorldCoordinate[0].x >= static_cast<float>(DisplayCharMoveScopeX))
+		if (m_WorldCoordinate[0].x >= static_cast<float>(DisplayCharMoveScopeX) || (m_WorldCoordinate[1].x<0))
 		{
 			m_DisplayCoordinate[0].x = (static_cast<float>(DisplayCharMoveScopeLeft));
 			m_DisplayCoordinate[1].x = (static_cast<float>(DisplayCharMoveScopeLeft) + m_Central.scale_x);
@@ -465,9 +477,12 @@ bool GameChara::Update()
 		m_WorldCoordinate[3].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f;
 		SideCollision();
 	}
-
+	if (m_isInertiaMoving) {
+		MoveInertia();
+	}
 	if (!m_CollisionHead) {
 		Jump();
+		MapScrool();
 		TopCollision();
 		SideCollision();
 		SetGround();
@@ -742,7 +757,7 @@ bool GameChara::SetGround() {
 		m_ChangeAnimation = JUMPING;
 		m_TurnAnimation = 5.f;
 	}
-	else  if (m_isJump && !m_isUsingArt) {
+	else if (m_isJump && !m_isUsingArt) {
 		m_ChangeAnimation = JUMPING;
 	}
 
@@ -752,7 +767,7 @@ bool GameChara::SetGround() {
 bool GameChara::TopCollision() {
 	if (m_PrevMapCharaPositionY > m_WorldCoordinate[3].y + 10)
 	{
-		m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y) / CELL_SIZE);
+		UpdateMapPos();
 
 		if (TopCollisionAnything())
 		{
@@ -828,5 +843,26 @@ void GameChara::SideCollision() {
 	{
 		while (RightCollision());
 	}
+	UpdateMapPos();
+}
 
+void GameChara::MoveInertia() {
+	static int InertiaTime = 0;
+	int InertiaTimeMax = 10;
+	if (!m_isJump) {
+		++InertiaTime;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		m_WorldCoordinate[i].x += MOVE_SPEED * static_cast<float>(m_Facing);
+		m_DisplayCoordinate[i].x += MOVE_SPEED * static_cast<float>(m_Facing);
+	}
+	SideCollision();
+	if (!m_isInTheAir) {
+		InertiaTimeMax = 5;
+	}
+	if (InertiaTime > InertiaTimeMax) {
+		m_isInertiaMoving = false;
+		InertiaTime = 0;
+	}
 }

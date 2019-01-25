@@ -9,6 +9,7 @@
 #include "MapChip.h"
 
 class SkillBase;
+class XinputDevice;
 
 class HighShuriken :public SkillBase
 {
@@ -24,15 +25,17 @@ public:
 	void Render();
 	void Reverse(Object* MapChip);
 
+	float InputRightStickDeg();
 
-	HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara);
+
+	HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara, XinputDevice* pXinputDevice);
 	~HighShuriken();
 	bool GetActive() { return m_isActive; };
 private:
 	CENTRAL_STATE m_DirectionArrow = { 500,0,100,20 };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
-
+	XinputDevice* m_pXinputDevice = NULL;
 	bool CollisionRope();
 	const float MoveSpeed = 10.f;
 	void InitPosition();

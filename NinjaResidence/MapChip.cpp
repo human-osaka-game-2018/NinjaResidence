@@ -224,10 +224,10 @@ int MapChip::GimmickMapDataCheck(int y, int x)
 
 void MapChip::Render()
 {
-	int TopCellPos = (m_MapScrollY * -1)/CELL_SIZE;
-	int LeftCellPos = (m_MapScrollX * -1) / CELL_SIZE;
-	int BottomCellPos = ((m_MapScrollY * -1) + DISPLAY_HEIGHT) / CELL_SIZE + 1;
-	int RightCellPos = ((m_MapScrollX * -1) + DISPLAY_WIDTH) / CELL_SIZE + 1;
+	int TopCellPos = (m_MapScrollY * -1)/ static_cast<int>(CELL_SIZE);
+	int LeftCellPos = (m_MapScrollX * -1) / static_cast<int>(CELL_SIZE);
+	int BottomCellPos = ((m_MapScrollY * -1) + DISPLAY_HEIGHT) / static_cast<int>(CELL_SIZE) + 1;
+	int RightCellPos = ((m_MapScrollX * -1) + DISPLAY_WIDTH) / static_cast<int>(CELL_SIZE) + 1;
 	if (BottomCellPos > m_colunm) {
 		BottomCellPos = m_colunm;
 	}
@@ -331,6 +331,7 @@ bool MapChip::Update() {
 	}
 	return true;
 }
+
 
 void MapChip::CellInit() {
 	for (int i = 0; i < 4; i++) {

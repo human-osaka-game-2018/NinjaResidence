@@ -108,10 +108,12 @@ private:
 	int m_MapPositionY = 0;//キャラの上側のx座標
 	//! 毎フレームかける重力の値
 	const float GRAVITY = 15.f;
+	void Dash();
 	//! 移動量
 	const float MOVE_SPEED = 15.f;
 	const int VERTICAL_SCROLLING_LEVEL = 20;
 	const int ScrollSpeed = 15;
+
 	//m_DisplayCoordinateのY座標がこの値を下回ると上にスクロールする
 	const int DisplayCharMoveScopeUp = 100;
 	//m_DisplayCoordinateのY座標がこの値を超えると上にスクロールする
@@ -128,7 +130,7 @@ private:
 	*/
 	void MapScrool();
 
-
+	bool m_isInertiaMoving = false;
 	//void MoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber, MapDataState MapState);
 	//! 当たり判定描画用
@@ -167,7 +169,7 @@ private:
 	bool m_isJumpRight = false;
 	bool m_isJumpLeft = false;
 	bool m_isUsingArt = false;
-	const float InitialAcceleration = 60.0f;
+	const float InitialAcceleration = 50.0f;
 	float m_AccelerationY = InitialAcceleration;
 	float m_AccelerationX = MOVE_SPEED * 1.5f;
 
@@ -201,6 +203,7 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	void AccelarationControl();
+
 
 	/**
 	* @breaf 投擲アニメ処理
@@ -283,6 +286,8 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	void SideCollision();
+
+	void MoveInertia();
 
 
 	/**
