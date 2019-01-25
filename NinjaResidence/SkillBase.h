@@ -25,8 +25,8 @@ public:
 	virtual ~SkillBase();
 	bool GetActive() { return m_isActive; };
 protected:
-	Object * m_pMapChip = NULL;
-	GameChara * m_pGameChara = NULL;
+	Object* m_pMapChip = NULL;
+	GameChara* m_pGameChara = NULL;
 	bool m_isActive = false;
 	bool m_isChoseDeg = false;
 
@@ -39,6 +39,10 @@ protected:
 	//! キャラの向きの判別の為
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
+
+	int m_ropeX;
+	int m_ropeY;
+	bool CollisionRope();
 
 	void InitPosition() {};
 	SkillType m_SkillType;

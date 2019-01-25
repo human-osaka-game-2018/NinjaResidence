@@ -9,8 +9,6 @@ using namespace PlayerAnimation;
 ClawShot::ClawShot(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
 {
 	m_Central = { 500,0,25,25 };
-	m_pMapChip = MapChip;
-	m_pGameChara = GameChara;
 	m_row = m_pMapChip->GetRow();
 	m_colunm = m_pMapChip->GetColunm();
 
@@ -200,5 +198,8 @@ void ClawShot::Render()
 
 void ClawShot::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
+
 	InitPosition();
 }

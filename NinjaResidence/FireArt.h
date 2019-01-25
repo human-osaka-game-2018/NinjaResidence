@@ -39,8 +39,6 @@ private:
 	CENTRAL_STATE m_Fire = { 500,0,80,80 };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
-	Object* m_pMapChip = NULL;
-	GameChara * m_pGameChara = NULL;
 	bool m_isActive = false;
 	bool m_isChoseDeg = false;
 

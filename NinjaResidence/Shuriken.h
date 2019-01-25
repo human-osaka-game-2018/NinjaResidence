@@ -33,7 +33,6 @@ private:
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
 
-	bool CollisionRope();
 	const float MoveSpeed = 10.f;
 	void InitPosition();
 	/*

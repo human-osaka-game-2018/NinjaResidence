@@ -88,18 +88,6 @@ bool Shuriken::PermitActive() {
 
 	return false;
 }
-
-bool Shuriken::CollisionRope()
-{
-	CENTRAL_STATE RopeCentral = { 0 };
-	TranslateCentral_State(m_pMapChip->GetTargetPosition(BT_ROPE), &RopeCentral);
-
-	m_ropeX = static_cast<int>((RopeCentral.x - m_MapScrollX) / CELL_SIZE);
-	m_ropeY = static_cast<int>((RopeCentral.y - m_MapScrollY) / CELL_SIZE);
-	
-	return ContactSpecifyObject(&RopeCentral);
-}
-
 void Shuriken::InitPosition() {
 	m_isActive = false;
 	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
@@ -129,10 +117,15 @@ bool Shuriken::Update()
 	if (m_MapPositionY == 0 || m_Central.y < 0 || m_Central.y > DISPLAY_HEIGHT || m_MapPositionY >= m_colunm-1) {
 		InitPosition();
 	}
-	int buf = 0;
-	if (buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
+	if (buf > 100)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
+		InitPosition();
+	}
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE)
+	{
+		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
 	if (CollisionRope()) {
@@ -171,5 +164,7 @@ void Shuriken::Render()
 
 void Shuriken::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
 	InitPosition();
 }

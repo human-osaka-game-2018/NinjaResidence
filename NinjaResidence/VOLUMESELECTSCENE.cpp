@@ -9,6 +9,7 @@
 
 VOLUMESELECTSCENE::VOLUMESELECTSCENE(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
+
 	for (int i = 0; i < VolumeMaxNum; ++i) {
 		//! 仮画像のため仮置きの数字
 		m_BGMVolumeNum[i].y = 200;

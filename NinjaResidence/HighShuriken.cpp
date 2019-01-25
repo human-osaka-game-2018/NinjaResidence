@@ -97,6 +97,7 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 bool HighShuriken::PermitActive() {
 	if (!m_isChoseDeg && !m_isActive) {
 		m_isChoseDeg = true;
+		m_DirectionDeg = 0;
 		m_Direction = static_cast<float>(m_pGameChara->GetFacing());
 		return false;
 	}
@@ -115,24 +116,13 @@ bool HighShuriken::PermitActive() {
 	return false;
 }
 
-bool HighShuriken::CollisionRope()
-{
-	CENTRAL_STATE RopeCentral = { 0 };
-	TranslateCentral_State(m_pMapChip->GetTargetPosition(BT_ROPE), &RopeCentral);
-
-	m_ropeX = static_cast<int>((RopeCentral.x - m_MapScrollX) / CELL_SIZE);
-	m_ropeY = static_cast<int>((RopeCentral.y - m_MapScrollY) / CELL_SIZE);
-
-	return ContactSpecifyObject(&RopeCentral);
-}
 
 void HighShuriken::InitPosition() {
 	m_isActive = false;
-	
+	m_DirectionDeg = 0;
 
 	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
 	m_Central.y = m_pGameChara->GetPositionY();
-	m_DirectionDeg = 0;
 }
 
 bool HighShuriken::Update()
@@ -147,8 +137,8 @@ bool HighShuriken::Update()
 	}
 	PrevMapScrollX -= m_MapScrollX;
 	PrevMapScrollY -= m_MapScrollY;
-		m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
-		m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
+	m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
+	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
 	m_MapPositionX = static_cast<int>((m_Central.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Central.y - m_MapScrollY) / CELL_SIZE);
 
@@ -158,12 +148,18 @@ bool HighShuriken::Update()
 	if (m_MapPositionY == 0 || m_Central.y < 0 || m_Central.y > DISPLAY_HEIGHT || m_MapPositionY >= m_colunm - 1) {
 		InitPosition();
 	}
-	int buf = 0;
-	if (buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
+	if (buf > 100)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE)
+	{
+		m_pSoundOperater->Start("CLAWSHOT", false);
+		InitPosition();
+	}
+
 	if (CollisionRope()) {
 		m_pMapChip->Activate(m_ropeX, m_ropeY);
 
@@ -208,6 +204,8 @@ void HighShuriken::Render()
 
 void HighShuriken::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
 	InitPosition();
 }
 

@@ -10,8 +10,6 @@ using namespace PlayerAnimation;
 
 FireArt::FireArt(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater, MapChip,GameChara)
 {
-	m_pMapChip = MapChip;
-	m_pGameChara = GameChara;
 	m_SkillType = FIRE_ART;
 }
 
@@ -95,10 +93,18 @@ bool FireArt::Update()
 	}
 	int buf = 0;
 	for (int i = -1; i <7; ++i) {
-		if (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX + i * static_cast<int>(m_Direction)) > 100)
-		{
-			m_pMapChip->Activate(m_MapPositionX + i * static_cast<int>(m_Direction), m_MapPositionY);
+		int MapPosX = 0;
+		if (MapPosX = m_MapPositionX + i * static_cast<int>(m_Direction) < 0) {
+			MapPosX = 0;
 		}
+		if (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+		{
+			m_pMapChip->Activate(MapPosX, m_MapPositionY);
+		}
+		if (CollisionRope()) {
+			m_pMapChip->Activate(m_ropeX, m_ropeY);
+		}
+
 	}
 	return true;
 }
@@ -126,4 +132,6 @@ void FireArt::Render()
 
 void FireArt::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
 }
