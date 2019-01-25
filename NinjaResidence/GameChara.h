@@ -122,7 +122,7 @@ private:
 	const int DisplayCharMoveScopeRight = 980;
 	//両端からのX座標の稼働範囲
 	const int DisplayCharMoveScopeX = 300;
-
+	void UpdateMapPos();
 	/**
 	* @brief 画面スクロール
 	*/

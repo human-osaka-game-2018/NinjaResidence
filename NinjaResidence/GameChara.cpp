@@ -305,6 +305,8 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	m_WorldCoordinate[1].y = (BlockY * CELL_SIZE) - m_Central.scale_y;
 	m_WorldCoordinate[2].y = (BlockY * CELL_SIZE);
 	m_WorldCoordinate[3].y = (BlockY * CELL_SIZE);
+	UpdateMapPos();
+
 	do {
 		for (int i = 0; i < 4; i++)
 		{
@@ -315,6 +317,7 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 		ScrollYBuf = m_MapScrollY;
 
 		MapScrool();
+		SetGround();
 		ScrollBehindX = (m_MapScrollX - ScrollXBuf);
 		ScrollBehindY = (m_MapScrollY - ScrollYBuf);
 
@@ -325,7 +328,19 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 void GameChara::PositionSave(Object* MapChip, int PairNumber)
 {
 	m_pMapChip = MapChip;
+	m_colunm = m_pMapChip->GetColunm();
+	m_row = m_pMapChip->GetRow();
 	MapReversePointSearch(PairNumber,m_pMapChip->GetMapDataState());
+}
+
+void GameChara::UpdateMapPos()
+{
+	m_MapLeftDirectionPosition = static_cast<int>(m_WorldCoordinate[3].x / CELL_SIZE);
+	m_MapRightDirectionPosition = static_cast<int>((m_WorldCoordinate[2].x) / CELL_SIZE);
+	m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y + 10.f) / CELL_SIZE);
+	if (m_MapPositionY >= m_colunm) {
+		m_MapPositionY = m_colunm - 1;
+	}
 }
 
 void GameChara::MapScrool()
@@ -338,7 +353,6 @@ void GameChara::MapScrool()
 		m_DisplayCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_DisplayCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_MapScrollY -= VERTICAL_SCROLLING_LEVEL;
-		//SetGround();
 		m_isScrollingDown = true;
 	}
 	else m_isScrollingDown = false;
@@ -358,7 +372,7 @@ void GameChara::MapScrool()
 	//右にスクロール移動
 	if (m_DisplayCoordinate[1].x > static_cast<float>(DisplayCharMoveScopeRight))
 	{
-		if (m_WorldCoordinate[1].x <= (((m_row-1) * CELL_SIZE) - static_cast<float>(DisplayCharMoveScopeX)))
+		if ((m_WorldCoordinate[1].x <= (((m_row-1) * CELL_SIZE) - static_cast<float>(DisplayCharMoveScopeX)))||(m_WorldCoordinate[1].x>DISPLAY_WIDTH))
 		{
 			m_DisplayCoordinate[0].x = (static_cast<float>(DisplayCharMoveScopeRight) - m_Central.scale_x);
 			m_DisplayCoordinate[1].x = (static_cast<float>(DisplayCharMoveScopeRight));
@@ -440,14 +454,9 @@ void GameChara::FireArtAnime() {
 bool GameChara::Update()
 {
 	ThrowAnime();
-	m_MapLeftDirectionPosition = static_cast<int>(m_WorldCoordinate[3].x / CELL_SIZE);
-	m_MapRightDirectionPosition = static_cast<int>((m_WorldCoordinate[2].x) / CELL_SIZE);
-	m_MapPositionY = static_cast<int>((m_WorldCoordinate[3].y + 10.f) / CELL_SIZE);
-	if (m_MapPositionY >= m_colunm) {
-		m_MapPositionY = m_colunm - 1;
-	}
-	MapScrool();
+	UpdateMapPos();
 	AddGravity();
+	MapScrool();
 	SideCollision();
 	if (!(m_isInTheAir = !SetGround()) && TopCollision()) {
 		m_WorldCoordinate[0].y = static_cast<float>(m_PrevMapCharaPositionY) + 10.f - m_Central.y;
@@ -583,7 +592,7 @@ bool GameChara::RightCollisionCheck(int block) {
 }
 bool GameChara::LookDownWater() {
 	bool buf = false;
-	for (int i = 0; i < m_colunm - m_MapPositionY; ++i) {
+	for (int i = 0; i < m_colunm - m_MapPositionY - 1; ++i) {
 		if (!buf) {
 			buf = (BT_WATER == m_pMapChip->GetMapChipData(m_MapPositionY + i, m_MapLeftDirectionPosition - 1) / 100);
 		}
