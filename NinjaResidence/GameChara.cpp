@@ -678,7 +678,7 @@ void GameChara::AddGravity() {
 		SetGround();
 		return;
 	}
-	if (!DownCollisionAnything())
+	if (!DownCollisionAnything()&& !LookDownWater())
 	{
 		GravityAcceleration += 0.1f;
 	}
