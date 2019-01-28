@@ -13,8 +13,6 @@ int Object::m_ReverseCount = 0;
 
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
-	m_MapScrollX = 0;
-	m_MapScrollY = 0;
 }
 
 

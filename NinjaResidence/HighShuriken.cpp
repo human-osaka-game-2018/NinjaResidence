@@ -64,27 +64,35 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 		break;
 
 	case BIT_X_UP:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = InputRightStickDeg();
 		break;
 	case BIT_X_DOWN:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = InputRightStickDeg();
 		break;
 	case BIT_X_LEFT:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = InputRightStickDeg();
 		break;
 	case BIT_X_RIGHT:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = InputRightStickDeg();
 		break;
 	case BIT_D_UP:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = 90.f;
 		break;
 	case BIT_D_DOWN:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = 270.f;
 		break;
 	case BIT_D_LEFT:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = 180.f;
 		break;
 	case BIT_D_RIGHT:
+		m_Direction = FACING_RIGHT;
 		m_DirectionDeg = 0.f;
 		break;
 	case END_ART:
@@ -92,7 +100,6 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 		break;
 	}
 }
-
 
 bool HighShuriken::PermitActive() {
 	if (!m_isChoseDeg && !m_isActive) {
