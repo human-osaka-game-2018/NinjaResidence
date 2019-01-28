@@ -705,11 +705,12 @@ void GameChara::AddGravity() {
 		SetGround();
 		return;
 	}
-	if (!DownCollisionAnything()&& !LookDownWater())
-	{
-		GravityAcceleration += 0.1f;
-	}
-	else GravityAcceleration = 0;
+	//if (!DownCollisionAnything()&& !LookDownWater())
+	//{
+	//	GravityAcceleration += 0.1f;
+	//	
+	//}
+	//else GravityAcceleration = 0;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -750,6 +751,7 @@ bool GameChara::SetGround() {
 			m_DisplayCoordinate[i].y = m_WorldCoordinate[i].y + m_MapScrollY;
 		}
 		if (m_isInTheAir) {
+			m_TurnAnimation = 0.f;
 			m_pSoundOperater->Start("SET_DOWN", false);
 		}
 		return true;
@@ -887,6 +889,7 @@ void GameChara::MoveInertia() {
 	}
 	SideCollision();
 	if (!m_isInTheAir) {
+		m_TurnAnimation = 0.f;
 		InertiaTimeMax = 5;
 	}
 	if (InertiaTime > InertiaTimeMax) {
