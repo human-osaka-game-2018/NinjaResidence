@@ -213,13 +213,21 @@ void GameScene::KeyOperation() {
 	{
 		SkillKeyOperation(BIT_D_DOWN);
 	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_Z) || PadOn == m_pXinputDevice->GetButton(ButtonLB))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_C) || PadOn == m_pXinputDevice->GetButton(ButtonLB))
 	{
 		m_pGameChara->KeyOperation(MAP_LEFT);
 	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_C) || PadOn == m_pXinputDevice->GetButton(ButtonRB))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_B) || PadOn == m_pXinputDevice->GetButton(ButtonRB))
 	{
 		m_pGameChara->KeyOperation(MAP_RIGHT);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_V) || PadOn == m_pXinputDevice->GetButton(ButtonRightThumb))
+	{
+		m_pGameChara->KeyOperation(MAP_DOWN);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_F) || PadOn == m_pXinputDevice->GetButton(ButtonLeftThumb))
+	{
+		m_pGameChara->KeyOperation(MAP_UP);
 	}
 
 	//テスト用処理

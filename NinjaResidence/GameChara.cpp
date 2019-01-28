@@ -258,20 +258,63 @@ void GameChara::KeyOperation(KeyDirection vec)
 		m_isInertiaMoving = true;
 		break;
 	case MAP_RIGHT:
-		//右にスクロール移動
-		//if (m_DisplayCoordinate[1].x < static_cast<float>(DisplayCharMoveScopeRight))
-		//{
-		//	m_MapScrollX -= 5;
-		//}
+		if (m_DisplayCoordinate[0].x > DisplayCharMoveScopeLeft)
+		{
+			m_MapScrollX -= 5;
+			if ((m_DisplayCoordinate[1].x < DISPLAY_WIDTH))
+			{
+				for (int i = 0; i < 4; ++i) {
+					m_DisplayCoordinate[i].x = m_WorldCoordinate[i].x + m_MapScrollX;
+				}
+			}
+		}
 		break;
 	case MAP_LEFT:
-		//if (m_DisplayCoordinate[0].x > static_cast<float>(DisplayCharMoveScopeLeft))
-		//{
-		//	m_MapScrollX += 5;
-		//	if (m_MapScrollX > 0) {
-		//		m_MapScrollX = 0;
-		//	}
-		//}
+
+		if (m_MapScrollX >= 0) {
+			m_MapScrollX = 0;
+			break;
+		}
+		if (m_DisplayCoordinate[1].x < DisplayCharMoveScopeRight)
+		{
+			m_MapScrollX += 5;
+			if ((m_DisplayCoordinate[1].x > 0))
+			{
+				for (int i = 0; i < 4;++i) {
+					m_DisplayCoordinate[i].x = m_WorldCoordinate[i].x + m_MapScrollX;
+				}
+			}
+		}
+		break; 
+	case MAP_DOWN:
+		if (m_DisplayCoordinate[0].y < DisplayCharMoveScopeDown)
+		{
+			m_MapScrollY -= 5;
+			if ((m_DisplayCoordinate[1].y < DISPLAY_HEIGHT))
+			{
+				for (int i = 0; i < 4; ++i) {
+					m_DisplayCoordinate[i].y = m_WorldCoordinate[i].y + m_MapScrollY;
+				}
+			}
+			if (m_MapScrollY < static_cast<int>((CELL_SIZE*-m_colunm)*0.66f)) {
+				m_MapScrollY = static_cast<int>((CELL_SIZE*-m_colunm)*0.66f);
+			}
+		}
+		break;
+	case MAP_UP:
+		if (m_DisplayCoordinate[0].y > DisplayCharMoveScopeUp)
+		{
+			m_MapScrollY += 5;
+			if ((m_DisplayCoordinate[1].y > 0))
+			{
+				for (int i = 0; i < 4; ++i) {
+					m_DisplayCoordinate[i].y = m_WorldCoordinate[i].y + m_MapScrollY;
+				}
+			}
+			if (m_MapScrollY >0) {
+				m_MapScrollY = 0;
+			}
+		}
 		break;
 	}
 }
@@ -366,6 +409,9 @@ void GameChara::MapScrool()
 		m_DisplayCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_DisplayCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeDown));
 		m_MapScrollY -= VERTICAL_SCROLLING_LEVEL;
+		if (m_MapScrollY < static_cast<int>((CELL_SIZE*-m_colunm)*0.66f)){
+			m_MapScrollY = static_cast<int>((CELL_SIZE*-m_colunm)*0.66f);
+		}
 		m_isScrollingDown = true;
 	}
 	else m_isScrollingDown = false;
