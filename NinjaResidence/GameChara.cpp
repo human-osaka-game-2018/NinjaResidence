@@ -610,7 +610,7 @@ bool GameChara::LookDownWater() {
 	bool buf = false;
 	for (int i = 0; i < m_colunm - m_MapPositionY - 1; ++i) {
 		if (!buf) {
-			buf = (BT_WATER == m_pMapChip->GetMapChipData(m_MapPositionY + i, m_MapLeftDirectionPosition - 1) / 100);
+			buf = (BT_WATER == m_pMapChip->GetMapChipData(m_MapPositionY + i, m_MapLeftDirectionPosition) / 100);
 		}
 	}
 	return buf;
@@ -637,8 +637,17 @@ bool GameChara::FailureGame()
 
 void GameChara::Render()
 {
+	CUSTOMVERTEX DebugColl[4];
 #ifdef _DEBUG
-	TextureRender("CHARA_INTEGRATION_TEX", m_DisplayCoordinate);
+	m_DisplayCoordinate[0].color = m_DisplayCoordinate[1].color = m_DisplayCoordinate[2].color = m_DisplayCoordinate[3].color = 0xFF010101;
+
+	TextureRender("TEST_TEX", m_DisplayCoordinate);
+	DebugColl[3].y = DebugColl[2].y = m_MapPositionY * CELL_SIZE + m_MapScrollY;
+	DebugColl[0].y = DebugColl[1].y = DebugColl[3].y - CELL_SIZE;
+	DebugColl[3].x = DebugColl[0].x = m_MapLeftDirectionPosition * CELL_SIZE + m_MapScrollX + CELL_SIZE / 2.f;
+	DebugColl[1].x = DebugColl[2].x = m_MapRightDirectionPosition * CELL_SIZE + m_MapScrollX - CELL_SIZE / 2.f;
+	DebugColl[0].color = DebugColl[1].color = DebugColl[2].color = DebugColl[3].color = 0xFFEFEFEF;
+	TextureRender("TEST_TEX", DebugColl);
 #endif
 	CUSTOMVERTEX Chara[4];
 	CENTRAL_STATE CharCentral = { 0 };
@@ -647,6 +656,7 @@ void GameChara::Render()
 	CharCentral.scale_x = 120.f;
 	CreateSquareVertex(CharCentral, Chara, 0xFFFFFFFF,( m_TurnAnimation+m_DirectionBias) * TU, m_ChangeAnimation * TV, TU * m_Facing, TV);
 	TextureRender("CHARA_TEX", Chara);
+
 #ifdef _DEBUG
 
 	RECT test = { 0,0,1250,500 };

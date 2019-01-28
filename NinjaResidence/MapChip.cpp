@@ -33,6 +33,8 @@ MapChip::~MapChip()
 	vector<vector<int>>().swap(MapData);
 	GimmickVector.clear();
 	TargetVector.clear();
+	m_ReversePoint.clear();
+
 	for (int i = (pBaseTarget.size() - 1); i >= 0; --i)
 	{
 		delete pBaseTarget[i];

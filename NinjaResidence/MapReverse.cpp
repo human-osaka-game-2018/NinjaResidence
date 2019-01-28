@@ -44,7 +44,7 @@ void MapReverse::GoMapReverse(Object** pBusyMapChip, Object** pIdleMapChip)
 	CollLeft = collisonReversePoint(MapPosiinonX-1, MapPosiinonY, *pBusyMapChip);
 	CollRight = collisonReversePoint(MapPosiinonX + 1, MapPosiinonY, *pBusyMapChip);
 	CollCenter = collisonReversePoint(MapPosiinonX + 0, MapPosiinonY, *pBusyMapChip);
-	if ((CollLeft&& CollCenter && CollRight)&& m_ReversePair)
+	if ((/*CollLeft&&*/ CollCenter /*&& CollRight*/)&& m_ReversePair)
 	{
 		m_pSoundOperater->Start("REVERSE",false);
 		MapScrollBuffer MSBuff = { m_MapScrollX ,m_MapScrollY };

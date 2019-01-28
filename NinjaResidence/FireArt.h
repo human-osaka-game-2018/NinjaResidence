@@ -36,7 +36,6 @@ private:
 	bool PermitActive();
 
 	
-	CENTRAL_STATE m_Fire = { 500,0,80,80 };
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
 	bool m_isActive = false;

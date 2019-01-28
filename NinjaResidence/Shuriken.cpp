@@ -69,6 +69,10 @@ bool Shuriken::PermitActive() {
 	if (!m_isChoseDeg && !m_isActive) {
 		m_isChoseDeg = true;
 		m_Direction = static_cast<float>(m_pGameChara->GetFacing());
+		if (m_Direction == FACING_RIGHT) {
+			m_DirectionBias = ZERO;
+		}
+		else m_DirectionBias = ONE;
 		return false;
 	}
 	if (m_isChoseDeg && !m_isActive) {
@@ -148,8 +152,8 @@ void Shuriken::Render()
 	}
 	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0,0,m_Direction);
-		TextureRender("ARROW_TEX", DirectionArrowVertex);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, m_DirectionBias*(BLOCK_INTEGRATION_WIDTH*1.5f), BLOCK_INTEGRATION_HEIGHT * 9.75f, (BLOCK_INTEGRATION_WIDTH*1.5f)*m_Direction, BLOCK_INTEGRATION_HEIGHT*0.5f);
+		TextureRender("BLOCK_INTEGRATION_A_TEX", DirectionArrowVertex);
 		rad = 0;
 		return;
 	}

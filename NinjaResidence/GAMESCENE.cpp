@@ -305,9 +305,7 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
-#ifdef _DEBUG
-	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
-#endif
+	m_pDirectX->LoadTexture(NULL, "TEST_TEX");
 	m_pDirectX->LoadTexture("texture/BG_A.jpg", "GAME_SURFACE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/BG_B.jpg", "GAME_REVERSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/Pause_BG.jpg", "PAUSE_BG_TEX");
