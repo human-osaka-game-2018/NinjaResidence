@@ -36,6 +36,11 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 	if (SoundLib::Playing != m_pSoundOperater->GetStatus("TITLE")) {
 		bool buff = m_pSoundOperater->Start("TITLE", true);
 	}
+	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadPush == m_pXinputDevice->GetButton(ButtonA))
+	{
+		ReturnScene();
+	}
+	m_pXinputDevice->DeviceUpdate();
 	static int CursorAnimeInterval = 0;
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;
@@ -46,11 +51,7 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 		CursorColorOn = !CursorColorOn;
 		CursorAnimeInterval = 0;
 	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER) || PadRelease == m_pXinputDevice->GetButton(ButtonA))
-	{
-		ReturnScene();
-	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadOn == m_pXinputDevice->GetButton(ButtonLEFT))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_LEFT) || PadOn == m_pXinputDevice->GetButton(ButtonLEFT) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
 	{
 		static int KeyInterval = 0;
 		++KeyInterval;
@@ -59,7 +60,7 @@ SCENE_NUM VOLUMESELECTSCENE::Update() {
 			KeyInterval = 0;
 		}
 	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadOn == m_pXinputDevice->GetButton(ButtonRIGHT))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_RIGHT) || PadOn == m_pXinputDevice->GetButton(ButtonRIGHT) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
 	{
 		static int KeyInterval = 0;
 		++KeyInterval;

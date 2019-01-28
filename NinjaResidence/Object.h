@@ -160,7 +160,9 @@ public:
 		return m_colunm;
 	}
 	int GetMapChipData(int height, int width) {
-		return MapData[height][width];
+		int Buf = -1;
+		Buf = MapData[height][width];
+		return Buf;
 	}
 
 	virtual MapDataState GetMapDataState() {

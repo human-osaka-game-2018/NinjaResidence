@@ -98,7 +98,7 @@ protected:
 
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	//次のシーン
-	SCENE_NUM m_NextScene;
+	SCENE_NUM m_NextScene = SCENE_NONE;
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 private:

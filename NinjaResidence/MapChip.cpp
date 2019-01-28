@@ -24,6 +24,7 @@ MapChip::MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDire
 
 MapChip::~MapChip()
 {
+	m_ReverseCount = 0;
 	for (int i = 0; i < m_colunm; i++)
 	{
 		MapData[i].clear();
