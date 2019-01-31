@@ -170,7 +170,7 @@ void ClawShot::Render()
 	}
 	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, m_DirectionBias*(BLOCK_INTEGRATION_WIDTH*1.5f), BLOCK_INTEGRATION_HEIGHT * 9.75f, (BLOCK_INTEGRATION_WIDTH*1.5f)*m_Direction, BLOCK_INTEGRATION_HEIGHT*0.5f);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, m_DirectionBias*(BLOCK_INTEGRATION_WIDTH*1.5f), BLOCK_INTEGRATION_HEIGHT * 9.65f, (BLOCK_INTEGRATION_WIDTH*1.5f)*m_Direction, BLOCK_INTEGRATION_HEIGHT*0.5f);
 		TextureRender("BLOCK_INTEGRATION_A_TEX", DirectionArrowVertex);
 		return;
 	}
@@ -185,10 +185,10 @@ void ClawShot::Render()
 		float BehindLength = std::sqrt(Xpos*Xpos + Ypos * Ypos);
 		//長さから画像の中心を割り出す
 		m_RopeCentral.x = (BehindLength * 0.5f * m_Direction + RopeBatteryPosX );
-		m_RopeCentral.y = RopeBatteryPosY;
+		m_RopeCentral.y = RopeBatteryPosY-1.f;
 		m_RopeCentral.scale_x = BehindLength * 0.5f;
-		m_RopeCentral.scale_y = 5.f;
-		RevolveZEX(RopeVertex, DegToRad(m_DirectionDeg), m_RopeCentral, RopeBatteryPosX, RopeBatteryPosY, 0xFFFFFFFF, BLOCK_INTEGRATION_WIDTH * 6, 0, 20.f/512.f);
+		m_RopeCentral.scale_y = 3.5f;
+		RevolveZEX(RopeVertex, DegToRad(m_DirectionDeg), m_RopeCentral, RopeBatteryPosX, RopeBatteryPosY, 0xFFFFFFFF, BLOCK_INTEGRATION_WIDTH * 6.0f, 0,13.f/512.f);
 		RevolveTexture(RopeVertex, 1);
 		///////////////////////////////////////////////
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_B_TEX", RopeVertex);

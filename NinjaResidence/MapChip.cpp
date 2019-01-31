@@ -284,7 +284,7 @@ void MapChip::Render()
 					break;
 				case DESCRIPTION_BOARD:
 				case DESCRIPTION_BOARD2:
-					SetVertexUV(CELL, 0, BLOCK_INTEGRATION_HEIGHT, 0.24f, BLOCK_INTEGRATION_HEIGHT);
+					SetVertexUV(CELL, 0, BLOCK_INTEGRATION_HEIGHT, 0.24f, BLOCK_INTEGRATION_HEIGHT*0.98);
 					CELL[1].x += CELL_SIZE * 3.f;
 					CELL[2].x += CELL_SIZE * 3.f;
 					CELL[3].y += CELL_SIZE * 2.f;

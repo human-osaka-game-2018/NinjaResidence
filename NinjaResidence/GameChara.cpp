@@ -291,32 +291,41 @@ void GameChara::KeyOperation(KeyDirection vec)
 		}
 		break; 
 	case MAP_DOWN:
-		if (m_DisplayCoordinate[0].y < DisplayCharMoveScopeDown)
+		if (m_DisplayCoordinate[0].y <= DisplayCharMoveScopeDown)
 		{
 			m_MapScrollY -= 5;
+			if (m_MapScrollY <= static_cast<int>((CELL_SIZE * -m_colunm))) {
+				m_MapScrollY = static_cast<int>((CELL_SIZE*-m_colunm));
+			}
 			if ((m_DisplayCoordinate[1].y < DISPLAY_HEIGHT))
 			{
 				for (int i = 0; i < 4; ++i) {
 					m_DisplayCoordinate[i].y = m_WorldCoordinate[i].y + m_MapScrollY;
 				}
-			}
-			if (m_MapScrollY < static_cast<int>((CELL_SIZE*-m_colunm))) {
-				m_MapScrollY = static_cast<int>((CELL_SIZE*-m_colunm));
+				if (m_DisplayCoordinate[1].y < static_cast<float>(DisplayCharMoveScopeUp) + VERTICAL_SCROLLING_LEVEL)
+				{
+					m_DisplayCoordinate[0].y = (static_cast<float>(DisplayCharMoveScopeUp));
+					m_DisplayCoordinate[1].y = (static_cast<float>(DisplayCharMoveScopeUp));
+					m_DisplayCoordinate[2].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Central.scale_y);
+					m_DisplayCoordinate[3].y = (static_cast<float>(DisplayCharMoveScopeUp) + m_Central.scale_y);
+					m_MapScrollY += 5;
+				}
+
 			}
 		}
 		break;
 	case MAP_UP:
-		if (m_DisplayCoordinate[0].y > DisplayCharMoveScopeUp)
+		if (m_DisplayCoordinate[0].y >= DisplayCharMoveScopeUp)
 		{
 			m_MapScrollY += 5;
+			if (m_MapScrollY >= 0) {
+				m_MapScrollY = 0;
+			}
 			if ((m_DisplayCoordinate[1].y > 0))
 			{
 				for (int i = 0; i < 4; ++i) {
 					m_DisplayCoordinate[i].y = m_WorldCoordinate[i].y + m_MapScrollY;
 				}
-			}
-			if (m_MapScrollY >0) {
-				m_MapScrollY = 0;
 			}
 		}
 		break;
@@ -383,7 +392,6 @@ void GameChara::MapReversePointSearch(int PairNumber, MapDataState MapState)
 	} while (0 != ScrollBehindX || 0 != ScrollBehindY);
 }
 
-
 void GameChara::PositionSave(Object* MapChip, int PairNumber)
 {
 	m_pMapChip = MapChip;
@@ -391,7 +399,6 @@ void GameChara::PositionSave(Object* MapChip, int PairNumber)
 	m_row = m_pMapChip->GetRow();
 	MapReversePointSearch(PairNumber,m_pMapChip->GetMapDataState());
 }
-
 
 void GameChara::UpdateMapPos()
 {

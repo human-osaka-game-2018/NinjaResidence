@@ -181,7 +181,7 @@ void GameScene::KeyOperation() {
 	{
 		TransePause();
 	}
-	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
 	{
 		SkillKeyOperation(BIT_X_LEFT);
 	}
@@ -189,7 +189,7 @@ void GameScene::KeyOperation() {
 	{
 		SkillKeyOperation(BIT_D_LEFT);
 	}
-	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGLEFT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGLEFT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
 	{
 		SkillKeyOperation(BIT_X_RIGHT);
 	}
