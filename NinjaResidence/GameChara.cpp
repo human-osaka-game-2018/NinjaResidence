@@ -613,13 +613,13 @@ bool GameChara::DownCollisionAnything(void) {
 		return true;
 	}
 
-	bool WaterMax = ((m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 800) ||
-		(m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 800) ||
-		(m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 800));
-	bool WaterMin = ((m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) >= 700) ||
-		(m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) >= 700) ||
-		(m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 700));
-	if (WaterMax && WaterMin) {
+	CollLeft = ((m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) < 800) && (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition) >= 700));
+	CollRight = (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) < 800) && (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 1) >= 700);
+	CollCenter = (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) < 800) && (m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 700);
+	//bool WaterMin = ( ||
+	//	||
+	//	(m_pMapChip->GetMapChipData(m_MapPositionY, m_MapLeftDirectionPosition + 2) >= 700));
+	if (CollLeft || CollRight || CollCenter) {
 		m_ChangeAnimation = WATER_ART;
 		if (m_isInTheAir) {
 			m_pSoundOperater->Start("SET_DOWN_WATER", false);
@@ -685,7 +685,7 @@ bool GameChara::LookDownWater() {
 	bool buf = false;
 	for (int i = 0; i < m_colunm - m_MapPositionY - 1; ++i) {
 		if (!buf) {
-			buf = (BT_WATER == m_pMapChip->GetMapChipData(m_MapPositionY + i, m_MapLeftDirectionPosition) / 100);
+			buf = (BT_WATER == (m_pMapChip->GetMapChipData(m_MapPositionY + i, m_MapLeftDirectionPosition) / 100));
 		}
 	}
 	return buf;

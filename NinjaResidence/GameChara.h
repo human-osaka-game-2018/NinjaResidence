@@ -145,7 +145,7 @@ private:
 	//仮統合ファイルの切り取り情報
 	const float CHARA_TEXTURE_WIDTH = 4096.f;
 	//! キャラ統合画像に対する1枚の幅
-	const float TU = 321.f / CHARA_TEXTURE_WIDTH;
+	const float TU = 320.f / CHARA_TEXTURE_WIDTH;
 	//! キャラ統合画像に対する1枚の高さ
 	const float TV = 321.f / CHARA_TEXTURE_WIDTH;
 	float m_TurnAnimation = 0;
