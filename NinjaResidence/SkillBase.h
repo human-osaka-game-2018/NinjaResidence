@@ -40,9 +40,14 @@ protected:
 	float m_Direction = PlayerAnimation::FACING_NOTHING;
 	PlayerAnimation::DIRECTION_BIAS m_DirectionBias = PlayerAnimation::ZERO;
 
+	int m_targetX;
+	int m_targetY;
+
 	int m_ropeX;
 	int m_ropeY;
 	bool CollisionRope();
+
+	bool CollisionTarget();
 
 	void InitPosition() {};
 	SkillType m_SkillType;

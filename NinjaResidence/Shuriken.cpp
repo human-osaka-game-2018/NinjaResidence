@@ -122,16 +122,22 @@ bool Shuriken::Update()
 		InitPosition();
 	}
 	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
-	if (buf > 100)
+	if (buf > 100 && buf<200)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
-	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE)
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE&&buf != MapBlock::DESCRIPTION_BOARD)
 	{
 		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
+	//if (CollisionTarget()) {
+	//	m_pMapChip->Activate(m_targetX, m_targetY);
+	//	m_pSoundOperater->Start("CLAWSHOT", false);
+	//	InitPosition();
+	//}
+
 	if (CollisionRope()) {
 		m_pMapChip->Activate(m_ropeX, m_ropeY);
 
@@ -161,7 +167,7 @@ void Shuriken::Render()
 		CUSTOMVERTEX ShurikenVertex[4];
 		static float rad = 0.f;
 		rad += 10.f;
-		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 2.965f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ShurikenVertex);
 	}
 }

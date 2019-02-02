@@ -139,17 +139,24 @@ bool ClawShot::Update()
 		InitPosition();
 	}
 	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
-	if (buf > 100)
+	if (buf > 100 && buf<200)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
-	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE)
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE&&buf != MapBlock::DESCRIPTION_BOARD)
 	{
 		m_pSoundOperater->Start("CLAWSHOT", false);
 		InitPosition();
 	}
+	//if (CollisionTarget()) {
+	//	m_pMapChip->Activate(m_targetX, m_targetY);
+	//	m_pSoundOperater->Start("CLAWSHOT", false);
+
+	//	InitPosition();
+	//}
+
 
 	//if (CollisionRope()) {
 	//	m_pMapChip->Activate(m_ropeX, m_ropeY);

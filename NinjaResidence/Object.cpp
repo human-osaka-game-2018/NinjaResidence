@@ -36,8 +36,8 @@ bool Object::Update()
 
 bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
 {
-	if ((m_Central.x <= object->x + object->scale_x) && (object->x <= m_Central.x + m_Central.scale_x)
-		&& (m_Central.y <= object->y + object->scale_y) && (object->y <= m_Central.y + m_Central.scale_y)) {
+	if ((m_Central.x <= object->x + object->scale_x) && (m_Central.x >= object->x- object->scale_x)
+		&& (m_Central.y <= object->y + object->scale_y) && (m_Central.y >= object->y- object->scale_y)) {
 		return true;
 	}
 	return false;
