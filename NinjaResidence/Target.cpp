@@ -90,15 +90,22 @@ void Target::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 		//m_TargetVertex[3].tv = BLOCK_INTEGRATION_HEIGHT * 3;
 		float deg = 0;
 		switch (m_TargetInfo.PairNumber % 10) {
+			//上向き
 		case 4:
 		case 5:
 		case 6:
 			deg = 90.f;
+			for (int i = 0; i < 4; ++i) {
+				m_TargetVertex[i].y -= CELL_SIZE * 0.5f;
+			}
+
 			break;
+			//右向き
 		case 7:
 		case 8:
 			deg = 180.f;
 			break;
+			//下向き
 		case 9:
 		case 0:
 			deg = 270.f;

@@ -224,11 +224,12 @@ void GameChara::PrevSaveMapPos()
 
 void GameChara::KeyOperation(KeyDirection vec)
 {
+	m_isFire = false;
+	m_isUsingArt = false;
+
 	//Key操作での処理
 	switch (vec)
 	{
-		m_isFire = false;
-		m_isUsingArt = false;
 	case JUMP:
 		MoveOperation(JUMP);
 		break;
@@ -274,7 +275,6 @@ void GameChara::KeyOperation(KeyDirection vec)
 		}
 		break;
 	case MAP_LEFT:
-
 		if (m_MapScrollX >= 0) {
 			m_MapScrollX = 0;
 			break;
@@ -864,9 +864,9 @@ bool GameChara::TopCollision() {
 	if (m_PrevMapCharaPositionY > m_WorldCoordinate[3].y + 10)
 	{
 		UpdateMapPos();
-		bool CollLeft = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) > 0);
-		bool CollRight = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) > 0);
-		bool CollCenter = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) > 0);
+		bool CollLeft = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition) > 0) && START_ZONE != m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition);
+		bool CollRight = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1) > 0) && START_ZONE != m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 1);
+		bool CollCenter = (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) < 100) && (m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2) > 0) && START_ZONE != m_pMapChip->GetMapChipData(m_MapPositionY - 4, m_MapLeftDirectionPosition + 2);
 		if ((CollLeft || CollRight || CollCenter)) {
 			m_WorldCoordinate[0].y = ((m_MapPositionY - 3) * CELL_SIZE);
 			m_WorldCoordinate[1].y = ((m_MapPositionY - 3) * CELL_SIZE);
