@@ -38,7 +38,7 @@ enum KeyDirection
 	MAP_LEFT,
 	MAP_DOWN,
 	MAP_UP,
-	SoundOn,
+	Walk,
 };
 struct MapScrollBuffer {
 	int ScrollX = 0;

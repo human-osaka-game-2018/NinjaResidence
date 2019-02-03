@@ -110,7 +110,7 @@ private:
 	const float GRAVITY = 15.f;
 	void Dash();
 	//! 移動量
-	const float MOVE_SPEED = 15.f;
+	float MOVE_SPEED = 15.f;
 	const int VERTICAL_SCROLLING_LEVEL = 20;
 	const int ScrollSpeed = 15;
 
@@ -224,12 +224,6 @@ private:
 	*/
 	bool DownCollisionAnything(void);
 	/**
-	* @breaf 上に対する何かしらの当たり判定
-	* @return 当たっていればtrue
-	* @author Toshiya Matsuoka
-	*/
-	bool TopCollisionAnything(void);
-	/**
 	* @breaf 下方向に対する当たり判定
 	* @param block 指定のブロック番号
 	* @return 当たっていればtrue
@@ -253,6 +247,8 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool RightCollisionCheck(int block);
+	bool RightUnCollisionCheck(int block);
+	bool LeftUnCollisionCheck(int block);
 	/**
 	* @breaf 左方向に対する当たり判定
 	* @param block 指定のブロック番号

@@ -111,6 +111,10 @@ SCENE_NUM  GameScene::Update()
 }
 
 void GameScene::KeyOperation() {
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_pGameChara->KeyOperation(Walk);
+	}
+
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonY))
 	{
 		m_pGameChara->KeyOperation(JUMP);
