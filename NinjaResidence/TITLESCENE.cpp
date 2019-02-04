@@ -101,6 +101,8 @@ void TitleScene::LoadResouce()
 	m_pSoundOperater->AddFile("Sound/se/slash.mp3", "CUT_OFF", SE);
 	m_pSoundOperater->AddFile("Sound/se/switch.mp3", "TARGET_ACTIVE", SE);
 	m_pSoundOperater->AddFile("Sound/se/watershoes.mp3", "SET_DOWN_WATER", SE);
+	m_pSoundOperater->AddFile("Sound/se/Failure.mp3", "FAILURE_SE", SE);
+	m_pSoundOperater->AddFile("Sound/se/Goal.mp3", "GOAL_SE", SE);
 }
 
 void TitleScene::CursorResize() {

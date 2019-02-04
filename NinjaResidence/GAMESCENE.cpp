@@ -107,6 +107,14 @@ SCENE_NUM  GameScene::Update()
 	m_pGameChara->PrevSaveMapPos();
 	m_pBusyMapChip->Update();
 	SkillsUpdate();
+#ifdef _DEBUG
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_8) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_isClear = true;
+	}
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_9) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_isGameFailure = true;
+	}
+#endif
 	return GetNextScene();
 }
 
@@ -290,13 +298,17 @@ void GameScene::Render()
 	if (m_isClear) {
 		CUSTOMVERTEX LogoVertex[4];
 		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo);
+		CreateSquareVertex(LogoVertex, m_Logo, 0xFFF04C4C);
+		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
+		CreateSquareVertex(LogoVertex, m_Logo,0xFFFFCC66);
 		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
 	}
 	if (m_isGameFailure) {
 		CUSTOMVERTEX LogoVertex[4];
 		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo);
+		CreateSquareVertex(LogoVertex, m_Logo, 0xFFD3FDE0);
+		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
+		CreateSquareVertex(LogoVertex, m_Logo,0xFF4199FD);
 		m_pDirectX->DrawTexture("FAILURE_TEX", LogoVertex);
 	}
 #ifdef _DEBUG
@@ -331,6 +343,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
 	m_pDirectX->LoadTexture("texture/StageFailure.png", "FAILURE_TEX");
+	m_pDirectX->LoadTexture("texture/effect.png", "EFFECT_TEX");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
@@ -518,6 +531,7 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 
 void GameScene::GameFailureAnime()
 {
+	m_pSoundOperater->Start("FAILURE_SE", false);
 	static int StandbyTime = 0;
 	++StandbyTime;
 	if (StandbyTime > 120) {
@@ -529,6 +543,8 @@ void GameScene::GameFailureAnime()
 
 void GameScene::ClearAnime()
 {
+	m_pSoundOperater->Start("GOAL_SE", false);
+
 	static int StandbyTime = 0;
 	++StandbyTime;
 	if (StandbyTime > 120) {
