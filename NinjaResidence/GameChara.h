@@ -49,6 +49,7 @@ public:
 	void KeyOperation(KeyDirection vec);
 	void PositionSave(Object* MapChip, int BlockNumber);
 	bool Update();
+	bool CollisionIventBlock();
 	void Render();
 	GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip);
 	~GameChara();
@@ -247,8 +248,6 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool RightCollisionCheck(int block);
-	bool RightUnCollisionCheck(int block);
-	bool LeftUnCollisionCheck(int block);
 	/**
 	* @breaf 左方向に対する当たり判定
 	* @param block 指定のブロック番号
@@ -285,6 +284,10 @@ private:
 
 	void MoveInertia();
 
+
+	bool LeftDirectionCollision();
+
+	bool RightDirectionCollision();
 
 	/**
 	* @breaf 下方向に水ギミックブロックがあるか確認
