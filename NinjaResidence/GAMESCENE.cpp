@@ -244,7 +244,7 @@ void GameScene::KeyOperation() {
 
 	//テスト用処理
 	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRightThumb)) {
-
+		m_pGameChara->KeyOperation(DEBUG);
 	}
 }
 void GameScene::NotPushedAnyButton() {
@@ -297,18 +297,20 @@ void GameScene::Render()
 	m_SkillSelect->Render();
 	if (m_isClear) {
 		CUSTOMVERTEX LogoVertex[4];
-		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo, 0xFFF04C4C);
+		CENTRAL_STATE Effect = { CENTRAL_X ,300,400,200 };
+		CreateSquareVertex(LogoVertex, Effect, 0xFFF04C4C);
 		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
-		CreateSquareVertex(LogoVertex, m_Logo,0xFFFFCC66);
+		CENTRAL_STATE Logo = { CENTRAL_X ,300,400,150 };
+		CreateSquareVertex(LogoVertex, Logo,0xFFFCCC66);
 		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
 	}
 	if (m_isGameFailure) {
 		CUSTOMVERTEX LogoVertex[4];
-		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo, 0xFFD3FDE0);
+		CENTRAL_STATE Effect = { CENTRAL_X ,300,400,200 };
+		CreateSquareVertex(LogoVertex, Effect, 0xFFD3FDE0);
 		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
-		CreateSquareVertex(LogoVertex, m_Logo,0xFF4199FD);
+		CENTRAL_STATE Logo = { CENTRAL_X ,300,400,150 };
+		CreateSquareVertex(LogoVertex, Logo,0xFF4144FD);
 		m_pDirectX->DrawTexture("FAILURE_TEX", LogoVertex);
 	}
 #ifdef _DEBUG
