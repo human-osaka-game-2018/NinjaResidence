@@ -39,7 +39,7 @@ void PartitionBoard::Update()
 	if (m_WorldPosBottom <= m_WorldPosTop)
 	{
 		m_pSoundOperater->Stop("DOOR");
-		m_pMapChip->MapDataVectorZeroSet(m_GimmickInfo.PositionY, m_GimmickInfo.PositionX, 13, 3);
+		m_pMapChip->MapDataVectorZeroSet(m_GimmickInfo.PositionY+1, m_GimmickInfo.PositionX, 13, 3);
 		m_isActive = false;
 	}
 }

@@ -142,19 +142,6 @@ void MapChip::MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX,
 	}
 }
 
-void MapChip::MapDataGimmickSearch()
-{
-	for (int i = 0; i < m_colunm; i++)
-	{
-		for (int j = 0;j < m_row; j++)
-		{
-			if (MapData[i][j] > 400 && MapData[i][j] < 500)
-			{
-				MapDataVectorSet(i, j,15,3);
-			}
-		}
-	}
-}
 
 void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int GimmickY,int GimmickX)
 {
@@ -180,22 +167,21 @@ void MapChip::CheckVector()
 			switch (TargetVector[i].GimmickType)
 			{
 			case BT_TARGET://的
-			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX,m_pSoundOperater);
+				pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			case BT_ROPE://ロープ
-			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+				pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			case BT_SWITCH://スイッチ
-			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
-				case BT_TORCH://たいまつ
-			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+			case BT_TORCH://たいまつ
+				pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			}
 			pBaseTarget.push_back(pBuf);
 		}
 	}
-	MapDataGimmickSearch();
 }
 
 
@@ -303,11 +289,21 @@ void MapChip::Render()
 				case ROCK_REVERSE_ZONE:
 					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 5.f, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
+#ifdef _DEBUG
+				case 9: {
+					CUSTOMVERTEX test[4]{ CELL[0],CELL[1],CELL[2],CELL[3] };
+					for (int i = 0; i < 4; ++i) {
+						test[i].color = 0xCCDDDDDD;
+					}
+					TextureRender("TEST_TEX", test); 
+				}
+#endif
 				default:
 					continue;
 				}
 			}
 			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
+
 		}
 	}
 	for (BaseTarget* pi : pBaseTarget)
