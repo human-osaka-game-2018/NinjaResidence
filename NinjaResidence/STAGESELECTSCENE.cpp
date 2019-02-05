@@ -94,6 +94,12 @@ SCENE_NUM  StageSelectScene::Update()
 			SetNextScene(GAME_SCENE);
 		}
 	}
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_BACKSPACE) || PadPush == m_pXinputDevice->GetButton(ButtonB)) {
+		m_StageNum = StageTitle;
+		m_SelectCursol.y = 70.f;
+		m_SelectCursol.x = 330.f;
+
+	}
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE)) {
 		m_StageNum = 8;
 	}
@@ -237,7 +243,13 @@ void StageSelectScene::Render()
 
 	CreateSquareVertex(StageImage, m_SelectCursol, m_CursorAlfa);
 	m_pDirectX->DrawTexture("KUNAI_TEX", StageImage);
+#ifdef _DEBUG
+	RECT testName = { 0, 100, 1250, 720 };
+	char TestName[ArrayLong];
+	sprintf_s(TestName, ArrayLong, "Cursol X:%.2f Y:%.2f", m_SelectCursol.x, m_SelectCursol.y);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 
+#endif
 }
 
 void StageSelectScene::LoadResouce()
@@ -254,7 +266,7 @@ void StageSelectScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/StagexSelectBack.png", "STAGESELECTBACK_TEX");
 	m_pDirectX->LoadTexture("texture/StageImageD.jpg", "STAGEIMAGED_TEX");
 
-	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
+	m_pDirectX->SetFont(50, 20, "DEBUG_FONT");
 
 }
 
