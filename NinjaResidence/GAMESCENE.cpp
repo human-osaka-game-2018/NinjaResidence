@@ -233,11 +233,11 @@ void GameScene::KeyOperation() {
 	{
 		m_pGameChara->KeyOperation(MAP_RIGHT);
 	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_V) || PadOn == m_pXinputDevice->GetButton(ButtonRightThumb))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_V) || m_pXinputDevice->GetAnalogTrigger(LEFT_TRIGGER))
 	{
 		m_pGameChara->KeyOperation(MAP_DOWN);
 	}
-	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_F) || PadOn == m_pXinputDevice->GetButton(ButtonLeftThumb))
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_F) || m_pXinputDevice->GetAnalogTrigger(RIGHT_TRIGGER))
 	{
 		m_pGameChara->KeyOperation(MAP_UP);
 	}
