@@ -11,8 +11,8 @@ ClawShot::ClawShot(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* Map
 	m_Central = { 500,0,25,25 };
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
-	m_row = m_pMapChip->getRow();
-	m_colunm = m_pMapChip->getColunm();
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
 
 	m_SkillType = CLAWSHOT;
 }
@@ -135,7 +135,7 @@ bool ClawShot::Update()
 		InitPosition();
 	}
 	int buf = 0;
-	if (buf = m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	if (buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX) > 100)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		m_pSoundOperater->Start("CLAWSHOT", false);
@@ -160,7 +160,7 @@ void ClawShot::Render()
 	}
 	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0, 0, m_Direction);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_Central.x, m_Central.y, 0xFFFFFFFF, 0, 0, m_Direction);
 		TextureRender("ARROW_TEX", DirectionArrowVertex);
 		return;
 	}

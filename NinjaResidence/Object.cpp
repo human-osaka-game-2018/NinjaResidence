@@ -7,7 +7,7 @@
 
 int Object::m_MapScrollX = 0;
 int Object::m_MapScrollY = 0;
-std::vector<BlockInfo> Object::ReversePointVector;
+std::vector<BlockInfo> Object::m_ReversePointVector;
 std::vector<MapScrollBuffer> Object::m_ReverseBuffer;
 int Object::m_ReverseCount = 0;
 
@@ -36,12 +36,6 @@ bool Object::Update()
 }
 
 
-void Object::GameCharaInfo(int CharaX, int CharaY)
-{
-	m_CharaX = CharaX;
-	m_CharaY = CharaY;
-}
-
 bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
 {
 	if ((m_Central.x <= object->x + object->scale_x) && (object->x <= m_Central.x + m_Central.scale_x)
@@ -54,11 +48,6 @@ bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
-}
-
-
-void Object::Render(bool MapDataReverse)
-{
 }
 
 

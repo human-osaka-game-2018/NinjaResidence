@@ -48,8 +48,13 @@ public:
 	virtual bool Update();
 
 	virtual void Render() {};
-	virtual void Render(bool MapDataReverse);
-	virtual void prevSaveMapCharaPos() {};
+	virtual void PrevSaveMapPos() {};
+	
+	/*
+	* @brief マップ内ブロックの起動処理
+	* @param X 起動するブロックのマップ内X座標
+	* @param Y 起動するブロックのマップ内Y座標
+	*/
 	virtual void Activate(int X,int Y) {};
 	/*
 	* @brief テクスチャの貼り付け
@@ -63,7 +68,7 @@ public:
 	virtual ~Object();
 
 	/**
-	*@brief CUSTOMVERTEXにパラメータを入れる
+	* @brief CUSTOMVERTEXにパラメータを入れる
 	* @param Vertex 値を入れる配列
 	* @param Central 中心座標情報
 	* @param color 色
@@ -73,68 +78,79 @@ public:
 	* @param scaleTv 切り取り画像の下端
 	*/
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	/**
+	* @brief CUSTOMVERTEXにパラメータを入れる
+	* @param Vertex 値を入れる配列
+	* @param x 原点からのX軸距離
+	* @param y 原点からのY軸距離
+	* @param color 色
+	* @param tu 切り取り画像の左端
+	* @param tv 切り取り画像の上端
+	* @param scaleTu 切り取り画像の右端
+	* @param scaleTv 切り取り画像の下端
+	*/
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	/**
+	* @brief CUSTOMVERTEXに中心情報を左上としたパラメータの設定
+	* @param Central 中心座標情報
+	* @param Vertex 値を入れる配列
+	* @param color 色
+	* @param tu 切り取り画像の左端
+	* @param tv 切り取り画像の上端
+	* @param scaleTu 切り取り画像の右端
+	* @param scaleTv 切り取り画像の下端
+	*/
 	void CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	/**
-	*@brief CUSTOMVERTEXからCENTRAL_STATEを作成する
+	* @brief CUSTOMVERTEXから中心情報を作成する
 	* @param Central [out]
 	* @param Vertex [in]
-	* @sa CreateSquareVertex(CENTRAL_STATE Central, CUSTOMVERTEX* Vertex, DWORD  color, float tu, float tv, float scaleTu float scaleTv)
 	* @details 関連するCUSTOMVERTEX作成関数の逆動作をする
 	*/
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
-
 	void TranslateCentral_State(CUSTOMVERTEX * Vertex, CENTRAL_STATE * Central);
 
 	/**
-	*@brief CSV読み取りとマップデータ生成
+	* @brief CSV読み取りとマップデータ生成
 	* @param filename CSVファイルパス
 	* @param MapState 表か裏かの指定
 	* @sa enum MapDataState
 	*/
 	virtual void Create(std::string filename, MapDataState MapState) {};
 
-
-	void setMapScrollX(int x) {};
-	void setMapScrollY(int y) {};
-
-	int getRow() {
-		return m_row;
-	}
-	int getColunm() {
-		return m_colunm;
-	}
-	int getMapChipData(int height, int width) {
-		return MapData[height][width];
-	}
+	/**
+	* @brief ギミックの座標取得
+	* @param isAxisX 欲しい軸はX座標であるか
+	* @param MapYPos マップY座標
+	* @param MapXPos マップX座標
+	*/
 	virtual float GetGimmickPosition(bool isAxisX,int MapYPos,int MapXPos) { return 0; };
-	virtual bool RestrictBottomScroll() { return false; };
-	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
-	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
 
 	virtual void Reverse(Object* MapChip) {};
 	virtual bool GetActive() { return false; };
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
-	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 0;}
-	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 0;}
+	virtual int SearchBlockX(MapBlock::BLOCKTYPE Block) {return 3;}
+	virtual int SearchBlockY(MapBlock::BLOCKTYPE Block) {return 3;}
 
 	void GameCharaInfo(int CharaX, int CharaY);
 	virtual bool GetGimmickActive() { return false; };
 	virtual CUSTOMVERTEX* GetTargetPosition(int targetType) { return m_WorldCoordinate; };
 	bool ContactSpecifyObject(CENTRAL_STATE* object);
-	int getm_CharaX()
-	{
-		return m_CharaX;
+	int GetMapScrollX() { return m_MapScrollX; };
+	int GetMapScrollY() { return m_MapScrollY; };
+
+	int GetRow() {
+		return m_row;
 	}
-	int getm_CharaY()
-	{
-		return m_CharaY;
+	int GetColunm() {
+		return m_colunm;
+	}
+	int GetMapChipData(int height, int width) {
+		return MapData[height][width];
 	}
 
-	int m_CharaX;
-	int m_CharaY;
 	virtual MapDataState GetMapDataState() {
 		MapDataState State = STATE_FALSE;
 		return State;
@@ -154,7 +170,7 @@ protected:
 	//!列
 	int m_colunm = 0;
 
-	static const int ArrayLong = 64;
+	static const int ARRAY_LONG = 64;
 	//! Z軸回転
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	//! 回転する中心を指定してZ軸回転
@@ -168,12 +184,13 @@ protected:
 	//! テキストファイルに指定の文字列を上書きする
 	void WriteLog(std::string Text);
 
-	static std::vector<BlockInfo> ReversePointVector;
+	static std::vector<BlockInfo> m_ReversePointVector;
 	static std::vector<MapScrollBuffer> m_ReverseBuffer;
 	static int m_ReverseCount;
-private:
+	//! ディスプレイ上のキャラの矩形
 	CUSTOMVERTEX m_DisplayCoordinate[4];
+	//! 全体的なキャラの矩形
 	CUSTOMVERTEX m_WorldCoordinate[4];
-	int MapChara[5];
+private:
 
 };

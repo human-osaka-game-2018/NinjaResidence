@@ -37,7 +37,6 @@ public:
 	void Create(std::string filename, MapDataState MapState);
 	void Activate(int X, int Y);
 	void MapDataVectorSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
-	void MapDataVectorSet0();
 	void MapDataGimmickSearch();
 	void MapDataVectorHitSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	void MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
@@ -45,9 +44,6 @@ public:
 	void CheckVector();
 	void Render();
 	bool Update();
-	bool RestrictBottomScroll();
-	float GetBottomPoint(int charaLeft, int charRight);
-	float GetBottomWorldPoint(int charaLeft, int charRight);
 	MapDataState GetMapDataState() {
 		return m_MapDataState;
 	}

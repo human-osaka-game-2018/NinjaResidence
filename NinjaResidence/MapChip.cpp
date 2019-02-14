@@ -91,14 +91,14 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePointVector.push_back(block);
 					m_ReverseCount++;
 				}
 				else if (blocktype == ROCK_REVERSE_ZONE)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePointVector.push_back(block);
 					m_ReverseCount++;
 				}
 
@@ -164,16 +164,6 @@ void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int G
 	}
 }
 
-void MapChip::MapDataVectorSet0()
-{
-	for (int i = 0;i < 3;i++)
-	{
-		for (int j = 1;j < 15;j++)
-		{
-			MapData[3 + j][15 + i] = 0;
-		}
-	}
-}
 
 void MapChip::CheckVector()
 {
@@ -245,6 +235,13 @@ void MapChip::Render()
 			CellInit();
 			float top = FIELD_TOP + (CELL_SIZE * j) + static_cast<float>(m_MapScrollY);
 			float left = FIELD_LEFT + (CELL_SIZE * i) + static_cast<float>(m_MapScrollX);
+			if (top<-CELL_SIZE || top>DISPLAY_HEIGHT) {
+				continue;
+			}
+			if (left<-CELL_SIZE || left>DISPLAY_WIDTH) {
+				continue;
+			}
+
 			CELL[0].x = left;
 			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
@@ -349,8 +346,8 @@ void MapChip::Render()
 #ifdef _DEBUG
 
 	RECT test = { 0,500,1250,700 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
+	char TestText[ARRAY_LONG];
+	sprintf_s(TestText, ARRAY_LONG, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 #endif
 }
@@ -364,41 +361,6 @@ bool MapChip::Update() {
 		ite->Update();
 	}
 	return true;
-}
-
-bool MapChip::RestrictBottomScroll() {
-	float MapBottom = FIELD_TOP + (CELL_SIZE * (m_colunm + 1) )+ m_MapScrollY;
-	if (MapBottom < DISPLAY_HEIGHT-20) {
-		return true;
-	}
-	return false;
-}
-
-float MapChip::GetBottomPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-	}
-	return  0;
-}
-float MapChip::GetBottomWorldPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-	}
-	return  0;
 }
 
 void MapChip::CellInit() {
@@ -439,7 +401,7 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 			}
 		}
 	}
-	return 2;
+	return 5;
 }
 
 CUSTOMVERTEX* MapChip::GetTargetPosition(int targetType)
