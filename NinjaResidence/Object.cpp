@@ -7,14 +7,12 @@
 
 int Object::m_MapScrollX = 0;
 int Object::m_MapScrollY = 0;
-std::vector<BlockInfo> Object::ReversePointVector;
+std::vector<BlockInfo> Object::m_ReversePoint;
 std::vector<MapScrollBuffer> Object::m_ReverseBuffer;
 int Object::m_ReverseCount = 0;
 
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
-	m_MapScrollX = 0;
-	m_MapScrollY = 0;
 }
 
 
@@ -36,16 +34,10 @@ bool Object::Update()
 }
 
 
-void Object::GameCharaInfo(int CharaX, int CharaY)
-{
-	m_CharaX = CharaX;
-	m_CharaY = CharaY;
-}
-
 bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
 {
-	if ((m_Central.x <= object->x + object->scale_x) && (object->x <= m_Central.x + m_Central.scale_x)
-		&& (m_Central.y <= object->y + object->scale_y) && (object->y <= m_Central.y + m_Central.scale_y)) {
+	if ((m_Central.x <= object->x + object->scale_x) && (m_Central.x >= object->x- object->scale_x)
+		&& (m_Central.y <= object->y + object->scale_y) && (m_Central.y >= object->y- object->scale_y)) {
 		return true;
 	}
 	return false;
@@ -54,11 +46,6 @@ bool Object::ContactSpecifyObject(CENTRAL_STATE* object)
 void Object::TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize)
 {
 	m_pDirectX->DrawTexture(TextureKey, TextureSize);
-}
-
-
-void Object::Render(bool MapDataReverse)
-{
 }
 
 
@@ -96,7 +83,20 @@ void Object::TranslateCentral_State(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central
 	Central->x = Vertex[0].x + Central->scale_x;
 	Central->y = Vertex[0].y + Central->scale_y;
 }
+void Object::SetVertexUV(CUSTOMVERTEX* Vertex, float Tu, float Tv, float scaleTu, float scaleTv) {
+	Vertex[0].tu = Tu;
+	Vertex[0].tv = Tv;
 
+	Vertex[1].tu = Tu + scaleTu;
+	Vertex[1].tv = Tv;
+
+	Vertex[2].tu = Tu + scaleTu;
+	Vertex[2].tv = Tv + scaleTv;
+
+	Vertex[3].tu = Tu;
+	Vertex[3].tv = Tv + scaleTv;
+
+}
 void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 
 	float CharVertexX[4];

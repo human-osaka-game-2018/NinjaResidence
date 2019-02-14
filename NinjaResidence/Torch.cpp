@@ -55,16 +55,21 @@ void Torch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	{
 		return;
 	}
-	m_TargetPosX = m_TargetInfo.PositionX;
-	m_TargetPosY = m_TargetInfo.PositionY;
-	m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
-	m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + MapScrollY;
-	m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
-	m_TargetVertex[1].y = (CELL_SIZE * m_TargetPosY) + MapScrollY;
-	m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
-	m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE * 3.f;
-	m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
-	m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + CELL_SIZE * 3.f;
+
+	float ScrollY = static_cast<float>(MapScrollY);
+	float ScrollX = static_cast<float>(MapScrollX);
+
+	m_TargetPosX = static_cast<float>(m_TargetInfo.PositionX);
+	m_TargetPosY = static_cast<float>(m_TargetInfo.PositionY);
+
+	m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + ScrollX;
+	m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + ScrollY;
+	m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE;
+	m_TargetVertex[1].y = (CELL_SIZE * m_TargetPosY) + ScrollY;
+	m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE;
+	m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + ScrollY + CELL_SIZE * 3.f;
+	m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + ScrollX;
+	m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + ScrollY + CELL_SIZE * 3.f;
 
 	m_TargetVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
 	m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
@@ -79,14 +84,14 @@ void Torch::Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse)
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", m_TargetVertex);
 	if (m_isActive) {
 		float HarfCellSize = CELL_SIZE * 0.5;
-		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
-		m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + MapScrollY - HarfCellSize;
-		m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
-		m_TargetVertex[1].y = (CELL_SIZE * m_TargetPosY) + MapScrollY - HarfCellSize;
-		m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + MapScrollX + CELL_SIZE;
-		m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + HarfCellSize;
-		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + MapScrollX;
-		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + MapScrollY + HarfCellSize;
+		m_TargetVertex[0].x = (CELL_SIZE * m_TargetPosX) + ScrollX;
+		m_TargetVertex[0].y = (CELL_SIZE * m_TargetPosY) + ScrollY - HarfCellSize;
+		m_TargetVertex[1].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE;
+		m_TargetVertex[1].y = (CELL_SIZE * m_TargetPosY) + ScrollY - HarfCellSize;
+		m_TargetVertex[2].x = (CELL_SIZE * m_TargetPosX) + ScrollX + CELL_SIZE;
+		m_TargetVertex[2].y = (CELL_SIZE * m_TargetPosY) + ScrollY + HarfCellSize;
+		m_TargetVertex[3].x = (CELL_SIZE * m_TargetPosX) + ScrollX;
+		m_TargetVertex[3].y = (CELL_SIZE * m_TargetPosY) + ScrollY + HarfCellSize;
 
 		m_TargetVertex[0].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
 		m_TargetVertex[1].tu = BLOCK_INTEGRATION_WIDTH * 5.f;

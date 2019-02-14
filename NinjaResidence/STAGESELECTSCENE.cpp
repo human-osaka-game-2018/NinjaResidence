@@ -10,17 +10,9 @@ StageSelectScene::StageSelectScene(DirectX* pDirectX, SoundOperater* pSoundOpera
 	m_StageNum = 0;
 	m_pScene = this;
 	CreateSquareVertex(m_BackgroundVertex, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-	m_StageImage[0] = {CENTRAL_X,CENTRAL_Y,250,250 };
-	m_StageImage[1] = {CENTRAL_X + 250,CENTRAL_Y,200,200 };
-	m_StageImage[2] = {CENTRAL_X + 75,CENTRAL_Y ,150,150 };
-	m_StageImage[3] = {CENTRAL_X + 75,CENTRAL_Y ,150,150 };
-	m_StageImage[4] = {CENTRAL_X - 250,CENTRAL_Y,200,200 };
-	m_StageImagekey[0] = "StageImageT_TEX";
-	m_StageImagekey[1] = "StageImage1_TEX";
-	m_StageImagekey[2] = "StageImage2_TEX";
-	m_StageImagekey[3] = "StageImage3_TEX";
-	m_StageImagekey[4] = "StageImage4_TEX";
-	m_StageImagekey[5] = "StageImage5_TEX";
+
+	//初期値を決まる関数
+	Initialize();
 }
 
 StageSelectScene::~StageSelectScene()
@@ -29,133 +21,252 @@ StageSelectScene::~StageSelectScene()
 	m_pDirectX->ClearFont();
 }
 
+void StageSelectScene::Initialize() {
+	InitPosStageImage();
+	InitPosStageSelectNumber();
+	InitStageSelectNumberkey();
+
+}
+void StageSelectScene::InitPosStageImage()
+{
+	const float STAGEIMAGE_SCALE_X = 180.f;
+	const float STAGEIMAGE_SCALE_Y = 80.f;
+	for (int i = 0; i < 6; i++)
+	{
+		m_StageImage[i].scale_x = STAGEIMAGE_SCALE_X;
+		m_StageImage[i].scale_y = STAGEIMAGE_SCALE_Y;
+		m_StageImage[i].y = static_cast<float>((i / 2) + 1) * 200.f;
+		if (i % 2)
+		{
+			m_StageImage[i].x = OddNumPosX;
+		}
+		else
+		{
+			m_StageImage[i].x = EvenNumPosX;
+		}
+	}
+}
+
+void StageSelectScene::InitPosStageSelectNumber()
+{
+	const float STAGESELECTNUMBER_SCALE_X = 150.f;
+	const float STAGESELECTNUMBER_SCALE_Y = 50.f;
+	for (int i = 0; i < 6; i++)
+	{
+		m_StageSelectNumber[i].scale_x = STAGESELECTNUMBER_SCALE_X;
+		m_StageSelectNumber[i].scale_y = STAGESELECTNUMBER_SCALE_Y;
+		m_StageSelectNumber[i].y = (static_cast<float>((i / 2) + 1) * 200.f) + 5.f;
+		if (i % 2)
+		{
+			m_StageSelectNumber[i].x = OddNumPosX;
+		}
+		else
+		{
+			m_StageSelectNumber[i].x = EvenNumPosX;
+		}
+	}
+}
+
+
+void StageSelectScene::InitStageSelectNumberkey()
+{
+	m_StageSelectNumberkey[0] = "STAGESELECTNUMBERT_TEX";
+	m_StageSelectNumberkey[1] = "STAGESELECTNUMBER1_TEX";
+	m_StageSelectNumberkey[2] = "STAGESELECTNUMBER2_TEX";
+	m_StageSelectNumberkey[3] = "STAGESELECTNUMBER3_TEX";
+	m_StageSelectNumberkey[4] = "STAGESELECTNUMBER4_TEX";
+	m_StageSelectNumberkey[5] = "STAGESELECTNUMBER5_TEX";
+}
+
+
 SCENE_NUM  StageSelectScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
 
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyRelease == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)) {
-		SetNextScene(GAME_SCENE);		
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RETURN) || KeyPush == m_pDirectX->GetKeyStatus(DIK_NUMPADENTER)|| PadPush == m_pXinputDevice->GetButton(ButtonA)) {
+		if (m_StageNum == StageTitle)
+		{
+			SetNextScene(TITLE_SCENE);
+		}
+		else
+		{
+			m_pSoundOperater->Stop("TITLE");
+			SetNextScene(GAME_SCENE);
+		}
 	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
-		SetNextScene(GAME_SCENE);
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_BACKSPACE) || PadPush == m_pXinputDevice->GetButton(ButtonB)) {
+		m_StageNum = StageTitle;
+		m_SelectCursol.y = 70.f;
+		m_SelectCursol.x = 330.f;
+
 	}
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE)) {
-		m_StageNum = 7;
+		m_StageNum = 8;
+	}
+	
+
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_RIGHT)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_D) || PadPush == m_pXinputDevice->GetButton(ButtonRIGHT)|| m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
+	{
+		if (m_StageNum == Stage0)
+		{
+			m_StageNum = Stage1;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
+		}
+		if (m_StageNum == Stage2)
+		{
+			m_StageNum = Stage3;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
+		}
+		if (m_StageNum == Stage4)
+		{
+			m_StageNum = Stage5;
+			m_SelectCursol.x += KUNAI_MOVEMENT_X;
+		}
+	}
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_LEFT)|| KeyPush == m_pDirectX->GetKeyStatus(DIK_A) || PadPush == m_pXinputDevice->GetButton(ButtonLEFT)|| m_pXinputDevice->GetAnalogL(ANALOGLEFT))
+	{
+		if (m_StageNum == Stage1)
+		{
+			m_StageNum = Stage0;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
+		}
+		if (m_StageNum == Stage3)
+		{
+			m_StageNum = Stage2;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
+		}
+		if (m_StageNum == Stage5)
+		{
+			m_StageNum = Stage4;
+			m_SelectCursol.x -= KUNAI_MOVEMENT_X;
+		}
 	}
 
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonRIGHT))
-	{
-		TurnUpStageImage();
-		if (m_StageNum < 5) {
-			m_StageNum++;
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP) || KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonUP) || m_pXinputDevice->GetAnalogL(ANALOGUP)) {
+		if (m_StageNum == Stage0)
+		{
+			m_StageNum = StageTitle;
+			m_SelectCursol.y -= MOVEMENT_X_TO_BACK;
+			m_SelectCursol.x -= MOVEMENT_Y_TO_BACK;
 		}
-		else m_StageNum = 0;
+		if (m_StageNum == Stage1)
+		{
+			m_StageNum = StageTitle;
+			m_SelectCursol.y -= MOVEMENT_X_TO_BACK;
+			//
+			m_SelectCursol.x -= 770;
+		}
+		if (m_StageNum == Stage2)
+		{
+			m_StageNum = Stage0;
+			m_SelectCursol.y -= KUNAI_MOVEMENT_Y;
+		}
+		if (m_StageNum == Stage3)
+		{
+			m_StageNum = Stage1;
+			m_SelectCursol.y -= KUNAI_MOVEMENT_Y;
+		}
+		if (m_StageNum == Stage4)
+		{
+			m_StageNum = Stage2;
+			m_SelectCursol.y -= KUNAI_MOVEMENT_Y;
+		}
+		if (m_StageNum == Stage5)
+		{
+			m_StageNum = Stage3;
+			m_SelectCursol.y -= KUNAI_MOVEMENT_Y;
+		}
 	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonLEFT))
-	{
-		TurnDownStageImage();
-		if (m_StageNum > 0) {
-			m_StageNum--;
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN) || KeyPush == m_pDirectX->GetKeyStatus(DIK_S) || PadPush == m_pXinputDevice->GetButton(ButtonDOWN) || m_pXinputDevice->GetAnalogL(ANALOGDOWN)) {
+		if (m_StageNum == Stage3)
+		{
+			m_StageNum = Stage5;
+			m_SelectCursol.y += KUNAI_MOVEMENT_Y;
 		}
-		else m_StageNum = 5;
-	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGRIGHT))
-	{
-		TurnUpStageImage();
-		if (m_StageNum < 5) {
-			m_StageNum++;
+		if (m_StageNum == Stage2)
+		{
+			m_StageNum = Stage4;
+			m_SelectCursol.y += KUNAI_MOVEMENT_Y;
 		}
-		else m_StageNum = 0;
-	}
-	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
-	{
-		TurnDownStageImage();
-		if (m_StageNum > 0) {
-			m_StageNum--;
+		if (m_StageNum == Stage0)
+		{
+			m_StageNum = Stage2;
+			m_SelectCursol.y += KUNAI_MOVEMENT_Y;
 		}
-		else m_StageNum = 5;
-	}
-
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_RIGHT)) {
-		TurnDownStageImage();
-		if (m_StageNum < 5) {
-			m_StageNum++;
+		if (m_StageNum == Stage1)
+		{
+			m_StageNum = Stage3;
+			m_SelectCursol.y += KUNAI_MOVEMENT_Y;
 		}
-		else m_StageNum = 0;
-	}
-	if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_LEFT)) {
-		TurnDownStageImage();
-		if (m_StageNum > 0) {
-			m_StageNum--;
+		if (m_StageNum == StageTitle)
+		{
+			m_StageNum = Stage0;
+			m_SelectCursol.y += MOVEMENT_X_TO_BACK;
+			m_SelectCursol.x += MOVEMENT_Y_TO_BACK;
 		}
-		else m_StageNum = 5;
 	}
 	return GetNextScene();
 }
 
 void StageSelectScene::Render()
 {
-	
+	static int CursorAnimeInterval = 0;
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 20) {
+
+		m_CursorAlfa += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
+	}
+
 	m_pDirectX->DrawTexture("SELECT_BG_TEX", m_BackgroundVertex);
 
 	CUSTOMVERTEX StageImage[4];
-	if (m_StageNum != 7) {
-		CreateSquareVertex(StageImage, m_StageImage[3]);
-		m_pDirectX->DrawTexture(m_StageImagekey[2], StageImage);
+	if (m_StageNum != 8) 	{
+		for (int i = 0; i < 6; ++i) {
+			CreateSquareVertex(StageImage, m_StageImage[i]);
+			m_pDirectX->DrawTexture("STAGEIMAGE_TEX", StageImage);
 
-		CreateSquareVertex(StageImage, m_StageImage[2]);
-		m_pDirectX->DrawTexture(m_StageImagekey[4], StageImage);
-
-		CreateSquareVertex(StageImage, m_StageImage[4]);
-		m_pDirectX->DrawTexture(m_StageImagekey[1], StageImage);
-
-		CreateSquareVertex(StageImage, m_StageImage[1]);
-		m_pDirectX->DrawTexture(m_StageImagekey[5], StageImage);
-
-		CreateSquareVertex(StageImage, m_StageFrame, 0xffffaa00);
-		m_pDirectX->DrawTexture("TEX", StageImage);
-
-		CreateSquareVertex(StageImage, m_StageImage[0]);
-		m_pDirectX->DrawTexture(m_StageImagekey[0], StageImage);
+			CreateSquareVertex(StageImage, m_StageSelectNumber[i]);
+			m_pDirectX->DrawTexture(m_StageSelectNumberkey[i], StageImage);
+		}
 	}
 	else {
 		CreateSquareVertex(StageImage, m_StageImage[0]);
-		m_pDirectX->DrawTexture("StageImageD_TEX", StageImage);
+		m_pDirectX->DrawTexture("STAGEIMAGED_TEX", StageImage);
 	}
+
+	CreateSquareVertex(StageImage, m_StageSelectBack);
+	m_pDirectX->DrawTexture("STAGESELECTBACK_TEX", StageImage);
+
+	CreateSquareVertex(StageImage, m_SelectCursol, m_CursorAlfa);
+	m_pDirectX->DrawTexture("KUNAI_TEX", StageImage);
+#ifdef _DEBUG
+	RECT testName = { 0, 100, 1250, 720 };
+	char TestName[ArrayLong];
+	sprintf_s(TestName, ArrayLong, "Cursol X:%.2f Y:%.2f", m_SelectCursol.x, m_SelectCursol.y);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
+
+#endif
 }
 
 void StageSelectScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture(NULL, "TEX");
-	m_pDirectX->LoadTexture("texture/BG.jpg", "SELECT_BG_TEX");
-	m_pDirectX->LoadTexture("texture/StageImageT.jpg", "StageImageT_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage1.jpg", "StageImage1_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage2.jpg", "StageImage2_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage3.jpg", "StageImage3_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage4.jpg", "StageImage4_TEX");
-	m_pDirectX->LoadTexture("texture/StageImage5.jpg", "StageImage5_TEX");
-	m_pDirectX->LoadTexture("texture/StageImageD.jpg", "StageImageD_TEX");
+	m_pDirectX->LoadTexture("texture/SelectBG.png", "SELECT_BG_TEX");
+	m_pDirectX->LoadTexture("texture/StageImage.png", "STAGEIMAGE_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumberT.png", "STAGESELECTNUMBERT_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumber1.png", "STAGESELECTNUMBER1_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumber2.png", "STAGESELECTNUMBER2_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumber3.png", "STAGESELECTNUMBER3_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumber4.png", "STAGESELECTNUMBER4_TEX");
+	m_pDirectX->LoadTexture("texture/StageSelectNumber5.png", "STAGESELECTNUMBER5_TEX");
+	m_pDirectX->LoadTexture("texture/Kunai.png", "KUNAI_TEX");
+	m_pDirectX->LoadTexture("texture/StagexSelectBack.png", "STAGESELECTBACK_TEX");
+	m_pDirectX->LoadTexture("texture/StageImageD.jpg", "STAGEIMAGED_TEX");
 
-	m_pDirectX->SetFont(100, 50, "DEBUG_FONT");
-
-}
-
-void StageSelectScene::TurnUpStageImage() {
-	std::string Buf = m_StageImagekey[0];
-	m_StageImagekey[0] = m_StageImagekey[1];
-	m_StageImagekey[1] = m_StageImagekey[2];
-	m_StageImagekey[2] = m_StageImagekey[3];
-	m_StageImagekey[3] = m_StageImagekey[4];
-	m_StageImagekey[4] = m_StageImagekey[5];
-	m_StageImagekey[5] = Buf;
-}
-void StageSelectScene::TurnDownStageImage() {
-	std::string Buf = m_StageImagekey[5];
-	m_StageImagekey[5] = m_StageImagekey[4];
-	m_StageImagekey[4] = m_StageImagekey[3];
-	m_StageImagekey[3] = m_StageImagekey[2];
-	m_StageImagekey[2] = m_StageImagekey[1];
-	m_StageImagekey[1] = m_StageImagekey[0];
-	m_StageImagekey[0] = Buf;
+	m_pDirectX->SetFont(50, 20, "DEBUG_FONT");
 
 }
+

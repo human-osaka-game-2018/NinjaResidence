@@ -24,6 +24,7 @@ MapChip::MapChip(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDire
 
 MapChip::~MapChip()
 {
+	m_ReverseCount = 0;
 	for (int i = 0; i < m_colunm; i++)
 	{
 		MapData[i].clear();
@@ -33,6 +34,8 @@ MapChip::~MapChip()
 	vector<vector<int>>().swap(MapData);
 	GimmickVector.clear();
 	TargetVector.clear();
+	m_ReversePoint.clear();
+
 	for (int i = (pBaseTarget.size() - 1); i >= 0; --i)
 	{
 		delete pBaseTarget[i];
@@ -66,7 +69,7 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 	{
 		replace(str.begin(), str.end(), ',', ' ');
 		std::stringstream MapNumsStream(str);
-		for (int x = 0; x < MapData[y].size();++x) {
+		for (int x = 0; x < static_cast<int>(MapData[y].size());++x) {
 			MapNumsStream >> MapData[y][x];
 			BlockInfo block;
 			int blocktype = MapData[y][x] / 100;
@@ -91,14 +94,14 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePoint.push_back(block);
 					m_ReverseCount++;
 				}
 				else if (blocktype == ROCK_REVERSE_ZONE)
 				{
 					PairNum = MapData[y][x] % 100;
 					block = { x,y,PairNum,blocktype,MapState,this };
-					ReversePointVector.push_back(block);
+					m_ReversePoint.push_back(block);
 					m_ReverseCount++;
 				}
 
@@ -107,7 +110,7 @@ void MapChip::Create(std::string filename, MapDataState MapState)
 		y++;
 
 
-		if (y > MapData.size()) break;
+		if (y > static_cast<int>(MapData.size())) break;
 	}
 
 	if (MapState == REVERSE)
@@ -139,19 +142,6 @@ void MapChip::MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX,
 	}
 }
 
-void MapChip::MapDataGimmickSearch()
-{
-	for (int i = 0; i < m_colunm; i++)
-	{
-		for (int j = 0;j < m_row; j++)
-		{
-			if (MapData[i][j] > 400 && MapData[i][j] < 500)
-			{
-				MapDataVectorSet(i, j,15,3);
-			}
-		}
-	}
-}
 
 void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int GimmickY,int GimmickX)
 {
@@ -164,16 +154,6 @@ void MapChip::MapDataVectorSet(int MapDataVectorSetY,int MapDataVectorSetX,int G
 	}
 }
 
-void MapChip::MapDataVectorSet0()
-{
-	for (int i = 0;i < 3;i++)
-	{
-		for (int j = 1;j < 15;j++)
-		{
-			MapData[3 + j][15 + i] = 0;
-		}
-	}
-}
 
 void MapChip::CheckVector()
 {
@@ -187,22 +167,21 @@ void MapChip::CheckVector()
 			switch (TargetVector[i].GimmickType)
 			{
 			case BT_TARGET://的
-			pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX,m_pSoundOperater);
+				pBuf = new Target(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			case BT_ROPE://ロープ
-			pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+				pBuf = new Rope(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			case BT_SWITCH://スイッチ
-			pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+				pBuf = new Switch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
-				case BT_TORCH://たいまつ
-			pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
+			case BT_TORCH://たいまつ
+				pBuf = new Torch(TargetVector[i], GimmickVector[j], m_pDirectX, m_pSoundOperater);
 				break;
 			}
 			pBaseTarget.push_back(pBuf);
 		}
 	}
-	MapDataGimmickSearch();
 }
 
 
@@ -234,9 +213,20 @@ int MapChip::GimmickMapDataCheck(int y, int x)
 
 void MapChip::Render()
 {
-	for (int j = 0; j < m_colunm;j++)
+	int TopCellPos = (m_MapScrollY * -1)/ static_cast<int>(CELL_SIZE);
+	int LeftCellPos = (m_MapScrollX * -1) / static_cast<int>(CELL_SIZE);
+	int BottomCellPos = ((m_MapScrollY * -1) + DISPLAY_HEIGHT) / static_cast<int>(CELL_SIZE) + 1;
+	int RightCellPos = ((m_MapScrollX * -1) + DISPLAY_WIDTH) / static_cast<int>(CELL_SIZE) + 1;
+	if (BottomCellPos > m_colunm) {
+		BottomCellPos = m_colunm;
+	}
+	if (RightCellPos > m_row) {
+		RightCellPos = m_row;
+	}
+
+	for (int j = TopCellPos; j < BottomCellPos;j++)
 	{
-		for (int i = 0;i < m_row;i++)
+		for (int i = LeftCellPos;i < RightCellPos;i++)
 		{
 			if (MapData[j][i] == 0)
 			{
@@ -245,6 +235,7 @@ void MapChip::Render()
 			CellInit();
 			float top = FIELD_TOP + (CELL_SIZE * j) + static_cast<float>(m_MapScrollY);
 			float left = FIELD_LEFT + (CELL_SIZE * i) + static_cast<float>(m_MapScrollX);
+
 			CELL[0].x = left;
 			CELL[0].y = top;
 			CELL[1].x = (left + CELL_SIZE);
@@ -263,49 +254,27 @@ void MapChip::Render()
 				case ROCK_BLOCK:
 				case WOOD_TRACT:
 				case ROCK_TRACT:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f);
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * m_MapSelected;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * (m_MapSelected - 1.f), 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case GOAL_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 4.f;
+					CELL[0].x -= CELL_SIZE * 0.5f;
+					CELL[0].y -= CELL_SIZE * 0.5f;
+					CELL[1].x += CELL_SIZE * 0.5f;
+					CELL[1].y -= CELL_SIZE * 0.5f;
+					CELL[2].x += CELL_SIZE * 0.5f;
+					CELL[3].x -= CELL_SIZE * 0.5f;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case SPEAR:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 2.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 3.f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT * 3.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 5.f;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 2.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT * 2.f);
 					break;
 				case DESCRIPTION_BOARD:
 				case DESCRIPTION_BOARD2:
-					CELL[0].tu = 0.f;
-					CELL[3].tu = 0.f;
-					CELL[1].tu = 0.24f;
-					CELL[2].tu = 0.24f;
-					CELL[0].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[1].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT * 2.f;
-					CELL[1].x += 120.f;
-					CELL[2].x += 120.f;
-					CELL[3].y += 80.f;
-					CELL[2].y += 80.f;
+					SetVertexUV(CELL, 0, BLOCK_INTEGRATION_HEIGHT, 0.24f, BLOCK_INTEGRATION_HEIGHT*0.98);
+					CELL[1].x += CELL_SIZE * 3.f;
+					CELL[2].x += CELL_SIZE * 3.f;
+					CELL[3].y += CELL_SIZE * 2.f;
+					CELL[2].y += CELL_SIZE * 2.f;
 					break;
 				default:
 					continue;
@@ -315,30 +284,26 @@ void MapChip::Render()
 				switch (m_MapSelected/100)
 				{
 				case WOOD_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 4.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 4.f, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
 				case ROCK_REVERSE_ZONE:
-					CELL[0].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[3].tu = BLOCK_INTEGRATION_WIDTH * 5.f;
-					CELL[1].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
-					CELL[2].tu = BLOCK_INTEGRATION_WIDTH * 6.f;
-					CELL[0].tv = 0.f;
-					CELL[1].tv = 0.f;
-					CELL[2].tv = BLOCK_INTEGRATION_HEIGHT;
-					CELL[3].tv = BLOCK_INTEGRATION_HEIGHT;
+					SetVertexUV(CELL, BLOCK_INTEGRATION_WIDTH * 5.f, 0, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 					break;
+#ifdef _DEBUG
+				case 9: {
+					CUSTOMVERTEX test[4]{ CELL[0],CELL[1],CELL[2],CELL[3] };
+					for (int i = 0; i < 4; ++i) {
+						test[i].color = 0xCCDDDDDD;
+					}
+					TextureRender("TEST_TEX", test); 
+				}
+#endif
 				default:
 					continue;
 				}
 			}
 			TextureRender("BLOCK_INTEGRATION_A_TEX", CELL);
+
 		}
 	}
 	for (BaseTarget* pi : pBaseTarget)
@@ -349,8 +314,8 @@ void MapChip::Render()
 #ifdef _DEBUG
 
 	RECT test = { 0,500,1250,700 };
-	char TestText[ArrayLong];
-	sprintf_s(TestText, ArrayLong, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
+	char TestText[ARRAY_LONG];
+	sprintf_s(TestText, ARRAY_LONG, "MapScroll::X:%d,Y:%d", m_MapScrollX, m_MapScrollY);
 	m_pDirectX->DrawWord(test, TestText, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
 #endif
 }
@@ -366,40 +331,6 @@ bool MapChip::Update() {
 	return true;
 }
 
-bool MapChip::RestrictBottomScroll() {
-	float MapBottom = FIELD_TOP + (CELL_SIZE * (m_colunm + 1) )+ m_MapScrollY;
-	if (MapBottom < DISPLAY_HEIGHT-20) {
-		return true;
-	}
-	return false;
-}
-
-float MapChip::GetBottomPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 4)) + m_MapScrollY;
-		}
-	}
-	return  0;
-}
-float MapChip::GetBottomWorldPoint(int charaLeft, int charRight)
-{
-	float MapPosition = 0;
-	for (int i = m_colunm - 1; i > 0; --i) {
-		if (!MapData[i][charaLeft]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-		if (!MapData[i][charRight]) {
-			return MapPosition = FIELD_TOP + (CELL_SIZE * (i - 1));
-		}
-	}
-	return  0;
-}
 
 void MapChip::CellInit() {
 	for (int i = 0; i < 4; i++) {
@@ -439,7 +370,7 @@ int MapChip::SearchBlockY(BLOCKTYPE Block) {
 			}
 		}
 	}
-	return 2;
+	return 5;
 }
 
 CUSTOMVERTEX* MapChip::GetTargetPosition(int targetType)

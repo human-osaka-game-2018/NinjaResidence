@@ -44,38 +44,28 @@ int SceneManager::Update()
 		}
 		return m_pScene->GetGameState();
 	}
-	if (m_CurrentScene != m_NextScene)
+	if (m_CurrentScene != m_NextScene&& m_NextScene !=SCENE_NONE)
 	{
+		if (!isRunOnce) {
+			delete m_pScene;
+		}
+		isThreadActive = true;
 		switch (m_NextScene)
 		{
 		case TITLE_SCENE:
-			if (!isRunOnce) {
-				delete m_pScene;
-			}
-			isThreadActive = true;
 			m_pScene = new  TitleScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case STAGESELECT_SCENE:
-			if (!isRunOnce) {
-				delete m_pScene;
-			}
-			isThreadActive = true;
 			m_pScene = new  StageSelectScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case GAME_SCENE:
-			if (!isRunOnce) {
-				delete m_pScene;
-			}
-			isThreadActive = true;
 			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater);
 			break;
 		}
 		m_NextScene = m_pScene->GetNextScene();
-
 	}
 	if (!isThreadActive) {
 		m_NextScene = m_pScene->Update();
-		//m_NextScene = m_pScene->GetNextScene();
 	}
 	else LoadAction();
 

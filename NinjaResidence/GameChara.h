@@ -44,21 +44,18 @@ namespace PlayerAnimation {
 class GameChara :public Object
 {
 public:
-	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCharaCoordinate[4]; }
-	void prevSaveMapCharaPos();
+	CUSTOMVERTEX GetDisplayCharaCoordinate() { return m_DisplayCoordinate[4]; }
+	void PrevSaveMapPos();
 	void KeyOperation(KeyDirection vec);
-	void CharaInfoSave(Object* MapChip, int BlockNumber);
+	void PositionSave(Object* MapChip, int BlockNumber);
 	bool Update();
+	bool CollisionIventBlock();
 	void Render();
 	GameChara(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip);
 	~GameChara();
 
 	int GetMapLeftDirectionPosition() { return m_MapLeftDirectionPosition; }
 	int GetMapPositionY() { return m_MapPositionY; }
-
-	//int GetMapCharaPositionX() { return m_MapLeftDirectionPosition; }
-
-	void GimmickHitCheck();
 
 	void NoOperation();
 	/**
@@ -77,7 +74,7 @@ public:
 	* @author Toshiya Matsuoka
 	*/
 	float GetPositionY() {
-		return m_DisplayCharaCoordinate[0].y + (CELL_SIZE * 2);
+		return m_DisplayCoordinate[0].y + (CELL_SIZE * 2);
 	}
 
 	/**
@@ -90,15 +87,15 @@ public:
 	}
 	/**
 	* @brief 火遁アニメーション動作
+	* @author Toshiya Matsuoka
 	*/
 	void FireArtAnime();
 	bool GetGameFailure() {
 		return m_GameFailure;
 	}
 
+
 private:
-	CUSTOMVERTEX m_DisplayCharaCoordinate[4];
-	CUSTOMVERTEX m_WorldCharaCoordinate[4];
 	//前フレームのm_MapLeftDirectionPositionの値
 	int m_PrevMapLeftDirectionPosition = 0;
 	//前フレームのm_MapRightDirectionPositionの値
@@ -110,26 +107,33 @@ private:
 	//キャラの右側のX座標
 	int m_MapRightDirectionPosition = 0;
 	int m_MapPositionY = 0;//キャラの上側のx座標
-	//毎フレームかける重力の値
+	//! 毎フレームかける重力の値
 	const float GRAVITY = 15.f;
-	const float MOVE_SPEED = 15.f;
-	const float VERTICAL_SCROLLING_LEVEL = 20.f;
+	void Dash();
+	//! 移動量
+	float MOVE_SPEED = 15.f;
+	const int VERTICAL_SCROLLING_LEVEL = 20;
 	const int ScrollSpeed = 15;
-	//m_DisplayCharaCoordinateのY座標がこの値を下回ると上にスクロールする
+
+	//m_DisplayCoordinateのY座標がこの値を下回ると上にスクロールする
 	const int DisplayCharMoveScopeUp = 100;
-	//m_DisplayCharaCoordinateのY座標がこの値を超えると上にスクロールする
+	//m_DisplayCoordinateのY座標がこの値を超えると上にスクロールする
 	const int DisplayCharMoveScopeDown = 630;
-	//m_DisplayCharaCoordinateのX座標がこの値を下回ると左にスクロールする
+	//m_DisplayCoordinateのX座標がこの値を下回ると左にスクロールする
 	const int DisplayCharMoveScopeLeft = 300;
-	//m_DisplayCharaCoordinateのX座標がこの値を超えると右にスクロールする
+	//m_DisplayCoordinateのX座標がこの値を超えると右にスクロールする
 	const int DisplayCharMoveScopeRight = 980;
 	//両端からのX座標の稼働範囲
 	const int DisplayCharMoveScopeX = 300;
+	void UpdateMapPos();
+	/**
+	* @brief 画面スクロール
+	*/
+	void MapScrool();
 
-
+	bool m_isInertiaMoving = false;
 	//void MoveOperation(KeyDirection vec, CUSTOMVERTEX* pWorldCharaCoordinate, CUSTOMVERTEX* pDisplayCharaCoordinate, float MoveQuantity);
 	void MapReversePointSearch(int BlockNumber, MapDataState MapState);
-	void MapScroolCheck();
 	//! 当たり判定描画用
 	float m_CollisionTu = 80 / 512.f;
 	//! 当たり判定描画用
@@ -142,9 +146,9 @@ private:
 	//仮統合ファイルの切り取り情報
 	const float CHARA_TEXTURE_WIDTH = 4096.f;
 	//! キャラ統合画像に対する1枚の幅
-	const float m_CharTu = 320 / CHARA_TEXTURE_WIDTH;
+	const float TU = 320.f / CHARA_TEXTURE_WIDTH;
 	//! キャラ統合画像に対する1枚の高さ
-	const float m_CharTv = 320 / CHARA_TEXTURE_WIDTH;
+	const float TV = 321.f / CHARA_TEXTURE_WIDTH;
 	float m_TurnAnimation = 0;
 	//! キャラのTvを変更するための値
 	PlayerAnimation::MOTION m_ChangeAnimation = PlayerAnimation::STAND;
@@ -166,7 +170,7 @@ private:
 	bool m_isJumpRight = false;
 	bool m_isJumpLeft = false;
 	bool m_isUsingArt = false;
-	const float InitialAcceleration = 60.0f;
+	const float InitialAcceleration = 50.0f;
 	float m_AccelerationY = InitialAcceleration;
 	float m_AccelerationX = MOVE_SPEED * 1.5f;
 
@@ -201,6 +205,7 @@ private:
 	*/
 	void AccelarationControl();
 
+
 	/**
 	* @breaf 投擲アニメ処理
 	* @author Toshiya Matsuoka
@@ -219,12 +224,6 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool DownCollisionAnything(void);
-	/**
-	* @breaf 上に対する何かしらの当たり判定
-	* @return 当たっていればtrue
-	* @author Toshiya Matsuoka
-	*/
-	bool TopCollisionAnything(void);
 	/**
 	* @breaf 下方向に対する当たり判定
 	* @param block 指定のブロック番号
@@ -257,20 +256,46 @@ private:
 	* @author Toshiya Matsuoka
 	*/
 	bool LeftCollisionCheck(int block);
-
+	/**
+	* @breaf 接地判定
+	* @author Toshiya Matsuoka
+	*/
 	bool SetGround();
+	/**
+	* @breaf 上方当たり判定
+	* @author Toshiya Matsuoka
+	*/
+	bool TopCollision();
+	/**
+	* @breaf 左方当たり判定
+	* @author Toshiya Matsuoka
+	*/
 	bool LeftCollision();
+	/**
+	* @breaf 右方当たり判定
+	* @author Toshiya Matsuoka
+	*/
 	bool RightCollision();
+	/**
+	* @breaf 左右の当たり判定
+	* @author Toshiya Matsuoka
+	*/
 	void SideCollision();
 
-	
+	void MoveInertia();
+
+
+	bool LeftDirectionCollision();
+
+	bool RightDirectionCollision();
+
 	/**
 	* @breaf 下方向に水ギミックブロックがあるか確認
 	* @return 下にあればtrue
 	* @author Toshiya Matsuoka
 	*/
 	bool LookDownWater();
-	
+
 	/**
 	* @breaf 水面のY座標取得
 	* @author Toshiya Matsuoka

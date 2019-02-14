@@ -89,8 +89,8 @@ int XinputDevice::GetAnalogTrigger(AnalogTrigger Trigger)
 		return m_Xinput.Gamepad.bLeftTrigger;
 	case RIGHT_TRIGGER:
 		return m_Xinput.Gamepad.bRightTrigger;
-
 	}
+	return 0;
 }
 
 bool XinputDevice::GetAnalogL(Analog AnalogState)
@@ -143,13 +143,13 @@ bool XinputDevice::GetAnalogR(Analog AnalogState)
 			return true;
 		}
 		break;
-	case ANALOGLEFT:
+	case ANALOGRIGHT:
 		if (GetAnalogRValue(ANALOG_X) > INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;
 		}
 		break;
-	case ANALOGRIGHT:
+	case ANALOGLEFT:
 		if (GetAnalogRValue(ANALOG_X) < -INCLINATION_THRESHOLD_VALUE)
 		{
 			return true;

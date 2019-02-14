@@ -4,19 +4,20 @@
 * @author Toshiya Matsuoka
 */
 #include "HighShuriken.h"
+#include "XinputDevice.h"
 
 
 
 using namespace PlayerAnimation;
 
-HighShuriken::HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
+HighShuriken::HighShuriken(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip, GameChara* GameChara, XinputDevice* pXinputDevice) :SkillBase(pDirectX, pSoundOperater, MapChip, GameChara)
 {
 	m_Central = { 500,0,20,20 };
 	m_pMapChip = MapChip;
 	m_pGameChara = GameChara;
-	m_row = m_pMapChip->getRow();
-	m_colunm = m_pMapChip->getColunm();
-
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
+	m_pXinputDevice = pXinputDevice;
 	m_SkillType = HIGH_SHURIKEN_ART;
 }
 
@@ -62,21 +63,37 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 		}
 		break;
 
-	case BIT_UP:
-		isOperation = true;
-		m_Central.y -= MoveSpeed;
+	case BIT_X_UP:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_DOWN:
-		isOperation = true;
-		m_Central.y += MoveSpeed;
+	case BIT_X_DOWN:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_LEFT:
-		isOperation = true;
-		m_Central.x -= MoveSpeed;
+	case BIT_X_LEFT:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = InputRightStickDeg();
 		break;
-	case BIT_RIGHT:
-		isOperation = true;
-		m_Central.x += MoveSpeed;
+	case BIT_X_RIGHT:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = InputRightStickDeg();
+		break;
+	case BIT_D_UP:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = 90.f;
+		break;
+	case BIT_D_DOWN:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = 270.f;
+		break;
+	case BIT_D_LEFT:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = 180.f;
+		break;
+	case BIT_D_RIGHT:
+		m_Direction = FACING_RIGHT;
+		m_DirectionDeg = 0.f;
 		break;
 	case END_ART:
 		InitPosition();
@@ -84,11 +101,15 @@ void HighShuriken::KeyOperation(KeyDirection vec)
 	}
 }
 
-
 bool HighShuriken::PermitActive() {
 	if (!m_isChoseDeg && !m_isActive) {
 		m_isChoseDeg = true;
+		m_DirectionDeg = 0;
 		m_Direction = static_cast<float>(m_pGameChara->GetFacing());
+		if (m_Direction == FACING_RIGHT) {
+			m_DirectionBias = ZERO;
+		}
+		else m_DirectionBias = ONE;
 		return false;
 	}
 	if (m_isChoseDeg && !m_isActive) {
@@ -106,24 +127,13 @@ bool HighShuriken::PermitActive() {
 	return false;
 }
 
-bool HighShuriken::CollisionRope()
-{
-	CENTRAL_STATE RopeCentral = { 0 };
-	TranslateCentral_State(m_pMapChip->GetTargetPosition(BT_ROPE), &RopeCentral);
-
-	m_ropeX = static_cast<int>((RopeCentral.x - m_MapScrollX) / CELL_SIZE);
-	m_ropeY = static_cast<int>((RopeCentral.y - m_MapScrollY) / CELL_SIZE);
-
-	return ContactSpecifyObject(&RopeCentral);
-}
 
 void HighShuriken::InitPosition() {
 	m_isActive = false;
-	
+	m_DirectionDeg = 0;
 
 	m_Central.x = m_pGameChara->GetPositionX() + m_Direction * m_Central.scale_x;
 	m_Central.y = m_pGameChara->GetPositionY();
-	m_DirectionDeg = 0;
 }
 
 bool HighShuriken::Update()
@@ -138,10 +148,8 @@ bool HighShuriken::Update()
 	}
 	PrevMapScrollX -= m_MapScrollX;
 	PrevMapScrollY -= m_MapScrollY;
-	if (!isOperation) {
-		m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
-		m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
-	}
+	m_Central.x += (MoveSpeed * m_Direction) * std::cos(DegToRad(m_DirectionDeg)) - PrevMapScrollX;
+	m_Central.y -= (MoveSpeed * m_Direction) * std::sin(DegToRad(m_DirectionDeg)) + PrevMapScrollY;
 	m_MapPositionX = static_cast<int>((m_Central.x - m_MapScrollX) / CELL_SIZE);
 	m_MapPositionY = static_cast<int>((m_Central.y - m_MapScrollY) / CELL_SIZE);
 
@@ -151,12 +159,24 @@ bool HighShuriken::Update()
 	if (m_MapPositionY == 0 || m_Central.y < 0 || m_Central.y > DISPLAY_HEIGHT || m_MapPositionY >= m_colunm - 1) {
 		InitPosition();
 	}
-	int buf = 0;
-	if (buf = m_pMapChip->getMapChipData(m_MapPositionY, m_MapPositionX) > 100)
+	int buf = m_pMapChip->GetMapChipData(m_MapPositionY, m_MapPositionX);
+	if (buf > 100&&buf<200)
 	{
 		m_pMapChip->Activate(m_MapPositionX, m_MapPositionY);
 		InitPosition();
 	}
+	else if (buf < 100 && buf > MapBlock::NONE && buf != MapBlock::START_ZONE&&buf != MapBlock::DESCRIPTION_BOARD)
+	{
+		m_pSoundOperater->Start("CLAWSHOT", false);
+		InitPosition();
+	}
+	//if (CollisionTarget()) {
+	//	m_pMapChip->Activate(m_targetX, m_targetY);
+	//	m_pSoundOperater->Start("CLAWSHOT", false);
+
+	//	InitPosition();
+	//}
+
 	if (CollisionRope()) {
 		m_pMapChip->Activate(m_ropeX, m_ropeY);
 
@@ -171,14 +191,21 @@ bool HighShuriken::Update()
 
 void HighShuriken::Render()
 {
+#ifdef _DEBUG
+	RECT testName = { 0, 100, 1250, 720 };
+	char TestName[ARRAY_LONG];
+	sprintf_s(TestName, ARRAY_LONG, "\nDirectionDeg::%.2f", m_DirectionDeg);
+	m_pDirectX->DrawWord(testName, TestName, "DEBUG_FONT", DT_RIGHT, 0xffffffff);
+#endif
+
 	static int rad = 0;
 	if (!m_isChoseDeg && !m_isActive) {
 		return;
 	}
 	if (m_isChoseDeg) {
 		CUSTOMVERTEX DirectionArrowVertex[4];
-		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, 0, 0, m_Direction);
-		TextureRender("ARROW_TEX", DirectionArrowVertex);
+		RevolveZEX(DirectionArrowVertex, DegToRad(m_DirectionDeg), m_DirectionArrow, m_DirectionArrow.x - (m_DirectionArrow.scale_x * m_Direction), m_DirectionArrow.y, 0xFFFFFFFF, m_DirectionBias*(BLOCK_INTEGRATION_WIDTH*1.5f), BLOCK_INTEGRATION_HEIGHT * 9.65f, (BLOCK_INTEGRATION_WIDTH*1.5f)*m_Direction, BLOCK_INTEGRATION_HEIGHT*0.5f);
+		TextureRender("BLOCK_INTEGRATION_A_TEX", DirectionArrowVertex);
 		rad = 0;
 		return;
 	}
@@ -186,12 +213,26 @@ void HighShuriken::Render()
 		CUSTOMVERTEX ShurikenVertex[4];
 		static float rad = 0.f;
 		rad += 10.f;
-		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		RevolveZ(ShurikenVertex, static_cast<float>(rad), m_Central, 0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 2.965f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", ShurikenVertex);
 	}
+
 }
 
 void HighShuriken::Reverse(Object* MapChip) {
 	m_pMapChip = MapChip;
+	m_row = m_pMapChip->GetRow();
+	m_colunm = m_pMapChip->GetColunm();
 	InitPosition();
+}
+
+float HighShuriken::InputRightStickDeg() {
+	int XaxisValue = m_pXinputDevice->GetAnalogRValue(ANALOG_X);
+	int YaxisValue = m_pXinputDevice->GetAnalogRValue(ANALOG_Y);
+	if (XaxisValue == 0 && YaxisValue == 0) { 
+		return 0.f;
+	}
+	float Rad = static_cast<float>(std::atan2(YaxisValue, XaxisValue));
+	static float Deg = 0;
+	return Deg = RadToDeg(Rad);
 }

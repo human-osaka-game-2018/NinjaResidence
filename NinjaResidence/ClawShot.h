@@ -35,9 +35,6 @@ private:
 	float RopeBatteryPosX = 0;
 	float RopeBatteryPosY = 0;
 
-	//bool CollisionRope();
-	float PrevMapScrollX = 0;
-	float PrevMapScrollY = 0;
 
 	const float MoveSpeed = 10.f;
 	void InitPosition();

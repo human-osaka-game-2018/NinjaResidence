@@ -38,9 +38,15 @@ public:
 	* @brief メニューカーソル下降
 	*/
 	void MoveDown();
+	/**
+	* @brief ゲームシーンに戻るフラグ立て
+	*/
 	void ReturnScene() {
 		m_ExitScene = true;
 	};
+	/**
+	* @brief ゲームシーンに戻るフラグ確認
+	*/
 	bool GetExitScene() {
 		return m_ExitScene;
 	}

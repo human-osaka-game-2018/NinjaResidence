@@ -20,11 +20,11 @@ bool SkillSelect::Update() {
 	switch (m_SkillNum) {
 	case SHURIKEN:
 		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 2.965f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case CLAWSHOT:
 		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
-		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 5.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+		CreateSquareVertex(m_SkillVertex, m_SkillUI, m_Color, 0.f, BLOCK_INTEGRATION_HEIGHT * 4.95f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 		break;
 	case FIRE_ART:
 		m_SkillTexKey = "BLOCK_INTEGRATION_A_TEX";
@@ -41,8 +41,7 @@ bool SkillSelect::Update() {
 void SkillSelect::Render()
 {
 	CUSTOMVERTEX UIVertex[4];
-	//TODO:TUTV定数に変える
-	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0.f, 480.f / 1024.f ,120.f/512.f, 120.f / 1024.f);
+	CreateSquareVertex(UIVertex, m_SelectUI, 0xFFFFFFFF, 0.f, 481.f / 1024.f ,120.f/512.f, 120.f / 1024.f);
 	TextureRender("BLOCK_INTEGRATION_A_TEX", UIVertex);
 
 	TextureRender(m_SkillTexKey, m_SkillVertex);

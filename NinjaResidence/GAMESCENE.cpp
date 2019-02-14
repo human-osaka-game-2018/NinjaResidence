@@ -17,12 +17,13 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	m_pIdleMapChip = new MapChip(pDirectX, pSoundOperater);
 	m_pBusyMapChip->Create(StageFilePath_surface, SURFACE);
 	m_pIdleMapChip->Create(StageFilePath_reverse,REVERSE);
+	
 	m_pGameChara = new GameChara(pDirectX, pSoundOperater, m_pBusyMapChip);
 	m_pMapReverse = new MapReverse(pDirectX, pSoundOperater, m_pGameChara);
 
 
 	m_pShuriken = new Shuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
-	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
+	m_pHighShuriken = new HighShuriken(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara, m_pXinputDevice);
 	m_pFireArt = new FireArt(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 	m_pClawShot =new ClawShot(pDirectX, pSoundOperater, m_pBusyMapChip, m_pGameChara);
 
@@ -35,7 +36,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 
 GameScene::~GameScene()
 {
-	m_pSoundOperater->Stop(m_BGMSoundKey);
+	m_pSoundOperater->AllStop();
 
 	delete m_pBusyMapChip;
 	m_pBusyMapChip = NULL;
@@ -103,26 +104,48 @@ SCENE_NUM  GameScene::Update()
 
 	m_isClear = m_pGameChara->Update();
 	m_isGameFailure = m_pGameChara->GetGameFailure();
-	m_pGameChara->prevSaveMapCharaPos();
+	m_pGameChara->PrevSaveMapPos();
 	m_pBusyMapChip->Update();
 	SkillsUpdate();
+#ifdef _DEBUG
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_8) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_isClear = true;
+	}
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_9) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_isGameFailure = true;
+	}
+#endif
 	return GetNextScene();
 }
 
 void GameScene::KeyOperation() {
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_SPACE) /*|| PadPush == m_pXinputDevice->GetButton(ButtonStart)*/) {
+		m_pGameChara->KeyOperation(Walk);
+	}
+
 	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_W) || PadPush == m_pXinputDevice->GetButton(ButtonY))
 	{
 		m_pGameChara->KeyOperation(JUMP);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_A) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
+
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_A) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
 	{
 		m_pGameChara->KeyOperation(MOVE_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_D) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
+	else if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_A) || PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGLEFT))
+	{
+		m_pGameChara->KeyOperation(INERTIA);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_D) || PadOn == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
 	{
 		m_pGameChara->KeyOperation(MOVE_RIGHT);
 	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush== m_pXinputDevice->GetButton(ButtonB))
+	else if (KeyRelease == m_pDirectX->GetKeyStatus(DIK_D) || PadRelease == m_pXinputDevice->GetAnalogLState(ANALOGRIGHT))
+	{
+		m_pGameChara->KeyOperation(INERTIA);
+	}
+
+	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_E) || PadPush == m_pXinputDevice->GetButton(ButtonB))
 	{
 		SkillStart();
 	}
@@ -170,51 +193,59 @@ void GameScene::KeyOperation() {
 	{
 		TransePause();
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_J) || m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
 	{
-		SkillKeyOperation(BIT_LEFT);
+		SkillKeyOperation(BIT_X_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_L) || m_pXinputDevice->GetAnalogRState(ANALOGLEFT))
+	else if (m_pDirectX->GetKeyStatus(DIK_J))
 	{
-		SkillKeyOperation(BIT_RIGHT);
+		SkillKeyOperation(BIT_D_LEFT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_I) || m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGLEFT) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGRIGHT))
 	{
-		SkillKeyOperation(BIT_UP);
+		SkillKeyOperation(BIT_X_RIGHT);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_K) || m_pXinputDevice->GetAnalogRState(ANALOGDOWN))
+	else if (m_pDirectX->GetKeyStatus(DIK_L))
 	{
-		SkillKeyOperation(BIT_DOWN);
+		SkillKeyOperation(BIT_D_RIGHT);
+	}
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGUP) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGUP))
+	{
+		SkillKeyOperation(BIT_X_UP);
+	}
+	else if (m_pDirectX->GetKeyStatus(DIK_I))
+	{
+		SkillKeyOperation(BIT_D_UP);
+	}
+	if (PadPush == m_pXinputDevice->GetAnalogRState(ANALOGDOWN) || PadOn == m_pXinputDevice->GetAnalogRState(ANALOGDOWN))
+	{
+		SkillKeyOperation(BIT_X_DOWN);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_K))
+	{
+		SkillKeyOperation(BIT_D_DOWN);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_C) || PadOn == m_pXinputDevice->GetButton(ButtonLB))
+	{
+		m_pGameChara->KeyOperation(MAP_LEFT);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_B) || PadOn == m_pXinputDevice->GetButton(ButtonRB))
+	{
+		m_pGameChara->KeyOperation(MAP_RIGHT);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_V) || m_pXinputDevice->GetAnalogTrigger(LEFT_TRIGGER))
+	{
+		m_pGameChara->KeyOperation(MAP_DOWN);
+	}
+	if (KeyOn == m_pDirectX->GetKeyStatus(DIK_F) || m_pXinputDevice->GetAnalogTrigger(RIGHT_TRIGGER))
+	{
+		m_pGameChara->KeyOperation(MAP_UP);
 	}
 
-	//マップ動作
-	//if (m_pDirectX->GetKeyStatus(DIK_W))
-	//{
-	//	m_pBusyMapChip->KeyOperation(UP);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_S))
-	//{
-	//	m_pBusyMapChip->KeyOperation(DOWN);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_A))
-	//{
-	//	m_pBusyMapChip->KeyOperation(LEFT);
-	//}
-	//if (m_pDirectX->GetKeyStatus(DIK_D))
-	//{
-	//	m_pBusyMapChip->KeyOperation(RIGHT);
-	//}
 	//テスト用処理
-	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRB)) {
-
+	if (m_pDirectX->GetKeyStatus(DIK_PGUP) || m_pXinputDevice->GetButton(ButtonRightThumb)) {
+		m_pGameChara->KeyOperation(DEBUG);
 	}
-	
-	//音声のテスト用処理を呼ぶ
-	//if (PadRelease == m_pXinputDevice->GetButton(ButtonA))
-	//{
-	//	m_pGameChara->DebugMove();
-	//}
-
 }
 void GameScene::NotPushedAnyButton() {
 	if (m_pDirectX->GetKeyStatus(DIK_W)) {
@@ -237,7 +268,6 @@ void GameScene::NotPushedAnyButton() {
 	{
 		return;
 	}
-
 	if (m_pXinputDevice->GetAnalogL(ANALOGLEFT))
 	{
 		return;
@@ -256,22 +286,31 @@ void GameScene::Render()
 		m_pPauseScene->Render();
 		return;
 	}
+	if (m_pBusyMapChip->GetMapDataState() == SURFACE) {
+		m_pDirectX->DrawTexture("GAME_SURFACE_BG_TEX", m_BackgroundVertex);
+	}
+	else m_pDirectX->DrawTexture("GAME_REVERSE_BG_TEX", m_BackgroundVertex);
 
-	m_pDirectX->DrawTexture("GAME_BG_TEX", m_BackgroundVertex);
  	m_pBusyMapChip->Render();
 	m_pGameChara->Render();
 	SkillsRender();
 	m_SkillSelect->Render();
 	if (m_isClear) {
 		CUSTOMVERTEX LogoVertex[4];
-		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo);
+		CENTRAL_STATE Effect = { CENTRAL_X ,300,400,200 };
+		CreateSquareVertex(LogoVertex, Effect, 0xFFF04C4C);
+		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
+		CENTRAL_STATE Logo = { CENTRAL_X ,300,400,150 };
+		CreateSquareVertex(LogoVertex, Logo,0xFFFCCC66);
 		m_pDirectX->DrawTexture("CLEAR_TEX", LogoVertex);
 	}
 	if (m_isGameFailure) {
 		CUSTOMVERTEX LogoVertex[4];
-		CENTRAL_STATE m_Logo = { CENTRAL_X ,300,400,150 };
-		CreateSquareVertex(LogoVertex, m_Logo);
+		CENTRAL_STATE Effect = { CENTRAL_X ,300,400,200 };
+		CreateSquareVertex(LogoVertex, Effect, 0xFFD3FDE0);
+		m_pDirectX->DrawTexture("EFFECT_TEX", LogoVertex);
+		CENTRAL_STATE Logo = { CENTRAL_X ,300,400,150 };
+		CreateSquareVertex(LogoVertex, Logo,0xFF4144FD);
 		m_pDirectX->DrawTexture("FAILURE_TEX", LogoVertex);
 	}
 #ifdef _DEBUG
@@ -292,11 +331,12 @@ void GameScene::Render()
 
 void GameScene::LoadResouce()
 {
-	m_pDirectX->LoadTexture("texture/BG.jpg", "GAME_BG_TEX");
+	m_pDirectX->LoadTexture(NULL, "TEST_TEX");
+	m_pDirectX->LoadTexture("texture/BG_A.jpg", "GAME_SURFACE_BG_TEX");
+	m_pDirectX->LoadTexture("texture/BG_B.jpg", "GAME_REVERSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/Pause_BG.jpg", "PAUSE_BG_TEX");
 	m_pDirectX->LoadTexture("texture/object_a.png", "BLOCK_INTEGRATION_A_TEX");
 	m_pDirectX->LoadTexture("texture/Block_IntegrationB.png", "BLOCK_INTEGRATION_B_TEX");
-	m_pDirectX->LoadTexture("texture/Chara_Integration.png", "CHARA_INTEGRATION_TEX");
 	m_pDirectX->LoadTexture("texture/ninja.png", "CHARA_TEX");
 	m_pDirectX->LoadTexture("texture/Arrow.png", "ARROW_TEX");
 	m_pDirectX->LoadTexture("texture/Kanban.png", "KANBAN_TEX");
@@ -305,6 +345,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("texture/PauseMenu.png", "PAUSEMENU_TEX");
 	m_pDirectX->LoadTexture("texture/StageClear.png", "CLEAR_TEX");
 	m_pDirectX->LoadTexture("texture/StageFailure.png", "FAILURE_TEX");
+	m_pDirectX->LoadTexture("texture/effect.png", "EFFECT_TEX");
 	m_pDirectX->SetFont(25, 10, "DEBUG_FONT");
 
 	m_pSoundOperater->AddFile("Sound/nc62985.wav", "DECISION",SE);
@@ -492,6 +533,7 @@ void GameScene::SkillKeyOperation(KeyDirection vec) {
 
 void GameScene::GameFailureAnime()
 {
+	m_pSoundOperater->Start("FAILURE_SE", false);
 	static int StandbyTime = 0;
 	++StandbyTime;
 	if (StandbyTime > 120) {
@@ -503,6 +545,8 @@ void GameScene::GameFailureAnime()
 
 void GameScene::ClearAnime()
 {
+	m_pSoundOperater->Start("GOAL_SE", false);
+
 	static int StandbyTime = 0;
 	++StandbyTime;
 	if (StandbyTime > 120) {

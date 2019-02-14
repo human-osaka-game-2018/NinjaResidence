@@ -6,7 +6,7 @@
 #include "SCENE.h"
 #include "BlockInfo.h"
 
-int Scene::m_StageNum = 7;
+int Scene::m_StageNum = 8;
 bool Scene::m_SoundSetting = false;
 Scene :: Scene(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
@@ -62,7 +62,7 @@ void Scene::LoadAnimation() {
 	rad += static_cast<int>(D3DX_PI) * 3;
 	CUSTOMVERTEX cross[4];
 	CENTRAL_STATE CROSS = { 1200,630,50,50 };
-	RevolveZ(cross, static_cast<float>(rad), CROSS,0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 3.f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
+	RevolveZ(cross, static_cast<float>(rad), CROSS,0xFFFFFFFF, 0.f, BLOCK_INTEGRATION_HEIGHT * 2.96f, BLOCK_INTEGRATION_WIDTH, BLOCK_INTEGRATION_HEIGHT);
 	m_pDirectX->DrawTexture("BLOCK_INTEGRATION_A_TEX", cross);
 }
 

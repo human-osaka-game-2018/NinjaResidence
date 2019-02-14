@@ -33,9 +33,6 @@ private:
 	CUSTOMVERTEX m_DisplayCoordinate[4];
 	CUSTOMVERTEX m_WorldCoordinate[4];
 
-	bool CollisionRope();
-	float PrevMapScrollX = 0;
-	float PrevMapScrollY = 0;
 	const float MoveSpeed = 10.f;
 	void InitPosition();
 	/*
@@ -44,6 +41,4 @@ private:
 	* @details 投擲前に角度指定フェイズを挟む
 	*/
 	bool PermitActive();
-	int m_ropeX;
-	int m_ropeY;
 };

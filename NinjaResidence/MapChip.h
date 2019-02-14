@@ -37,17 +37,12 @@ public:
 	void Create(std::string filename, MapDataState MapState);
 	void Activate(int X, int Y);
 	void MapDataVectorSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
-	void MapDataVectorSet0();
-	void MapDataGimmickSearch();
 	void MapDataVectorHitSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	void MapDataVectorZeroSet(int MapDataVectorSetY, int MapDataVectorSetX, int GimmickY, int GimmickX);
 	int GimmickMapDataCheck(int y, int x);
 	void CheckVector();
 	void Render();
 	bool Update();
-	bool RestrictBottomScroll();
-	float GetBottomPoint(int charaLeft, int charRight);
-	float GetBottomWorldPoint(int charaLeft, int charRight);
 	MapDataState GetMapDataState() {
 		return m_MapDataState;
 	}
@@ -58,9 +53,9 @@ public:
 	bool GetGimmckActive(int MapXPos);
 
 private:
-	int m_MapSelected;
-	int m_MapSelectedWIDTH;
-	int m_MapSelectedHEIGHT;
+	int m_MapSelected = 0;
+	int m_MapSelectedWIDTH = 0;
+	int m_MapSelectedHEIGHT = 0;
 	CUSTOMVERTEX CELL[4];
 	void CellInit();
 	static int m_TargetCount;

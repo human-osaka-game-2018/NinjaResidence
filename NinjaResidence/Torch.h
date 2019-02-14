@@ -18,6 +18,9 @@ private:
 public:
 	void ActivateTarget();
 	void Update();
+	/**
+	* @author Toshiya Matsuoka
+	*/
 	void Render(int MapScrollY, int MapScrollX, MapDataState MapDataReverse);
 	Torch(BlockInfo Target, BlockInfo Gimmick, DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Torch();

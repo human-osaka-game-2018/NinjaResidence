@@ -23,7 +23,7 @@ void WriteLog(std::string Text);
 
 class SceneManager;
 
-static class GAMEMANAGER
+class GAMEMANAGER
 {
 public:
 	GAMEMANAGER(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow);
